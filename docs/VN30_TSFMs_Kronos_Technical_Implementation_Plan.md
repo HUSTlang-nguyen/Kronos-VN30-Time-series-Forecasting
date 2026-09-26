@@ -4,18 +4,91 @@
 **Primary task:** Daily multi-horizon forecasting  
 **Core comparison:** Classical statistical forecasting → train-from-scratch neural forecasting → general-purpose TSFM → finance-specific K-line foundation model  
 **Primary model of interest:** Kronos  
-**Document status:** Reviewed implementation plan v2; dataset/checkpoint gates still pending  
+**Document status:** Clarified implementation plan v3; dataset/checkpoint gates still pending
 **Date:** 2026-09-26
 
 ---
 
-## 0. Review decisions (2026-09-26)
+## 0. Execution contract (read this first)
 
-**Retained strengths:** VN30-only scope; separation of replication and extension; immutable data; OHLC input control; simple baselines; staged adaptation; negative-result reporting.
+This document supports one paper claim: whether a finance-specific pretrained model transfers to VN30 better than simple baselines and a generic multivariate TSFM when all models receive the same information available at the same forecast origin.
 
-**Corrections applied:** checkpoint-aware test dates; purged validation and refit rules; explicit origin/target calendar; correct MASE interpretation; DLinear channel-independence; Kronos amount handling; mean/median output semantics; smaller mandatory experiment set. Sections 8, 12-17, 20-22 and 34 are the executable protocol; historical folds are diagnostic only.
+### 0.1 Frozen primary question
 
-**Primary endpoint:** Close MAE at h=1. Primary comparisons: Kronos zero-shot versus Naive and the locked generic multivariate TSFM. Horizons 5/20, adaptation and regimes are secondary. No experiments have been run by this review.
+```text
+Data:          VN30 daily OHLC
+Forecast:      one 20-session Close path from each origin
+Primary score: pooled Close MAE at h=1
+Primary model: Kronos-small, zero-shot, OHLC
+Comparators:   Naive and one frozen generic multivariate TSFM, OHLC
+Origin set:    the same provenance-qualified, full-path origins for every model
+Point value:   predictive median for sampled/quantile TSFMs
+Inference:     paired moving-block bootstrap; Holm correction over two tests
+```
+
+The two registered primary hypotheses are:
+
+1. Kronos zero-shot has different h=1 absolute error from Naive.
+2. Kronos zero-shot has different h=1 absolute error from the frozen generic multivariate TSFM.
+
+Direction, effect size and confidence interval must be reported; the study does not assume Kronos wins.
+
+### 0.2 Mandatory, secondary and optional work
+
+| Priority | Required content | Paper role |
+|---|---|---|
+| Mandatory | accepted immutable VN30 OHLC snapshot; split/origin manifests; Naive, ARIMA, ETS, DLinear-C, Ridge-OHLC, generic multivariate TSFM and Kronos zero-shot; h=1/5/20 scores; primary bootstrap tests | complete core paper |
+| Secondary | predictor-only Kronos adaptation; DM robustness; volatility regimes | strengthens the paper but cannot change the primary claim |
+| Optional | Chronos-T5, trading-value ablation, full tokenizer fine-tuning, data-efficiency study, probabilistic scoring, larger checkpoints | appendix or later work |
+
+Optional work must not delay or redefine the mandatory benchmark.
+
+### 0.3 Non-negotiable gates
+
+The primary benchmark may run only after all four conditions are true:
+
+```text
+G1  A reproducible VN30 OHLC source passes Section 5.4.
+G2  Exact checkpoint/tokenizer revisions and provenance are recorded.
+G3  The common clean test contains at least 126 full 20-step origins.
+G4  Configuration, calendar and origin manifests are frozen before any test inference or inspection of test performance.
+```
+
+If G1 fails, stop. If G2 or G3 fails, run only a clearly labeled exploratory pilot and begin prospective collection. Failure to reproduce Zhang (2025) exactly does not block the new benchmark if the missing information is documented.
+
+### 0.4 One-way execution flow
+
+```text
+paper extraction + checkpoint audit
+              ↓
+raw data snapshot → data audit → frozen processed dataset
+              ↓
+calendar + split manifest → immutable common-origin manifest
+              ↓
+development tuning → frozen expanded configs → pre-test refit
+              ↓
+forecast-only artifacts → label join → scored artifacts
+              ↓
+registered statistics → tables/figures → paper claims
+```
+
+No decision may flow backward from final test metrics to data cleaning, model choice, context length, inference parameters or checkpoint selection.
+
+### 0.5 Paper-to-experiment mapping
+
+| Paper statement | Required evidence |
+|---|---|
+| Published VN30 baseline can/cannot be reproduced | E0 manifest, code, reproduced metrics and discrepancy log |
+| Generic TSFM transfers to VN30 | generic multivariate TSFM versus Naive/ARIMA/ETS on the common holdout |
+| Finance-specific transfer differs from generic transfer | Kronos versus the frozen generic multivariate TSFM in E2 |
+| Adaptation helps Kronos | predictor-only adapted Kronos versus zero-shot on identical origins |
+| Performance varies by horizon/regime | preregistered secondary h=5/20 and regime tables |
+
+Controlling OHLC does not isolate tokenization causally because architectures, objectives, corpora and training compute also differ.
+
+### 0.6 Review decisions retained in v3
+
+VN30-only scope; replication separated from extension; immutable data; OHLC input control; checkpoint-aware dates; purged labels; state-current classical baselines; correct MASE interpretation; DLinear channel-independence; explicit Kronos amount handling; consistent median semantics; and preservation of negative results. No experiment result is claimed by this plan.
 
 ## 1. Research objective
 
@@ -350,25 +423,45 @@ Maintain three evidence tracks:
 2. **Primary retrospective benchmark:** choose dates only after checkpoint provenance is audited. Record immutable model/tokenizer revisions, first public availability of those exact weights, documented training cutoff and evidence URL. Use a common boundary after the latest verified cutoff for all models; if any cutoff is unknown, conservatively use the latest verified public availability of all exact weight revisions. A missing provenance record blocks the clean-comparison label, not exploratory work.
 3. **Prospective follow-up:** freeze code, configuration and weights now, persist forecasts before outcomes exist, then score after labels mature. This is strongest when recent checkpoints leave too little historical holdout.
 
-Default date-selection rule for track 2, fixed before reading model test scores:
+Default date-selection algorithm for track 2, fixed before reading model test scores:
 
 ```text
-eligible_start = first VN30 session strictly after common provenance boundary
-development validation = first 63 eligible target sessions
-test = subsequent target sessions through immutable dataset freeze
-training = all accepted history preceding validation
-minimum primary test = 126 distinct h=1 origins (planning floor, not a power guarantee)
+B = latest acceptable provenance boundary among all primary checkpoints
+E = ordered VN30 sessions strictly after B and no later than the data freeze
+
+validation_targets = E[0:63]
+test_targets       = E[63:]
+
+validation_origin is valid iff all of t+1 ... t+20 are validation_targets
+test_origin is valid iff all of t+1 ... t+20 are test_targets
+
+primary_origin_set = every valid full-path test origin in one immutable manifest
+                     consumed unchanged by every mandatory model
+minimum size       = 126 full-path test origins
 ```
 
-All validation-path targets must end within validation. All test-path targets must end within the frozen dataset. For the main multi-horizon table use the common origins whose full 20-step path is observed. Report the resulting number of origins and the dates explicitly. If fewer than 126 remain, report a pilot, continue prospective collection, or preregister a different eligible checkpoint before opening test results. Do not backdate the split merely to obtain more data. Additional checkpoint-specific historical tests are separate tables, never pooled with the common test.
+All primary h=1, h=5 and h=20 results use this same full-path origin set. This avoids changing sample size across horizons. A separately labeled horizon-specific sensitivity table may use later h=1 or h=5 origins whose shorter targets are observed, but it cannot replace the primary table or tests.
+
+Training initially contains all accepted history before the validation target interval. Development tuning uses only valid validation origins. After every hyperparameter and training duration is frozen, trainable models are refit once on all observations through the last validation session; the first test origin is that last validation session. Every test target is therefore strictly later than all refit observations.
+
+Report `B`, validation dates, test dates, first/last origin and final origin count explicitly. If fewer than 126 full-path origins remain, report a pilot, continue prospective collection, or preregister a different eligible checkpoint before opening test results. Do not backdate the split merely to obtain more data. Additional checkpoint-specific historical tests are separate tables and are never pooled with the common test.
 
 ### 8.3 Hyperparameter selection and fitting policy
 
-Freeze architectures, search budgets, common E2 context length, seeds, losses, aggregation, sampling and update schedule after development. E2 uses the same context length for all multivariate models (default 128 sessions); independently tuned lengths belong to a secondary best-configuration experiment.
+Use this exact sequence:
 
-Primary evaluation uses fixed learned weights/parameters across the holdout. Select the neural epoch count on purged development train/validation, then refit on all pre-test data for that fixed count. Do not pass validation rows already used in training to early stopping. Fit preprocessing again only on this refit partition. Later expanding folds, if preregistered, may absorb earlier test observations after their labels mature; this is a secondary online-update protocol, with choices frozen in advance.
+1. Declare the search space and search budget without test metrics.
+2. Fit each candidate on development training data only.
+3. Select context length, hyperparameters, inference settings and neural epoch count using valid validation origins only.
+4. Freeze architecture, loss, point functional, seed list, aggregation, sampling and state-update policy in expanded configs.
+5. Refit trainable models once on all pre-test observations for the selected fixed epoch count. Refit scalers on exactly that same partition.
+6. Run the frozen test origin manifest once. Do not early-stop, retune or replace a model from test results.
 
-ARIMA/ETS are fit at the pre-test boundary; assimilate each newly observed close into the model state without optimizing parameters. Forecast from that updated state at every origin. Naive uses the latest close; Drift uses all history available at that origin. Neural/TSFM adapters receive the trailing context. Log the last assimilated timestamp. This prevents a stale fold-start ARIMA forecast being compared to a TSFM seeing today's data.
+E2 uses the same 128-session context for Ridge-OHLC, the generic multivariate TSFM and Kronos unless 128 is infeasible for a locked adapter. Independently tuned context lengths belong to a secondary best-configuration experiment. Primary evaluation keeps learned parameters fixed across the holdout.
+
+Do not pass validation rows already used in training to early stopping. Later expanding folds may absorb earlier test observations only in a separately preregistered online-update experiment after their labels mature; they are not part of the primary fixed-model benchmark.
+
+ARIMA/ETS are fit through the last validation session. At later origins, append only newly observed closes to their state without re-estimating parameters. Forecast from the state current at that origin. Naive uses the latest close; Drift uses all history available at that origin. Neural/TSFM adapters receive only the trailing context. Log the last assimilated timestamp. This prevents a stale fold-start statistical forecast from being compared with a TSFM that sees current data.
 
 ### 8.4 Origins, calendars and failure policy
 
@@ -659,7 +752,7 @@ Do not synthesize volume.
 
 ### 14.3 Candidate context lengths
 
-Select on development validation only:
+The primary E2 comparison uses 128 sessions for Ridge-OHLC, Chronos-2 and Kronos. Run the following development grid only for a separately labeled best-configuration sensitivity:
 
 ```text
 64
@@ -668,7 +761,7 @@ Select on development validation only:
 512
 ```
 
-Once selected, freeze for final OOS testing.
+Freeze the selected sensitivity setting before its OOS run; it does not replace the fixed-context E2 result.
 
 ### 14.4 Prediction call
 
@@ -991,7 +1084,8 @@ vn30-tsfm-research/
 │
 ├── artifacts/
 │   ├── checkpoints/
-│   ├── predictions/
+│   ├── forecasts/
+│   ├── scored/
 │   ├── metrics/
 │   └── figures/
 │
@@ -1012,8 +1106,8 @@ class ForecastModel:
     def fit(self, train_df, val_df=None):
         ...
 
-    def observe(self, observed_history_df):
-        """Update statistical state through origin without parameter refitting."""
+    def observe(self, new_rows_df):
+        """Append rows not already assimilated; never refit parameters."""
         ...
 
     def predict(self, context_df, future_dates) -> ForecastOutput:
@@ -1035,7 +1129,18 @@ class ForecastOutput:
     metadata: dict = field(default_factory=dict)
 ```
 
-This prevents evaluation code from being coupled to a specific library.
+Required invariants:
+
+```text
+len(point_close) == len(horizon_dates) == 20
+origin_date == max(context_df.date)
+all(horizon_dates > origin_date)
+metadata records last_assimilated_date and adapter/checkpoint revision
+observe() rejects duplicate or non-monotonic rows
+predict() has no access to outcomes or the scored-artifact table
+```
+
+This prevents evaluation code from being coupled to a specific library and makes state handling testable.
 
 ---
 
@@ -1048,20 +1153,25 @@ config = load_frozen_config()
 manifest = load_origin_manifest(config.split_manifest_hash)
 model = build_model(config)
 model.fit(pretest_refit_data, val_df=None)  # epoch count already frozen
+last_assimilated = pretest_refit_data.date.max()
 
 for origin_record in manifest:
     origin = origin_record.origin_date
     observed = data.loc[data.date <= origin]
     context = observed.tail(config.context_length).copy()
-    model.observe(observed)  # no-op for fixed neural weights
+    new_rows = observed.loc[observed.date > last_assimilated]
+    model.observe(new_rows)  # no-op for fixed neural/TSFM adapters
+    last_assimilated = origin
     future_dates = origin_record.target_dates
     assert context.date.max() == origin
     assert min(future_dates) > origin
     forecast = model.predict(context, future_dates=future_dates)
     save_prediction_or_failure(config, origin_record, forecast)
 
-# Join labels only in evaluation after prediction artifacts are saved.
+# Join labels only in evaluation after forecast artifacts are saved.
 ```
+
+The manifest is iterated strictly by origin date. `new_rows` may be empty only at the first origin. A stateful adapter must assert that no date is assimilated twice and that its state ends at the current origin before forecasting.
 
 Neither an adapter nor the sampling layer receives the outcome table. Resume keys include run ID, checkpoint revision, origin and seed; config mismatches must fail instead of reusing cached predictions. State restoration/replay must yield the same forecasts as an uninterrupted run.
 
@@ -1154,50 +1264,62 @@ random seed
 start/end time
 runtime
 peak GPU memory if measurable
-predictions file
+forecast artifact
+scored artifact
 metrics file
 ```
 
 ### Seeds
 
 - Deterministic statistical/zero-shot inference: fixed seed where sampling is involved.
-- Train-from-scratch/fine-tuned neural models: at least **5 seeds** for final reported results if compute permits.
+- DLinear final result: exactly **5 preregistered seeds**; average origin-level loss across seeds for model-level inference and report seed dispersion separately.
+- Fine-tuned Kronos: **5 preregistered seeds** if included as a confirmatory secondary result; otherwise label a smaller-seed run exploratory.
+- Seeds never count as additional market observations.
 
 ---
 
-## 24. Prediction artifact format
+## 24. Forecast and scored artifact formats
 
-One row per origin × horizon × model:
+Keep label-free forecasts separate from evaluation outputs.
 
-```text
-run_id
-model
-fold
-origin_date
-target_date
-horizon
-actual_close
-predicted_close
-actual_log_return
-predicted_log_return
-actual_direction
-predicted_direction
-volatility_regime
-seed
-status / failure_reason
-point_functional
-checkpoint_revision
-dataset_hash / split_hash / config_hash
-training_mase_scale
-```
+### 24.1 Forecast artifact
 
-Store as Parquet:
+One row per attempted origin × horizon × model, written before labels are joined:
 
 ```text
-artifacts/predictions/<run_id>.parquet
+run_id, model, fold, origin_date, target_date, horizon
+predicted_close, predicted_log_return, predicted_direction
+seed, status, failure_reason, point_functional
+checkpoint_revision, dataset_hash, split_hash, config_hash
+last_assimilated_date
 ```
 
-Do not compute paper tables directly from in-memory model outputs. Always derive them from persisted prediction artifacts.
+Store as:
+
+```text
+artifacts/forecasts/<run_id>.parquet
+```
+
+For failed origins, retain all identity/status fields and null forecast values. Sample paths, when available, are stored in a separate run-keyed array artifact rather than duplicated across rows.
+
+### 24.2 Scored artifact
+
+The evaluation command validates forecast coverage and hashes, then joins immutable labels and training-only metadata to create:
+
+```text
+all forecast fields
+actual_close, actual_log_return, actual_direction
+absolute_error, squared_error, return_error
+volatility_regime, training_mase_scale
+```
+
+Store as:
+
+```text
+artifacts/scored/<run_id>.parquet
+```
+
+Do not compute paper tables from in-memory outputs or raw model objects. Generate every metric, test, table and figure from validated scored artifacts.
 
 ---
 
@@ -1218,7 +1340,7 @@ Model | h | Return MAE | Return RMSE | Directional Accuracy
 ### Table C — Statistical comparison
 
 ```text
-Model A | Model B | h | loss | Δloss | DM stat | adjusted p
+Model A | Model B | h | loss | mean Δloss | 95% CI | test | raw p | adjusted p
 ```
 
 ### Table D — Regime analysis
@@ -1335,6 +1457,8 @@ Additional adapter checks:
 - statistical state reaches each current origin; repeated observations are not applied twice;
 - holidays/year boundaries preserve exact target session IDs;
 - failure/retry/resume preserves origin coverage and RNG behavior.
+- raw forecast artifacts contain no actual outcomes;
+- scored artifacts join labels only after run/config/hash and complete-origin validation;
 
 ### Reproducibility test
 
@@ -1439,12 +1563,12 @@ Do not block the new study indefinitely if the original paper omits critical det
 - implement return transformation;
 - implement volatility regimes;
 - write leakage tests;
-- persist prediction artifacts.
+- persist label-free forecast and scored artifacts.
 
 **Exit criteria**
 
 - Naive forecasts can run end-to-end across all folds;
-- tables can be regenerated from saved Parquet predictions and the referenced frozen manifests, without running model inference again.
+- tables can be regenerated from saved scored Parquet artifacts and the referenced frozen manifests, without running model inference again.
 
 ---
 
@@ -1480,7 +1604,7 @@ Do not block the new study indefinitely if the original paper omits critical det
 **Exit criteria**
 
 - E1 and E2 complete;
-- zero-shot TSFM predictions persisted;
+- zero-shot TSFM forecasts and scored artifacts persisted;
 - no test-informed tuning.
 
 This is the first complete main benchmark. Publication readiness still depends on sufficient holdout length, provenance, uncertainty and an updated related-work review.
@@ -1612,7 +1736,7 @@ The strongest causal claim about tokenization requires input control and ideally
 
 ## 34. Minimum complete experiment set
 
-If time/compute must be minimized, execute exactly this subset:
+This is the definition of a complete core study. Anything below marked secondary may be omitted without making the primary paper incomplete.
 
 ```text
 Data:
@@ -1631,12 +1755,11 @@ ARIMA
 ETS
 DLinear-C
 Ridge-OHLC
-Chronos-2-small OHLC
+frozen generic multivariate TSFM OHLC (Chronos-2-small, or Gate C substitute)
 Kronos-small OHLC
 
-Kronos modes:
-zero-shot (mandatory)
-predictor-only fine-tuned (secondary, if feasible)
+Mode:
+zero-shot for both TSFMs
 
 Metrics:
 MAE
@@ -1647,10 +1770,11 @@ Directional Accuracy
 
 Analysis:
 paired block-bootstrap CI/test + Holm for primary family
-DM and volatility regimes as secondary analyses
 ```
 
-This is preferable to adding many extra models while weakening experimental control.
+Secondary additions, in order: predictor-only Kronos adaptation, DM robustness, volatility regimes. Chronos-T5, trading value, full tokenizer adaptation, data-efficiency curves and probabilistic scoring are optional.
+
+The core study is complete only when every mandatory model has either valid forecasts for every common origin or an explicitly reported failure table. Models are never compared on different subsets of successful origins.
 
 ---
 
@@ -1676,28 +1800,23 @@ Research success is **knowledge about transfer**, not a predetermined winning mo
 Execute in this order:
 
 ```text
-[ ] 01. Create repository/environment lock; pin weights and record chronology gate
-[ ] 02. Download/read Zhang 2025 PDF; fill replication manifest
-[ ] 03. Select VN30 daily OHLC provider
-[ ] 04. Cross-check provider against HOSE samples
-[ ] 05. Freeze raw data snapshot + SHA256
-[ ] 06. Implement OHLC validation
-[ ] 07. Freeze checkpoint-qualified splits and common origin/target-date manifest
-[ ] 08. Implement Naive + metrics
-[ ] 09. Add ARIMA + ETS replication
-[ ] 10. Add DLinear-C and channel-mixing Ridge-OHLC
-[ ] 11. Smoke-test Chronos-T5
-[ ] 12. Smoke-test Chronos-2 multivariate OHLC
-[ ] 13. Smoke-test Kronos-small OHLC-only
-[ ] 14. Tune context/inference settings on development validation only
-[ ] 15. Freeze experiment config
-[ ] 16. Run zero-shot eligible holdout, or explicitly labeled pilot if gate fails
-[ ] 17. Run Kronos predictor-only adaptation
-[ ] 18. Run statistical testing
-[ ] 19. Run regime analysis
-[ ] 20. Run data-efficiency ablation
-[ ] 21. Generate final tables/figures from persisted predictions
-[ ] 22. Freeze reproducibility package
+[ ] 01. Extract Zhang protocol into replication manifest; use `not reported` for missing fields
+[ ] 02. Resolve exact TSFM/tokenizer revisions and provenance boundary B
+[ ] 03. Lock environment; prove each mandatory adapter can produce one 20-step forecast
+[ ] 04. Select and cross-check a VN30 OHLC source; pass G1
+[ ] 05. Freeze raw snapshot, processed dataset, calendar and hashes
+[ ] 06. Build validation/test target intervals and the common full-path origin manifest
+[ ] 07. Confirm at least 126 primary origins; otherwise classify the study as a pilot
+[ ] 08. Implement label-free forecast artifacts, label join and leakage/metric tests
+[ ] 09. Run Naive end-to-end and regenerate one scored table only from artifacts
+[ ] 10. Reproduce/approximate ARIMA and ETS; preserve discrepancy log
+[ ] 11. Add DLinear-C and Ridge-OHLC; select with development validation only
+[ ] 12. Validate generic multivariate TSFM and Kronos OHLC adapters against identical inputs
+[ ] 13. Freeze every expanded config, seed list and manifest hash
+[ ] 14. Run mandatory zero-shot holdout once; retain every failure
+[ ] 15. Run registered bootstrap tests and generate core tables/figures
+[ ] 16. Add predictor-only adaptation and other secondary analyses only after core completion
+[ ] 17. Freeze the reproducibility package and write paper claims from saved artifacts
 ```
 
 ---
