@@ -308,7 +308,7 @@ $$
 Directional label:
 
 $$
-d_{t,h}=\mathrm{sign}(y^{return}_{t,h})
+d_{t,h}=sign(y^{return}_{t,h})
 $$
 
 Why both are necessary:
@@ -825,7 +825,7 @@ Directional Accuracy:
 
 $$
 DA=\frac{1}{N}\sum_{t=1}^{N}
-\mathbf{1}\{\mathrm{sign}(\hat r_{t,h})=\mathrm{sign}(r_{t,h})\}
+1[sign(\hat r_{t,h})=sign(r_{t,h})]
 $$
 
 Report DA against always-up and previous-return-sign baselines. Define zero-return/prediction ties explicitly as a third class with counts; use the same rule everywhere. Return errors derived from price predictions are a transformed view of the same forecasts, not an independent replication. Do not describe DA > 50% as economically profitable without transaction-cost analysis.
