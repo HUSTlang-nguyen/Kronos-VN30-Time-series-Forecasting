@@ -316,13 +316,13 @@ Never overwrite raw snapshots.
 
 For every trading day:
 
-\[
+$$
 L_t \le \min(O_t,C_t)
-\]
+$$
 
-\[
+$$
 H_t \ge \max(O_t,C_t)
-\]
+$$
 
 and:
 
@@ -364,25 +364,25 @@ Use two evaluation views.
 
 ### 7.1 Price-level target
 
-For horizon \(h\):
+For horizon $h$:
 
-\[
+$$
 y^{price}_{t,h}=C_{t+h}
-\]
+$$
 
 This preserves direct comparability with the published VN30 close-price forecasting baseline.
 
 ### 7.2 Cumulative log-return target
 
-\[
+$$
 y^{return}_{t,h}=\log\left(\frac{C_{t+h}}{C_t}\right)
-\]
+$$
 
 Directional label:
 
-\[
-d_{t,h}=\operatorname{sign}(y^{return}_{t,h})
-\]
+$$
+d_{t,h}=sign(y^{return}_{t,h})
+$$
 
 Why both are necessary:
 
@@ -395,11 +395,11 @@ Why both are necessary:
 
 ### 8.1 One 20-step path per forecast origin
 
-At every origin \(t\), each model produces:
+At every origin $t$, each model produces:
 
-\[
+$$
 \hat{C}_{t+1:t+20}
-\]
+$$
 
 Evaluate steps:
 
@@ -596,9 +596,9 @@ Use actual available sessions, not an assumption of 252 per year. A context of 5
 
 This produces:
 
-\[
+$$
 Performance=f(\text{VN30 adaptation data})
-\]
+$$
 
 and tests whether the value of pretraining is strongest in the low-data regime.
 
@@ -608,9 +608,9 @@ and tests whether the value of pretraining is strongest in the low-data regime.
 
 ### 11.1 Naive / Random Walk
 
-\[
+$$
 \hat C_{t+h}=C_t
-\]
+$$
 
 This is mandatory.
 
@@ -618,9 +618,9 @@ Any complex model that cannot reliably beat this baseline on appropriate metrics
 
 ### 11.2 Drift
 
-\[
+$$
 \hat C_{t+h}=C_t+h\frac{C_t-C_1}{t-1}
-\]
+$$
 
 Useful as a second low-complexity baseline.
 
@@ -842,11 +842,11 @@ prediction_length = 20
 stride = 1 during training
 ```
 
-For a series of length \(T\), approximate sample count:
+For a series of length $T$, approximate sample count:
 
-\[
+$$
 N=T-context-prediction+1
-\]
+$$
 
 Overlapping windows are allowed inside training data but must never cross into validation/test periods.
 
@@ -864,15 +864,15 @@ Never use final test-year loss for early stopping.
 
 #### MAE
 
-\[
+$$
 MAE=\frac{1}{N}\sum_{i=1}^{N}|y_i-\hat y_i|
-\]
+$$
 
 #### RMSE
 
-\[
+$$
 RMSE=\sqrt{\frac{1}{N}\sum_{i=1}^{N}(y_i-\hat y_i)^2}
-\]
+$$
 
 #### sMAPE
 
@@ -882,10 +882,10 @@ Use one documented implementation and an epsilon guard for the denominator.
 
 Use the nonseasonal one-step in-sample Naive scale:
 
-\[
-MASE=\frac{\frac{1}{N}\sum|y_i-\hat y_i|}
+$$
+MASE=\frac{\frac{1}{N}\sum_{i=1}^{N}|y_i-\hat y_i|}
 {\frac{1}{T-1}\sum_{t=2}^{T}|y_t-y_{t-1}|}
-\]
+$$
 
 The denominator must be computed from the **training history only** for each fold.
 
@@ -902,9 +902,9 @@ For actual OOS comparison, report `skill_h = 1 - MAE_model,h / MAE_naive,h` usin
 
 From a predicted close:
 
-\[
+$$
 \hat r_{t,h}=\log\left(\frac{\hat C_{t+h}}{C_t}\right)
-\]
+$$
 
 Evaluate:
 
@@ -916,10 +916,10 @@ Directional Accuracy
 
 Directional Accuracy:
 
-\[
+$$
 DA=\frac{1}{N}\sum_{t=1}^{N}
-I[\operatorname{sign}(\hat r_{t,h})=\operatorname{sign}(r_{t,h})]
-\]
+1[sign(\hat r_{t,h})=sign(r_{t,h})]
+$$
 
 Report DA against always-up and previous-return-sign baselines. Define zero-return/prediction ties explicitly as a third class with counts; use the same rule everywhere. Return errors derived from price predictions are a transformed view of the same forecasts, not an independent replication. Do not describe DA > 50% as economically profitable without transaction-cost analysis.
 
@@ -960,11 +960,11 @@ Regime labeling must not use future data.
 
 ### 18.1 Realized volatility feature
 
-At forecast origin \(t\):
+At forecast origin $t$:
 
-\[
-\sigma_t=Std(r_{t-19},\ldots,r_t)
-\]
+$$
+\sigma_t=\mathrm{Std}(r_{t-19},\ldots,r_t)
+$$
 
 ### 18.2 Threshold calibration
 
@@ -1894,13 +1894,13 @@ Sources 3 and 6-10 checked during the 2026-09-26 review. Mutable source URLs doc
 
 Freeze the paper around one primary controlled experiment:
 
-\[
+$$
 \boxed{
 \text{Chronos-2 (generic multivariate TSFM, OHLC)}
 \quad vs \quad
 \text{Kronos (finance-specific TSFM, OHLC)}
 }
-\]
+$$
 
 with Naive, ARIMA, ETS, DLinear-C and Ridge-OHLC providing the historical/statistical/train-from-scratch ladder beneath them.
 
