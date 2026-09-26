@@ -3,11 +3,19 @@ __pycache__/
 *.py[cod]
 .venv/
 venv/
+.python-version
 
-# Data and generated artifacts
-data/
+# Local model/runtime caches
+.vendor/
+.cache/
+tmp/
+
+# Generated data and outputs
+artifacts/
 output/
-reports/
+data/raw/
+data/interim/
+data/processed/
 *.pdf
 *.xlsx
 *.csv
@@ -17,4 +25,3 @@ reports/
 Thumbs.db
 .vscode/
 .idea/
-

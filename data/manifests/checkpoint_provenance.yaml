@@ -1,0 +1,75 @@
+schema_version: 1
+audit_date: 2026-09-26
+status: accepted_for_phase_0
+
+common_provenance_boundary:
+  timestamp_utc: 2025-12-03T11:57:35Z
+  determined_by: autogluon/chronos-2-small exact pinned repository revision
+  rule: >-
+    Chronos-2-small training cutoff is not documented for this exact checkpoint,
+    so the exact revision's verified public availability is used conservatively.
+  next_step: map to the first later VN30 session after the HOSE calendar is frozen
+
+models:
+  chronos_2_small:
+    repository: autogluon/chronos-2-small
+    repository_revision: ddec01313e50b6bc58ebaa92ede81bc24a3d9f9a
+    revision_public_timestamp_utc: 2025-12-03T11:57:35Z
+    weight_introducing_revision: 5108440c6caab43c7467b11091e2a9e92c286342
+    weight_public_timestamp_utc: 2025-12-03T11:55:13Z
+    weights_file: model.safetensors
+    weights_sha256: 492290ae82bb89f9769e3479ce90b3179de1f33e600c34daa0352531538b23cd
+    weights_size_bytes: 111749048
+    documented_training_cutoff: unknown
+    fallback_boundary_kind: exact_revision_public_availability
+    evidence:
+      - https://huggingface.co/autogluon/chronos-2-small/commit/ddec01313e50b6bc58ebaa92ede81bc24a3d9f9a
+      - https://huggingface.co/autogluon/chronos-2-small/commit/5108440c6caab43c7467b11091e2a9e92c286342
+
+  kronos_small:
+    repository: NeoQuasar/Kronos-small
+    repository_revision: 901c26c1332695a2a8f243eb2f37243a37bea320
+    revision_public_timestamp_utc: 2025-09-09T14:10:26Z
+    weight_introducing_revision: ac5c409a313c4eadd1ca78201322f5cadb9c34ab
+    weight_public_timestamp_utc: 2025-06-30T16:44:37Z
+    weights_file: model.safetensors
+    weights_sha256: b082dfcbd8e8c142a725c8bbb99781802f38fec81210e13479effb32b3c3e020
+    weights_size_bytes: 98980656
+    documented_training_cutoff: 2024-06
+    boundary_kind: documented_training_cutoff_and_revision_availability
+    evidence:
+      - https://huggingface.co/NeoQuasar/Kronos-small/commit/901c26c1332695a2a8f243eb2f37243a37bea320
+      - https://arxiv.org/html/2508.02739v1
+
+tokenizers:
+  kronos_tokenizer_base:
+    repository: NeoQuasar/Kronos-Tokenizer-base
+    repository_revision: 0e0117387f39004a9016484a186a908917e22426
+    revision_public_timestamp_utc: 2025-09-09T14:10:02Z
+    weight_introducing_revision: 9ef143b98ee3c2488eebd85404e0c215c112b46a
+    weight_public_timestamp_utc: 2025-06-30T17:04:10Z
+    weights_file: model.safetensors
+    weights_sha256: 59d85f6af76a2c3b8240ea06cb21db4213b4eeca053f246b23e29cf832fc6bee
+    weights_size_bytes: 15842368
+    documented_training_cutoff: 2024-06
+    evidence:
+      - https://huggingface.co/NeoQuasar/Kronos-Tokenizer-base/commit/0e0117387f39004a9016484a186a908917e22426
+      - https://arxiv.org/html/2508.02739v1
+
+implementation_code:
+  kronos:
+    repository: https://github.com/shiyu-coder/Kronos.git
+    revision: 67b630e67f6a18c9e9be918d9b4337c960db1e9a
+    revision_timestamp_utc: 2026-04-13T12:38:49Z
+  chronos_forecasting:
+    distribution: chronos-forecasting
+    version: 2.3.2
+    repository: https://github.com/amazon-science/chronos-forecasting.git
+    reviewed_revision: 10afa9ebe016e514f9d7dc1aa873f66af57e116b
+    reviewed_revision_timestamp_utc: 2026-09-17T07:39:21Z
+
+gate_G2:
+  status: pass
+  unresolved_limitations:
+    - Chronos-2-small exact pretraining cutoff is not documented.
+    - Public availability is a conservative fallback and does not prove absence of training-data overlap before that date.

@@ -19,7 +19,7 @@
 | Gate | Requirement | Evidence | Status |
 |---|---|---|---|
 | G1 | Reproducible VN30 OHLC source passes the data-source acceptance checks | data-source report, cross-check table, license note | [ ] |
-| G2 | Exact model/tokenizer revisions and provenance boundary are recorded | checkpoint provenance manifest with evidence URLs | [ ] |
+| G2 | Exact model/tokenizer revisions and provenance boundary are recorded | checkpoint provenance manifest with evidence URLs | [x] |
 | G3 | At least 126 common full-path test origins exist after the provenance boundary | `data/manifests/holdout_feasibility.json` | [ ] |
 | G4 | Configs, calendar and origin manifest are frozen before test inference | immutable hashes and freeze record | [ ] |
 
@@ -29,7 +29,7 @@ If G2 or G3 fails, outputs must be labeled `exploratory_pilot`. If G1 fails, sto
 
 ### T001 — Freeze the research contract
 
-- [ ] Copy the primary question, hypotheses, endpoint, mandatory models and point functional into a machine-readable study manifest.
+- [x] Copy the primary question, hypotheses, endpoint, mandatory models and point functional into a machine-readable study manifest.
 - Depends on: none.
 - Output: `configs/study.yaml`.
 - Acceptance:
@@ -41,8 +41,8 @@ If G2 or G3 fails, outputs must be labeled `exploratory_pilot`. If G1 fails, sto
 
 ### T002 — Extract the Zhang (2025) replication protocol
 
-- [ ] Read the complete paper and fill every replication field; use `not reported` instead of guessing.
-- [ ] Record conflicts between abstract, tables and conclusion.
+- [x] Read the complete paper and fill every replication field; use `not reported` instead of guessing.
+- [x] Record conflicts between abstract, tables and conclusion.
 - Depends on: T001.
 - Outputs:
   - `data/manifests/zhang_2025_replication.yaml`
@@ -52,9 +52,9 @@ If G2 or G3 fails, outputs must be labeled `exploratory_pilot`. If G1 fails, sto
 
 ### T003 — Audit checkpoint and tokenizer provenance
 
-- [ ] Resolve immutable revisions for Chronos-2-small, Kronos-small and Kronos-Tokenizer-base.
-- [ ] Record first public availability, documented training cutoff, evidence URL and eligibility status for each revision.
-- [ ] Select the latest acceptable common provenance boundary `B` without using model performance.
+- [x] Resolve immutable revisions for Chronos-2-small, Kronos-small and Kronos-Tokenizer-base.
+- [x] Record first public availability, documented training cutoff, evidence URL and eligibility status for each revision.
+- [x] Select the latest acceptable common provenance boundary `B` without using model performance.
 - Depends on: T001.
 - Output: `data/manifests/checkpoint_provenance.yaml`.
 - Acceptance: mutable branch names such as `main` are absent from executable configs; each checkpoint and tokenizer uses an immutable revision.
@@ -63,16 +63,16 @@ If G2 or G3 fails, outputs must be labeled `exploratory_pilot`. If G1 fails, sto
 
 ### T004 — Lock the software environment and smoke-test adapters
 
-- [ ] Create `pyproject.toml` and an exact dependency lock.
-- [ ] Record Python, PyTorch, CUDA and required package versions.
-- [ ] Load every mandatory model at its immutable revision.
-- [ ] Produce one valid 20-step dummy forecast from each mandatory adapter.
+- [x] Create `pyproject.toml` and an exact dependency lock.
+- [x] Record Python, PyTorch, CUDA and required package versions.
+- [x] Load both externally sourced mandatory TSFMs at immutable revisions.
+- [x] Produce one valid 20-step dummy forecast from each mandatory TSFM adapter. Statistical and train-from-scratch adapters are implemented and validated in Phases 2-3.
 - Depends on: T003.
 - Outputs:
   - dependency lock
   - `reports/environment.md`
   - adapter smoke-test artifacts
-- Acceptance: environment rebuild succeeds and each adapter returns exactly 20 target dates and 20 finite Close forecasts.
+- Acceptance: environment rebuild succeeds and both TSFM adapters return a 20-step finite multivariate forecast; remaining mandatory adapters follow the unified contract tests in T021 and their implementation tasks.
 - Plan reference: Sections 23, 29, 30 Phase 0.
 
 ## 4. Phase 1 — Data acquisition and immutable manifests

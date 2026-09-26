@@ -1,0 +1,88 @@
+schema_version: 1
+study_id: vn30_tsfm_kronos_v1
+contract_version: 4
+contract_frozen_on: 2026-09-26
+status: frozen_pending_gates
+
+research_question: >-
+  Does a finance-specific pretrained model transfer to VN30 better than simple
+  baselines and a generic multivariate TSFM when every model receives the same
+  observed market information at the same forecast origin?
+
+data:
+  asset: VN30 price index
+  frequency: daily_exchange_sessions
+  primary_features: [open, high, low, close]
+  primary_target: close
+  synthetic_volume_allowed: false
+
+forecast:
+  path_length: 20
+  evaluated_horizons: [1, 5, 20]
+  primary_context_length: 128
+  common_full_path_origins: true
+  point_functional: median
+
+primary_endpoint:
+  metric: close_mae
+  horizon: 1
+  selection_metric: close_mae_h1
+
+primary_model:
+  id: kronos_small_zero_shot
+  checkpoint: NeoQuasar/Kronos-small
+  input: ohlc
+
+primary_comparisons:
+  - id: kronos_vs_naive
+    comparator: naive
+    loss: absolute_close_error_h1
+  - id: kronos_vs_generic_multivariate_tsfm
+    comparator: chronos_2_small
+    loss: absolute_close_error_h1
+
+mandatory_models:
+  - naive
+  - arima
+  - ets
+  - dlinear_close
+  - ridge_ohlc
+  - chronos_2_small
+  - kronos_small
+
+supporting_models:
+  - drift
+
+secondary_work:
+  - kronos_predictor_only_adaptation
+  - dm_robustness
+  - volatility_regimes
+
+optional_work:
+  - chronos_t5_mini
+  - trading_value_ablation
+  - full_kronos_finetuning
+  - data_efficiency
+  - probabilistic_scoring
+  - larger_checkpoints
+
+inference:
+  method: paired_moving_block_bootstrap
+  replicates: 5000
+  primary_block_length: 20
+  sensitivity_block_lengths: [10, 40]
+  multiplicity: holm
+  family_size: 2
+  alternative: two_sided
+
+gates:
+  G1: reproducible_vn30_ohlc_source
+  G2: immutable_checkpoint_revisions_and_provenance
+  G3: at_least_126_common_full_path_test_origins
+  G4: configs_calendar_and_origins_frozen_before_test
+
+claim_limits:
+  tokenization_causality: prohibited
+  profitability: prohibited_without_trading_cost_backtest
+  universal_superiority: prohibited
+  negative_results_preserved: true

@@ -1,0 +1,86 @@
+schema_version: 1
+paper_id: zhang_2025_vn30_arima_ets
+title_as_published: Vietnam V30 Closing Price Forecast Based on ARIMA and ETS
+author: Hongyu Zhang
+venue: Advances in Economics, Management and Political Sciences
+volume: 147
+pages: 29-34
+published: 2025-01-03
+doi_landing_page: https://doi.org/10.54254/2754-1169/2024.GA19104
+pdf_url: https://aemps.ewapub.com/article/view/19104.pdf
+pdf_sha256: ca17087d4e7be0deaae552b21ea4ae29337be25cd49451c8436d9827a0bdfbbe
+pdf_size_bytes: 833899
+license: CC-BY-4.0
+
+research_object:
+  name_used_by_paper: VN30 composite index
+  target: closing price
+  source: not reported
+  original_frequency: daily
+  modeled_frequency: monthly
+  preprocessing: arithmetic averaging of daily observations into monthly data
+  exact_aggregation_formula: not reported
+  missing_value_policy: not reported
+
+data_period:
+  exact_statement_in_data_section: August 2016 to March 2023
+  broader_statement_elsewhere: 2016 to 2023
+  figure_one_last_visible_label: 2023-03-01
+
+split:
+  training_statement: 2016 to 2023
+  test_statement: 2023 to 2024
+  exact_cutoff: not reported
+  overlap_policy: not reported
+  test_actuals_source: not reported
+  forecast_horizon: not reported
+  status: internally_inconsistent_with_reported_data_period
+
+models:
+  arima:
+    order: [2, 2, 1]
+    order_selection_method: not reported
+    constant_or_drift: not reported
+    fitting_software: not reported
+    forecast_interval_method: not reported
+  ets:
+    specification: [M, A, N]
+    interpreted_as: multiplicative_error_additive_trend_no_seasonality
+    damped_trend: not reported
+    fitting_software: not reported
+    forecast_interval_method: not reported
+
+metrics:
+  names: [RMSE]
+  formula: not reported
+  aggregation_unit: not reported
+  evaluation_dates: not reported
+  reported_results:
+    arima_rmse: 110.9214
+    ets_rmse: 68.6134
+
+reported_claims:
+  abstract: ARIMA outperforms ETS and has lower RMSE
+  introduction: ARIMA has lower RMSE and is more accurate
+  table_two: ETS has lower RMSE, 68.6134 versus 110.9214
+  text_below_table_two: ETS has lower RMSE
+  conclusion: ETS outperforms ARIMA
+  resolved_interpretation: unresolved_conflict_preserve_all_statements
+
+replication:
+  classification: approximate_replication_required
+  exact_replication_possible: false
+  blockers:
+    - source data not reported and public dataset not supplied
+    - exact daily-to-monthly aggregation procedure not reported
+    - train/test cutoff and overlap policy not reported
+    - test actual values and evaluation dates not reported
+    - model fitting and selection procedures not reported
+    - RMSE formula and evaluation unit not reported
+  reproduced_results: null
+  status: protocol_extracted_not_run
+
+review_evidence:
+  pages_reviewed: [29, 30, 31, 32, 33, 34]
+  extraction_date: 2026-09-26
+  reviewer_note: All six PDF pages were visually inspected and text-extracted.
