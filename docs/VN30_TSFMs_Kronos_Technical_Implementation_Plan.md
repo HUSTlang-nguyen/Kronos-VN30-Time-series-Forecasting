@@ -4,7 +4,7 @@
 **Primary task:** Daily multi-horizon forecasting  
 **Core comparison:** Classical statistical forecasting → train-from-scratch neural forecasting → general-purpose TSFM → finance-specific K-line foundation model  
 **Primary model of interest:** Kronos  
-**Document status:** Clarified implementation plan v3; dataset/checkpoint gates still pending
+**Document status:** Reviewed implementation plan v4; dataset/checkpoint gates still pending
 **Date:** 2026-09-26
 
 ---
@@ -54,7 +54,9 @@ G3  The common clean test contains at least 126 full 20-step origins.
 G4  Configuration, calendar and origin manifests are frozen before any test inference or inspection of test performance.
 ```
 
-If G1 fails, stop. If G2 or G3 fails, run only a clearly labeled exploratory pilot and begin prospective collection. Failure to reproduce Zhang (2025) exactly does not block the new benchmark if the missing information is documented.
+Before G3 can pass, generate a feasibility artifact containing the provenance boundary, eligible session count, validation target dates, candidate test-origin count and earliest projected dataset-freeze date that would produce 126 full-path origins. Compute it from the accepted versioned HOSE session calendar rather than weekdays. This artifact contains no model forecasts or test metrics.
+
+If G1 fails, stop. If G2 or G3 fails, run only a clearly labeled exploratory pilot and begin prospective collection. Do not weaken the 126-origin rule or move the provenance boundary after viewing model results. Failure to reproduce Zhang (2025) exactly does not block the new benchmark if the missing information is documented.
 
 ### 0.4 One-way execution flow
 
@@ -86,7 +88,9 @@ No decision may flow backward from final test metrics to data cleaning, model ch
 
 Controlling OHLC does not isolate tokenization causally because architectures, objectives, corpora and training compute also differ.
 
-### 0.6 Review decisions retained in v3
+The controlled information claim applies to observed market variables and context dates: every E2 model receives the same 128 OHLC rows from the same origins and predicts the same target sessions. Native temporal encodings may still differ by architecture and must be recorded; therefore describe E2 as **OHLC/input-controlled**, not as controlling every internal source of information.
+
+### 0.6 Review decisions retained in v4
 
 VN30-only scope; replication separated from extension; immutable data; OHLC input control; checkpoint-aware dates; purged labels; state-current classical baselines; correct MASE interpretation; DLinear channel-independence; explicit Kronos amount handling; consistent median semantics; and preservation of negative results. No experiment result is claimed by this plan.
 
@@ -446,16 +450,34 @@ Training initially contains all accepted history before the validation target in
 
 Report `B`, validation dates, test dates, first/last origin and final origin count explicitly. If fewer than 126 full-path origins remain, report a pilot, continue prospective collection, or preregister a different eligible checkpoint before opening test results. Do not backdate the split merely to obtain more data. Additional checkpoint-specific historical tests are separate tables and are never pooled with the common test.
 
+Before model execution, save `data/manifests/holdout_feasibility.json` with at least:
+
+```text
+checkpoint/tokenizer revisions and first-public-availability evidence
+provenance boundary B
+dataset freeze and calendar version
+eligible session count
+validation target start/end
+candidate test origin start/end/count
+required origin count = 126
+earliest projected freeze date for 126 full-path origins
+gate status: pass / pilot
+```
+
+The projected date is planning information and must be recomputed against the realized exchange calendar when data are frozen.
+
 ### 8.3 Hyperparameter selection and fitting policy
 
 Use this exact sequence:
 
 1. Declare the search space and search budget without test metrics.
 2. Fit each candidate on development training data only.
-3. Select context length, hyperparameters, inference settings and neural epoch count using valid validation origins only.
+3. Select context length, hyperparameters, inference settings and neural epoch count using valid validation origins only. The frozen selection metric is pooled Close MAE at h=1 on the common validation-origin set.
 4. Freeze architecture, loss, point functional, seed list, aggregation, sampling and state-update policy in expanded configs.
 5. Refit trainable models once on all pre-test observations for the selected fixed epoch count. Refit scalers on exactly that same partition.
 6. Run the frozen test origin manifest once. Do not early-stop, retune or replace a model from test results.
+
+For stochastic trainable models, compute the selection score by averaging origin-level absolute loss across the preregistered development seeds before pooling origins. If two configurations have identical validation MAE at the stored numerical precision, choose the one with lower h=1 validation RMSE; if still tied, choose the lexicographically smaller immutable config ID. Record every candidate score and the selected config. Multi-horizon selection is a separately labeled sensitivity analysis and cannot replace this rule.
 
 E2 uses the same 128-session context for Ridge-OHLC, the generic multivariate TSFM and Kronos unless 128 is infeasible for a locked adapter. Independently tuned context lengths belong to a secondary best-configuration experiment. Primary evaluation keeps learned parameters fixed across the holdout.
 
@@ -469,13 +491,15 @@ Define origin t as **after the completed VN30 session t**; targets are sessions 
 
 Use a versioned HOSE session calendar. Known holidays can determine future timestamps; record exceptional closures and any hindsight use of the realized calendar. Do not use a weekday-only calendar as a substitute. Library tensor adapters operate on consecutive session positions and map back to true dates; Kronos receives the real calendar features.
 
+For every E2 adapter, record whether timestamps are represented as session positions, explicit calendar features or native temporal embeddings. Kronos may consume its required native timestamp features, but this architectural difference must appear in the methods and limitations. Do not claim that E2 causally isolates tokenization. A calendar-covariate sensitivity is valid only if the same point-in-time calendar fields can be supplied consistently to every compared model.
+
 Persist every attempted origin, status and error. Invalid/nonpositive Close predictions are failures, not silently clipped or removed. Predeclare one technical retry with identical configuration. A failed common-origin forecast blocks the complete-table label until fixed and rerun consistently; partial tables must show coverage and cannot claim superiority from selectively omitted origins.
 
 ---
 
 ## 9. Model matrix
 
-### 9.1 Core benchmark
+### 9.1 Planned model registry
 
 | ID | Model | Role | Input | Training mode |
 |---|---|---|---|---|
@@ -489,6 +513,8 @@ Persist every attempted origin, status and error. Invalid/nonpositive Close pred
 | T2 | Chronos-2-small | input-controlled generic TSFM | OHLC | zero-shot |
 | K1 | Kronos-small | finance-specific K-line TSFM | OHLC | zero-shot |
 | K2 | Kronos-small adapted (secondary) | finance-specific + VN30 adaptation | OHLC | fine-tuned if feasible |
+
+The mandatory core consists of B0, B2, B3, N1 as DLinear-C, B4, T2 and K1. B1 is a low-cost supporting baseline, T1 is optional, and K2 is secondary. Their presence in this registry does not make optional or secondary work an exit condition for the core study.
 
 ### 9.2 Why both original Chronos and Chronos-2?
 
@@ -519,7 +545,7 @@ Do not add models merely to make the benchmark table longer.
 
 ## 10. Input-control experiment design
 
-This section controls observable information, but does not isolate tokenization causally: architecture, corpus, objective and compute still differ.
+This section controls observed market inputs, origin dates, target dates and context length, but does not isolate tokenization causally: temporal encoding, architecture, corpus, objective and compute still differ.
 
 ### Experiment E0 — Published baseline replication
 
@@ -1110,6 +1136,14 @@ class ForecastModel:
         """Append rows not already assimilated; never refit parameters."""
         ...
 
+    def snapshot_state(self):
+        """Return restorable state before processing an origin."""
+        ...
+
+    def restore_state(self, state):
+        """Restore state exactly for deterministic retry/replay."""
+        ...
+
     def predict(self, context_df, future_dates) -> ForecastOutput:
         ...
 ```
@@ -1137,6 +1171,7 @@ origin_date == max(context_df.date)
 all(horizon_dates > origin_date)
 metadata records last_assimilated_date and adapter/checkpoint revision
 observe() rejects duplicate or non-monotonic rows
+snapshot_state()/restore_state() round-trip exactly for stateful adapters
 predict() has no access to outcomes or the scored-artifact table
 ```
 
@@ -1160,18 +1195,37 @@ for origin_record in manifest:
     observed = data.loc[data.date <= origin]
     context = observed.tail(config.context_length).copy()
     new_rows = observed.loc[observed.date > last_assimilated]
-    model.observe(new_rows)  # no-op for fixed neural/TSFM adapters
-    last_assimilated = origin
     future_dates = origin_record.target_dates
     assert context.date.max() == origin
     assert min(future_dates) > origin
-    forecast = model.predict(context, future_dates=future_dates)
-    save_prediction_or_failure(config, origin_record, forecast)
+
+    state_before_origin = model.snapshot_state()
+    forecast = None
+    attempts = []
+    for attempt in range(2):  # initial attempt + one identical technical retry
+        try:
+            model.restore_state(state_before_origin)
+            model.observe(new_rows)  # no-op for fixed neural/TSFM adapters
+            forecast = model.predict(context, future_dates=future_dates)
+            validate_forecast(forecast, origin_record)
+            attempts.append({"attempt": attempt + 1, "status": "ok"})
+            break
+        except Exception as exc:
+            forecast = None
+            attempts.append(capture_failure(attempt + 1, exc))
+
+    if forecast is None:
+        model.restore_state(state_before_origin)
+        save_failure_rows(config, origin_record, attempts, horizon_count=20)
+        continue
+
+    save_forecast_atomic(config, origin_record, forecast, attempts)
+    last_assimilated = origin
 
 # Join labels only in evaluation after forecast artifacts are saved.
 ```
 
-The manifest is iterated strictly by origin date. `new_rows` may be empty only at the first origin. A stateful adapter must assert that no date is assimilated twice and that its state ends at the current origin before forecasting.
+The manifest is iterated strictly by origin date. `new_rows` may be empty only at the first origin. A stateful adapter must assert that no date is assimilated twice and that its state ends at the current origin before forecasting. Retry restores the pre-origin state before replaying identical inputs. After a failed origin, later origins replay every row since `last_assimilated`; failure never advances model state. Forecast writes are atomic, and an unresolved origin writes exactly 20 null-valued failure rows with both attempt records.
 
 Neither an adapter nor the sampling layer receives the outcome table. Resume keys include run ID, checkpoint revision, origin and seed; config mismatches must fail instead of reusing cached predictions. State restoration/replay must yield the same forecasts as an uninterrupted run.
 
@@ -1196,6 +1250,7 @@ forecast:
   evaluate_steps: [1, 5, 20]
   context_length: 128
   point_functional: median
+  selection_metric: close_mae_h1
   origin_manifest_hash: <required>
 
 model:
@@ -1210,6 +1265,7 @@ model:
   temperature: <frozen_from_dev>
   top_p: <frozen_from_dev>
   sample_count: <frozen_from_dev>
+  temporal_encoding: <required_adapter_description>
 
 evaluation:
   metrics: [mae, rmse, smape, mase, return_mae, return_rmse, da]
@@ -1367,16 +1423,19 @@ This prevents claiming an accuracy gain without showing its computational cost.
 
 ## 26. Figures
 
-Minimum figures:
+Core figures:
 
 1. VN30 full historical close series with fold boundaries.
 2. Return and rolling-volatility series.
 3. Example 20-day forecasts for representative test origins.
 4. MASE by model and horizon.
 5. Relative improvement over Naive.
-6. Kronos vs Chronos-2 error by volatility regime.
-7. Data-efficiency curve for Kronos fine-tuning.
-8. Calibration/interval plot only if probabilistic evaluation is implemented correctly.
+
+Conditional figures:
+
+6. Kronos vs generic TSFM error by volatility regime, only if the secondary regime analysis runs.
+7. Data-efficiency curve, only if the optional adaptation-data study runs.
+8. Calibration/interval plot, only if probabilistic evaluation is implemented correctly.
 
 Never choose only visually favorable forecast periods. Example origins must be selected by a preregistered rule or include both typical and failure cases.
 
@@ -1456,7 +1515,8 @@ Additional adapter checks:
 - returned mean/median labels match computed sample summaries;
 - statistical state reaches each current origin; repeated observations are not applied twice;
 - holidays/year boundaries preserve exact target session IDs;
-- failure/retry/resume preserves origin coverage and RNG behavior.
+- failure/retry/resume preserves origin coverage, RNG behavior and pre-origin state;
+- an unresolved origin produces exactly 20 failure rows and later origins replay unassimilated observations correctly;
 - raw forecast artifacts contain no actual outcomes;
 - scored artifacts join labels only after run/config/hash and complete-origin validation;
 
@@ -1561,7 +1621,8 @@ Do not block the new study indefinitely if the original paper omits critical det
 - implement metrics;
 - implement MASE correctly;
 - implement return transformation;
-- implement volatility regimes;
+- implement the primary bootstrap/Holm pipeline;
+- implement volatility regimes only for the secondary analysis;
 - write leakage tests;
 - persist label-free forecast and scored artifacts.
 
@@ -1594,16 +1655,16 @@ Do not block the new study indefinitely if the original paper omits critical det
 
 **Tasks**
 
-- Chronos-T5-mini close-only;
-- Chronos-2-small OHLC;
-- Kronos-small OHLC;
-- context-length development study;
-- freeze inference/sampling config;
-- run the provenance-qualified common holdout; keep historical diagnostics in a separate artifact namespace.
+- mandatory: frozen generic multivariate TSFM OHLC;
+- mandatory: Kronos-small OHLC;
+- mandatory: freeze inference/sampling config and run the provenance-qualified common holdout;
+- optional: Chronos-T5-mini close-only and E1;
+- optional: best-configuration context-length sensitivity;
+- keep historical diagnostics in a separate artifact namespace.
 
 **Exit criteria**
 
-- E1 and E2 complete;
+- mandatory E2 and baseline ladder complete;
 - zero-shot TSFM forecasts and scored artifacts persisted;
 - no test-informed tuning.
 
@@ -1632,12 +1693,9 @@ This is the first complete main benchmark. Publication readiness still depends o
 
 **Tasks**
 
-- DM tests;
-- Holm correction;
-- block-bootstrap CIs;
-- regime analysis;
-- context-length sensitivity;
-- optional non-overlapping forecast-origin sensitivity for h=5/20.
+- mandatory: registered paired block-bootstrap tests/CIs and Holm correction;
+- secondary: DM tests and regime analysis;
+- optional: context-length and non-overlapping-origin sensitivities.
 
 **Exit criteria**
 
@@ -1666,7 +1724,7 @@ This is the first complete main benchmark. Publication readiness still depends o
 | 3 | walk-forward/evaluation + classical baselines | baseline table |
 | 4 | DLinear-C + Ridge-OHLC + Chronos-2 + Kronos zero-shot | main zero-shot benchmark; Chronos-T5 optional in minimal scope |
 | 5 | finish core QA; optional Kronos adaptation | verified main table; adaptation table if feasible |
-| 6 | DM/bootstrap/regime analysis | statistical results |
+| 6 | primary bootstrap/Holm inference; secondary DM/regime if feasible | statistical results |
 | 7 | robustness + failure analysis | final figures/tables |
 | 8 | paper/reproducibility cleanup | research package |
 
@@ -1801,7 +1859,7 @@ Execute in this order:
 
 ```text
 [ ] 01. Extract Zhang protocol into replication manifest; use `not reported` for missing fields
-[ ] 02. Resolve exact TSFM/tokenizer revisions and provenance boundary B
+[ ] 02. Resolve exact TSFM/tokenizer revisions and provenance boundary B; generate holdout feasibility artifact
 [ ] 03. Lock environment; prove each mandatory adapter can produce one 20-step forecast
 [ ] 04. Select and cross-check a VN30 OHLC source; pass G1
 [ ] 05. Freeze raw snapshot, processed dataset, calendar and hashes
