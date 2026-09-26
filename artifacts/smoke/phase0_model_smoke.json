@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "torch_version": "2.14.0+cu130",
+  "cuda_available": true,
+  "requested_device": "cuda:0",
+  "resolved_device": "cuda:0",
+  "models": {
+    "chronos2": {
+      "status": "pass",
+      "device": "cuda:0",
+      "model": "autogluon/chronos-2-small",
+      "revision": "ddec01313e50b6bc58ebaa92ede81bc24a3d9f9a",
+      "input_shape": [
+        1,
+        4,
+        128
+      ],
+      "output_shape": [
+        4,
+        13,
+        20
+      ],
+      "finite": true,
+      "elapsed_seconds": 1.695
+    },
+    "kronos": {
+      "status": "pass",
+      "device": "cuda:0",
+      "model": "NeoQuasar/Kronos-small",
+      "revision": "901c26c1332695a2a8f243eb2f37243a37bea320",
+      "tokenizer": "NeoQuasar/Kronos-Tokenizer-base",
+      "tokenizer_revision": "0e0117387f39004a9016484a186a908917e22426",
+      "code_revision": "67b630e67f6a18c9e9be918d9b4337c960db1e9a",
+      "input_shape": [
+        128,
+        6
+      ],
+      "output_shape": [
+        20,
+        6
+      ],
+      "finite": true,
+      "elapsed_seconds": 1.206
+    }
+  }
+}

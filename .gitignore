@@ -8,17 +8,6 @@ venv/
 # Local model/runtime caches
 .vendor/
 .cache/
-tmp/
-
-# Generated data and outputs
-artifacts/
-output/
-data/raw/
-data/interim/
-data/processed/
-*.pdf
-*.xlsx
-*.csv
 
 # OS/editor
 .DS_Store

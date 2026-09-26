@@ -1,0 +1,83 @@
+{
+  "seed": 20260926,
+  "tolerance_points": 0.02,
+  "sources": {
+    "vps": {
+      "url": "https://histdatafeed.vps.com.vn/tradingview/history?symbol=VN30&resolution=D&from=1325376000&to=1790380799",
+      "retrieved_at_utc": "2026-09-26T05:17:43.394676+00:00",
+      "response_sha256": "5be1cb6c52463a017a90652ba3989674958f5e18d37ae713e4a35b8b6166341a",
+      "raw_row_count": 3676,
+      "unambiguous_row_count": 3628,
+      "first_date": "2012-02-06",
+      "last_date": "2026-09-25",
+      "duplicates": 24,
+      "ambiguous_dates_excluded": [
+        "2020-12-25",
+        "2025-05-05",
+        "2025-05-06",
+        "2025-05-07",
+        "2025-05-08",
+        "2025-06-02",
+        "2025-06-03",
+        "2025-06-04",
+        "2025-06-05",
+        "2025-06-06",
+        "2025-06-09",
+        "2025-06-10",
+        "2025-06-11",
+        "2025-06-12",
+        "2025-06-13",
+        "2025-06-16",
+        "2025-06-17",
+        "2025-06-18",
+        "2025-06-19",
+        "2025-06-20",
+        "2025-06-23",
+        "2025-06-24",
+        "2025-06-25",
+        "2025-06-26"
+      ],
+      "ohlc_inequality_failures": 12,
+      "ohlc_inequality_dates": [
+        "2012-02-27",
+        "2012-02-29",
+        "2012-03-01",
+        "2012-03-08",
+        "2012-03-09",
+        "2012-03-20",
+        "2012-03-23",
+        "2012-03-29",
+        "2012-04-16",
+        "2013-05-23",
+        "2013-10-31",
+        "2020-08-13"
+      ]
+    },
+    "vndirect": {
+      "url": "https://dchart-api.vndirect.com.vn/dchart/history?symbol=VN30&resolution=D&from=1325376000&to=1790380799",
+      "retrieved_at_utc": "2026-09-26T05:17:44.688525+00:00",
+      "response_sha256": "931402a593e7a50b901d2a1e056d69e855fa648c118c8a70a9de97c5afa21beb",
+      "raw_row_count": 2267,
+      "unambiguous_row_count": 2267,
+      "first_date": "2017-08-24",
+      "last_date": "2026-09-25",
+      "duplicates": 0,
+      "ambiguous_dates_excluded": [],
+      "ohlc_inequality_failures": 0,
+      "ohlc_inequality_dates": []
+    },
+    "dnse": {
+      "url": "https://api.dnse.com.vn/chart-api/v2/ohlcs/index?symbol=VN30&resolution=1D&from=1325376000&to=1790380799",
+      "retrieved_at_utc": "2026-09-26T05:17:45.798594+00:00",
+      "response_sha256": "4a3e0a7846e2cbe6f7b11a19eae0c6267dd5d4fab2bbea0e324b98554b8daa98",
+      "raw_row_count": 1561,
+      "unambiguous_row_count": 1561,
+      "first_date": "2020-05-11",
+      "last_date": "2026-09-25",
+      "duplicates": 0,
+      "ambiguous_dates_excluded": [],
+      "ohlc_inequality_failures": 0,
+      "ohlc_inequality_dates": []
+    }
+  }
+}
