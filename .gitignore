@@ -5,9 +5,24 @@ __pycache__/
 venv/
 .python-version
 
+# Disposable/local audit material
+/tmp/
+
 # Local model/runtime caches
 .vendor/
 .cache/
+
+# Market data bytes; manifests stay tracked
+data/raw/
+data/interim/
+data/processed/
+
+# Large generated experiment outputs
+artifacts/forecasts/
+artifacts/scored/
+artifacts/checkpoints/
+artifacts/samples/
+artifacts/cache/
 
 # OS/editor
 .DS_Store
