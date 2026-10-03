@@ -1,0 +1,17 @@
+{
+  "classification": "candidate_pending_exceptional_closure_review",
+  "start": "2023-01-01",
+  "end": "2023-12-31",
+  "config_sha256": "65d074efe506035e7916959f9bedf82b60cf65d78404912ce3f97cd948e9039f",
+  "script_sha256": "36d9b361e818954c093f2e686686769554f5d54cd7accf1fac7d8a9c8ff760f5",
+  "calendar_sha256": "14c069dc720b806976b2ec22a90a428c8f0dd78f17d2f0bf61dcd06d71fab2e7",
+  "scheduled_sessions_by_year": {
+    "2023": 249
+  },
+  "limitations": [
+    "Only 2023 is covered; no inference for other years.",
+    "The signed exchange notice is hosted by a third-party mirror; official-host copy pending.",
+    "Exceptional closures and further calendar updates still require review.",
+    "G1 pending; this is not the accepted T012 calendar."
+  ]
+}

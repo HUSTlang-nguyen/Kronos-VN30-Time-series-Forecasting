@@ -1,0 +1,49 @@
+{
+  "classification": "anomaly_review_only_no_source_selection_or_dataset_patch",
+  "config_sha256": "9e3f4a865d35e9c0b35635f43d5891ba9baff45b5675c0d790a4f9bd0ba4f363",
+  "script_sha256": "ced5625cc87b2718d04b74c5f51ee1082d45a18b331a02e5225f954cfe2e711d",
+  "audit_manifest_sha256": "17d72a42a077ff2a3c54d5f55deb4aa8fe82dbf1a5fa7ad04fcdfa4ddcc92115",
+  "vnstock_manifest_sha256": "be66a92ac7207a3bd2f763c237836555360ccdaeb90284196fbbb3ed01552a31",
+  "response_sha256": {
+    "vps": "e788eaf46497d56462b252402de516a79da2502521e5f947cffdaa8227f0a7f1",
+    "vndirect": "4eb7c113e69026d7aab9353c6c1e6f336b2516ee7ccb76875eef4a902794eb37",
+    "dnse": "c47daff8b6727b2eca6a889e76cd437364ad182b93251f7130e09ab23344b2ef",
+    "kbs": "ae5149e7bb73c51461ba0c49b6861e07f0699ba6c4fe763e209a0c0e91e01b54",
+    "vci": "56d2d9ce9ddb646ba63ff4c50571b3b83ae1879fe4ca112e124319efc76e380f"
+  },
+  "anomalous_dates": 119,
+  "review_rows": 440,
+  "providers": {
+    "dnse": {
+      "invalid_ohlc_rows": 0,
+      "invalid_numeric_rows": 0,
+      "duplicate_rows": 0
+    },
+    "kbs": {
+      "invalid_ohlc_rows": 28,
+      "invalid_numeric_rows": 0,
+      "duplicate_rows": 0
+    },
+    "vci": {
+      "invalid_ohlc_rows": 60,
+      "invalid_numeric_rows": 0,
+      "duplicate_rows": 0
+    },
+    "vndirect": {
+      "invalid_ohlc_rows": 0,
+      "invalid_numeric_rows": 0,
+      "duplicate_rows": 0
+    },
+    "vps": {
+      "invalid_ohlc_rows": 12,
+      "invalid_numeric_rows": 0,
+      "duplicate_rows": 52
+    }
+  },
+  "limitations": [
+    "Absent provider rows remain absent; no imputation.",
+    "All conflicting duplicate candles are retained.",
+    "Source agreement does not identify correct OHLC or independent upstream lineage."
+  ],
+  "review_sha256": "4b50b163e64826d37ed293206939830d5c04fb773fad2fae6bfa48eca1547305"
+}

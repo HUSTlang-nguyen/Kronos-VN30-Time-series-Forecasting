@@ -1,0 +1,30 @@
+schema_version: 1
+reviewed_on: '2026-10-02'
+status: candidate_pending_exceptional_closure_review
+covered_years: [2019]
+annual_sources:
+  '2019': hose_2019_annual
+sources:
+  hose_2019_annual:
+    url: https://cmsv5.fiingroup.vn/medialib/Crawler/2019/2019-04/2019-04-10/20180829_20180829_Cong-bo-lich-nghi-giao-dich-2019.pdf
+    discovery_page: https://kisvn.vn/hose-thong-bao-lich-nghi-giao-dich-trong-nam-2019/
+    discovery_attachment_host: cmsv5.stoxplus.com
+    path: data/raw/calendar/20261002_historical/hose_2019_annual.pdf
+    sha256: cf69c0ebb5c4315978c6452786b8c7b9769e5d0c7cbbed5cf5bd94f73cb15a1b
+    author: HOSE
+    notice: 1108/TB-SGDHCM
+    issued_on: '2018-08-29'
+    verification: complete_signed_scan_visually_inspected
+    hosting: third_party_mirror
+limitations:
+  - Only 2019 is covered; no inference for other years.
+  - Notice also closes 2018-12-31; that date is outside this calendar's annual coverage.
+  - Exchange-authored signed scan is hosted by a third-party mirror.
+  - Exceptional closures and further updates still require review.
+  - G1 pending; this is not the accepted T012 calendar.
+closures:
+  - {start: '2019-01-01', end: '2019-01-01', reason: new_year, source: hose_2019_annual}
+  - {start: '2019-02-04', end: '2019-02-08', reason: lunar_new_year, source: hose_2019_annual}
+  - {start: '2019-04-15', end: '2019-04-15', reason: hung_kings, source: hose_2019_annual}
+  - {start: '2019-04-29', end: '2019-05-01', reason: reunification_labour, source: hose_2019_annual}
+  - {start: '2019-09-02', end: '2019-09-02', reason: national_day, source: hose_2019_annual}

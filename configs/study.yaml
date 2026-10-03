@@ -9,6 +9,20 @@ research_question: >-
   baselines and a generic multivariate TSFM when every model receives the same
   observed market information at the same forecast origin?
 
+hypotheses:
+  H1_statistical_sufficiency: >-
+    Much of the predictable structure in VN30 can already be captured by
+    simple/statistical models.
+  H2_generic_transfer: >-
+    A general TSFM transfers reusable temporal patterns to VN30 in zero-shot mode.
+  H3_finance_domain_transfer: >-
+    A finance-specific TSFM transfers better because its pretraining and
+    representation better match financial K-lines.
+  H4_adaptation: >-
+    Kronos may not be optimal zero-shot, but VN30-specific adaptation may improve it.
+  H5_regime_dependence: >-
+    Relative model performance changes across volatility regimes and forecast horizons.
+
 data:
   asset: VN30 price index
   frequency: daily_exchange_sessions

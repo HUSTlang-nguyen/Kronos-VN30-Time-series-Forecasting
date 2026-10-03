@@ -1,0 +1,38 @@
+schema_version: 1
+reviewed_on: '2026-10-01'
+status: candidate_pending_exceptional_closure_review
+covered_years: [2023]
+annual_sources:
+  '2023': hose_2023_notice_2208_mirror
+sources:
+  hose_2023_notice_2208_mirror:
+    url: https://cdn.thuvienphapluat.vn/phap-luat/2022-2/HQ/lich-nghi-hose.jpg
+    path: data/raw/calendar/20261001_historical/hose_2023_mirror.jpg
+    sha256: 81b5e5914da3e720e83486ebb4c59aff2ec1b1a95a1ca5124c5d21929107523d
+    author: HOSE
+    notice: 2208/TB-SGDHCM
+    issued_on: '2022-12-13'
+    verification: complete_signed_scan_visually_inspected
+    hosting: third_party_mirror
+limitations:
+  - Only 2023 is covered; no inference for other years.
+  - The signed exchange notice is hosted by a third-party mirror; official-host copy pending.
+  - Exceptional closures and further calendar updates still require review.
+  - G1 pending; this is not the accepted T012 calendar.
+closures:
+  - start: '2023-01-02'
+    end: '2023-01-02'
+    reason: new_year
+    source: hose_2023_notice_2208_mirror
+  - start: '2023-01-20'
+    end: '2023-01-26'
+    reason: lunar_new_year
+    source: hose_2023_notice_2208_mirror
+  - start: '2023-05-01'
+    end: '2023-05-03'
+    reason: hung_kings_reunification_labour
+    source: hose_2023_notice_2208_mirror
+  - start: '2023-09-01'
+    end: '2023-09-04'
+    reason: national_day
+    source: hose_2023_notice_2208_mirror

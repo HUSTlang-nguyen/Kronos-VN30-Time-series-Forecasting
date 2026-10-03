@@ -1,0 +1,17 @@
+{
+  "classification": "diagnostic_cross_exchange_pending_HOSE_confirmation",
+  "start": "2016-01-01",
+  "end": "2016-12-31",
+  "config_sha256": "95c55ce8d7f72d948eccdcad3439ba2ec65fbc848ec7e4cb1cbb630fd7860459",
+  "script_sha256": "f66b086b5f454796e0189fa850aca05b9feaad5d81a2ddb45f876ea63b6e8ad2",
+  "calendar_sha256": "e710fed6c0bbb8b6de28d96f532e15b4da395c930ec06889d17dd80956410327",
+  "scheduled_sessions_by_year": {
+    "2016": 251
+  },
+  "limitations": [
+    "Diagnostic holiday hypothesis only; direct HOSE annual confirmation remains pending.",
+    "HNX notice is not silently substituted for a HOSE annual notice.",
+    "Exceptional closures and later updates remain unreviewed.",
+    "G1 and T012 remain pending; do not infer or impute missing candles."
+  ]
+}

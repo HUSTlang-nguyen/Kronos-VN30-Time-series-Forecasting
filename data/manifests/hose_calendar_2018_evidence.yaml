@@ -1,0 +1,45 @@
+schema_version: 1
+reviewed_on: '2026-10-02'
+status: candidate_pending_complete_notice_and_exception_review
+covered_years: [2018]
+annual_sources:
+  '2018': hose_holiday_table
+sources:
+  hose_holiday_table:
+    url: https://cdn.vietnambiz.vn/stores/news_dataimages/danglh/022018/06/18/in_article/1956_nguYn_hose.jpg
+    discovery_page: https://vietnambiz.vn/hose-cong-bo-lich-nghi-giao-dich-nam-2018-45330.htm
+    path: data/raw/calendar/20261002_historical/hose_2018_holiday_table.jpg
+    sha256: 9ea8244df18b5431e2baa0d32b27ffa44ef175e08f69cc2af9fd40181ae06fc6
+    author_attribution: HOSE
+    verification: cropped_announcement_table_visually_inspected
+    hosting: third_party_mirror
+  hnx_halt_review:
+    url: https://www.hnx.vn/vi-vn/chi-tiet-tin-60003460-0.html
+    path: data/raw/calendar/20261002_historical/hnx_2018_events.html
+    sha256: 247febea155837094ca05bd1f1088228b2b4def7bf31f5846f40ad2c327eea01
+    title: 10 notable securities events of 2018
+    hosting: official_HNX_site
+    scope: retrospective_report_on_HOSE_halt_not_original_HOSE_notice
+  hose_2019_notice:
+    url: https://cmsv5.fiingroup.vn/medialib/Crawler/2019/2019-04/2019-04-10/20180829_20180829_Cong-bo-lich-nghi-giao-dich-2019.pdf
+    path: data/raw/calendar/20261002_historical/hose_2019_annual.pdf
+    sha256: cf69c0ebb5c4315978c6452786b8c7b9769e5d0c7cbbed5cf5bd94f73cb15a1b
+    author: HOSE
+    notice: 1108/TB-SGDHCM
+    issued_on: '2018-08-29'
+    scope: explicitly_closes_2018_12_31
+limitations:
+  - 2018 holiday table is cropped; complete signed annual notice remains pending.
+  - January halt evidence is an official-host retrospective, not the original HOSE halt document.
+  - Remaining exceptional closures and updates still require review.
+  - G1 pending; this is not the accepted T012 calendar.
+closures:
+  - {start: '2018-01-01', end: '2018-01-01', reason: new_year, source: hose_holiday_table}
+  - {start: '2018-01-23', end: '2018-01-24', reason: technical_halt_full_days, source: hnx_halt_review}
+  - {start: '2018-02-14', end: '2018-02-20', reason: lunar_new_year, source: hose_holiday_table}
+  - {start: '2018-04-25', end: '2018-04-25', reason: hung_kings, source: hose_holiday_table}
+  - {start: '2018-04-30', end: '2018-05-01', reason: reunification_labour, source: hose_holiday_table}
+  - {start: '2018-09-03', end: '2018-09-03', reason: national_day, source: hose_holiday_table}
+  - {start: '2018-12-31', end: '2018-12-31', reason: following_new_year_bridge, source: hose_2019_notice}
+session_events:
+  - {date: '2018-01-22', quality_flag: shortened_session, source: hnx_halt_review}

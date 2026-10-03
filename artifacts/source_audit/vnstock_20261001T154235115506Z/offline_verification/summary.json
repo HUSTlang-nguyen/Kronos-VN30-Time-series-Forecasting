@@ -1,0 +1,172 @@
+{
+  "classification": "offline_audit_not_G1_acceptance",
+  "providers": {
+    "kbs": {
+      "raw_to_normalized_ohlc_verified": true,
+      "date_reconciliation": {
+        "missing_scheduled_sessions": [],
+        "observed_non_sessions": [],
+        "duplicate_dates_in_coverage": [],
+        "observations_outside_calendar_coverage": 3143
+      },
+      "invalid_ohlc_by_year": {
+        "2012": 3,
+        "2013": 11,
+        "2014": 1,
+        "2017": 1,
+        "2018": 7,
+        "2019": 4,
+        "2021": 1
+      },
+      "ohlc_2025_04_03": [
+        {
+          "open": 1342.46,
+          "high": 1342.46,
+          "low": 1282.99,
+          "close": 1283.18
+        }
+      ]
+    },
+    "vci": {
+      "raw_to_normalized_ohlc_verified": true,
+      "date_reconciliation": {
+        "missing_scheduled_sessions": [],
+        "observed_non_sessions": [],
+        "duplicate_dates_in_coverage": [],
+        "observations_outside_calendar_coverage": 3224
+      },
+      "invalid_ohlc_by_year": {
+        "2012": 18,
+        "2013": 9,
+        "2014": 6,
+        "2015": 6,
+        "2016": 3,
+        "2017": 10,
+        "2018": 1,
+        "2019": 6,
+        "2020": 1
+      },
+      "ohlc_2025_04_03": [
+        {
+          "open": 1342.46,
+          "high": 1342.46,
+          "low": 1282.99,
+          "close": 1283.18
+        }
+      ]
+    }
+  },
+  "capture_manifest_sha256": "be66a92ac7207a3bd2f763c237836555360ccdaeb90284196fbbb3ed01552a31",
+  "calendar_status": "candidate_pending_exceptional_closure_review",
+  "crosscheck_end": "2026-09-30",
+  "comparisons": [
+    {
+      "left_provider": "dnse",
+      "right_provider": "kbs",
+      "status": "discrepancy",
+      "field_count": 25
+    },
+    {
+      "left_provider": "dnse",
+      "right_provider": "kbs",
+      "status": "missing",
+      "field_count": 20
+    },
+    {
+      "left_provider": "dnse",
+      "right_provider": "kbs",
+      "status": "pass",
+      "field_count": 155
+    },
+    {
+      "left_provider": "dnse",
+      "right_provider": "vci",
+      "status": "discrepancy",
+      "field_count": 19
+    },
+    {
+      "left_provider": "dnse",
+      "right_provider": "vci",
+      "status": "missing",
+      "field_count": 20
+    },
+    {
+      "left_provider": "dnse",
+      "right_provider": "vci",
+      "status": "pass",
+      "field_count": 161
+    },
+    {
+      "left_provider": "kbs",
+      "right_provider": "vci",
+      "status": "discrepancy",
+      "field_count": 53
+    },
+    {
+      "left_provider": "kbs",
+      "right_provider": "vci",
+      "status": "pass",
+      "field_count": 287
+    },
+    {
+      "left_provider": "kbs",
+      "right_provider": "vndirect",
+      "status": "discrepancy",
+      "field_count": 22
+    },
+    {
+      "left_provider": "kbs",
+      "right_provider": "vndirect",
+      "status": "missing",
+      "field_count": 4
+    },
+    {
+      "left_provider": "kbs",
+      "right_provider": "vndirect",
+      "status": "pass",
+      "field_count": 218
+    },
+    {
+      "left_provider": "kbs",
+      "right_provider": "vps",
+      "status": "discrepancy",
+      "field_count": 25
+    },
+    {
+      "left_provider": "kbs",
+      "right_provider": "vps",
+      "status": "pass",
+      "field_count": 315
+    },
+    {
+      "left_provider": "vci",
+      "right_provider": "vndirect",
+      "status": "discrepancy",
+      "field_count": 33
+    },
+    {
+      "left_provider": "vci",
+      "right_provider": "vndirect",
+      "status": "missing",
+      "field_count": 4
+    },
+    {
+      "left_provider": "vci",
+      "right_provider": "vndirect",
+      "status": "pass",
+      "field_count": 207
+    },
+    {
+      "left_provider": "vci",
+      "right_provider": "vps",
+      "status": "discrepancy",
+      "field_count": 41
+    },
+    {
+      "left_provider": "vci",
+      "right_provider": "vps",
+      "status": "pass",
+      "field_count": 299
+    }
+  ]
+}

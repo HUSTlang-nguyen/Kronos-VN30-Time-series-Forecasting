@@ -288,7 +288,8 @@ A source is accepted only if:
 - duplicate dates are absent or explainable;
 - at least 30 seeded, year-stratified OHLC observations can be cross-checked against an independent source, supplemented by extreme-return dates; record precision-based tolerances and discrepancies;
 - missing observations can be explained by the trading calendar rather than silently imputed;
-- licensing/terms allow research use.
+
+Policy amendment (2026-10-02, explicit user request): research-use permission is excluded from G1. No permission evidence is required to pass this gate. This records the study's acceptance policy, not a verified grant of data rights. All quality, reproducibility, independent crosscheck and calendar requirements above remain mandatory.
 
 ### 5.5 Immutable data snapshots
 

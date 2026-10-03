@@ -1,0 +1,54 @@
+{
+  "classification": "candidate_calendar_reconciliation_not_G1_acceptance",
+  "end": "2026-09-30",
+  "calendar_sha256": "47c2bb436b1b9a26069a7873e0b1e2a94798ae018588c7e2734e57aaf189a2a4",
+  "audit_manifest_sha256": "17d72a42a077ff2a3c54d5f55deb4aa8fe82dbf1a5fa7ad04fcdfa4ddcc92115",
+  "providers": {
+    "vps": {
+      "missing_scheduled_sessions": [],
+      "observed_non_sessions": [],
+      "duplicate_dates_in_coverage": [
+        "2025-05-05",
+        "2025-05-06",
+        "2025-05-07",
+        "2025-05-08",
+        "2025-05-09",
+        "2025-05-12",
+        "2025-06-02",
+        "2025-06-03",
+        "2025-06-04",
+        "2025-06-05",
+        "2025-06-06",
+        "2025-06-09",
+        "2025-06-10",
+        "2025-06-11",
+        "2025-06-12",
+        "2025-06-13",
+        "2025-06-16",
+        "2025-06-17",
+        "2025-06-18",
+        "2025-06-19",
+        "2025-06-20",
+        "2025-06-23",
+        "2025-06-24",
+        "2025-06-25",
+        "2025-06-26"
+      ],
+      "observations_outside_calendar_coverage": 3223
+    },
+    "vndirect": {
+      "missing_scheduled_sessions": [],
+      "observed_non_sessions": [],
+      "duplicate_dates_in_coverage": [],
+      "observations_outside_calendar_coverage": 1840
+    },
+    "dnse": {
+      "missing_scheduled_sessions": [
+        "2025-04-03"
+      ],
+      "observed_non_sessions": [],
+      "duplicate_dates_in_coverage": [],
+      "observations_outside_calendar_coverage": 1134
+    }
+  }
+}

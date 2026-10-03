@@ -1,0 +1,21 @@
+schema_version: 1
+reviewed_on: '2026-10-02'
+status: partial_holiday_evidence_not_annual_calendar
+covered_years: []
+source:
+  publisher: Bao Minh Securities (BMSC)
+  notice: 02/2021-BMSC/TB
+  issued_on: '2021-02-05'
+  url: https://bmsc.com.vn/uploads/tin-tuc/2021_02/cv-di-thong-bao-nghi-tet-nguyen-dang-nam-2021-den-quy-khach-hang.pdf
+  path: data/raw/calendar/20261002_historical/bmsc_2021_tet.pdf
+  sha256: ef8201986f2611733837e2bdc8cc1d05928f8b6ffa4a17c7377899473fd410c8
+  verification: complete_signed_broker_notice_visually_inspected
+  scope: broker_notice_citing_HOSE_HNX_VSD_not_exchange_annual_notice
+holiday:
+  start: '2021-02-10'
+  end: '2021-02-16'
+  reopening: '2021-02-17'
+limitations:
+  - This verifies one broker-announced holiday interval only.
+  - The complete exchange calendar and exceptional-closure review remain pending.
+  - No covered annual year or G1 acceptance is inferred.

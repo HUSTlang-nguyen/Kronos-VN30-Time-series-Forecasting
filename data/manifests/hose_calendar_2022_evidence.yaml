@@ -1,0 +1,28 @@
+schema_version: 1
+reviewed_on: '2026-10-01'
+status: candidate_pending_exceptional_closure_review
+covered_years: [2022]
+annual_sources:
+  '2022': hose_2022_annual
+sources:
+  hose_2022_annual:
+    url: https://static2.vietstock.vn/vietstock/2021/12/22/20211222_TB%20lich%20nghi%20giao%20dich%20trong%20nam%202022.pdf
+    path: data/raw/calendar/20261001_historical/hose_2022_annual.pdf
+    sha256: 1d431fe8656b74482753dd87d9354a5ffd20ed99a8b249f5dc77ebf0ae43b528
+    author: HOSE
+    notice: 2168/TB-SGDHCM
+    issued_on: '2021-12-21'
+    verification: complete_signed_scan_visually_inspected
+    hosting: third_party_mirror
+    date_note: Filename uses December 22; signed notice shows December 21.
+limitations:
+  - Only 2022 is covered; no inference for other years.
+  - Exchange-authored signed scan is hosted by a third-party mirror.
+  - Exceptional closures and further updates still require review.
+  - G1 pending; this is not the accepted T012 calendar.
+closures:
+  - {start: '2022-01-03', end: '2022-01-03', reason: new_year, source: hose_2022_annual}
+  - {start: '2022-01-31', end: '2022-02-04', reason: lunar_new_year, source: hose_2022_annual}
+  - {start: '2022-04-11', end: '2022-04-11', reason: hung_kings, source: hose_2022_annual}
+  - {start: '2022-05-02', end: '2022-05-03', reason: reunification_labour, source: hose_2022_annual}
+  - {start: '2022-09-01', end: '2022-09-02', reason: national_day, source: hose_2022_annual}

@@ -18,7 +18,7 @@
 
 | Gate | Requirement | Evidence | Status |
 |---|---|---|---|
-| G1 | Reproducible VN30 OHLC source passes the data-source acceptance checks | data-source report, cross-check table, license note | [ ] |
+| G1 | Reproducible VN30 OHLC source passes the data-source acceptance checks | data-source report, cross-check table, calendar reconciliation | [ ] |
 | G2 | Exact model/tokenizer revisions and provenance boundary are recorded | checkpoint provenance manifest with evidence URLs | [x] |
 | G3 | At least 126 common full-path test origins exist after the provenance boundary | `data/manifests/holdout_feasibility.json` | [ ] |
 | G4 | Configs, calendar and origin manifest are frozen before test inference | immutable hashes and freeze record | [ ] |
@@ -79,7 +79,15 @@ If G2 or G3 fails, outputs must be labeled `exploratory_pilot`. If G1 fails, sto
 
 ### T010 — Select and validate a VN30 OHLC provider
 
-- [ ] Confirm reproducible daily OHLC download, explicit dates, consistent units and research-use permission.
+Progress 2026-10-02 (complete anomaly review): hash-verified raw responses from all five tested providers; assembled 440 unchanged candles across all 119 dates with invalid OHLC or duplicate rows. All 100 invalid OHLC rows and 52 duplicate VPS rows remain retained. Immutable replay passed. This investigation table is not an accepted dataset or source-selection decision. Evidence: `artifacts/source_audit/anomaly_review_20261002/`, `scripts/build_anomaly_review.py`.
+
+Policy amendment 2026-10-02: research-use permission excluded from G1 by explicit user request. Earlier permission-related progress notes describe the old policy. Source quality, discrepancy resolution and calendar reconciliation remain required; G1 is still pending.
+
+Progress 2026-10-01 (vnstock): KBS and VCI retrieved in an isolated, version-frozen environment. VCI reaches 2012-02-06, KBS starts 2012-06-01. Unchanged HTTP bytes and normalized snapshots preserved; offline reconstruction verified. Both cover candidate calendar sessions in 2025-2026 but have unresolved historical OHLC violations (28 KBS, 60 VCI). See `reports/vnstock_source_audit.md`. G1 remains pending.
+
+Progress 2026-10-01: replayable three-provider audit completed. Acceptance remains pending: material discrepancies, provider permission and exchange-session reconciliation require resolution. Evidence: `reports/data_source_acceptance.md`, `reports/source_discrepancies.md`, `data/manifests/source_investigation.yaml` and `artifacts/source_audit/20261001T151513588605Z/`. The earlier `source_crosscheck.parquet` remains exploratory; it has not been replaced or accepted as G1 evidence.
+
+- [ ] Confirm reproducible daily OHLC download, explicit dates and consistent units.
 - [ ] Cross-check at least 30 year-stratified observations plus extreme-return dates against an independent source.
 - [ ] Define field-level numeric tolerances before cross-checking.
 - [ ] Investigate every material discrepancy.
@@ -93,6 +101,8 @@ If G2 or G3 fails, outputs must be labeled `exploratory_pilot`. If G1 fails, sto
 
 ### T011 — Freeze the raw data snapshot
 
+Progress 2026-10-01: `scripts/freeze_phase1.py` implements byte-preserving snapshot/response copies and hash-bound metadata; end-to-end behavior verified using synthetic temporary inputs. Actual accepted snapshot remains pending G1. Runbook: `docs/Phase1_Freeze_Runbook.md`.
+
 - [ ] Download VN30 daily OHLC without modifying the provider response.
 - [ ] Save retrieval timestamp, source identifier, schema, row count, minimum/maximum date and SHA256.
 - Depends on: T010.
@@ -104,6 +114,32 @@ If G2 or G3 fails, outputs must be labeled `exploratory_pilot`. If G1 fails, sto
 
 ### T012 — Build and version the HOSE session calendar
 
+Progress 2026-10-02 (2014 partial): captured SHS/Asean broker notices and BMSC's earlier HNX table. Recorded conflicting holiday intervals, the SHS Friday date listed among Saturdays, and Asean's title/body year mismatch. No annual coverage inferred. Evidence: `data/manifests/hose_2014_partial_holiday_evidence.yaml`.
+
+Progress 2026-10-02 (2015 partial): preserved and text-reviewed SHS New Year notice covering January 1-2, reopening January 5. This prevents a January-1-only assumption but does not establish annual HOSE coverage. Remaining holiday/exception evidence remains pending. Evidence: `data/manifests/hose_2015_partial_holiday_evidence.yaml`.
+
+Progress 2026-10-02 (2016 diagnostic): captured and text-reviewed HNX annual notice. The 251-session hypothesis reconciles cleanly with VPS; VNDIRECT/DNSE have no returned history for 2016. Direct HOSE annual confirmation, exceptional-closure review and acceptance remain pending. Evidence: `data/manifests/calendar_2016_cross_exchange_evidence.yaml`, `artifacts/source_audit/calendar_2016_cross_exchange/`.
+
+Progress 2026-10-02 (2017): captured and visually inspected complete HOSE update 1241, replacing notice 625. Tet closure is January 26-February 1; conflicting HNX January 27-February 2 dates are preserved but not applied. Candidate has 250 sessions; VPS reconciles cleanly, VNDIRECT lacks pre-August-24 coverage and DNSE has no history that year. The PDF has a typed signatory but no visible signature/stamp. Exceptional-closure review and acceptance remain pending. Evidence: `data/manifests/hose_calendar_2017_evidence.yaml`, `artifacts/source_audit/calendar_2017/`.
+
+Progress 2026-10-02 (2021 diagnostic): captured and text-reviewed HNX annual notice; diagnostic calendar has 250 sessions and retains June 1 as shortened. VPS/VNDIRECT dates reconcile cleanly; DNSE lacks 15 diagnostic dates, eleven reproduced in a new January/February request. Direct HOSE annual/session confirmation remains pending. Evidence: `data/manifests/calendar_2021_cross_exchange_evidence.yaml`, `artifacts/source_audit/calendar_2021_cross_exchange/`, `artifacts/source_audit/investigation_20261001T173314028636Z/`.
+
+Progress 2026-10-02 (2018 candidate): captured and visually inspected a cropped HOSE holiday table, combined with the signed 2019 notice's December 31 closure and an HNX retrospective of the January interruption. Candidate has 248 sessions; January 22 is retained with a shortened-session flag, January 23-24 are closed. VPS/VNDIRECT dates reconcile cleanly. Complete annual notice and primary HOSE exception documentation remain pending. Evidence: `data/manifests/hose_calendar_2018_evidence.yaml`, `artifacts/source_audit/calendar_2018/`. Latest regression suite: 29 tests passed.
+
+Progress 2026-10-02 (2020 diagnostic): captured HNX annual and KIS/SSI holiday notices; a 252-session hypothesis identifies 16 DNSE omissions within returned history, five reproduced in a fresh May request. Direct HOSE annual/session confirmation remains pending; this diagnostic does not extend verified HOSE coverage. See `reports/historical_calendar_discovery.md` and `data/manifests/calendar_2020_cross_exchange_evidence.yaml`.
+
+Progress 2026-10-02 (2019): signed HOSE annual notice 1108 captured and visually inspected. Candidate has 250 sessions; VPS/VNDIRECT reconcile cleanly, while DNSE has no history in 2019. Candidate annual coverage is 2019 plus 2022-2026; intervening years are not inferred. Evidence: `data/manifests/hose_calendar_2019_evidence.yaml`, `artifacts/source_audit/calendar_2019/`.
+
+Progress 2026-10-02: investigated the 2021-06-01 afternoon halt. Preserve it as a shortened trading session, not a full-day closure; all original providers contain one agreeing candle. Captured HOSE director's statement and source limitations are in `data/manifests/hose_session_exceptions.yaml`. Full 2021 calendar and propagation of event flags into accepted artifacts remain pending.
+
+Progress 2026-10-01 (2022): signed HOSE notice 2168 captured and visually inspected; signed issue date is December 21, 2021 despite mirror filename December 22. Candidate calendar has 249 sessions; all original providers reconcile without date anomalies. Candidate annual coverage is now 2022-2026; 2012-2021 and exceptional-closure review remain pending. Evidence: `data/manifests/hose_calendar_2022_evidence.yaml`, `artifacts/source_audit/calendar_2022/`.
+
+Progress 2026-10-01 (2024): both signed HOSE annual/update notices captured, hash-bound and visually inspected. The updated candidate calendar has 250 sessions; all three original providers reconcile without date anomalies in 2024. Remaining historical years and exceptional closures still require review. Evidence: `data/manifests/hose_calendar_2024_evidence.yaml`, `artifacts/source_audit/calendar_2024/`.
+
+Progress 2026-10-01 (historical evidence): captured and visually inspected the signed HOSE 2023 notice; candidate calendar has 249 sessions. VPS/VNDIRECT reconcile cleanly in that year; DNSE lacks 2023-04-07. The later HOSE notice supersedes conflicting dates in the older VSD settlement schedule. 2022/2024 captures and historical exceptional-closure review remain pending. See `reports/historical_calendar_discovery.md`.
+
+Progress 2026-10-01: hash-verified, visually inspected 2025/2026 holiday evidence and a replayable candidate calendar are available. Reconciliation identifies DNSE missing 2025-04-03 and 25 VPS duplicate dates. Historical coverage, exceptional-closure review and G1 remain pending. Evidence: `reports/hose_calendar_review.md`, `data/manifests/hose_calendar_evidence.yaml`, `artifacts/source_audit/calendar_2025_2026/`.
+
 - [ ] Create the session calendar from official/reproducible exchange information.
 - [ ] Record holidays, exceptional closures, source and version.
 - [ ] Do not substitute a weekday-only calendar.
@@ -113,6 +149,8 @@ If G2 or G3 fails, outputs must be labeled `exploratory_pilot`. If G1 fails, sto
 - Plan reference: Sections 6.2, 8.4.
 
 ### T013 — Validate and build the processed dataset
+
+Progress 2026-10-01: strict validation and past/current-only feature primitives implemented and tested in `scripts/phase1_pipeline.py`. Accepted execution remains blocked by pending G1/calendar; no accepted processed dataset has been written. Details: `reports/phase1_pipeline_progress.md`.
 
 - [ ] Reject duplicate/unsorted dates.
 - [ ] Check positive OHLC and OHLC inequalities.
@@ -128,6 +166,8 @@ If G2 or G3 fails, outputs must be labeled `exploratory_pilot`. If G1 fails, sto
 - Plan reference: Sections 5.2, 6.
 
 ### T014 — Build split, feasibility and common-origin manifests
+
+Progress 2026-10-01: full-path split primitives and planning-only candidate feasibility implemented. Current candidate data has 121 test origins; projected 126-origin freeze is 2026-10-08, subject to accepted realized calendar/data. Inference is explicitly prohibited by the candidate artifact. No accepted split/origin manifests are generated before upstream gates pass. Details: `reports/phase1_pipeline_progress.md`.
 
 - [ ] Calculate eligible sessions strictly after provenance boundary `B`.
 - [ ] Allocate the first 63 eligible target sessions to validation and the remainder to test.

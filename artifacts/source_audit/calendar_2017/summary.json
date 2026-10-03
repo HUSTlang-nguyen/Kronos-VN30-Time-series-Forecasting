@@ -1,0 +1,17 @@
+{
+  "classification": "candidate_pending_exceptional_closure_review",
+  "start": "2017-01-01",
+  "end": "2017-12-31",
+  "config_sha256": "afa6cbba79a9e8a85023da767783d6c95ef78b635577a419de08d28661761792",
+  "script_sha256": "f66b086b5f454796e0189fa850aca05b9feaad5d81a2ddb45f876ea63b6e8ad2",
+  "calendar_sha256": "b8380a9530731a8f017938e9da16e06d50b70ee685ad0aea0ae63139bbd9be42",
+  "scheduled_sessions_by_year": {
+    "2017": 250
+  },
+  "limitations": [
+    "Only 2017 is covered; historical exceptional closures and further updates remain pending.",
+    "Exchange-authored document is hosted by a third-party mirror, with no visible signature or stamp.",
+    "Do not substitute the conflicting HNX table for the explicit updated HOSE notice.",
+    "G1 remains pending; this is not the accepted T012 calendar."
+  ]
+}

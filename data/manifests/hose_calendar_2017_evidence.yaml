@@ -1,0 +1,36 @@
+schema_version: 1
+reviewed_on: '2026-10-02'
+status: candidate_pending_exceptional_closure_review
+covered_years: [2017]
+annual_sources:
+  '2017': hose_2017_updated
+sources:
+  hose_2017_updated:
+    author: HOSE
+    notice: 1241/TB-SGDHCM
+    issued_on: '2016-12-07'
+    replaces: 625/TB-SGDHCM dated 2016-05-26
+    url: https://static2.vietstock.vn/vietstock/2016/12/8/20161208_20161208%20Cong%20bo%20lich%20nghi%20giao%20dich%202017.pdf
+    path: data/raw/calendar/20261002_historical/hose_2017_updated_annual.pdf
+    sha256: 2db1b5b67cf48464123769b1769653dc29ab9ba79cff5f9fa29e5bc6b6052748
+    hosting: third_party_mirror
+    verification: complete_one_page_exchange_authored_document_visually_inspected
+    signature_note: Typed signatory name is present; no handwritten signature or stamp is visible.
+  hnx_conflicting_original:
+    author: HNX
+    url: https://hnx.vn/vi-vn/chi-tiet-lich-nghi-gd-60000462.html?_page=1
+    path: data/raw/calendar/20261002_historical/hnx_2017_original_annual.html
+    sha256: dacca206805175facf1c8c72107d989b4962725eeb329803491fa611a46b12aa
+    use: conflicting_discovery_evidence_not_calendar_input
+    conflict: Tet interval January 27-February 2 differs from updated HOSE January 26-February 1.
+limitations:
+  - Only 2017 is covered; historical exceptional closures and further updates remain pending.
+  - Exchange-authored document is hosted by a third-party mirror, with no visible signature or stamp.
+  - Do not substitute the conflicting HNX table for the explicit updated HOSE notice.
+  - G1 remains pending; this is not the accepted T012 calendar.
+closures:
+  - {start: '2017-01-02', end: '2017-01-02', reason: new_year, source: hose_2017_updated}
+  - {start: '2017-01-26', end: '2017-02-01', reason: lunar_new_year, source: hose_2017_updated}
+  - {start: '2017-04-06', end: '2017-04-06', reason: hung_kings, source: hose_2017_updated}
+  - {start: '2017-05-01', end: '2017-05-02', reason: reunification_labour, source: hose_2017_updated}
+  - {start: '2017-09-04', end: '2017-09-04', reason: national_day, source: hose_2017_updated}

@@ -1,0 +1,18 @@
+{
+  "classification": "candidate_pending_exceptional_closure_review",
+  "start": "2019-01-01",
+  "end": "2019-12-31",
+  "config_sha256": "7d1429b050e25cdf38bc1cf4e4de26cb528d523ae4008cf0615699e0f8a42ce3",
+  "script_sha256": "f66b086b5f454796e0189fa850aca05b9feaad5d81a2ddb45f876ea63b6e8ad2",
+  "calendar_sha256": "3cc7380f6d42e1bd3bf066b6240c881056210e555a6da36f7bae7a2df87095b9",
+  "scheduled_sessions_by_year": {
+    "2019": 250
+  },
+  "limitations": [
+    "Only 2019 is covered; no inference for other years.",
+    "Notice also closes 2018-12-31; that date is outside this calendar's annual coverage.",
+    "Exchange-authored signed scan is hosted by a third-party mirror.",
+    "Exceptional closures and further updates still require review.",
+    "G1 pending; this is not the accepted T012 calendar."
+  ]
+}

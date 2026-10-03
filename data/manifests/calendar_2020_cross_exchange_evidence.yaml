@@ -1,0 +1,52 @@
+schema_version: 1
+reviewed_on: '2026-10-02'
+status: diagnostic_cross_exchange_pending_HOSE_confirmation
+covered_years: [2020]
+annual_sources:
+  '2020': hnx_annual
+sources:
+  hnx_annual:
+    url: https://hnx.vn/vi-vn/chi-tiet-lich-nghi-gd-60006486.html?_page=1
+    path: data/raw/calendar/20261002_historical/hnx_2020_annual.html
+    sha256: e358fe791fba78f05d559faebe3f1c9ee81cb7fa8d935818ec54e72c6f59b7e7
+    author: HNX
+    published_on: '2019-11-06'
+    scope: HNX_trading_calendar_not_HOSE
+    regulatory_references: [3270/UBCK-PTTT, 6643/UBCK-PTTT]
+  ssi_new_year:
+    url: https://www.ssi.com.vn/tin-tuc/tin-tuc-su-kien-ssi/thong-bao-lich-nghi-tet-duong-lich-2020
+    path: data/raw/calendar/20261002_historical/ssi_2020_new_year.html
+    sha256: 559ff2c8bfcf0e5ba5b624c7c3c177ed4e42ef8389d95a0b7f82a03322c10c3d
+    author: SSI
+  kis_tet:
+    url: https://kisvn.vn/thong-bao-v-v-nghi-le-tet-am-lich-2020
+    path: data/raw/calendar/20261002_historical/kis_2020_tet.html
+    sha256: fd5dcdbc9f85c555348c65609fd5391a138b081422ed948a8ccf52607a7518fa
+    author: KIS
+  kis_hung_kings:
+    url: https://kisvn.vn/nghi-le-gio-to-hung-vuong-2020-mung-10-03-am-lich
+    path: data/raw/calendar/20261002_historical/kis_2020_hung_kings.html
+    sha256: 2e67763b84b88f7e0f27e14fb49c4d226c38d413db1538afdd5e7d18aa3dca32
+    author: KIS
+  kis_labour:
+    url: https://kisvn.vn/226541-2
+    path: data/raw/calendar/20261002_historical/kis_2020_labour.html
+    sha256: fcd9760b5302994ff81a2c3bd192f49aaac7edb365d17c7d8c7cb984b421d856
+    author: KIS
+  kis_national:
+    url: https://kisvn.vn/thong-bao-nghi-le-quoc-khanh-02-09-2020
+    path: data/raw/calendar/20261002_historical/kis_2020_national.html
+    sha256: 57ff61134ab4605211007ec40b42469285c439933284182d1eadfd641397cf6d
+    author: KIS
+    transcription_note: Closure explicitly says 2020-09-02; reopening line says 2019-09-03. Preserve typo and do not use reopening year.
+limitations:
+  - This is a diagnostic holiday hypothesis; HOSE annual coverage is not established.
+  - The annual exchange notice is HNX; broker notices corroborate individual trading holidays only.
+  - HNX is not silently substituted for HOSE; direct HOSE confirmation remains required.
+  - Exceptional closures remain unreviewed and G1 is pending.
+closures:
+  - {start: '2020-01-01', end: '2020-01-01', reason: new_year, source: ssi_new_year}
+  - {start: '2020-01-23', end: '2020-01-29', reason: lunar_new_year, source: kis_tet}
+  - {start: '2020-04-02', end: '2020-04-02', reason: hung_kings, source: kis_hung_kings}
+  - {start: '2020-04-30', end: '2020-05-01', reason: reunification_labour, source: kis_labour}
+  - {start: '2020-09-02', end: '2020-09-02', reason: national_day, source: kis_national}

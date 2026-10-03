@@ -1,0 +1,35 @@
+schema_version: 1
+reviewed_on: '2026-10-02'
+status: partial_broker_holiday_evidence_not_annual_calendar
+covered_years: []
+source:
+  author: SHS
+  published_on: '2014-12-31'
+  scope: broker_trading_holiday_notice_not_HOSE_annual_notice
+  url: https://archive.shs.com.vn/News/20141231/880365/thong-bao-ve-lich-nghi-tet-duong-lich-2015-tai-cong-ty-cp-chung-khoan-sai-gon-ha-noi-shs.aspx
+  path: data/raw/calendar/20261002_historical/shs_2015_new_year.html
+  sha256: 8f750969c596c80a752744c721af50d79ee7cc23d0333bc810530d2fc46b9190
+  verification: unchanged_HTML_visible_article_text_reviewed
+holiday:
+  start: '2015-01-01'
+  end: '2015-01-02'
+  reopening: '2015-01-05'
+limitations:
+  - Confirms one broker-announced trading holiday interval only.
+  - January 2 must be reviewed explicitly; a January-1-only rule would be insufficient.
+  - Complete HOSE annual notice, later updates and exceptional closures remain pending.
+  - No annual calendar coverage, accepted dataset or G1 acceptance is inferred.
+discovery_followups:
+  - url: https://www.ssi.com.vn/quan-he-nha-dau-tu/cong-bo-thong-tin/chi-tiet/thong-bao-nghi-le-2015
+    status: page_captured_attachment_download_blocked
+    page_path: data/raw/calendar/20261002_historical/ssi_2015_holidays_page.html
+    page_sha256: e5685c2d4f56abab0348e8b0cfdfecd80104f459e7dbc660c5a998ba746fa7ee
+    attachment_url: https://www.ssi.com.vn/upload/file/d3a09a22-45ee-4ba1-aa8f-d0cd520e2bf2.jpg
+    attachment_failure: HTTP_403_no_image_bytes_saved_no_calendar_dates_inferred
+  - url: https://www.vndirect.com.vn/vndirect-thong-bao-ve-viec-nghi-giao-dich-tet-2015/
+    status: web_article_discovered_local_capture_HTTP_403
+  - notice: 1157/TB-SGDHCM
+    reported_issued_on: '2014-12-19'
+    replaces: 596/TB-SGDHCM dated 2014-05-30
+    status: identifier_discovered_in_secondary_publication_original_notice_pending
+    discovery_url: https://cafef.vn/thi-truong-chung-khoan/thong-bao-lich-nghi-giao-dich-nam-2015-va-hoan-doi-ngay-nghi-hang-tuan-vao-dip-nghi-le-tet-nam-2015-2014122108492526713.chn

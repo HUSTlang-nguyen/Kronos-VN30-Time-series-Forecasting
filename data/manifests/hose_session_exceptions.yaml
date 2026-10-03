@@ -1,0 +1,34 @@
+schema_version: 1
+reviewed_on: '2026-10-02'
+status: investigation_pending_calendar_acceptance
+scope: individual_events_not_complete_annual_calendar
+events:
+  - date: '2021-06-01'
+    exchange: HOSE
+    type: afternoon_trading_halt
+    full_day_closed: false
+    retain_as_session: true
+    session_quality_flag: shortened_session
+    daily_close_semantics: last_morning_matched_price
+    primary_statement:
+      publisher: VTV
+      speaker: Le Hai Tra, HOSE general director
+      url: https://vtv.vn/kinh-te/ong-le-hai-tra-hose-tro-lai-binh-thuong-tu-2-6-he-thong-moi-co-the-trien-khai-tu-thang-7-20210601180400422.htm
+      path: data/raw/calendar/20261002_historical/hose_ceo_20210601_interview.html
+      sha256: 903791dc6e9998a968460101ef3f2419bd95a1de764796727720a8045cb06be0
+    broker_notice:
+      url: https://www.vndirect.com.vn/tin_vndirect/thong-bao-ngung-giao-dich-hose/
+      verification: web_text_reviewed_no_local_capture
+      local_capture_failure: HTTP challenge; no bypass attempted
+      attachment_failure: linked exchange PDF returns HTTP 404
+    source_snapshot:
+      manifest: data/raw/source_audit/20261001T151513588605Z/manifest.json
+      manifest_sha256: 17d72a42a077ff2a3c54d5f55deb4aa8fe82dbf1a5fa7ad04fcdfa4ddcc92115
+      providers: [vps, vndirect, dnse]
+      observations_per_provider: 1
+      agreed_ohlc: {open: 1473.28, high: 1496.55, low: 1473.28, close: 1482.92}
+    limitations:
+      - Primary statement supports event and close semantics, not numeric VN30 OHLC.
+      - Provider agreement does not replace independent OHLC validation.
+      - Official exchange halt document and complete 2021 annual calendar remain pending.
+    action: retain_original_candle_without_repair_or_imputation

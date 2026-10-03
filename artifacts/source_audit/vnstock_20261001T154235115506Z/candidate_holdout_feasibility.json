@@ -1,0 +1,123 @@
+{
+  "provenance_boundary_utc": "2025-12-03 11:57:35+00:00",
+  "boundary_local_date_excluded": "2025-12-03",
+  "freeze": "2026-10-01",
+  "eligible_sessions": 203,
+  "validation_targets": {
+    "start": "2025-12-04",
+    "end": "2026-03-11",
+    "sessions": 63
+  },
+  "test_targets": {
+    "start": "2026-03-12",
+    "end": "2026-10-01",
+    "sessions": 140
+  },
+  "validation_origins": 44,
+  "test_origins": 121,
+  "required_test_origins": 126,
+  "first_test_origin": "2026-03-11",
+  "last_test_origin": "2026-09-03",
+  "earliest_projected_freeze": "2026-10-08",
+  "projection_status": "scheduled_calendar_only",
+  "size_gate": "pilot",
+  "classification": "planning_only_pending_G1_and_T012",
+  "inference_allowed": false,
+  "observed_calendar_overlap_start": "2025-01-02",
+  "G1": "pending",
+  "calendar_status": "candidate_pending_exceptional_closure_review",
+  "calendar_evidence_sha256": "ef57d5b9ef23ac550bba124ce9302e7036c96ce1a2e01d2d1b4ab0cb910c4f18",
+  "checkpoint_provenance_sha256": "5997e92c5c13596f0efb9b715c39686cdb68c1e656a1d5dbe90c9bb897890cb4",
+  "study_sha256": "faae6aa69e6ca05a8ea1da9025f6a893ebe86dd552888611ebd19ff5fcc80f30",
+  "raw_response_sha256": "56d2d9ce9ddb646ba63ff4c50571b3b83ae1879fe4ca112e124319efc76e380f",
+  "checkpoint_provenance": {
+    "schema_version": 1,
+    "audit_date": "2026-09-26",
+    "status": "accepted_for_phase_0",
+    "common_provenance_boundary": {
+      "timestamp_utc": "2025-12-03 11:57:35+00:00",
+      "determined_by": "autogluon/chronos-2-small exact pinned repository revision",
+      "rule": "Chronos-2-small training cutoff is not documented for this exact checkpoint, so the exact revision's verified public availability is used conservatively.",
+      "next_step": "map to the first later VN30 session after the HOSE calendar is frozen"
+    },
+    "models": {
+      "chronos_2_small": {
+        "repository": "autogluon/chronos-2-small",
+        "repository_revision": "ddec01313e50b6bc58ebaa92ede81bc24a3d9f9a",
+        "revision_public_timestamp_utc": "2025-12-03 11:57:35+00:00",
+        "weight_introducing_revision": "5108440c6caab43c7467b11091e2a9e92c286342",
+        "weight_public_timestamp_utc": "2025-12-03 11:55:13+00:00",
+        "weights_file": "model.safetensors",
+        "weights_sha256": "492290ae82bb89f9769e3479ce90b3179de1f33e600c34daa0352531538b23cd",
+        "weights_size_bytes": 111749048,
+        "documented_training_cutoff": "unknown",
+        "fallback_boundary_kind": "exact_revision_public_availability",
+        "evidence": [
+          "https://huggingface.co/autogluon/chronos-2-small/commit/ddec01313e50b6bc58ebaa92ede81bc24a3d9f9a",
+          "https://huggingface.co/autogluon/chronos-2-small/commit/5108440c6caab43c7467b11091e2a9e92c286342"
+        ]
+      },
+      "kronos_small": {
+        "repository": "NeoQuasar/Kronos-small",
+        "repository_revision": "901c26c1332695a2a8f243eb2f37243a37bea320",
+        "revision_public_timestamp_utc": "2025-09-09 14:10:26+00:00",
+        "weight_introducing_revision": "ac5c409a313c4eadd1ca78201322f5cadb9c34ab",
+        "weight_public_timestamp_utc": "2025-06-30 16:44:37+00:00",
+        "weights_file": "model.safetensors",
+        "weights_sha256": "b082dfcbd8e8c142a725c8bbb99781802f38fec81210e13479effb32b3c3e020",
+        "weights_size_bytes": 98980656,
+        "documented_training_cutoff": "2024-06",
+        "boundary_kind": "documented_training_cutoff_and_revision_availability",
+        "evidence": [
+          "https://huggingface.co/NeoQuasar/Kronos-small/commit/901c26c1332695a2a8f243eb2f37243a37bea320",
+          "https://arxiv.org/html/2508.02739v1"
+        ]
+      }
+    },
+    "tokenizers": {
+      "kronos_tokenizer_base": {
+        "repository": "NeoQuasar/Kronos-Tokenizer-base",
+        "repository_revision": "0e0117387f39004a9016484a186a908917e22426",
+        "revision_public_timestamp_utc": "2025-09-09 14:10:02+00:00",
+        "weight_introducing_revision": "9ef143b98ee3c2488eebd85404e0c215c112b46a",
+        "weight_public_timestamp_utc": "2025-06-30 17:04:10+00:00",
+        "weights_file": "model.safetensors",
+        "weights_sha256": "59d85f6af76a2c3b8240ea06cb21db4213b4eeca053f246b23e29cf832fc6bee",
+        "weights_size_bytes": 15842368,
+        "documented_training_cutoff": "2024-06",
+        "evidence": [
+          "https://huggingface.co/NeoQuasar/Kronos-Tokenizer-base/commit/0e0117387f39004a9016484a186a908917e22426",
+          "https://arxiv.org/html/2508.02739v1"
+        ]
+      }
+    },
+    "implementation_code": {
+      "kronos": {
+        "repository": "https://github.com/shiyu-coder/Kronos.git",
+        "revision": "67b630e67f6a18c9e9be918d9b4337c960db1e9a",
+        "revision_timestamp_utc": "2026-04-13 12:38:49+00:00"
+      },
+      "chronos_forecasting": {
+        "distribution": "chronos-forecasting",
+        "version": "2.3.2",
+        "repository": "https://github.com/amazon-science/chronos-forecasting.git",
+        "reviewed_revision": "10afa9ebe016e514f9d7dc1aa873f66af57e116b",
+        "reviewed_revision_timestamp_utc": "2026-09-17 07:39:21+00:00"
+      }
+    },
+    "gate_G2": {
+      "status": "pass",
+      "unresolved_limitations": [
+        "Chronos-2-small exact pretraining cutoff is not documented.",
+        "Public availability is a conservative fallback and does not prove absence of training-data overlap before that date."
+      ]
+    }
+  },
+  "limitations": [
+    "2012-2024 not covered; no extrapolation permitted",
+    "2026 annual announcement is an exchange-authored scan hosted by a third-party mirror; official-host copy pending",
+    "Annual holidays do not establish absence of exceptional closures; review pending",
+    "G1 pending; not the accepted T012 calendar"
+  ],
+  "contains_forecasts_or_metrics": false
+}

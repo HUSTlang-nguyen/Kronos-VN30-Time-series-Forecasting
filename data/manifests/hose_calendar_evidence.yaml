@@ -1,0 +1,84 @@
+schema_version: 1
+reviewed_on: '2026-10-01'
+status: candidate_pending_exceptional_closure_review
+covered_years:
+- 2025
+- 2026
+annual_sources:
+  '2025': hose_2025
+  '2026': hose_2026_mirror
+sources:
+  hose_2025:
+    url: https://staticfile.hsx.vn/Uploads/UploadDocuments/1737138/20241226_20242612_Thong%20bao%20ve%20lich%20nghi%202025.pdf
+    path: data/raw/calendar/20261001/hose_2025.pdf
+    sha256: 0399221e82ef182e23e3adf49ffc0b0fc89c0b9991615c9ed4e6785ac41cc911
+    size_bytes: 806037
+  hose_2026_update:
+    url: https://staticfile.hsx.vn/Uploads/UploadDocuments/2426350/20251225_Thong%20bao%20%20ve%20%20viec%20cap%20nhat%20lich%20nghi%20giao%20dich%20Tet%20Duong%20lich%202026%20toan%20thi%20truong.pdf
+    path: data/raw/calendar/20261001/hose_2026_update.pdf
+    sha256: ef798ee1078b1895b026dfea5652630f408f6772dcdc59a07690b833241aed2c
+    size_bytes: 194413
+  hose_2026_mirror:
+    url: https://cdn.thuvienphapluat.vn/uploads/DanLuat-BanAn/2026/2/Th%C3%B4ng-b%C3%A1o-2294-TB-SGDHCM.pdf
+    path: data/raw/calendar/20261001/hose_2026_mirror.pdf
+    sha256: 7197a28764962f760a96bca0e46f1670c925716c53c8f43303194c25eea95d0b
+    size_bytes: 1089386
+limitations:
+- 2012-2024 not covered; no extrapolation permitted
+- 2026 annual announcement is an exchange-authored scan hosted by a third-party mirror;
+  official-host copy pending
+- Annual holidays do not establish absence of exceptional closures; review pending
+- G1 pending; not the accepted T012 calendar
+closures:
+- start: '2025-01-01'
+  end: '2025-01-01'
+  reason: new_year
+  source: hose_2025
+- start: '2025-01-27'
+  end: '2025-01-31'
+  reason: lunar_new_year
+  source: hose_2025
+- start: '2025-04-07'
+  end: '2025-04-07'
+  reason: hung_kings
+  source: hose_2025
+- start: '2025-04-30'
+  end: '2025-05-02'
+  reason: reunification_labour
+  source: hose_2025
+- start: '2025-09-01'
+  end: '2025-09-02'
+  reason: national_day
+  source: hose_2025
+- start: '2025-04-26'
+  end: '2025-04-26'
+  reason: makeup_workday_no_trading
+  source: hose_2025
+- start: '2026-01-01'
+  end: '2026-01-02'
+  reason: new_year_updated
+  source: hose_2026_update
+- start: '2026-01-10'
+  end: '2026-01-10'
+  reason: makeup_workday_no_trading
+  source: hose_2026_update
+- start: '2026-02-16'
+  end: '2026-02-20'
+  reason: lunar_new_year
+  source: hose_2026_mirror
+- start: '2026-04-27'
+  end: '2026-04-27'
+  reason: hung_kings
+  source: hose_2026_mirror
+- start: '2026-04-30'
+  end: '2026-05-01'
+  reason: reunification_labour
+  source: hose_2026_mirror
+- start: '2026-08-31'
+  end: '2026-09-02'
+  reason: national_day
+  source: hose_2026_mirror
+- start: '2026-08-22'
+  end: '2026-08-22'
+  reason: makeup_workday_no_trading
+  source: hose_2026_mirror

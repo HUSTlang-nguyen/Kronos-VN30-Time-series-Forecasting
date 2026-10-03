@@ -1,0 +1,17 @@
+{
+  "classification": "diagnostic_cross_exchange_pending_HOSE_confirmation",
+  "start": "2021-01-01",
+  "end": "2021-12-31",
+  "config_sha256": "021339249f289f194a410107bba0f577173e5dd3494a3f059ced5329fd903264",
+  "script_sha256": "f66b086b5f454796e0189fa850aca05b9feaad5d81a2ddb45f876ea63b6e8ad2",
+  "calendar_sha256": "26650ba3ca225b1dded0bd60b4a9a00a142944395682680d90a4ab84c403a381",
+  "scheduled_sessions_by_year": {
+    "2021": 250
+  },
+  "limitations": [
+    "Diagnostic hypothesis only; no verified HOSE annual coverage is established.",
+    "HNX annual holidays require direct HOSE confirmation; broker evidence covers Tet only.",
+    "Individual HOSE halt evidence preserves June 1 but is not a complete exception review.",
+    "G1 and T012 remain pending; do not promote to accepted calendar or infer missing candles."
+  ]
+}

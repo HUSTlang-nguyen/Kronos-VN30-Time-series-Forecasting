@@ -1,0 +1,48 @@
+{
+  "classification": "reproduced_material_close_discrepancy_no_dataset_patch",
+  "date": "2022-11-09",
+  "units": "index_points",
+  "absolute_tolerance": 0.02,
+  "original_audit_manifest_sha256": "17d72a42a077ff2a3c54d5f55deb4aa8fe82dbf1a5fa7ad04fcdfa4ddcc92115",
+  "narrow_capture_manifest_sha256": "bcee879cb7aba7c16ebaecb2aabfc7bb0259b195dda753b4cd2123a59d186223",
+  "narrow_response_sha256": "3b46331dce26ec5f8b89f055ffe51314e4d2489dc5775384b1fe6f031cab8022",
+  "ohlc": {
+    "dnse": {
+      "open": 980.92,
+      "high": 993.28,
+      "low": 969.19,
+      "close": 974.17
+    },
+    "vndirect": {
+      "open": 980.92,
+      "high": 993.28,
+      "low": 969.19,
+      "close": 979.68
+    },
+    "vps": {
+      "open": 980.92,
+      "high": 993.28,
+      "low": 969.19,
+      "close": 979.68
+    },
+    "dnse_narrow": {
+      "open": 980.92,
+      "high": 993.28,
+      "low": 969.19,
+      "close": 974.17
+    }
+  },
+  "dnse_close_reproduced": true,
+  "close_absolute_difference_vs_vndirect": 5.509999999999991,
+  "independent_publication": {
+    "path": "data/raw/source_investigation/20261001T180030479867Z/pinetree_20221109_market_brief.html",
+    "sha256": "497efae807e4c23325ad3f4505d361d5b4b3798fe55fccba0549f54b6bd7d55a",
+    "url": "https://pinetree.vn/en/post/20221109/market-brief-09-11-2022/",
+    "reported_vn30_close": 979.68
+  },
+  "limitations": [
+    "Exchange confirmation and upstream lineage remain unverified.",
+    "Publication corroborates close only, not open/high/low.",
+    "No accepted source, correction or G1 acceptance is inferred."
+  ]
+}

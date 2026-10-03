@@ -1,0 +1,42 @@
+schema_version: 1
+reviewed_on: '2026-10-02'
+status: diagnostic_cross_exchange_pending_HOSE_confirmation
+covered_years: [2021]
+annual_sources:
+  '2021': hnx_annual
+sources:
+  hnx_annual:
+    author: HNX
+    published_on: '2020-12-04'
+    scope: HNX_trading_calendar_not_HOSE
+    url: https://hnx.vn/vi-vn/chi-tiet-lich-nghi-gd-60010564.html?_page=1
+    path: data/raw/calendar/20261002_historical/hnx_2021_annual.html
+    sha256: 09c4062b6ab7a5632797ea1efacaaa3d66504606db4ba58267197b3838c077a9
+    verification: unchanged_HTML_visible_article_text_reviewed
+    regulatory_references: [9895/VPCP-KGVX, 3467/UBCK-PTTT]
+  bmsc_tet:
+    author: Bao Minh Securities
+    scope: broker_notice_not_exchange_annual_notice
+    url: https://bmsc.com.vn/uploads/tin-tuc/2021_02/cv-di-thong-bao-nghi-tet-nguyen-dang-nam-2021-den-quy-khach-hang.pdf
+    path: data/raw/calendar/20261002_historical/bmsc_2021_tet.pdf
+    sha256: ef8201986f2611733837e2bdc8cc1d05928f8b6ffa4a17c7377899473fd410c8
+  hose_director_interview:
+    author: VTV_interview_with_HOSE_director
+    scope: HOSE_afternoon_halt_not_full_day_closure
+    url: https://vtv.vn/kinh-te/ong-le-hai-tra-hose-tro-lai-binh-thuong-tu-2-6-he-thong-moi-co-the-trien-khai-tu-thang-7-20210601180400422.htm
+    path: data/raw/calendar/20261002_historical/hose_ceo_20210601_interview.html
+    sha256: 903791dc6e9998a968460101ef3f2419bd95a1de764796727720a8045cb06be0
+limitations:
+  - Diagnostic hypothesis only; no verified HOSE annual coverage is established.
+  - HNX annual holidays require direct HOSE confirmation; broker evidence covers Tet only.
+  - Individual HOSE halt evidence preserves June 1 but is not a complete exception review.
+  - G1 and T012 remain pending; do not promote to accepted calendar or infer missing candles.
+closures:
+  - {start: '2021-01-01', end: '2021-01-01', reason: new_year, source: hnx_annual}
+  - {start: '2021-02-10', end: '2021-02-16', reason: lunar_new_year, source: bmsc_tet}
+  - {start: '2021-04-21', end: '2021-04-21', reason: hung_kings, source: hnx_annual}
+  - {start: '2021-04-30', end: '2021-04-30', reason: reunification, source: hnx_annual}
+  - {start: '2021-05-03', end: '2021-05-03', reason: labour_observed, source: hnx_annual}
+  - {start: '2021-09-02', end: '2021-09-03', reason: national_day, source: hnx_annual}
+session_events:
+  - {date: '2021-06-01', quality_flag: shortened_session, source: hose_director_interview}

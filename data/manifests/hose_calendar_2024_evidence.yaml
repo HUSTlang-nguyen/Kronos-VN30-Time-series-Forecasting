@@ -1,0 +1,38 @@
+schema_version: 1
+reviewed_on: '2026-10-01'
+status: candidate_pending_exceptional_closure_review
+covered_years: [2024]
+annual_sources:
+  '2024': hose_2024_annual
+sources:
+  hose_2024_annual:
+    url: https://cdn.thuvienphapluat.vn/uploads/Hoidapphapluat/2023/DTT/14122023/20231207_Lich%20Nghi%20Giao%20Dich%202024.pdf
+    path: data/raw/calendar/20261001_historical/hose_2024_annual.pdf
+    sha256: f792a7484d3c95434b1326ac768162e52c34db526f54c0841f21b7042a12bb18
+    author: HOSE
+    notice: 1943/TB-SGDHCM
+    issued_on: '2023-12-07'
+    verification: complete_signed_scan_visually_inspected
+    hosting: third_party_mirror
+  hose_2024_update:
+    url: https://static2.vietstock.vn/vietstock/2024/4/19/20240419_19042024___cap_nhat_lich_nghi_giao_dich_2024_.pdf
+    path: data/raw/calendar/20261001_historical/hose_2024_update.pdf
+    sha256: 0c579efbaf9acd12c7c7559290c05b82d6e3a1885184737b239ea9dc306374d5
+    author: HOSE
+    notice: 905/TB-SGDHCM
+    issued_on: '2024-04-19'
+    verification: complete_signed_scan_visually_inspected
+    hosting: third_party_mirror
+    supersedes: annual_notice_reunification_labour_closure
+limitations:
+  - Only 2024 is covered; no inference for other years.
+  - Exchange-authored signed scans are hosted by third-party mirrors.
+  - Exceptional closures and further updates still require review.
+  - G1 pending; this is not the accepted T012 calendar.
+closures:
+  - {start: '2024-01-01', end: '2024-01-01', reason: new_year, source: hose_2024_annual}
+  - {start: '2024-02-08', end: '2024-02-14', reason: lunar_new_year, source: hose_2024_annual}
+  - {start: '2024-04-18', end: '2024-04-18', reason: hung_kings, source: hose_2024_annual}
+  - {start: '2024-04-29', end: '2024-05-01', reason: updated_reunification_labour, source: hose_2024_update}
+  - {start: '2024-05-04', end: '2024-05-04', reason: makeup_saturday_no_trading, source: hose_2024_update}
+  - {start: '2024-09-02', end: '2024-09-03', reason: national_day, source: hose_2024_annual}

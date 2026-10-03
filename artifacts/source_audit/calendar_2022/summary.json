@@ -1,0 +1,17 @@
+{
+  "classification": "candidate_pending_exceptional_closure_review",
+  "start": "2022-01-01",
+  "end": "2022-12-31",
+  "config_sha256": "b41aff77b5fa177bc3cbaa9a6ddcc582b519237ecf335afae967f7ba1d6427c3",
+  "script_sha256": "36d9b361e818954c093f2e686686769554f5d54cd7accf1fac7d8a9c8ff760f5",
+  "calendar_sha256": "126aca1dafd9f60eba6bf98a36d7011cbbd110da14e278f0c06f8f72a87a600d",
+  "scheduled_sessions_by_year": {
+    "2022": 249
+  },
+  "limitations": [
+    "Only 2022 is covered; no inference for other years.",
+    "Exchange-authored signed scan is hosted by a third-party mirror.",
+    "Exceptional closures and further updates still require review.",
+    "G1 pending; this is not the accepted T012 calendar."
+  ]
+}

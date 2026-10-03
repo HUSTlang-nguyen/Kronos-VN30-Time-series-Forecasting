@@ -1,0 +1,50 @@
+schema_version: 1
+reviewed_on: '2026-10-02'
+status: partial_conflicting_holiday_evidence_not_annual_calendar
+covered_years: []
+sources:
+  shs_updated_schedule:
+    author: SHS
+    published_on: '2013-12-24'
+    scope: broker_notice_describing_HNX_and_HOSE_not_exchange_original
+    url: https://www.shs.com.vn/tin-tuc/shs-lich-cac-ngay-nghi-letet-trong-nam-2014
+    path: data/raw/calendar/20261002_historical/shs_2014_holidays.html
+    sha256: b11cce59857dcf659aa22d6f9719eb574a12f7853ec99a2b32bc1dff21007ec0
+    verification: unchanged_HTML_visible_article_text_reviewed
+  asean_national_day:
+    author: Asean_Securities
+    published_on: '2014-08-29'
+    scope: broker_notice_citing_HOSE_789_TB_SGDHCM_dated_2014_08_13
+    url: https://www.aseansc.com.vn/thong-bao-lich-nghi-giao-dich-nhan-ngay-quoc-khanh-02092013-2/
+    path: data/raw/calendar/20261002_historical/asean_2014_national_day.html
+    sha256: 183456eb2692a383f980db5086e98ef6136b37033ba946ac52b1bc1e25f12ad9
+    verification: unchanged_HTML_visible_article_text_reviewed
+    title_url_caveat: Title_and_URL_say_2013_but_article_body_and_publication_date_say_2014
+  bmsc_original_hnx_schedule:
+    author: HNX_republished_by_BMSC
+    scope: earlier_HNX_schedule_not_HOSE_and_not_final_updated_schedule
+    regulatory_reference: 2194/UBCK-PTTT dated 2013-05-31
+    url: https://bmsc.com.vn/tin-tuc/tin-doanh-nghiep/Thong-bao-Lich-nghi-giao-dich-nam-2014-219080.html
+    path: data/raw/calendar/20261002_historical/bmsc_2014_original_hnx_schedule.html
+    sha256: 4bafd3852b355200e6a7d9d616873ca57ed86cce07bffe3dc1e02702a2a665d7
+    verification: unchanged_HTML_visible_article_text_reviewed
+partial_closures:
+  - {start: '2014-01-01', end: '2014-01-01', reason: new_year, source: shs_updated_schedule}
+  - {start: '2014-04-09', end: '2014-04-09', reason: hung_kings, source: shs_updated_schedule}
+  - {start: '2014-04-30', end: '2014-05-02', reason: reunification_labour, source: shs_updated_schedule}
+  - {start: '2014-09-01', end: '2014-09-02', reason: national_day, source: asean_national_day}
+national_day_reopening: '2014-09-03'
+national_day_no_makeup_trading: '2014-09-06'
+unresolved:
+  - The SHS table does not give a Tet interval; complete annual coverage is not established.
+  - The earlier HNX table gives Tet January 30-February 5, April 30-May 1 and September 2 only.
+  - Do not merge the earlier HNX table with later broker announcements as an accepted HOSE calendar.
+  - SHS lists 25/4/2014 among Saturdays without trading, but this date is Friday; preserve the ambiguity without correction or closing that day.
+discovery_followups:
+  - url: https://www.mbs.com.vn/vi/goc-truyen-thong/tin-tuc-mbs/thong-bao-nghi-tet-am-lich-giap-ngo/
+    status: web_article_reviewed_local_capture_HTTP_403
+    described_interval: January_28_to_February_5_2014_reopening_February_6
+    limitation: No_local_original_bytes_or_accepted_Tet_closure_claim
+limitations:
+  - No annual calendar, accepted dataset, row repair or G1 acceptance is inferred.
+  - Complete HOSE annual notice, later updates and exceptional closures remain pending.

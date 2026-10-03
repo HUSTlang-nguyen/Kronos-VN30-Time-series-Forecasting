@@ -1,0 +1,26 @@
+{
+  "classification": "candidate_calendar_reconciliation_not_G1_acceptance",
+  "end": "2024-12-31",
+  "calendar_sha256": "d37404f394afac2794e2b746be6940b0a94f05641fc87b86d459687c15ff330c",
+  "audit_manifest_sha256": "17d72a42a077ff2a3c54d5f55deb4aa8fe82dbf1a5fa7ad04fcdfa4ddcc92115",
+  "providers": {
+    "vps": {
+      "missing_scheduled_sessions": [],
+      "observed_non_sessions": [],
+      "duplicate_dates_in_coverage": [],
+      "observations_outside_calendar_coverage": 3429
+    },
+    "vndirect": {
+      "missing_scheduled_sessions": [],
+      "observed_non_sessions": [],
+      "duplicate_dates_in_coverage": [],
+      "observations_outside_calendar_coverage": 2021
+    },
+    "dnse": {
+      "missing_scheduled_sessions": [],
+      "observed_non_sessions": [],
+      "duplicate_dates_in_coverage": [],
+      "observations_outside_calendar_coverage": 1314
+    }
+  }
+}

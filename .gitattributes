@@ -1,0 +1,13 @@
+# Preserve exact bytes for SHA256-bound Phase 1 evidence and replay scripts.
+configs/data_source_acceptance.yaml -text
+data/manifests/*_evidence.yaml -text whitespace=cr-at-eol
+scripts/audit_holdout_feasibility.py -text
+scripts/audit_vnstock_sources.py -text
+scripts/build_anomaly_review.py -text
+scripts/build_hose_calendar.py -text
+scripts/freeze_phase1.py -text
+scripts/investigate_source_anomalies.py -text
+scripts/phase1_pipeline.py -text
+scripts/reconcile_hose_sessions.py -text
+scripts/validate_vn30_sources.py -text
+scripts/verify_vnstock_capture.py -text

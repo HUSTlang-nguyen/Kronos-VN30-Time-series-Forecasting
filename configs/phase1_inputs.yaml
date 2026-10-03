@@ -1,0 +1,9 @@
+schema_version: 1
+status: pending
+pending_requirements:
+  - G1 accepted source with verified quality and crosscheck evidence
+  - accepted full historical HOSE calendar including exceptional closures
+  - immutable exact CSV and original HTTP responses
+  - hash-bound study and checkpoint provenance
+note: This configuration intentionally cannot freeze accepted Phase 1 outputs yet.
+g1_policy_note: Research-use permission excluded from G1 by user request on 2026-10-02; quality requirements remain mandatory.

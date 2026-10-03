@@ -1,0 +1,99 @@
+schema_version: 1
+reviewed_on: 2026-10-01
+audit_run: 20261001T151513588605Z
+gate_G1: pending
+vnstock_audit:
+  run_id: 20261001T154235115506Z
+  vnstock_version: 4.0.9
+  vnai_version: 2.6.2
+  raw_capture: data/raw/vnstock_audit/20261001T154235115506Z
+  evidence: artifacts/source_audit/vnstock_20261001T154235115506Z/offline_verification
+  report: reports/vnstock_source_audit.md
+  requested_start: '2012-02-06'
+  requested_end: '2026-10-01'
+  common_crosscheck_end: '2026-09-30'
+  kbs:
+    first_returned_date: '2012-06-01'
+    raw_rows: 3575
+    invalid_ohlc_rows: 28
+    status: pending_historical_quality_coverage_and_permission
+  vci:
+    first_returned_date: '2012-02-06'
+    raw_rows: 3656
+    invalid_ohlc_rows: 60
+    status: pending_historical_quality_coverage_and_permission
+anomaly_investigation:
+  evidence: artifacts/source_audit/investigation_20261001T153102558007Z/summary.json
+  raw_capture: data/raw/source_investigation/20261001T153102558007Z
+  report: reports/source_anomaly_investigation.md
+  dnse_missing_session:
+    date: '2025-04-03'
+    reproduced_in_narrow_window: true
+    exchange_confirmed_session: true
+    exchange_close: 1283.18
+    official_source: https://staticfile.hsx.vn/Uploads/News/de2bfaf00509454ab519d44c8ccad1f7/20250403_20250403%20T%E1%BB%95ng%20h%E1%BB%A3p%20th%C3%B4ng%20tin%20giao%20d%E1%BB%8Bch.pdf
+    local_pdf: data/raw/source_investigation/20261001T153102558007Z/hose_20250403.pdf
+    pdf_sha256: 1b38f68892f5c06c3db22a766a615695e0581a5ec17934d61760445d1818cfdf
+    disposition: captured_response_fails_session_completeness
+    root_cause: unresolved_provider_clarification_required
+  vps_duplicate_sessions:
+    dates_all_history: 26
+    identical_ohlc_dates: 1
+    conflicting_ohlc_dates: 25
+    reproduced_in_narrow_window: true
+    disposition: captured_response_fails_unique_daily_ohlc
+    root_cause: unresolved_timestamp_and_candle_semantics
+    action: no_automatic_deduplication
+investigations:
+  - anomaly: dnse_missing_2021_diagnostic_sessions
+    calendar_status: cross_exchange_diagnostic_pending_HOSE_confirmation
+    calendar_evidence: artifacts/source_audit/calendar_2021_cross_exchange/reconciliation.json
+    missing_dates: ['2021-01-21', '2021-01-22', '2021-01-25', '2021-01-26', '2021-01-27', '2021-01-28', '2021-01-29', '2021-02-01', '2021-02-02', '2021-02-03', '2021-02-04', '2021-07-12', '2021-07-13', '2021-07-14', '2021-07-23']
+    reproduced_dates_count: 11
+    narrow_window: {start: '2021-01-18', end_exclusive: '2021-02-06'}
+    narrow_window_evidence: artifacts/source_audit/investigation_20261001T173314028636Z/summary.json
+    raw_capture: data/raw/source_investigation/20261001T173314028636Z
+    response_sha256: e7acb53d7973c28f92757a8bbf22b1e12a3fbc70f13b6cb3ab3c5e50f5b16ef1
+    root_cause: unresolved
+    action: retain_raw_response_no_imputation
+  - date: '2023-04-07'
+    anomaly: dnse_missing_scheduled_session
+    reproduced_in_narrow_window: true
+    narrow_window_evidence: artifacts/source_audit/investigation_20261001T161635909230Z/summary.json
+    raw_capture: data/raw/source_investigation/20261001T161635909230Z
+    response_sha256: 7225236544ec915483530aa58c953c3035f6c5d3c5c4cf5f95492ab3de6d8659
+    provider_publication:
+      url: https://www.dnse.com.vn/hoc/ban-tin-thi-truong-07-04-2023
+      local_html: data/raw/source_investigation/20261001T161635909230Z/dnse_20230407_market_report.html
+      sha256: 02b1cea7fac85572689fa252e5f765652bcd5433c4ca068cbc9ba4022851808e
+      observation: DNSE reports completed HOSE trading and VN30 gaining 0.02 points
+    disposition: captured_chart_response_fails_session_completeness
+    root_cause: unresolved
+    action: retain_raw_response_no_imputation
+  - date: '2022-11-09'
+    field: close
+    reproduced_in_narrow_window: true
+    narrow_window: {start: '2022-11-07', end_exclusive: '2022-11-11'}
+    narrow_window_evidence: artifacts/source_audit/investigation_20261001T180030479867Z/price_recheck.json
+    raw_capture: data/raw/source_investigation/20261001T180030479867Z
+    response_sha256: 3b46331dce26ec5f8b89f055ffe51314e4d2489dc5775384b1fe6f031cab8022
+    provider_values:
+      dnse: 974.17
+      vndirect: 979.68
+      vps: 979.68
+    independent_publication:
+      publisher: Pinetree Securities
+      title: Market brief 09/11/2022
+      url: https://pinetree.vn/en/post/20221109/market-brief-09-11-2022/
+      local_html: data/raw/source_investigation/20261001T180030479867Z/pinetree_20221109_market_brief.html
+      sha256: 497efae807e4c23325ad3f4505d361d5b4b3798fe55fccba0549f54b6bd7d55a
+      reported_vn30_close: 979.68
+    disposition: vndirect_and_vps_value_corroborated_by_third_broker_publication
+    root_cause: unresolved
+    exchange_confirmation: pending
+    action: retain_raw_values_do_not_patch_dataset
+calendar_evidence_candidates:
+  - exchange: HOSE
+    description: Official update adding 2026-01-02 to New Year exchange closures
+    url: https://staticfile.hsx.vn/Uploads/UploadDocuments/2426350/20251225_Thong%20bao%20%20ve%20%20viec%20cap%20nhat%20lich%20nghi%20giao%20dich%20Tet%20Duong%20lich%202026%20toan%20thi%20truong.pdf
+    status: discovered_not_yet_full_calendar_verified

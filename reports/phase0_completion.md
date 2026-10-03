@@ -10,6 +10,10 @@
 
 **Pending gates:** G1, G3, G4
 
+**Re-verified:** 2026-10-01
+
+The Phase 0 acceptance state was re-verified from the current repository and locked environment. The environment rebuild succeeded offline from `uv.lock`; repository tests, checkpoint hash verification and both CUDA model smoke tests passed. Re-verification corrected two evidence defects without changing the frozen research design: the H1-H5 hypotheses already defined in the implementation plan are now present in the machine-readable study manifest, and the actual `uv.lock` SHA256 in `reports/environment.md` is `33eb1cffdbf1e3528153ce574a5ff47d06cdb51d0b6c87e7a355201fb3fc6dd3`.
+
 ## T001 — Research contract
 
 - Output: `configs/study.yaml`

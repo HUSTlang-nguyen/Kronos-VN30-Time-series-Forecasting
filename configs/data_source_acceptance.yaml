@@ -1,0 +1,43 @@
+schema_version: 1
+created_on: 2026-10-01
+classification: prospective_rerun_after_exploratory_audit
+prior_evidence: data/manifests/source_crosscheck.parquet
+symbol: VN30
+start: '2012-02-06'
+end: '2026-09-30'
+timezone: Asia/Ho_Chi_Minh
+seed: 20261001
+samples_per_year: 5
+extreme_return_count: 10
+minimum_crosschecked_dates: 30
+units: index_points
+tolerances:
+  open: 0.02
+  high: 0.02
+  low: 0.02
+  close: 0.02
+relative_tolerance: 0.0
+selection_policy: all_provider_pairs_no_automatic_primary_selection
+duplicate_policy: retain_all_raw_rows_exclude_ambiguous_dates_from_pair_comparison
+missing_policy: record_missing_dates_no_imputation
+gate_requires:
+  - independently_resolved_material_discrepancies
+  - verified_research_use_permission_for_selected_endpoint
+  - session_calendar_reconciliation
+  - reproducible_ohlc_download_and_consistent_units
+providers:
+  vps:
+    endpoint: https://histdatafeed.vps.com.vn/tradingview/history
+    resolution: D
+    terms_url: https://www.vps.com.vn/dieu-khoan-su-dung
+    permission_status: unverified_for_chart_endpoint_and_research_publication
+  vndirect:
+    endpoint: https://dchart-api.vndirect.com.vn/dchart/history
+    resolution: D
+    terms_url: https://datafeed.vndirect.com.vn/term-full
+    permission_status: datafeed_terms_do_not_establish_dchart_research_permission
+  dnse:
+    endpoint: https://api.dnse.com.vn/chart-api/v2/ohlcs/index
+    resolution: 1D
+    terms_url: https://www.dnse.com.vn/dieu-khoan-dich-vu
+    permission_status: unverified_for_chart_endpoint_and_research_publication

@@ -1,0 +1,26 @@
+schema_version: 1
+reviewed_on: '2026-10-02'
+status: diagnostic_cross_exchange_pending_HOSE_confirmation
+covered_years: [2016]
+annual_sources:
+  '2016': hnx_annual
+sources:
+  hnx_annual:
+    author: HNX
+    scope: HNX_trading_calendar_not_HOSE
+    regulatory_reference: 2648/UBCK-PTTT dated 2015-05-28
+    url: https://www.hnx.vn/vi-vn/chi-tiet-lich-nghi-gd-194376.html?_page=1
+    path: data/raw/calendar/20261002_historical/hnx_2016_annual.html
+    sha256: 685a07acaec24ed19d4a2472e0cf03df23f28a6a1520bbfe21aac15ff4bed0bf
+    verification: unchanged_HTML_visible_article_text_reviewed
+limitations:
+  - Diagnostic holiday hypothesis only; direct HOSE annual confirmation remains pending.
+  - HNX notice is not silently substituted for a HOSE annual notice.
+  - Exceptional closures and later updates remain unreviewed.
+  - G1 and T012 remain pending; do not infer or impute missing candles.
+closures:
+  - {start: '2016-01-01', end: '2016-01-01', reason: new_year, source: hnx_annual}
+  - {start: '2016-02-08', end: '2016-02-12', reason: lunar_new_year, source: hnx_annual}
+  - {start: '2016-04-18', end: '2016-04-18', reason: hung_kings, source: hnx_annual}
+  - {start: '2016-05-02', end: '2016-05-03', reason: reunification_labour, source: hnx_annual}
+  - {start: '2016-09-02', end: '2016-09-02', reason: national_day, source: hnx_annual}

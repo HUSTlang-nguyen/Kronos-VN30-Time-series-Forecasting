@@ -1,0 +1,17 @@
+{
+  "classification": "diagnostic_cross_exchange_pending_HOSE_confirmation",
+  "start": "2020-01-01",
+  "end": "2020-12-31",
+  "config_sha256": "d2ad8bf34e71184ae4286f42cabce0be460699aa494cf30e80dd806e294bec45",
+  "script_sha256": "f66b086b5f454796e0189fa850aca05b9feaad5d81a2ddb45f876ea63b6e8ad2",
+  "calendar_sha256": "192bfb0d999bf71cd804188cf55f316c71be56c17f7b246ec07c55abbc189706",
+  "scheduled_sessions_by_year": {
+    "2020": 252
+  },
+  "limitations": [
+    "This is a diagnostic holiday hypothesis; HOSE annual coverage is not established.",
+    "The annual exchange notice is HNX; broker notices corroborate individual trading holidays only.",
+    "HNX is not silently substituted for HOSE; direct HOSE confirmation remains required.",
+    "Exceptional closures remain unreviewed and G1 is pending."
+  ]
+}

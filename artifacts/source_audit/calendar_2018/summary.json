@@ -1,0 +1,17 @@
+{
+  "classification": "candidate_pending_complete_notice_and_exception_review",
+  "start": "2018-01-01",
+  "end": "2018-12-31",
+  "config_sha256": "5258ee59031ebfac35f13261eca41d531fca7d8fa8ebc43c92ea0b3c1c40f89e",
+  "script_sha256": "f66b086b5f454796e0189fa850aca05b9feaad5d81a2ddb45f876ea63b6e8ad2",
+  "calendar_sha256": "38413761f2d0680479bab6d531a660d7e66e33d2ef1fa2323232180911aa094b",
+  "scheduled_sessions_by_year": {
+    "2018": 248
+  },
+  "limitations": [
+    "2018 holiday table is cropped; complete signed annual notice remains pending.",
+    "January halt evidence is an official-host retrospective, not the original HOSE halt document.",
+    "Remaining exceptional closures and updates still require review.",
+    "G1 pending; this is not the accepted T012 calendar."
+  ]
+}
