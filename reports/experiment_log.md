@@ -102,3 +102,7 @@ Verified via GitHub API that the repository is public and its current `main` sti
 ## DVC/collaborator migration publication — 2026-10-06
 
 Publication revision is the commit containing this entry. Versions the three DVC pointers, verified Drive receipt, isolated tooling/CI check, renamed collaborator guides/report/test/ZIP receipt, and research collaboration workflow. Removes SQLite/ZIP bytes from the current Git tree while retaining local data and public Git history. Research gates, data prices and CUDA lock are unchanged. Pre-publication evidence: 52 unit tests, both snapshot formats verified, local DVC roundtrip, Drive roundtrip of 89 files, portable pointer hashes and local Markdown links. Actual remote CI must be recorded against this commit after push; another collaborator's account/access verification remains pending.
+
+## Published migration CI verified — 2026-10-06
+
+Migration commit `f56cfc8c2d2e6ada1995d0d5a8e136c16da00ff0` is on `origin/main`. Fresh local clone passes 52 tests and the dependency-lock check; credentials/data binaries are absent and all three pointer SHA256 values match the Drive verification receipt. GitHub run 37351516675 passed Windows tests, Ubuntu tests, Docker data build/tests and `dvc-local`. Updated T009 and validation reports with that exact commit/run evidence. T006's separate collaborator-account access verification remains pending; no research gate changed.

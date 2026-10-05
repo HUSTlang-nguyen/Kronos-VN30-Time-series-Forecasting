@@ -25,7 +25,7 @@ Reviewed: 2026-10-06. Migration based on `e8527db15a69c5e08fb6ecd5b2417b5870cca9
 | `dvc status` | Data and pipelines up to date |
 | `git diff --check` | Pass |
 
-CI adds `dvc-local` with a synthetic local remote; no Google credentials or real data download are required. This revision has not run on GitHub. Docker image was not rebuilt for this migration.
+CI adds `dvc-local` with a synthetic local remote; no Google credentials or real data download are required. Published migration commit `f56cfc8c2d2e6ada1995d0d5a8e136c16da00ff0` passed all four jobs in [run 37351516675](https://github.com/HUSTlang-nguyen/Kronos-VN30-Time-series-Forecasting/actions/runs/37351516675), including Docker data build/tests. The CUDA image/GPU verification remains outside this CI run.
 
 The actual-data check used a temporary filesystem remote configured with `--local`, then removed that test remote. All source files remained in the original workspace. It validates pointers/cache/bytes locally, not Google permissions or transfer.
 

@@ -143,7 +143,7 @@ Literature follow-up 2026-10-05: four alternative references have been reviewed 
 ### T009 — collaborator CI
 
 - [x] Execute GitHub CI successfully on main or a PR: Python 3.11 Windows/Linux tests and Docker data build/tests.
-- [ ] After the DVC migration is published, confirm the new `dvc-local` job and existing jobs pass for that commit; previous runs do not certify this change.
+- [x] Confirm the DVC migration CI passes: [run 37351516675](https://github.com/HUSTlang-nguyen/Kronos-VN30-Time-series-Forecasting/actions/runs/37351516675), commit `f56cfc8c2d2e6ada1995d0d5a8e136c16da00ff0` (2026-10-06); Windows/Linux tests, Docker data and `dvc-local` all passed.
 - Depends on: the Docker build/test portion of T007; the separate in-container snapshot checks remain under T007.
 - Outputs: `.github/workflows/ci.yml`, successful run URL.
 - Acceptance: dependency-lock drift is rejected; tests require neither production dataset nor checkpoint downloads. Workflow configuration alone is not a successful CI run.

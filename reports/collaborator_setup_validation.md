@@ -1,8 +1,12 @@
-# collaborator setup validation
+# Collaborator setup validation
+
+## Successful DVC migration CI (2026-10-06)
+
+[Run 37351516675](https://github.com/HUSTlang-nguyen/Kronos-VN30-Time-series-Forecasting/actions/runs/37351516675), commit `f56cfc8c2d2e6ada1995d0d5a8e136c16da00ff0`, passed all four jobs: Windows tests, Ubuntu tests, Docker data build/tests, and the synthetic `dvc-local` upload/download/history check. A fresh local clone of that commit also passed 52 tests and the dependency-lock check, contained no local credentials or SQLite/ZIP bytes, and preserved all receipt-bound DVC pointer hashes. Another collaborator's own-account Drive download remains pending.
 
 ## DVC migration checks (2026-10-06)
 
-The current working tree passes 52 tests and the synthetic local DVC upload/download/history check. Actual-data local upload and fresh-cache restore verified all 89 file SHA256 hashes plus SQLite/ZIP receipts. Google Drive upload and independent empty-cache restoration are now also verified using a custom Desktop OAuth client. Pointers/receipts are included in the migration commit; independent collaborator access and GitHub CI for this revision remain pending. See [migration validation](dvc_migration_validation.md) and [DVC setup](../docs/DVC_Data_Versioning.md). Historical Git-distributed snapshot instructions below are superseded by DVC.
+The migration passes 52 tests and the synthetic local DVC upload/download/history check. Actual-data local upload and fresh-cache restore verified all 89 file SHA256 hashes plus SQLite/ZIP receipts. Google Drive upload and independent empty-cache restoration are also verified using a custom Desktop OAuth client. Pointers/receipts are included in the published migration commit; its CI passed as recorded above. Independent collaborator access remains pending. See [migration validation](dvc_migration_validation.md) and [DVC setup](../docs/DVC_Data_Versioning.md). Historical Git-distributed snapshot instructions below are superseded by DVC.
 
 ## Successful remote CI (2026-10-05)
 
