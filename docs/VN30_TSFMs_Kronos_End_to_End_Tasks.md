@@ -5,9 +5,31 @@
 **Primary endpoint:** pooled Close MAE at h=1  
 **Primary comparison:** Kronos-small vs Naive and frozen generic multivariate TSFM  
 
+**Contributor update:** 2026-10-05. Primary source selected: VNDIRECT. Shared SQLite/ZIP snapshots are candidate artifacts, not accepted Phase 1 inputs. Setup: [README](../README.md), [CONTRIBUTING](../CONTRIBUTING.md), [data guide](Contributor_Data_Guide.md), [Docker runbook](Docker_Runbook.md).
+
+## 0. Current state and contributor workflow
+
+| Phase | Tasks | Current state | Completion evidence |
+|---|---|---|---|
+| 0 — research/environment | T001–T004 | Accepted evidence exists | `configs/study.yaml`, provenance manifest, `reports/environment.md`, smoke artifacts |
+| Contributor setup | T005–T009 | Implemented; acceptance below | `reports/contributor_setup_validation.md` |
+| 1 — source/data/calendar/splits | T010–T014 | Primary source chosen; quality/calendar acceptance pending | Source reports and freeze runbook; no accepted freeze receipt |
+| 2 — evaluation framework | T020–T027 | Pending | Interface, engine, metrics, inference, Naive end-to-end artifacts |
+| 3 — baseline ladder | T030–T033 | Pending | Replication and development artifacts |
+| 4 — TSFMs and holdout freeze | T040–T044 | Pending | Input parity, G4 freeze and common-origin forecasts |
+| 5 — results/inference | T050–T055 | Pending | Scores, tables, figures and reproducibility report |
+| 6 — secondary | T060–T062 | Deferred until T055 | Adaptation, robustness and regime reports |
+| 7 — optional | T070–T076 | Not scheduled | Separate evidence or explicit deferred reason |
+| 8 — final package | T080–T081 | Pending | Claim/evidence matrix and frozen research package |
+
+Owner/reviewer assignments live in issues/PRs rather than invented names in this checklist. Before work: claim Task ID, list dependencies and files, create `codex/<task-id>-<description>`, and agree interface boundaries with related contributors. On completion: record commands, output paths/hashes, deviations and review in `reports/experiment_log.md`, then update this checklist.
+
+The source/calendar track and synthetic interface/metric tests can progress independently. Real-data inference waits for the mandatory gates. One coordinator manages accepted data versions and final holdout execution; separate contributors must not overwrite shared artifacts or independently tune against test metrics.
+
 ## 1. Usage rules
 
 - `[ ]` pending; `[x]` accepted; add `BLOCKED:` after the task title when blocked.
+- `implemented` progress notes do not mean accepted; distinguish local validation from an actual GitHub CI run.
 - A task is complete only when its output exists, its acceptance checks pass and the evidence path is recorded.
 - Do not inspect final test metrics before G4 is frozen.
 - Do not change data cleaning, origins, models, context, sampling or selection rules from test results.
@@ -75,9 +97,63 @@ If G2 or G3 fails, outputs must be labeled `exploratory_pilot`. If G1 fails, sto
 - Acceptance: environment rebuild succeeds and both TSFM adapters return a 20-step finite multivariate forecast; remaining mandatory adapters follow the unified contract tests in T021 and their implementation tasks.
 - Plan reference: Sections 23, 29, 30 Phase 0.
 
+### Contributor setup — T005–T009
+
+### T005 — Contributor documentation and setup contract
+
+- [x] Document project scope/status, Windows/Linux/Docker setup, task ownership, PR review and evidence requirements.
+- Depends on: T001, T004.
+- Outputs: `README.md`, `CONTRIBUTING.md`, `.github/pull_request_template.md`, this checklist.
+- Acceptance: every documented executable command maps to an existing script/service; future framework commands are explicitly pending; no candidate data is mislabeled accepted.
+- Evidence: `reports/contributor_setup_validation.md`.
+
+### T006 — Share and verify one contributor snapshot
+
+- [x] Record VNDIRECT selection and export versioned candidate ZIP/SQLite preserving source bytes, prices, rows and quality flags.
+- [x] Verify local snapshots against tracked SHA256 receipts; provide a read-only SQL/pandas example.
+- [x] Version small shared SQLite/ZIP snapshots and checksums in `data/share/` through Git; keep source-working data and SQLite runtime journals ignored.
+- Depends on: source-selection portion of T010, not G1 acceptance.
+- Outputs: `configs/primary_data_source.yaml`, `data/manifests/vndirect_*snapshot.json`, `scripts/share_vndirect_*`, `scripts/check_shared_data.py`, `docs/Contributor_Data_Guide.md`.
+- Acceptance: tampered data is rejected; original bytes and duplicate/anomaly rows survive round-trip; contributors can verify without CUDA. Local package creation does not imply remote upload or data acceptance.
+- Evidence: snapshot receipts, `tests/test_contributor_snapshot.py`, infrastructure validation report.
+
+### T007 — Data/test Docker environment
+
+- [ ] Build the `data` target and run the full current test suite inside the bind-mounted checkout.
+- [ ] Verify both shared snapshot formats in the container and compare dependency subset to uv.lock.
+- Depends on: T004, T006.
+- Outputs: `Dockerfile`, `compose.yaml`, `.dockerignore`, generated `requirements/data.txt`, `docs/Docker_Runbook.md`.
+- Acceptance: a contributor without torch/GPU can run tests and inspect data; raw data/weights are excluded from build context; host `.venv` is not mounted over `/opt/venv`.
+- Evidence: `reports/contributor_setup_validation.md`, image ID and actual commands.
+
+### T008 — Portable CUDA contributor environment
+
+- [ ] Build the `cuda` target from the frozen lock and check GPU availability inside the container.
+- [ ] Provide portable pinned Kronos bootstrap and isolated local output paths for smoke/provenance checks.
+- Depends on: T003, T004.
+- Outputs: CUDA target/profile, `scripts/bootstrap_kronos.py`, smoke/provenance `--output`, Docker runbook.
+- Acceptance: build succeeds and actual torch/CUDA/device check passes on a supported host; a CPU-only host may leave GPU validation pending. This task does not imply adapter T040/T041 or G4 completion.
+- Evidence: `reports/contributor_setup_validation.md`.
+
+### T009 — Contributor CI
+
+- [ ] Execute GitHub CI successfully on the PR: Python 3.11 Windows/Linux tests and Docker data build/tests.
+- Depends on: T007.
+- Outputs: `.github/workflows/ci.yml`, successful run URL.
+- Acceptance: dependency-lock drift is rejected; tests require neither production dataset nor checkpoint downloads. Workflow configuration alone is not a successful CI run.
+- Current progress: workflow implemented; remote CI run pending.
+
 ## 4. Phase 1 — Data acquisition and immutable manifests
 
+### Phase 1 current source and coverage
+
+VNDIRECT was selected by the user on 2026-10-05. The captured history begins on 2017-08-24; do not invent pre-coverage values or splice another feed into the primary dataset. Calendar work for Dataset B covers its selected/accepted interval; older 2012–2016 investigations remain historical evidence. Dataset A cannot be a full 2016–2023 replication with this capture alone; T030 must disclose an approximation or separately justify a replication dataset before execution.
+
+Resolve material discrepancies involving the chosen primary source. Investigations of rejected providers remain evidence; acceptance does not require repairing their entire histories. Source selection and candidate sharing are complete decisions; T010's quality acceptance remains pending.
+
 ### T010 — Select and validate a VN30 OHLC provider
+
+Progress 2026-10-05: VNDIRECT selected explicitly by the user, recorded in `configs/primary_data_source.yaml`. Candidate contributor packages and checks are available under T006. G1 remains pending; no accepted dataset/splits have been published.
 
 Progress 2026-10-02 (complete anomaly review): hash-verified raw responses from all five tested providers; assembled 440 unchanged candles across all 119 dates with invalid OHLC or duplicate rows. All 100 invalid OHLC rows and 52 duplicate VPS rows remain retained. Immutable replay passed. This investigation table is not an accepted dataset or source-selection decision. Evidence: `artifacts/source_audit/anomaly_review_20261002/`, `scripts/build_anomaly_review.py`.
 
@@ -87,14 +163,15 @@ Progress 2026-10-01 (vnstock): KBS and VCI retrieved in an isolated, version-fro
 
 Progress 2026-10-01: replayable three-provider audit completed. Acceptance remains pending: material discrepancies, provider permission and exchange-session reconciliation require resolution. Evidence: `reports/data_source_acceptance.md`, `reports/source_discrepancies.md`, `data/manifests/source_investigation.yaml` and `artifacts/source_audit/20261001T151513588605Z/`. The earlier `source_crosscheck.parquet` remains exploratory; it has not been replaced or accepted as G1 evidence.
 
+- [x] Select the primary provider and record observed coverage/limitations (VNDIRECT).
 - [ ] Confirm reproducible daily OHLC download, explicit dates and consistent units.
 - [ ] Cross-check at least 30 year-stratified observations plus extreme-return dates against an independent source.
 - [ ] Define field-level numeric tolerances before cross-checking.
 - [ ] Investigate every material discrepancy.
-- Depends on: T001.
+- Depends on: T001; final quality acceptance additionally requires T012 reconciliation. Calendar acquisition can proceed before G1.
 - Outputs:
   - `reports/data_source_acceptance.md`
-  - `data/manifests/source_crosscheck.parquet`
+  - immutable selected-source crosscheck/evidence manifest; the older `source_crosscheck.parquet` remains exploratory
 - Acceptance: every criterion in Section 5.4 passes.
 - Gate: G1.
 - Plan reference: Sections 5.3–5.4, 32 Gate A.
@@ -143,7 +220,7 @@ Progress 2026-10-01: hash-verified, visually inspected 2025/2026 holiday evidenc
 - [ ] Create the session calendar from official/reproducible exchange information.
 - [ ] Record holidays, exceptional closures, source and version.
 - [ ] Do not substitute a weekday-only calendar.
-- Depends on: T010.
+- Depends on: T001 and the source-selection/coverage decision in T010; does not wait for G1. Calendar reconciliation is an input to T010 acceptance.
 - Output: `data/manifests/hose_sessions.parquet` plus calendar manifest.
 - Acceptance: dataset dates map to sessions or carry an investigated exception; target dates never include non-sessions.
 - Plan reference: Sections 6.2, 8.4.
@@ -449,14 +526,18 @@ Secondary work starts only after T055 passes.
 - [ ] Freeze tokenizer and fine-tune predictor on training windows only.
 - [ ] Select settings on purged validation; use five preregistered seeds for confirmatory reporting.
 - [ ] Compare adapted and zero-shot Kronos on identical frozen origins.
+- Depends on: T055, T026, T041; source/split acceptance remains required.
 - Outputs: adaptation artifacts and Table E.
+- Acceptance: tokenizer weights stay unchanged; training windows/normalization use permitted training data only; seeds and selection rules are recorded. Any unregistered analysis proposed after viewing core holdout results is labeled exploratory rather than confirmatory.
 - Plan reference: Sections 15, 17.1, 30 Phase 6.
 
 ### T061 — DM robustness analysis
 
 - [ ] Run DM tests with declared Newey-West/Bartlett bandwidth and finite-sample correction.
 - [ ] Return undefined for zero/nonpositive variance.
+- Depends on: T055, T050; use persisted paired losses without new inference.
 - Output: secondary statistical table.
+- Acceptance: identical origins are retained, horizon/bandwidth/sample count are reported, and undefined cases are explicit. This robustness check does not replace registered primary bootstrap/Holm results.
 - Plan reference: Section 17.2.
 
 ### T062 — Volatility-regime analysis
@@ -464,20 +545,70 @@ Secondary work starts only after T055 passes.
 - [ ] Calculate origin-time volatility from past data only.
 - [ ] Set regime thresholds from training history only.
 - [ ] Report regime sample sizes and descriptive results for sparse cells.
+- Depends on: T055, T013, T050.
 - Outputs: Table D and conditional regime figure.
+- Acceptance: future returns never define an origin's regime; training-only thresholds are recorded; regime counts reproduce from artifacts and sparse cells do not support confirmatory claims.
 - Plan reference: Section 18.
 
 ## 10. Phase 7 — Optional work
 
 Optional tasks may be independently skipped with a recorded reason.
 
-- [ ] **T070:** Chronos-T5-mini Close-only historical/general token baseline — Sections 9.2, 13.1.
-- [ ] **T071:** VN30 validated trading-value ablation; verify semantics, latency and preprocessing — Sections 4, 10 E3.
-- [ ] **T072:** Independently tuned context-length sensitivity; freeze selected setting before its separate OOS run — Sections 8.3, 14.3.
-- [ ] **T073:** Full Kronos tokenizer plus predictor fine-tuning after predictor-only adaptation — Section 15 Stage C.
-- [ ] **T074:** Adaptation data-efficiency study using feasible 1y/3y/5y/full cells — Section 10 E5.
-- [ ] **T075:** Probabilistic scoring after retained-path validation — Sections 14.6, 16.3.
-- [ ] **T076:** Kronos-base and other larger-checkpoint size sensitivity — Section 9.3.
+### T070 — Chronos-T5-mini Close-only supporting baseline
+
+- [ ] Resolve checkpoint revision/provenance, implement Close-only adapter and validate point-summary semantics.
+- Depends on: T055, T003, T021, T026.
+- Outputs: optional checkpoint manifest, adapter/config, forecast/scored artifacts and supporting table.
+- Acceptance: 128 observed Close values and identical eligible origins/targets; no future covariates. Provenance limitations and historical outputs are labeled explicitly; this model does not silently replace mandatory Chronos-2-small.
+- Plan reference: Sections 9.2, 13.1.
+
+### T071 — Validated trading-value ablation
+
+- [ ] Verify aggregate VN30 trading-value units, source, availability time and preprocessing; compare a separately frozen augmented run to OHLC-only inputs.
+- Depends on: T055, T010, T013, T041.
+- Outputs: feature evidence/manifest, ablation config, artifacts and result table.
+- Acceptance: feature is available at each origin, does not represent an undocumented index-volume proxy, and does not change the primary OHLC benchmark. If evidence is insufficient, defer rather than fabricate values.
+- Plan reference: Sections 4, 10 E3.
+
+### T072 — Context-length sensitivity
+
+- [ ] Tune each context setting on development data and freeze it before a separate OOS run.
+- Depends on: T055, T020, T040, T041.
+- Outputs: sensitivity configurations, eligibility/origin comparison, artifacts and table.
+- Acceptance: settings are not selected using test results; comparisons use common feasible target paths or disclose coverage differences. Preserve the primary 128-context result and label post-test proposals exploratory.
+- Plan reference: Sections 8.3, 14.3.
+
+### T073 — Tokenizer and predictor fine-tuning
+
+- [ ] Extend predictor-only adaptation to full tokenizer/predictor adaptation using training windows only.
+- Depends on: T060, T026.
+- Outputs: adaptation configs, weights/hashes, seed and training logs, artifacts and comparison table.
+- Acceptance: tokenizer/predictor revisions and training data boundaries are recorded; no test-informed selection; compare against predictor-only and zero-shot on identical eligible origins. Report resource/failure limits and avoid a causal tokenization claim.
+- Plan reference: Section 15 Stage C.
+
+### T074 — Adaptation data-efficiency study
+
+- [ ] Define feasible 1y/3y/5y/full training-history cells and run the registered adaptation protocol.
+- Depends on: T060, T013, T014.
+- Outputs: cell eligibility manifest, configs/checkpoints/artifacts and learning-curve table/figure.
+- Acceptance: chronological training subsets and purged validation are explicit; unavailable history cells are omitted with reasons; shared evaluation origins and seed handling remain comparable.
+- Plan reference: Section 10 E5.
+
+### T075 — Probabilistic scoring
+
+- [ ] Validate retained sample-path/quantile artifacts, then calculate the plan's declared probabilistic scores and coverage.
+- Depends on: T055, T023, T040, T041.
+- Outputs: distribution-quality report, score implementation/tests, probabilistic table and calibration figure.
+- Acceptance: distributions are genuine retained model outputs rather than fabricated from point forecasts; quantiles, interval definitions and missing/failure cases are explicit. Point-MAE primary results stay separate.
+- Plan reference: Sections 14.6, 16.3.
+
+### T076 — Larger-checkpoint sensitivity
+
+- [ ] Resolve Kronos-base/other checkpoint revisions, audit eligibility and run separately frozen configurations within hardware limits.
+- Depends on: T055, T003, T026, T041.
+- Outputs: checkpoint/config manifests, resource/failure report, artifacts and size-sensitivity table.
+- Acceptance: comparison uses common eligible origins and declared input/point semantics; differing provenance/resource budgets are disclosed. Preserve failures and the registered Kronos-small result; do not select the best checkpoint from primary test metrics.
+- Plan reference: Section 9.3.
 
 ## 11. Phase 8 — Final research package
 
@@ -503,7 +634,7 @@ Optional tasks may be independently skipped with a recorded reason.
 - Acceptance: a clean environment can reproduce the reported package without undocumented manual steps.
 - Plan reference: Sections 30 Phase 8, 36 task 17.
 
-## 12. Core completion checklist
+## 12. Confirmatory core completion checklist
 
 The primary study is complete only when all items below are checked:
 
@@ -518,12 +649,15 @@ The primary study is complete only when all items below are checked:
 - [ ] No test-informed tuning or selective rerun occurred.
 - [ ] Final numbers trace to immutable hashes and revisions.
 
+A pilot requires the same source-quality, leakage, artifact and freeze checks, with the G3/provenance limitation recorded explicitly and no confirmatory superiority claim. Contributor setup or passing unit tests alone cannot complete this research checklist.
+
 ## 13. Per-task evidence template
 
 Copy this block into `reports/experiment_log.md` when closing a task:
 
 ```text
 Task ID:
+Owner / issue / PR:
 Status: accepted | blocked | exploratory
 Completed at:
 Code commit:

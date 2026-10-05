@@ -50,3 +50,7 @@ The user explicitly requested removal of the research-use permission criterion a
 Validation: 34 tests passed, including successful synthetic freeze without research-use evidence and rejection of each of the five remaining unresolved criteria. Real project G1 remains pending due to quality/discrepancy/calendar evidence; no accepted dataset is created solely by this amendment.
 
 Visually inspected HOSE notices 2079 (2025), 2294 (2026 annual, mirrored signed scan) and 2410 (2026 New Year update). Stored local raw PDFs with SHA256 references in `data/manifests/hose_calendar_evidence.yaml`. Built `artifacts/source_audit/calendar_2025_2026/candidate_days.parquet`; candidate only, exceptional closures not yet reviewed. Reconciliation through 2026-09-30 found DNSE missing 2025-04-03, VPS with 25 duplicate dates, and VNDIRECT with no date discrepancies inside this interval. No accepted dataset, calendar or split was created. Details: `reports/hose_calendar_review.md`.
+
+## Contributor setup update - 2026-10-05
+
+Infrastructure evidence is recorded in reports/contributor_setup_validation.md. VNDIRECT candidate ZIP/SQLite receipts identify the contributor snapshot; G1 and accepted dataset/splits remain pending. No primary holdout run is introduced by this setup update.
