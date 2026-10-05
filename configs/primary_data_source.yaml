@@ -1,0 +1,27 @@
+schema_version: 1
+selected_on: '2026-10-05'
+selected_by: explicit_user_request
+provider: vndirect
+symbol: VN30
+endpoint: https://dchart-api.vndirect.com.vn/dchart/history
+resolution: D
+timezone: Asia/Ho_Chi_Minh
+units: index_points
+selection_status: selected_for_main_dataset
+quality_acceptance_status: pending
+reference_audit_run: 20261001T151513588605Z
+observed_first_date: '2017-08-24'
+observed_last_date: '2026-10-01'
+observed_raw_rows: 2271
+coverage_policy: use_verified_provider_coverage_without_splicing
+limitations:
+  - Current capture cannot cover the full 2016-2023 replication slice.
+  - Snapshot includes one row outside the original requested end; retain and flag it.
+  - Source discrepancies and session-calendar reconciliation remain pending.
+sharing:
+  method: versioned_snapshot_with_sha256
+  formats: [sqlite, zip]
+  storage: git_repository_versioned_snapshots
+  directory: data/share
+  classification: candidate_snapshot_not_accepted_dataset
+  guide: docs/Contributor_Data_Guide.md

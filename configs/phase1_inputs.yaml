@@ -1,5 +1,7 @@
 schema_version: 1
 status: pending
+selected_primary_provider: vndirect
+source_selection: configs/primary_data_source.yaml
 pending_requirements:
   - G1 accepted source with verified quality and crosscheck evidence
   - accepted full historical HOSE calendar including exceptional closures

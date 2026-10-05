@@ -1,5 +1,7 @@
 # Phase 1 readiness review
 
+Update 2026-10-05: the user selected VNDIRECT as the primary provider. Current candidate sharing receipts are `data/manifests/vndirect_contributor_snapshot.json` and `data/manifests/vndirect_sqlite_snapshot.json`. Calendar/quality work should target the eventual accepted VNDIRECT interval starting no earlier than the captured 2017-08-24 coverage. The historical review below predates this selection; it does not require repairing rejected providers to accept VNDIRECT. G1 and accepted dataset/splits remain pending.
+
 Reviewed 2026-10-02 against the implementation plan, Section 5 and T010-T014. Phase 1 remains incomplete. Research-use permission is excluded by the user's amendment. No source, processed dataset, calendar or split has been accepted.
 
 Execution status: blocked on external data evidence. The same source-quality blocker persisted across the 2014 calendar investigation, repeated DNSE close check and complete structural-anomaly review. These investigations produced evidence but did not establish a valid accepted source. No authorization to replace unknown prices with guesses, remove failed rows or weaken G1 has been given. Additional identical requests or audit tables cannot resolve the correct OHLC values.

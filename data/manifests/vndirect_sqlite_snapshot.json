@@ -1,0 +1,52 @@
+{
+  "database": "data/share/vn30_vndirect_20261001T151513588605Z_candidate.sqlite",
+  "database_sha256": "fee0bd8c240a9d2be4ef5c9d287eede6c5506b0358c25545e72de99709da4fd2",
+  "integrity": "verified",
+  "source_archive_sha256": "fc3c549aff4dafe9469619058c5ea189cbbbc0d0322097501d3e2203b765c614",
+  "snapshot": {
+    "classification": "candidate_snapshot_not_accepted_dataset",
+    "csv_semantics": "normalized_provider_snapshot_all_rows_unmodified_prices",
+    "files": {
+      "audit_config.yaml": {
+        "sha256": "9e3f4a865d35e9c0b35635f43d5891ba9baff45b5675c0d790a4f9bd0ba4f363",
+        "size_bytes": 1544
+      },
+      "audit_manifest.json": {
+        "sha256": "17d72a42a077ff2a3c54d5f55deb4aa8fe82dbf1a5fa7ad04fcdfa4ddcc92115",
+        "size_bytes": 1248
+      },
+      "original_response.json": {
+        "sha256": "4eb7c113e69026d7aab9353c6c1e6f336b2516ee7ccb76875eef4a902794eb37",
+        "size_bytes": 129317
+      },
+      "parser.py": {
+        "sha256": "282123b6e3eef2769c8c7808ae18f44c2ddb252c1f692a778fe9e60a6789e392",
+        "size_bytes": 8973
+      },
+      "vn30_daily.csv": {
+        "sha256": "66fb2b72fbaff5c003241dfe3ece3e2f333a4a6c288c977d8ec95f9780d64321",
+        "size_bytes": 173262
+      }
+    },
+    "first_date": "2017-08-24",
+    "gate_G1": "pending",
+    "includes_accepted_calendar_or_splits": false,
+    "last_date": "2026-10-01",
+    "provider": "vndirect",
+    "quality_counts": {
+      "duplicate_date": 0,
+      "invalid_numeric": 0,
+      "invalid_ohlc": 0,
+      "outside_request": 1
+    },
+    "request_url": "https://dchart-api.vndirect.com.vn/dchart/history?symbol=VN30&resolution=D&from=1328486400&to=1790812799",
+    "retrieved_at_utc": "2026-10-01T15:15:13.589604+00:00",
+    "rows": 2271,
+    "run_id": "20261001T151513588605Z",
+    "schema_version": 1,
+    "symbol": "VN30",
+    "timezone": "Asia/Ho_Chi_Minh",
+    "units": "index_points"
+  },
+  "sharing_status": "prepared_locally_not_uploaded"
+}

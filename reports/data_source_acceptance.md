@@ -2,6 +2,8 @@
 
 Audit date: 2026-10-01. Status: **pending — G1 has not passed**.
 
+Decision update (2026-10-05): the user selected VNDIRECT as the primary provider for the main dataset. See `configs/primary_data_source.yaml`. Selection is distinct from quality acceptance: G1 remains pending. The older multi-provider audit configuration and its hashes are unchanged for replay.
+
 Additional sources tested through vnstock 4.0.9: KBS and VCI. VCI reaches the requested launch date; KBS begins June 2012. Both have unresolved historical OHLC violations. Captured bytes, offline verification, common-interval crosscheck and isolated dependency freeze are documented in `reports/vnstock_source_audit.md`. No source is automatically preferred or accepted.
 
 No provider has been accepted. This prevents acceptance of the downstream T011–T014 deliverables under the current plan. The full Phase 1 objective remains open.

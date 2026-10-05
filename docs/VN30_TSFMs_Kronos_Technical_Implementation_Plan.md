@@ -278,6 +278,8 @@ Use the following hierarchy:
 
 Do not merge providers by default. Provider switching can introduce hidden discontinuities.
 
+Source selection (2026-10-05, explicit user decision): **VNDIRECT** is the primary provider for Dataset B. The retained capture starts on 2017-08-24, so this source cannot cover the full Dataset A replication period. Use verified provider coverage without splicing earlier prices from another feed; disclose the final accepted period in the dataset manifest. Selection does not itself pass G1 or accept the calendar. The decision is recorded in `configs/primary_data_source.yaml`; contributor snapshot exchange is documented in `docs/Contributor_Data_Guide.md`.
+
 ### 5.4 Data-source acceptance gate
 
 A source is accepted only if:
