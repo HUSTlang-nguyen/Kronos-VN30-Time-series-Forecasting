@@ -1,0 +1,29 @@
+name: Contributor checks
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  tests:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+          cache-dependency-path: requirements/data.txt
+      - run: python scripts/export_data_requirements.py --check
+      - run: python -m pip install --require-hashes -r requirements/data.txt
+      - run: python -m pytest -q
+  docker-data:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker compose --profile cuda config --quiet
+      - run: docker compose build data
+      - run: docker compose run --rm data

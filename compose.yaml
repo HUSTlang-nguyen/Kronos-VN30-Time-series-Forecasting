@@ -1,0 +1,31 @@
+services:
+  data:
+    build:
+      context: .
+      target: data
+    image: vn30-research-data:local
+    working_dir: /workspace
+    volumes:
+      - .:/workspace
+    init: true
+  cuda:
+    profiles: [cuda]
+    build:
+      context: .
+      target: cuda
+    image: vn30-research-cuda:local
+    working_dir: /workspace
+    volumes:
+      - .:/workspace
+      - hf-cache:/home/researcher/.cache/huggingface
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    shm_size: 1gb
+    init: true
+volumes:
+  hf-cache:
