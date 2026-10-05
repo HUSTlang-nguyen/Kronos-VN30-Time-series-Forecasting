@@ -1,0 +1,42 @@
+{
+  "adjudications": {
+    "published_value_supports_vndirect": 4,
+    "unresolved": 35
+  },
+  "case_count": 39,
+  "classification": "case_investigation_not_G1_acceptance",
+  "files": {
+    "candles.csv": "b386f29fc767ac295cedebbf1138aa5cec9af15bfd978bf94dcbb52b26d7040e",
+    "cases.csv": "7ff97aca75eee4985fef6afd87a333006831ed0ef927d7bf19dcb8e78552ec99"
+  },
+  "gate_G1": "pending",
+  "publication_manifest_sha256": "c5c42114bb881475b22ac1273ebd2564eac77f16b6cc58c66134792fcdfa90eb",
+  "repeat_capture": "data/raw/source_investigation/20261005_39_repeat",
+  "repeat_errors": [
+    {
+      "body": {
+        "countBack": 300,
+        "symbols": [
+          "VN30"
+        ],
+        "timeFrame": "ONE_DAY",
+        "to": 1790985599
+      },
+      "end": "2026-10-02",
+      "file": "vci_2026-01-01.bin",
+      "method": "POST",
+      "parse_error": "HTTP 403",
+      "provider": "vci",
+      "sha256": "dba5166ad9db9ba648c1032ebbd34dcd0d085b50023b839ef5c68ca1db93a563",
+      "start": "2026-01-01",
+      "status": 403,
+      "url": "https://trading.vietcap.com.vn/api/chart/OHLCChart/gap-chart"
+    }
+  ],
+  "repeat_manifest_sha256": "119dc004338e1c801f58f2ea361979a718dcfb229a02a4423653d7ac15de3809",
+  "source_manifest_sha256": "bdf9fb7d300a9c63839fa868ca2400001933dcf49dde08301a7a33b318d36c9f",
+  "spec_sha256": "c197751ffd212d1fcb555598a41a946dd3ff6dfd6da44d36ec86b2b306e5a6a3",
+  "unique_dates": 30,
+  "upstream_independence": "unverified",
+  "vnstock_manifest_sha256": "be66a92ac7207a3bd2f763c237836555360ccdaeb90284196fbbb3ed01552a31"
+}

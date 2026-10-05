@@ -1,0 +1,13 @@
+schema_version: 1
+classification: diagnostic_not_dataset_acceptance
+audit_config: configs/vndirect_source_audit.yaml
+audit: data/raw/source_audit/20261005T084027989272Z
+vnstock_config: configs/data_source_acceptance.yaml
+vnstock_config_sha256: 9e3f4a865d35e9c0b35635f43d5891ba9baff45b5675c0d790a4f9bd0ba4f363
+vnstock_normalizer_sha256: 6eaa42b1555a0ea4c04f028e57e32f9d788a85cea438ab8d30348ca7cf894804
+vnstock_capture: data/raw/vnstock_audit/20261001T154235115506Z
+expected_case_count: 39
+expected_date_count: 30
+repeat_window: calendar_year_clipped_to_registered_cutoff
+independent_evidence: data/manifests/vndirect_39_publications_evidence.yaml
+policy: retain_all_values_no_majority_adjudication_no_imputation

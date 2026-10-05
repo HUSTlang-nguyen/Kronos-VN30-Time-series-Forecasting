@@ -1,0 +1,34 @@
+schema_version: 1
+reviewed_on: '2026-10-05'
+classification: supplemental_field_corroboration_not_G1_acceptance
+date: '2022-11-09'
+symbol: VN30
+field: close
+units: index_points
+observed_reference_value: 979.68
+captured_provider_values: {vndirect: 979.68, vps: 979.68, dnse: 974.17}
+audit: data/raw/source_audit/20261005T084027989272Z
+audit_manifest_sha256: bdf9fb7d300a9c63839fa868ca2400001933dcf49dde08301a7a33b318d36c9f
+sources:
+  mbs_daily:
+    url: https://www.mbs.com.vn/media/4zihijhi/mbs-market-strategy-daily-09-11-2022.pdf
+    path: data/raw/source_investigation/20261005_independent/mbs_20221109.pdf
+    sha256: 843ac8fbb525fc4f4b37d70f2ab3de7945ae8158ce8758b63582ecbb1869037c
+    publisher: MBS
+    published_on: '2022-11-09'
+    locator: page_1_VN30_Index_row_in_futures_market_table
+    verification: extracted_text_and_complete_page_visually_reviewed
+  pinetree_daily:
+    url: https://pinetree.vn/post/20221109/ban-tin-thi-truong-ngay-09-11-2022/
+    path: data/raw/source_investigation/20261005_independent/pinetree_20221109.html
+    sha256: 4187d8392a3518328c4846b8a15932a081ed4e1cef3ff07c7e41259414362027
+    publisher: Pinetree
+    published_on: '2022-11-09'
+    locator: TTCK_VIET_NAM_VN30
+    verification: captured_HTML_VN30_value_text_reviewed
+disposition: VNDIRECT_close_corroborated_by_two_contemporaneous_broker_publications
+limitations:
+  - Only this closing value is corroborated; O/H/L are not established by these publications.
+  - Publication upstream data lineage is not verified; do not count this as 30 independent OHLC observations.
+  - DNSE discrepancy cause remains unresolved; preserve all provider values.
+  - Supplemental investigation of a previously observed discrepancy; not added to the registered random sample.

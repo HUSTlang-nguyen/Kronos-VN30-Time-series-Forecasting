@@ -9,6 +9,11 @@ timezone: Asia/Ho_Chi_Minh
 units: index_points
 selection_status: selected_for_main_dataset
 quality_acceptance_status: pending
+latest_quality_review: reports/vndirect_T010_T012_review.md
+latest_discrepancy_review: reports/vndirect_39_discrepancy_review.md
+latest_discrepancy_artifacts: artifacts/source_audit/vndirect_39_cases_20261005
+latest_quality_audit_run: 20261005T084027989272Z
+latest_quality_review_through: '2026-10-02'
 reference_audit_run: 20261001T151513588605Z
 observed_first_date: '2017-08-24'
 observed_last_date: '2026-10-01'

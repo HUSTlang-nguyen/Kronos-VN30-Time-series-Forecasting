@@ -1,5 +1,12 @@
 # Preserve exact bytes for SHA256-bound Phase 1 evidence and replay scripts.
 configs/data_source_acceptance.yaml -text
+configs/vndirect_source_audit.yaml -text
+configs/vndirect_candidate_review.yaml -text
+configs/vndirect_discrepancy_investigation.yaml -text
+scripts/investigate_vndirect_discrepancies.py -text
+artifacts/source_audit/vndirect_39_cases_*/* -text
+scripts/review_vndirect_candidate.py -text
+artifacts/source_audit/vndirect_review_*/* -text
 data/manifests/*_evidence.yaml -text whitespace=cr-at-eol
 scripts/audit_holdout_feasibility.py -text
 scripts/audit_vnstock_sources.py -text

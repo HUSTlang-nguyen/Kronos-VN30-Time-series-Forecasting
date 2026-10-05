@@ -1,0 +1,29 @@
+schema_version: 1
+review_date: '2026-10-05'
+classification: literature_review_proposed_amendment_not_study_freeze
+documents:
+  - id: nguyen_paientko_2024
+    url: https://crimsonpublishers.com/siam/fulltext/SIAM.000598.php
+    pdf_url: https://crimsonpublishers.com/siam/pdf/SIAM.000598.pdf
+    file: data/raw/references/20261005_baseline_review/nguyen_paientko_2024.pdf
+    sha256: a9bc3f8e44132c86e10150959a40dc7e358d322473a412b432bd342be7518c26
+    access: full_text
+    rendered_pages_1based: [5, 8]
+  - id: dao_2013
+    url: https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2543084
+    access: primary_metadata_and_abstract_via_search_index
+    limitation: Direct page fetch returned HTTP 403; no verified local full-text PDF.
+  - id: pham_2022
+    url: https://link.springer.com/chapter/10.1007/978-981-19-2130-8_19
+    access: publisher_abstract_and_metadata
+    limitation: Full chapter subscription content not accessed.
+  - id: do_nguyen_2021
+    url: https://link.springer.com/chapter/10.1007/978-3-030-92942-8_8
+    pdf_url: https://eudl.eu/pdf/10.1007/978-3-030-92942-8_8
+    file: data/raw/references/20261005_baseline_review/do_nguyen_2021.pdf
+    sha256: 2f5d30aa5a8dff05739406bc7f03fa952d840ba8b8395011c82347a3a4a6cc48
+    access: full_text
+    rendered_pages_1based: [3, 4, 9]
+canonical_study_changed: false
+model_inference_run: false
+venue_indexing_verified: false

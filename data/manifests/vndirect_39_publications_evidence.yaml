@@ -1,0 +1,36 @@
+classification: published_close_corroboration_not_exchange_certification
+retrieved_at_utc: '2026-10-05T09:15:39.325534+00:00'
+upstream_independence: unverified
+sources:
+- id: csi_20200618
+  date: '2020-06-18'
+  field: close
+  value: 797.08
+  url: https://vncsi.com.vn/data/data/anhpnh/files/ban-tin-thi-truong-ngay-18_06_2020.pdf
+  file: data/raw/source_investigation/20261005_39_publications/csi_20200618.pdf
+  sha256: 9311af46e2a23ce00a76f81bf0a2f05bd5cea76daa8566b166dadc99b93328e3
+  page_1based: 1
+- id: csi_20200715
+  date: '2020-07-15'
+  field: close
+  value: 810.16
+  url: https://vncsi.com.vn/data/data/anhpnh/files/ban-tin-thi-truong-ngay-15_07_2020.pdf
+  file: data/raw/source_investigation/20261005_39_publications/csi_20200715.pdf
+  sha256: 68b0e5a159ec94156f666ad06fd2ee128a78e27dda619666bc699958027f3e60
+  page_1based: 1
+- id: pinetree_20221026
+  date: '2022-10-26'
+  field: close
+  value: 990.41
+  url: https://pinetree.vn/wp-content/uploads/2022/10/Market-brief_26102022_V-2.pdf
+  file: data/raw/source_investigation/20261005_39_publications/pinetree_20221026.pdf
+  sha256: e4c2155da3966c8b99ff03082de0fc23fe786a7b772f28f6e332fba20aa979ae
+  page_1based: 1
+- id: csi_20210305
+  date: '2021-03-05'
+  field: close
+  value: 1173.83
+  url: https://vncsi.com.vn/data/data/anhpnh/files/ban-tin-thi-truong-tuan-05_03_2021.pdf
+  file: data/raw/source_investigation/20261005_39_publications/csi_20210305.pdf
+  sha256: d2948b4a6b675de225698712c83eb80adc945b280888737cc13277a85212d2a3
+  page_1based: 1

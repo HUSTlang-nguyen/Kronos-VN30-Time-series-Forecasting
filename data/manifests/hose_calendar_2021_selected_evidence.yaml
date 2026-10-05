@@ -1,0 +1,33 @@
+schema_version: 1
+reviewed_on: '2026-10-05'
+status: candidate_HOSE_attributed_mirror_original_notice_and_exceptions_pending
+covered_years: [2021]
+annual_sources: {'2021': hose_attributed_mirror}
+sources:
+  hose_attributed_mirror:
+    url: https://en.vietstock.vn/2020/12/hose-notice-of-holiday-schedule-2021-36-430999.htm
+    path: data/raw/calendar/20261005_historical/hose_2021_attributed_mirror.html
+    sha256: dfdf1e918158483a489917fae5a8e391d62e8709c468f780c786cce61058d776
+    publisher: Vietstock
+    published_on: '2020-12-15'
+    attribution: HOSE
+    verification: captured_HTML_holiday_table_text_reviewed
+    scope: HOSE_attributed_transcription_not_original_exchange_document
+  hose_director_interview:
+    url: https://vtv.vn/kinh-te/ong-le-hai-tra-hose-tro-lai-binh-thuong-tu-2-6-he-thong-moi-co-the-trien-khai-tu-thang-7-20210601180400422.htm
+    path: data/raw/calendar/20261002_historical/hose_ceo_20210601_interview.html
+    sha256: 903791dc6e9998a968460101ef3f2419bd95a1de764796727720a8045cb06be0
+    scope: interview_with_HOSE_director_about_afternoon_halt
+limitations:
+  - Mirrored article attributes the table to HOSE; original annual notice, signature and notice number remain unverified.
+  - New corroboration replaces HNX-only annual attribution for this candidate, not the accepted calendar.
+  - Exceptional closure and update review remains incomplete.
+closures:
+  - {start: '2021-01-01', end: '2021-01-01', reason: new_year, source: hose_attributed_mirror}
+  - {start: '2021-02-10', end: '2021-02-16', reason: lunar_new_year, source: hose_attributed_mirror}
+  - {start: '2021-04-21', end: '2021-04-21', reason: hung_kings, source: hose_attributed_mirror}
+  - {start: '2021-04-30', end: '2021-04-30', reason: reunification, source: hose_attributed_mirror}
+  - {start: '2021-05-03', end: '2021-05-03', reason: labour_observed, source: hose_attributed_mirror}
+  - {start: '2021-09-02', end: '2021-09-03', reason: national_day, source: hose_attributed_mirror}
+session_events:
+  - {date: '2021-06-01', quality_flag: shortened_session, source: hose_director_interview}

@@ -1,0 +1,116 @@
+{
+  "gate_G1": "pending",
+  "selected_provider": null,
+  "raw_manifest": "data\\raw\\source_audit\\20261005T084027989272Z",
+  "identity": {
+    "run_id": "20261005T084027989272Z",
+    "config_sha256": "dcf7188ea317ce3229d2bbc578bfcf788d82d24a462c548e0c693d76ba99a6f3",
+    "retrieved_at_utc": "2026-10-05T08:40:27.989272+00:00",
+    "code_commit": "6f0d6a7edbdebe08c719ebe74d1a05200bad4762",
+    "code_dirty": true,
+    "script_sha256": "282123b6e3eef2769c8c7808ae18f44c2ddb252c1f692a778fe9e60a6789e392",
+    "classification": "source_audit_not_accepted_dataset",
+    "providers": {
+      "vndirect": {
+        "url": "https://dchart-api.vndirect.com.vn/dchart/history?symbol=VN30&resolution=D&from=1503532800&to=1790985599",
+        "response_sha256": "cebb3f70ad316f44a58080e64e0c8e84374e7409a59655b84a113c580718c1ff",
+        "size_bytes": 129376
+      },
+      "vps": {
+        "url": "https://histdatafeed.vps.com.vn/tradingview/history?symbol=VN30&resolution=D&from=1503532800&to=1790985599",
+        "response_sha256": "d18cec08ab72d73156e62b665136b72deabd877a86c6fbfd7457b5bbb5c5659c",
+        "size_bytes": 115561
+      },
+      "dnse": {
+        "url": "https://api.dnse.com.vn/chart-api/v2/ohlcs/index?symbol=VN30&resolution=1D&from=1503532800&to=1790985599",
+        "response_sha256": "9563f93ec11426bbe83e998bc47cbfdd01aa833c021e2caac1cb8bbea35e9b4f",
+        "size_bytes": 81594
+      }
+    }
+  },
+  "providers": {
+    "vndirect": {
+      "raw_rows": 2272,
+      "first_date": "2017-08-24",
+      "last_date": "2026-10-02",
+      "duplicate_rows": 0,
+      "invalid_ohlc_rows": 0,
+      "invalid_numeric_rows": 0,
+      "outside_request_rows": 0
+    },
+    "vps": {
+      "raw_rows": 2271,
+      "first_date": "2017-08-25",
+      "last_date": "2026-10-02",
+      "duplicate_rows": 0,
+      "invalid_ohlc_rows": 1,
+      "invalid_numeric_rows": 0,
+      "outside_request_rows": 0
+    },
+    "dnse": {
+      "raw_rows": 1566,
+      "first_date": "2020-05-11",
+      "last_date": "2026-10-02",
+      "duplicate_rows": 0,
+      "invalid_ohlc_rows": 0,
+      "invalid_numeric_rows": 0,
+      "outside_request_rows": 0
+    }
+  },
+  "comparisons": [
+    {
+      "left_provider": "dnse",
+      "right_provider": "vndirect",
+      "status": "discrepancy",
+      "field_count": 27
+    },
+    {
+      "left_provider": "dnse",
+      "right_provider": "vndirect",
+      "status": "missing",
+      "field_count": 16
+    },
+    {
+      "left_provider": "dnse",
+      "right_provider": "vndirect",
+      "status": "pass",
+      "field_count": 153
+    },
+    {
+      "left_provider": "dnse",
+      "right_provider": "vps",
+      "status": "discrepancy",
+      "field_count": 21
+    },
+    {
+      "left_provider": "dnse",
+      "right_provider": "vps",
+      "status": "missing",
+      "field_count": 16
+    },
+    {
+      "left_provider": "dnse",
+      "right_provider": "vps",
+      "status": "pass",
+      "field_count": 159
+    },
+    {
+      "left_provider": "vndirect",
+      "right_provider": "vps",
+      "status": "discrepancy",
+      "field_count": 12
+    },
+    {
+      "left_provider": "vndirect",
+      "right_provider": "vps",
+      "status": "pass",
+      "field_count": 224
+    }
+  ],
+  "unresolved_material_discrepancies": 60,
+  "permission": {
+    "vndirect": "excluded_from_G1_by_user",
+    "vps": "excluded_from_G1_by_user",
+    "dnse": "excluded_from_G1_by_user"
+  }
+}

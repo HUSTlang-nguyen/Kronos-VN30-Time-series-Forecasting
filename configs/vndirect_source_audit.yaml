@@ -1,0 +1,38 @@
+schema_version: 1
+created_on: '2026-10-05'
+classification: selected_source_prospective_rerun_after_exploratory_audit
+primary_provider: vndirect
+prior_evidence: artifacts/source_audit/20261001T151513588605Z/crosscheck.parquet
+symbol: VN30
+start: '2017-08-24'
+end: '2026-10-02'
+timezone: Asia/Ho_Chi_Minh
+units: index_points
+seed: 20261005
+samples_per_year: 5
+extreme_return_count: 10
+minimum_crosschecked_dates: 30
+tolerances: {open: 0.02, high: 0.02, low: 0.02, close: 0.02}
+relative_tolerance: 0.0
+selection_policy: seeded_year_stratified_all_pairs_report_vndirect_pairs
+duplicate_policy: retain_raw_rows_exclude_ambiguous_dates_from_pair_comparison
+missing_policy: record_missing_dates_no_imputation
+independence_status: distinct_endpoints_upstream_lineage_unverified
+gate_requires:
+  - reproducible_ohlc_download_and_consistent_units
+  - independently_resolved_material_discrepancies
+  - session_calendar_reconciliation
+policy_note: Research-use permission excluded by user; historical audit config remains unchanged.
+providers:
+  vndirect:
+    endpoint: https://dchart-api.vndirect.com.vn/dchart/history
+    resolution: D
+    permission_status: excluded_from_G1_by_user
+  vps:
+    endpoint: https://histdatafeed.vps.com.vn/tradingview/history
+    resolution: D
+    permission_status: excluded_from_G1_by_user
+  dnse:
+    endpoint: https://api.dnse.com.vn/chart-api/v2/ohlcs/index
+    resolution: 1D
+    permission_status: excluded_from_G1_by_user

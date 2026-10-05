@@ -1,0 +1,418 @@
+{
+  "T012": "pending",
+  "acceptance_blockers": [
+    "material_OHLC_discrepancies_unresolved",
+    "independent_upstream_lineage_unverified",
+    "calendar_original_notices_and_exception_review_incomplete"
+  ],
+  "bindings": {
+    "audit_identity": {
+      "classification": "source_audit_not_accepted_dataset",
+      "code_commit": "6f0d6a7edbdebe08c719ebe74d1a05200bad4762",
+      "code_dirty": true,
+      "config_sha256": "dcf7188ea317ce3229d2bbc578bfcf788d82d24a462c548e0c693d76ba99a6f3",
+      "providers": {
+        "dnse": {
+          "response_sha256": "9563f93ec11426bbe83e998bc47cbfdd01aa833c021e2caac1cb8bbea35e9b4f",
+          "size_bytes": 81594,
+          "url": "https://api.dnse.com.vn/chart-api/v2/ohlcs/index?symbol=VN30&resolution=1D&from=1503532800&to=1790985599"
+        },
+        "vndirect": {
+          "response_sha256": "cebb3f70ad316f44a58080e64e0c8e84374e7409a59655b84a113c580718c1ff",
+          "size_bytes": 129376,
+          "url": "https://dchart-api.vndirect.com.vn/dchart/history?symbol=VN30&resolution=D&from=1503532800&to=1790985599"
+        },
+        "vps": {
+          "response_sha256": "d18cec08ab72d73156e62b665136b72deabd877a86c6fbfd7457b5bbb5c5659c",
+          "size_bytes": 115561,
+          "url": "https://histdatafeed.vps.com.vn/tradingview/history?symbol=VN30&resolution=D&from=1503532800&to=1790985599"
+        }
+      },
+      "retrieved_at_utc": "2026-10-05T08:40:27.989272+00:00",
+      "run_id": "20261005T084027989272Z",
+      "script_sha256": "282123b6e3eef2769c8c7808ae18f44c2ddb252c1f692a778fe9e60a6789e392"
+    },
+    "audit_manifest_sha256": "bdf9fb7d300a9c63839fa868ca2400001933dcf49dde08301a7a33b318d36c9f",
+    "code_sha256": {
+      "build_hose_calendar.py": "f66b086b5f454796e0189fa850aca05b9feaad5d81a2ddb45f876ea63b6e8ad2",
+      "reconcile_hose_sessions.py": "5428c7130a3f53df4447e965a4435dc4e64bd95edb6e6c5f3d166e59999949f3",
+      "validate_vn30_sources.py": "282123b6e3eef2769c8c7808ae18f44c2ddb252c1f692a778fe9e60a6789e392"
+    },
+    "output_sha256": {
+      "candidate_calendar.csv": "20fb7eebfb233f64fcf48ed7491969cc82e32c4ebac89c34e01a0b28169d076b",
+      "selected_crosscheck.csv": "5dd0c4f75158937d728e1223ce562e5e0d2dfe6ecaeca65b42f2ff9cccd5c6ae",
+      "selected_raw_rows.csv": "6469015203a109c2fb19cd5936deaa584cbc45d4bcbad424aa84876666b70fcf"
+    },
+    "previous_audit_identity": {
+      "classification": "source_audit_not_accepted_dataset",
+      "code_commit": "411b830272ebf96579c134f72e2b23b1ebf1c443",
+      "code_dirty": true,
+      "config_sha256": "9e3f4a865d35e9c0b35635f43d5891ba9baff45b5675c0d790a4f9bd0ba4f363",
+      "providers": {
+        "dnse": {
+          "response_sha256": "c47daff8b6727b2eca6a889e76cd437364ad182b93251f7130e09ab23344b2ef",
+          "size_bytes": 81488,
+          "url": "https://api.dnse.com.vn/chart-api/v2/ohlcs/index?symbol=VN30&resolution=1D&from=1328486400&to=1790812799"
+        },
+        "vndirect": {
+          "response_sha256": "4eb7c113e69026d7aab9353c6c1e6f336b2516ee7ccb76875eef4a902794eb37",
+          "size_bytes": 129317,
+          "url": "https://dchart-api.vndirect.com.vn/dchart/history?symbol=VN30&resolution=D&from=1328486400&to=1790812799"
+        },
+        "vps": {
+          "response_sha256": "e788eaf46497d56462b252402de516a79da2502521e5f947cffdaa8227f0a7f1",
+          "size_bytes": 182590,
+          "url": "https://histdatafeed.vps.com.vn/tradingview/history?symbol=VN30&resolution=D&from=1328486400&to=1790812799"
+        }
+      },
+      "retrieved_at_utc": "2026-10-01T15:15:13.589604+00:00",
+      "run_id": "20261001T151513588605Z",
+      "script_sha256": "282123b6e3eef2769c8c7808ae18f44c2ddb252c1f692a778fe9e60a6789e392"
+    },
+    "previous_audit_manifest_sha256": "17d72a42a077ff2a3c54d5f55deb4aa8fe82dbf1a5fa7ad04fcdfa4ddcc92115",
+    "review_script_sha256": "a92b3fe384593a593e92960118d1ea12a88b4ea13e9c1a12bdb5554aab4b85d9",
+    "review_spec": "configs/vndirect_candidate_review.yaml",
+    "review_spec_sha256": "be8c6ddec1a2729fe7b225559c4afb2bd323d941dc3342c75d7b12c7bdd430ea"
+  },
+  "calendar": [
+    {
+      "calendar_config": "data/manifests/hose_calendar_2017_evidence.yaml",
+      "calendar_config_sha256": "afa6cbba79a9e8a85023da767783d6c95ef78b635577a419de08d28661761792",
+      "duplicate_dates_in_coverage": [],
+      "end": "2017-12-31",
+      "evidence_status": "candidate_pending_exceptional_closure_review",
+      "limitations": [
+        "Only 2017 is covered; historical exceptional closures and further updates remain pending.",
+        "Exchange-authored document is hosted by a third-party mirror, with no visible signature or stamp.",
+        "Do not substitute the conflicting HNX table for the explicit updated HOSE notice.",
+        "G1 remains pending; this is not the accepted T012 calendar."
+      ],
+      "missing_scheduled_sessions": [],
+      "observations_outside_calendar_coverage": 0,
+      "observed_non_sessions": [],
+      "observed_rows": 91,
+      "scheduled_sessions": 91,
+      "start": "2017-08-24",
+      "year": 2017
+    },
+    {
+      "calendar_config": "data/manifests/hose_calendar_2018_evidence.yaml",
+      "calendar_config_sha256": "5258ee59031ebfac35f13261eca41d531fca7d8fa8ebc43c92ea0b3c1c40f89e",
+      "duplicate_dates_in_coverage": [],
+      "end": "2018-12-31",
+      "evidence_status": "candidate_pending_complete_notice_and_exception_review",
+      "limitations": [
+        "2018 holiday table is cropped; complete signed annual notice remains pending.",
+        "January halt evidence is an official-host retrospective, not the original HOSE halt document.",
+        "Remaining exceptional closures and updates still require review.",
+        "G1 pending; this is not the accepted T012 calendar."
+      ],
+      "missing_scheduled_sessions": [],
+      "observations_outside_calendar_coverage": 0,
+      "observed_non_sessions": [],
+      "observed_rows": 248,
+      "scheduled_sessions": 248,
+      "start": "2018-01-01",
+      "year": 2018
+    },
+    {
+      "calendar_config": "data/manifests/hose_calendar_2019_evidence.yaml",
+      "calendar_config_sha256": "7d1429b050e25cdf38bc1cf4e4de26cb528d523ae4008cf0615699e0f8a42ce3",
+      "duplicate_dates_in_coverage": [],
+      "end": "2019-12-31",
+      "evidence_status": "candidate_pending_exceptional_closure_review",
+      "limitations": [
+        "Only 2019 is covered; no inference for other years.",
+        "Notice also closes 2018-12-31; that date is outside this calendar's annual coverage.",
+        "Exchange-authored signed scan is hosted by a third-party mirror.",
+        "Exceptional closures and further updates still require review.",
+        "G1 pending; this is not the accepted T012 calendar."
+      ],
+      "missing_scheduled_sessions": [],
+      "observations_outside_calendar_coverage": 0,
+      "observed_non_sessions": [],
+      "observed_rows": 250,
+      "scheduled_sessions": 250,
+      "start": "2019-01-01",
+      "year": 2019
+    },
+    {
+      "calendar_config": "data/manifests/calendar_2020_cross_exchange_evidence.yaml",
+      "calendar_config_sha256": "d2ad8bf34e71184ae4286f42cabce0be460699aa494cf30e80dd806e294bec45",
+      "duplicate_dates_in_coverage": [],
+      "end": "2020-12-31",
+      "evidence_status": "diagnostic_cross_exchange_pending_HOSE_confirmation",
+      "limitations": [
+        "This is a diagnostic holiday hypothesis; HOSE annual coverage is not established.",
+        "The annual exchange notice is HNX; broker notices corroborate individual trading holidays only.",
+        "HNX is not silently substituted for HOSE; direct HOSE confirmation remains required.",
+        "Exceptional closures remain unreviewed and G1 is pending."
+      ],
+      "missing_scheduled_sessions": [],
+      "observations_outside_calendar_coverage": 0,
+      "observed_non_sessions": [],
+      "observed_rows": 252,
+      "scheduled_sessions": 252,
+      "start": "2020-01-01",
+      "year": 2020
+    },
+    {
+      "calendar_config": "data/manifests/hose_calendar_2021_selected_evidence.yaml",
+      "calendar_config_sha256": "abc5397da35e6e905a61fe428d1d3849ff1816ce92ae626eb73e334be8b083c8",
+      "duplicate_dates_in_coverage": [],
+      "end": "2021-12-31",
+      "evidence_status": "candidate_HOSE_attributed_mirror_original_notice_and_exceptions_pending",
+      "limitations": [
+        "Mirrored article attributes the table to HOSE; original annual notice, signature and notice number remain unverified.",
+        "New corroboration replaces HNX-only annual attribution for this candidate, not the accepted calendar.",
+        "Exceptional closure and update review remains incomplete."
+      ],
+      "missing_scheduled_sessions": [],
+      "observations_outside_calendar_coverage": 0,
+      "observed_non_sessions": [],
+      "observed_rows": 250,
+      "scheduled_sessions": 250,
+      "start": "2021-01-01",
+      "year": 2021
+    },
+    {
+      "calendar_config": "data/manifests/hose_calendar_2022_evidence.yaml",
+      "calendar_config_sha256": "b41aff77b5fa177bc3cbaa9a6ddcc582b519237ecf335afae967f7ba1d6427c3",
+      "duplicate_dates_in_coverage": [],
+      "end": "2022-12-31",
+      "evidence_status": "candidate_pending_exceptional_closure_review",
+      "limitations": [
+        "Only 2022 is covered; no inference for other years.",
+        "Exchange-authored signed scan is hosted by a third-party mirror.",
+        "Exceptional closures and further updates still require review.",
+        "G1 pending; this is not the accepted T012 calendar."
+      ],
+      "missing_scheduled_sessions": [],
+      "observations_outside_calendar_coverage": 0,
+      "observed_non_sessions": [],
+      "observed_rows": 249,
+      "scheduled_sessions": 249,
+      "start": "2022-01-01",
+      "year": 2022
+    },
+    {
+      "calendar_config": "data/manifests/hose_calendar_2023_evidence.yaml",
+      "calendar_config_sha256": "65d074efe506035e7916959f9bedf82b60cf65d78404912ce3f97cd948e9039f",
+      "duplicate_dates_in_coverage": [],
+      "end": "2023-12-31",
+      "evidence_status": "candidate_pending_exceptional_closure_review",
+      "limitations": [
+        "Only 2023 is covered; no inference for other years.",
+        "The signed exchange notice is hosted by a third-party mirror; official-host copy pending.",
+        "Exceptional closures and further calendar updates still require review.",
+        "G1 pending; this is not the accepted T012 calendar."
+      ],
+      "missing_scheduled_sessions": [],
+      "observations_outside_calendar_coverage": 0,
+      "observed_non_sessions": [],
+      "observed_rows": 249,
+      "scheduled_sessions": 249,
+      "start": "2023-01-01",
+      "year": 2023
+    },
+    {
+      "calendar_config": "data/manifests/hose_calendar_2024_evidence.yaml",
+      "calendar_config_sha256": "0b24b62cea63e41525adc97b3e9a38270f97d2e40bdfc260cd9394342672a0b9",
+      "duplicate_dates_in_coverage": [],
+      "end": "2024-12-31",
+      "evidence_status": "candidate_pending_exceptional_closure_review",
+      "limitations": [
+        "Only 2024 is covered; no inference for other years.",
+        "Exchange-authored signed scans are hosted by third-party mirrors.",
+        "Exceptional closures and further updates still require review.",
+        "G1 pending; this is not the accepted T012 calendar."
+      ],
+      "missing_scheduled_sessions": [],
+      "observations_outside_calendar_coverage": 0,
+      "observed_non_sessions": [],
+      "observed_rows": 250,
+      "scheduled_sessions": 250,
+      "start": "2024-01-01",
+      "year": 2024
+    },
+    {
+      "calendar_config": "data/manifests/hose_calendar_evidence.yaml",
+      "calendar_config_sha256": "ef57d5b9ef23ac550bba124ce9302e7036c96ce1a2e01d2d1b4ab0cb910c4f18",
+      "duplicate_dates_in_coverage": [],
+      "end": "2025-12-31",
+      "evidence_status": "candidate_pending_exceptional_closure_review",
+      "limitations": [
+        "2012-2024 not covered; no extrapolation permitted",
+        "2026 annual announcement is an exchange-authored scan hosted by a third-party mirror; official-host copy pending",
+        "Annual holidays do not establish absence of exceptional closures; review pending",
+        "G1 pending; not the accepted T012 calendar"
+      ],
+      "missing_scheduled_sessions": [],
+      "observations_outside_calendar_coverage": 0,
+      "observed_non_sessions": [],
+      "observed_rows": 249,
+      "scheduled_sessions": 249,
+      "start": "2025-01-01",
+      "year": 2025
+    },
+    {
+      "calendar_config": "data/manifests/hose_calendar_evidence.yaml",
+      "calendar_config_sha256": "ef57d5b9ef23ac550bba124ce9302e7036c96ce1a2e01d2d1b4ab0cb910c4f18",
+      "duplicate_dates_in_coverage": [],
+      "end": "2026-10-02",
+      "evidence_status": "candidate_pending_exceptional_closure_review",
+      "limitations": [
+        "2012-2024 not covered; no extrapolation permitted",
+        "2026 annual announcement is an exchange-authored scan hosted by a third-party mirror; official-host copy pending",
+        "Annual holidays do not establish absence of exceptional closures; review pending",
+        "G1 pending; not the accepted T012 calendar"
+      ],
+      "missing_scheduled_sessions": [],
+      "observations_outside_calendar_coverage": 0,
+      "observed_non_sessions": [],
+      "observed_rows": 184,
+      "scheduled_sessions": 184,
+      "start": "2026-01-01",
+      "year": 2026
+    }
+  ],
+  "capture_drift": {
+    "dnse": {
+      "changed_fields": {
+        "close": 0,
+        "high": 0,
+        "low": 0,
+        "open": 0
+      },
+      "changed_ohlc_dates": 0,
+      "common_unambiguous_dates": 1564,
+      "dates_added_to_response": [],
+      "dates_removed_from_response": [],
+      "interval_end": "2026-09-30",
+      "interval_start": "2017-08-24",
+      "new_duplicate_dates": [],
+      "note": "Different request windows can affect responses; differences do not prove a provider revision or correction.",
+      "old_duplicate_dates": []
+    },
+    "vndirect": {
+      "changed_fields": {
+        "close": 0,
+        "high": 0,
+        "low": 0,
+        "open": 0
+      },
+      "changed_ohlc_dates": 0,
+      "common_unambiguous_dates": 2270,
+      "dates_added_to_response": [],
+      "dates_removed_from_response": [],
+      "interval_end": "2026-09-30",
+      "interval_start": "2017-08-24",
+      "new_duplicate_dates": [],
+      "note": "Different request windows can affect responses; differences do not prove a provider revision or correction.",
+      "old_duplicate_dates": []
+    },
+    "vps": {
+      "changed_fields": {
+        "close": 0,
+        "high": 0,
+        "low": 0,
+        "open": 0
+      },
+      "changed_ohlc_dates": 0,
+      "common_unambiguous_dates": 2243,
+      "dates_added_to_response": [],
+      "dates_removed_from_response": [
+        "2017-08-24"
+      ],
+      "interval_end": "2026-09-30",
+      "interval_start": "2017-08-24",
+      "new_duplicate_dates": [],
+      "note": "Different request windows can affect responses; differences do not prove a provider revision or correction.",
+      "old_duplicate_dates": [
+        "2020-12-25",
+        "2025-05-05",
+        "2025-05-06",
+        "2025-05-07",
+        "2025-05-08",
+        "2025-05-09",
+        "2025-05-12",
+        "2025-06-02",
+        "2025-06-03",
+        "2025-06-04",
+        "2025-06-05",
+        "2025-06-06",
+        "2025-06-09",
+        "2025-06-10",
+        "2025-06-11",
+        "2025-06-12",
+        "2025-06-13",
+        "2025-06-16",
+        "2025-06-17",
+        "2025-06-18",
+        "2025-06-19",
+        "2025-06-20",
+        "2025-06-23",
+        "2025-06-24",
+        "2025-06-25",
+        "2025-06-26"
+      ]
+    }
+  },
+  "classification": "candidate_review_not_phase1_acceptance",
+  "crosscheck": [
+    {
+      "all_fields_within_tolerance_dates": 26,
+      "comparator": "dnse",
+      "complete_ohlc_dates": 45,
+      "discrepancy_fields": 27,
+      "missing_fields": 16,
+      "selected_dates": 49,
+      "upstream_independence": "unverified",
+      "year_stratified_dates": 35,
+      "years": [
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "all_fields_within_tolerance_dates": 48,
+      "comparator": "vps",
+      "complete_ohlc_dates": 59,
+      "discrepancy_fields": 12,
+      "missing_fields": 0,
+      "selected_dates": 59,
+      "upstream_independence": "unverified",
+      "year_stratified_dates": 50,
+      "years": [
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025,
+        2026
+      ]
+    }
+  ],
+  "end": "2026-10-02",
+  "gate_G1": "pending",
+  "inference_allowed": false,
+  "primary_provider": "vndirect",
+  "quality_counts": {
+    "duplicate_date": 0,
+    "invalid_numeric": 0,
+    "invalid_ohlc": 0,
+    "outside_request": 0
+  },
+  "rows": 2272,
+  "source_dates_strictly_increasing": true,
+  "start": "2017-08-24"
+}
