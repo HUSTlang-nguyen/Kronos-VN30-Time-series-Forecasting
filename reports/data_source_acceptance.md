@@ -1,6 +1,10 @@
 # T010 — VN30 source acceptance audit
 
+Case-level update 2026-10-05: `reports/vndirect_39_discrepancy_review.md` checks all 39 selected-source field discrepancies. Four Close values are publication-supported, 35 O/H/L values remain unadjudicated, and VNDIRECT has a 71-session Open/previous-Close pattern requiring clarification. G1 remains pending. Baseline recommendations in `reports/vn30_baseline_literature_review.md` do not change data acceptance or the canonical study.
+
 Audit date: 2026-10-01. Status: **pending — G1 has not passed**.
+
+Selected-source review update (2026-10-05): a fresh VNDIRECT capture has 2,272 valid, unique daily candles through 2026-10-02. All dates match the combined year-specific candidate calendars over 2017-08-24–2026-10-02. Seeded rerun comparisons still contain 39 material OHLC field discrepancies involving VNDIRECT. Original annual calendar documents/exception review and independent upstream lineage remain pending; no G1 acceptance is claimed. Current evidence and replay commands: `reports/vndirect_T010_T012_review.md`. The findings below retain the earlier audit's scope.
 
 Decision update (2026-10-05): the user selected VNDIRECT as the primary provider for the main dataset. See `configs/primary_data_source.yaml`. Selection is distinct from quality acceptance: G1 remains pending. The older multi-provider audit configuration and its hashes are unchanged for replay.
 

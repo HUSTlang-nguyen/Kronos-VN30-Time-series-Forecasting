@@ -11,6 +11,7 @@ Repo đang triển khai; chưa có kết quả benchmark chính thức. Script s
 | Phase 0: hợp đồng nghiên cứu, provenance, môi trường CUDA, smoke tests | Đã có bằng chứng kiểm tra |
 | Nguồn chính VN30 | VNDIRECT, chọn ngày 05/10/2026 |
 | Snapshot cho contributor | SQLite/ZIP candidate; 2.271 hàng, 24/08/2017–01/10/2026 |
+| Audit mới, chưa thay snapshot | 2.272 hàng, 24/08/2017–02/10/2026; 39 trường trên 30 ngày đã kiểm tra |
 | Phase 1: chất lượng nguồn, calendar, accepted dataset/splits | Chưa hoàn tất; G1 pending |
 | Phase 2–5: framework, baseline, adapters, holdout và thống kê | Chưa triển khai đầy đủ |
 | Phase 6–8 | Secondary/optional và bộ báo cáo cuối |
@@ -23,6 +24,10 @@ Repo đang triển khai; chưa có kết quả benchmark chính thức. Script s
 - TSLA/MSTR không thuộc phạm vi triển khai hiện tại.
 
 Snapshot candidate và tests đạt không tự xác nhận G1. Chưa chạy benchmark chính thức trước khi source/calendar/splits được chấp nhận và G4 được freeze. [Checklist end-to-end](docs/VN30_TSFMs_Kronos_End_to_End_Tasks.md) ghi task, phụ thuộc và điều kiện hoàn thành.
+
+Cập nhật kiểm định 05/10/2026: bốn Close được bản tin cùng ngày hỗ trợ theo giá VNDIRECT; 35 O/H/L chưa phân xử. VNDIRECT có 71 phiên liên tiếp Open bằng Close phiên trước (05/05–11/08/2025), cần làm rõ cách dựng nến. Calendar candidate khớp ngày nhưng còn thiếu bằng chứng lịch sử/exception. [Review T010/T012](reports/vndirect_T010_T012_review.md), [bảng đủ 39 sai khác](reports/vndirect_39_discrepancy_review.md).
+
+[Review bốn bài nghiên cứu](reports/vn30_baseline_literature_review.md) đề xuất daily ARIMA cho supporting replication và KTPCA ở nhánh mở rộng. Đây là đề xuất; study v4, E0/T030 và core baseline vẫn giữ nguyên. Local tests hiện có 49 tests pass; CI remote phải đối chiếu đúng commit, không dùng run cũ để chứng nhận thay đổi mới.
 
 ## Bắt đầu bằng Docker
 
@@ -37,7 +42,7 @@ docker compose run --rm data
 
 Service `data` chạy tests hiện có. Image chứa NumPy, pandas, PyArrow, PyYAML, requests và pytest; contributor làm dữ liệu/tests không cần tải PyTorch hoặc weights. Dependencies và distribution hashes được xuất từ `uv.lock` vào `requirements/data.txt`.
 
-SQLite/ZIP cùng checksum được quản lý trong `data/share/` bằng Git. Sau khi thay đổi này được commit/push, clone hoặc pull repo sẽ nhận đúng snapshot theo receipts; kiểm tra ngay:
+SQLite/ZIP cùng checksum được quản lý trong `data/share/` bằng Git. Clone hoặc pull repo sẽ nhận đúng snapshot theo receipts; kiểm tra ngay:
 
 ```sh
 docker compose run --rm data python scripts/check_shared_data.py
@@ -195,4 +200,7 @@ Chi tiết lượt dọn hiện tại: [repository cleanup](reports/repository_c
 | [Docker runbook](docs/Docker_Runbook.md) | Build, chạy CPU/CUDA, xử lý lỗi |
 | [Freeze runbook](docs/Phase1_Freeze_Runbook.md) | Accepted inputs và immutable outputs |
 | [Phase 1 readiness](reports/phase1_readiness_review.md) | Điều kiện dữ liệu còn pending |
+| [T010/T012 review](reports/vndirect_T010_T012_review.md) | Audit mới, calendar candidate và acceptance boundary |
+| [39-field review](reports/vndirect_39_discrepancy_review.md) | Từng sai khác, bằng chứng và vấn đề Open |
+| [Baseline literature review](reports/vn30_baseline_literature_review.md) | Bốn tài liệu, giới hạn và đề xuất thay đổi chưa áp dụng |
 | [Research report](docs/TSFM_VN30Index_Report.md) | Nội dung trình bày nghiên cứu |

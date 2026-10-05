@@ -1,6 +1,16 @@
 # Contributor setup validation
 
-Reviewed: 2026-10-05. This report validates contributor infrastructure, not source acceptance or research results. Changes were tested in a working tree; no new commit, remote CI run or primary holdout run is claimed.
+## Successful remote CI (2026-10-05)
+
+[Run 37282168003](https://github.com/HUSTlang-nguyen/Kronos-VN30-Time-series-Forecasting/actions/runs/37282168003), at commit `6f0d6a7edbdebe08c719ebe74d1a05200bad4762`, completed successfully: Ubuntu and Windows Python 3.11 tests, plus Docker data build and container tests. T009 is accepted for that revision; T007's build/test portion is verified on the GitHub runner. The separate in-container SQLite/ZIP verification commands remain pending, as does T008 GPU verification. Pending/no-remote-run statements below describe the earlier local validation stage. That run predates T010/T012 and the 39-field changes; it does not validate the newly published revision.
+
+## Updated local publication checks (2026-10-05)
+
+The isolated Python 3.11 data environment passes **49 tests**. `export_data_requirements.py --check` confirms the dependency subset still matches `uv.lock`. Both `check_shared_data.py` formats verify the unchanged 2,271-row candidate snapshot. Registered source replay, calendar review replay and 39-case replay pass with the retained raw bytes. No package changes were made to the host CUDA environment. New remote CI must be checked against the pushed HEAD; local success does not imply remote success.
+
+## Original local validation record
+
+Reviewed: 2026-10-05. This report validates contributor infrastructure, not source acceptance or research results. At this earlier stage, changes were tested in a working tree; no new commit, remote CI run or primary holdout run was claimed.
 
 ## Checks completed
 

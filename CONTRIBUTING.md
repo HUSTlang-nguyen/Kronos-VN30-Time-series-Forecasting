@@ -4,6 +4,8 @@
 
 Đọc README, technical plan và checklist trước khi nhận task. Task ID là đơn vị theo dõi chung; dùng issue/PR ghi owner, reviewer, phụ thuộc, phạm vi file và evidence. Không tự nhận thay một task đang có owner.
 
+Trước khi làm T010–T014 hoặc T030, đọc [39-field review](reports/vndirect_39_discrepancy_review.md) và [baseline review](reports/vn30_baseline_literature_review.md). Bốn Close được corroborate không có nghĩa G1 đạt; 35 O/H/L và cách dựng Open còn pending. Đề xuất đổi E0/KTPCA chưa thay hợp đồng v4. Không sửa giá, tăng tolerance hoặc thay baseline chỉ để task đạt.
+
 | Nhóm công việc | Phạm vi | Điểm phối hợp |
 |---|---|---|
 | Data/source | T010–T014 | Một người quản lý phiên bản snapshot; người khác kiểm tra nguồn/calendar |

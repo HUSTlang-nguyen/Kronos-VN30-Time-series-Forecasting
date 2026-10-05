@@ -54,3 +54,27 @@ Visually inspected HOSE notices 2079 (2025), 2294 (2026 annual, mirrored signed 
 ## Contributor setup update - 2026-10-05
 
 Infrastructure evidence is recorded in reports/contributor_setup_validation.md. VNDIRECT candidate ZIP/SQLite receipts identify the contributor snapshot; G1 and accepted dataset/splits remain pending. No primary holdout run is introduced by this setup update.
+
+## Selected-source T010/T012 execution — 2026-10-05
+
+Fresh run `20261005T084027989272Z` uses `configs/vndirect_source_audit.yaml`, selected interval 2017-08-24–2026-10-02 and pre-rerun absolute 0.02-point OHLC tolerances. VNDIRECT has 2,272 strictly ordered unique rows, no structural/numeric/outside-request anomalies, and no date discrepancies against the combined candidate calendar. VPS comparisons cover 50 seeded year-stratified dates plus extremes (59 total); DNSE covers 35 seeded dates plus extremes (49 total). There are 39 selected-source material field discrepancies and 16 missing comparison fields; independent upstream lineage is unverified. Exact historical raw captures are retained without price repair or provider splicing.
+
+New 2021 HOSE-attributed holiday-table capture corroborates the earlier diagnostic calendar but does not replace the missing original notice or exception review. Supplemental MBS/Pinetree evidence corroborates VNDIRECT's 2022-11-09 Close only. Combined review and source bindings: `artifacts/source_audit/vndirect_review_20261005_v2/`, `data/manifests/hose_calendar_2021_selected_evidence.yaml`, `data/manifests/vndirect_close_20221109_evidence.yaml`. Detailed outcomes and replay commands: `reports/vndirect_T010_T012_review.md`.
+
+Validation: 45 tests passed in the isolated data environment, including six new tests for tamper rejection, immutable output, duplicate-safe capture drift, incomplete crosschecks and coverage-scoped calendar/shortened-session preservation. T009 now records successful remote CI run 37282168003 for the previous commit `6f0d6a7`; that CI result does not cover these new changes. G1/T012 and accepted Phase 1 outputs remain pending; no model inference or final-test metrics were generated.
+
+## All 39 discrepancies and baseline review — 2026-10-05
+
+Investigated all 39 fields on 30 dates from the registered rerun. Reconstructed hash-verified KBS/VCI raw and normalized captures; annual-window repeat requests to VNDIRECT/VPS/DNSE retained every disputed field. KBS repeat covered the latest case; VCI returned a retained HTTP 403 response. Independent publication review rendered full page 1 of four contemporary PDFs supporting VNDIRECT Close on 2020-06-18, 2020-07-15, 2021-03-05 and 2022-10-26. All 35 O/H/L fields remain unadjudicated and root causes remain unknown. Additional diagnosis: VNDIRECT Open equals previous Close on 71 consecutive observed sessions, 2025-05-05–2025-08-11; this is a feed/construction question, not permission to repair prices.
+
+Artifacts: `artifacts/source_audit/vndirect_39_cases_20261005/`, `configs/vndirect_discrepancy_investigation.yaml`, `data/manifests/vndirect_39_publications_evidence.yaml`, `reports/vndirect_39_discrepancy_review.md`. Raw repeats are in `data/raw/source_investigation/20261005_39_repeat/`. Exact case/candle summary replay passed; hashes were verified. Supplemental monthly Open diagnosis is outside the registered comparison population. Raw old vnstock manifest lacks config hash and its historical capture-script hash differs from current code; current normalization config/code are pinned explicitly, and no complete historical-code identity claim is made.
+
+Reviewed the four supplied references using primary publisher/author sources. Full PDFs read for Nguyen–Paientko and Do–Nguyen; only primary abstracts/metadata available for Dao and LSTM–Ichimoku. Proposed daily ARIMA E0 amendment and conditional KTPCA extension are recorded in `reports/vn30_baseline_literature_review.md` with source receipt `data/manifests/vn30_baseline_review_evidence.yaml`. Study v4 and baseline task contracts remain unchanged; no ranking/indexing claim or model score is inferred.
+
+Validation: `tmp/ci-data-env/Scripts/python.exe -B -m pytest -q -p no:cacheprovider` — **49 passed**. Four new tests reject ambiguous/invalid corroborating candles, distinguish Close evidence from H/L evidence, and refuse majority decisions for conflicting publications. Offline replay passed. Remote CI still refers to the earlier pushed commit; no new commit/push or accepted dataset, calendar, split, inference or final-test score was produced.
+
+## Documentation publication preparation — 2026-10-05
+
+Synchronized README, contributor/data/Docker/freeze guides, shared-data notes, implementation-plan execution status, research report, task checklist and acceptance reports with the T010/T012 and complete 39-field investigation. Literature changes remain proposals; the v4 study and Zhang E0 contract are preserved. Shared snapshot bytes/receipts and historical raw/config/parser evidence remain unchanged. New reports/configs/scripts/tests and compact diagnostic artifacts are included for publication; raw/PDF/runtime directories remain ignored.
+
+Pre-publication checks against the local working tree based on `6f0d6a7`: 49 tests passed; locked data dependency export matched; shared SQLite/ZIP verified; all three offline replays matched persisted artifacts. Remote CI for the publication must be identified by its actual pushed commit rather than attributed to the earlier run. Publication commit identities are available in Git history.

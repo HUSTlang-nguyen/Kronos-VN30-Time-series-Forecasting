@@ -4,8 +4,12 @@
 **Primary task:** Daily multi-horizon forecasting  
 **Core comparison:** Classical statistical forecasting → train-from-scratch neural forecasting → general-purpose TSFM → finance-specific K-line foundation model  
 **Primary model of interest:** Kronos  
-**Document status:** Reviewed implementation plan v4; dataset/checkpoint gates still pending
+**Document status:** Reviewed implementation plan v4; G2 accepted, G1/G3/G4 pending
 **Date:** 2026-09-26
+
+**Execution update — 2026-10-05:** VNDIRECT remains the selected candidate. The fresh audit through 2026-10-02 has 2,272 rows; all 39 discrepant fields on 30 dates were investigated, with four publication-supported Close values and 35 unadjudicated O/H/L values. A 71-session Open/previous-Close pattern during 2025-05-05–2025-08-11 requires construction-rule clarification. Calendar agreement is diagnostic; original historical notices and exception review remain pending. See [T010/T012 review](../reports/vndirect_T010_T012_review.md) and [case-level review](../reports/vndirect_39_discrepancy_review.md). Existing shared snapshots remain unchanged through 2026-10-01.
+
+**Literature amendment status:** [Four-paper review](../reports/vn30_baseline_literature_review.md) proposes daily ARIMA as a replacement E0 anchor and a conditional KTPCA extension. These proposals are not adopted by this update: study v4, Zhang replication protocol, core models and test contract remain unchanged. Any adoption must version the study, plan, task definitions and replication manifest together before execution. Latest task and CI acceptance evidence is in the [checklist](VN30_TSFMs_Kronos_End_to_End_Tasks.md).
 
 ---
 

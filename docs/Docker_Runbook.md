@@ -21,6 +21,8 @@ docker compose run --rm data python scripts/export_data_requirements.py --check
 
 Default command là pytest. Tests dùng synthetic inputs; SQLite/ZIP ở `data/share/` được nhận qua Git cùng receipts. Build không gọi API VN30 và vẫn loại dữ liệu khỏi image; Compose đọc snapshot từ checkout.
 
+Replay T010/T012 và 39 sai khác dùng các lệnh ở [freeze runbook](Phase1_Freeze_Runbook.md), thêm prefix `docker compose run --rm data`. Cần mount đúng raw captures/calendar/PDF đã ghi trong manifests; clone repo riêng không đủ bytes cho replay. Snapshot chia sẻ vẫn là candidate cũ, không phải audit mới hoặc accepted dataset. CUDA/model inference tiếp tục chờ các gate tương ứng.
+
 Compose mount checkout vào `/workspace`, gồm Git metadata phục vụ repository hygiene tests. Dùng `docker run` trực tiếp phải mount checkout; image không chứa `.git`:
 
 ```sh

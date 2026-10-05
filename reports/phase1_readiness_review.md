@@ -1,5 +1,9 @@
 # Phase 1 readiness review
 
+Update 2026-10-05: all 39 selected-source discrepancy fields have case-level investigation evidence in `reports/vndirect_39_discrepancy_review.md`. Four Close values are corroborated; 35 O/H/L values and upstream/construction questions remain open, including 71 consecutive VNDIRECT Open values equal to previous Close. G1 remains pending. Baseline review/proposed E0 amendment is in `reports/vn30_baseline_literature_review.md`; canonical study v4 is unchanged.
+
+Current work update (2026-10-05): selected-source T010/T012 work has resumed with a fresh reproducible VNDIRECT audit and a combined candidate calendar limited to 2017-08-24–2026-10-02. No selected-source structural or date mismatch was found; material price differences, independent-source lineage and calendar evidence completeness remain pending. See `reports/vndirect_T010_T012_review.md`. The blocked status and rejected-provider requirements in the historical review below describe the earlier multi-provider stage, not a requirement to repair all rejected feeds.
+
 Update 2026-10-05: the user selected VNDIRECT as the primary provider. Current candidate sharing receipts are `data/manifests/vndirect_contributor_snapshot.json` and `data/manifests/vndirect_sqlite_snapshot.json`. Calendar/quality work should target the eventual accepted VNDIRECT interval starting no earlier than the captured 2017-08-24 coverage. The historical review below predates this selection; it does not require repairing rejected providers to accept VNDIRECT. G1 and accepted dataset/splits remain pending.
 
 Reviewed 2026-10-02 against the implementation plan, Section 5 and T010-T014. Phase 1 remains incomplete. Research-use permission is excluded by the user's amendment. No source, processed dataset, calendar or split has been accepted.

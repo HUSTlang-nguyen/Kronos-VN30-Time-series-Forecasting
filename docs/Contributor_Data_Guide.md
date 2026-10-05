@@ -2,6 +2,10 @@
 
 VNDIRECT là nguồn chính được chọn ngày 05/10/2026. Nhóm dùng một snapshot có phiên bản: tải lại API riêng từng người có thể nhận dữ liệu đã được nhà cung cấp sửa đổi. Gói hiện tại là **candidate**, chưa phải dataset đã qua G1 và chưa có calendar/split được chấp nhận.
 
+Audit mới có 2.272 hàng đến 02/10/2026, nhưng **SQLite/ZIP chia sẻ vẫn có 2.271 hàng đến 01/10/2026**. [Kiểm tra 39 trường](../reports/vndirect_39_discrepancy_review.md) ghi bốn Close được bản tin hỗ trợ, 35 O/H/L chưa phân xử và đoạn 71 phiên Open bằng Close trước. Contributor dùng snapshot cho phát triển/kiểm tra dữ liệu, không fine-tune hoặc chạy benchmark chính trước acceptance.
+
+Các CSV/Parquet và biên nhận audit được quản lý trong Git; raw/PDF để replay nằm ngoài Git. Clone có snapshot cũ và kết quả audit mới, không có toàn bộ raw của audit mới. Muốn replay, nhận đúng raw paths ghi trong configs/manifests từ người quản lý dữ liệu và kiểm tra hashes; không thay raw bằng một lần gọi API mới. Các lệnh replay ở [freeze runbook](Phase1_Freeze_Runbook.md).
+
 ## Cách chia sẻ
 
 1. Người quản lý dữ liệu tạo ZIP và checksum bằng lệnh bên dưới.

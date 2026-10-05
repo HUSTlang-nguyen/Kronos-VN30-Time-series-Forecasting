@@ -3,6 +3,8 @@ Dự báo VN30 bằng Time-Series Foundation Models**
 
 _Từ baseline ARIMA/ETS đến General TSFM và Financial K-line Foundation Model_
 
+**Cập nhật triển khai 05/10/2026:** Nguồn candidate chính là VNDIRECT; audit mới có 2.272 hàng đến 02/10/2026, snapshot contributor giữ 2.271 hàng đến 01/10/2026. Đã kiểm tra 39 sai khác: bốn Close được bản tin cùng ngày hỗ trợ, 35 O/H/L chưa phân xử; đoạn 71 phiên Open bằng Close trước cần làm rõ. G1/calendar chưa accepted, chưa có kết quả benchmark. [Báo cáo dữ liệu](../reports/vndirect_39_discrepancy_review.md) và [review bốn bài baseline](../reports/vn30_baseline_literature_review.md) bổ sung bằng chứng hiện tại; đề xuất đổi E0 chưa thay study v4.
+
 Mục tiêu của báo cáo này là thu hẹp project cũ từ một hệ thống dự báo nhiều tài sản (VN30, TSLA, MSTR; Naive/Moving Average/LSTM/Transformer) thành một nghiên cứu có câu hỏi khoa học rõ ràng, tập trung vào VN30 Index và khả năng chuyển giao của các mô hình nền tảng chuỗi thời gian.
 
 # 1\. Quyết định phạm vi

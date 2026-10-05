@@ -1,5 +1,9 @@
 # Source discrepancy investigation register
 
+Case-level follow-up 2026-10-05: `reports/vndirect_39_discrepancy_review.md` and `artifacts/source_audit/vndirect_39_cases_20261005/` cover every field in the selected-source rerun. Four Close values are publication-supported, 35 O/H/L values remain unadjudicated, and every root cause remains unresolved. A 71-session Open/previous-Close pattern in VNDIRECT requires clarification. The older register below remains historical evidence.
+
+Update 2026-10-05: current selected-source rerun and supplemental evidence are in `reports/vndirect_T010_T012_review.md`. The historical 2022-11-09 closing value is corroborated for VNDIRECT by MBS/Pinetree publications; the DNSE cause and independent upstream lineage remain unresolved. The original table below is preserved, not silently relabeled as accepted source evidence.
+
 Run: 20261001T151513588605Z. All items remain unresolved. Numerical differences are established; correct values and underlying causes require independent evidence.
 
 | Date | Pair | Field | Left | Right | Absolute difference | Status |

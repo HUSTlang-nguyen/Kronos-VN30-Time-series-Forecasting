@@ -1,5 +1,9 @@
 # Historical calendar review
 
+## Selected VNDIRECT interval update — 2026-10-05
+
+The current selected interval is 2017-08-24–2026-10-02. All source hashes were verified and year-specific calendar candidates reconciled over that interval; VNDIRECT has no missing, non-session or duplicated dates. The 2017 partial interval is compared only from its actual coverage start. New captured 2021 HOSE-attributed holiday transcription is recorded separately in `data/manifests/hose_calendar_2021_selected_evidence.yaml`, preserving the older diagnostic configuration. Original 2018/2020/2021 notice completeness and exception review remain pending. Current report: `reports/vndirect_T010_T012_review.md`; historical discoveries below remain evidence, not current acceptance.
+
 ## 2026-10-02: partial 2014 evidence and schedule conflicts
 
 Preserved and text-reviewed SHS's schedule, Asean Securities' National Day notice and BMSC's republication of an earlier HNX annual table. Exact URLs, unchanged-byte SHA256 hashes and limitations are recorded in `data/manifests/hose_2014_partial_holiday_evidence.yaml`.

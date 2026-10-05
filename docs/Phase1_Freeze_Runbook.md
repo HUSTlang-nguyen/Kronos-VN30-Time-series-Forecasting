@@ -2,6 +2,20 @@
 
 The implementation is ready for accepted inputs. Current project inputs are **pending**. This runbook does not accept a provider, clear G1, or replace the historical calendar review.
 
+Current evidence (2026-10-05): [T010/T012](../reports/vndirect_T010_T012_review.md), [all 39 fields](../reports/vndirect_39_discrepancy_review.md), [literature proposals](../reports/vn30_baseline_literature_review.md). Four publication-supported Close values do not clear 35 unadjudicated O/H/L values or the 71-session Open construction question. Study v4 and G1 criteria are unchanged. Shared candidate snapshots end on 2026-10-01; audit cutoff is 2026-10-02, not a claim of the latest available session.
+
+## Replay diagnostic evidence
+
+Obtain the exact retained raw captures and calendar sources identified by the configs/manifests before running. Outputs are diagnostic and immutable; these commands never write accepted Phase 1 inputs. Run at the repository root in the data environment:
+
+```sh
+python scripts/validate_vn30_sources.py --config configs/vndirect_source_audit.yaml --replay data/raw/source_audit/20261005T084027989272Z
+python scripts/review_vndirect_candidate.py --output artifacts/source_audit/vndirect_review_20261005_v2
+python scripts/investigate_vndirect_discrepancies.py --capture data/raw/source_investigation/20261005_39_repeat --output artifacts/source_audit/vndirect_39_cases_20261005
+```
+
+With Docker, prefix each command with `docker compose run --rm data`. Do not use `--fetch` for replay. New online diagnostic captures need new paths and a new evidence receipt; they do not silently replace the registered sample.
+
 ```powershell
 .venv/Scripts/python.exe scripts/freeze_phase1.py
 .venv/Scripts/python.exe scripts/freeze_phase1.py --verify

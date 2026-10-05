@@ -63,6 +63,8 @@ If G2 or G3 fails, outputs must be labeled `exploratory_pilot`. If G1 fails, sto
 
 ### T002 — Extract the Zhang (2025) replication protocol
 
+Literature follow-up 2026-10-05: four alternative references have been reviewed in `reports/vn30_baseline_literature_review.md`; access limitations and proposed daily ARIMA/KTPCA roles are recorded. This does not replace the accepted Zhang extraction below or redefine T030. A study amendment must update both task contracts and the replication manifest before adoption.
+
 - [x] Read the complete paper and fill every replication field; use `not reported` instead of guessing.
 - [x] Record conflicts between abstract, tables and conclusion.
 - Depends on: T001.
@@ -119,7 +121,7 @@ If G2 or G3 fails, outputs must be labeled `exploratory_pilot`. If G1 fails, sto
 
 ### T007 — Data/test Docker environment
 
-- [ ] Build the `data` target and run the full current test suite inside the bind-mounted checkout.
+- [x] Build the `data` target and run the full current test suite inside the bind-mounted checkout. Evidence: successful GitHub Actions run 37282168003 for commit `6f0d6a7` (2026-10-05).
 - [ ] Verify both shared snapshot formats in the container and compare dependency subset to uv.lock.
 - Depends on: T004, T006.
 - Outputs: `Dockerfile`, `compose.yaml`, `.dockerignore`, generated `requirements/data.txt`, `docs/Docker_Runbook.md`.
@@ -137,11 +139,11 @@ If G2 or G3 fails, outputs must be labeled `exploratory_pilot`. If G1 fails, sto
 
 ### T009 — Contributor CI
 
-- [ ] Execute GitHub CI successfully on the PR: Python 3.11 Windows/Linux tests and Docker data build/tests.
-- Depends on: T007.
+- [x] Execute GitHub CI successfully on main or a PR: Python 3.11 Windows/Linux tests and Docker data build/tests.
+- Depends on: the Docker build/test portion of T007; the separate in-container snapshot checks remain under T007.
 - Outputs: `.github/workflows/ci.yml`, successful run URL.
 - Acceptance: dependency-lock drift is rejected; tests require neither production dataset nor checkpoint downloads. Workflow configuration alone is not a successful CI run.
-- Current progress: workflow implemented; remote CI run pending.
+- Evidence: [successful run 37282168003](https://github.com/HUSTlang-nguyen/Kronos-VN30-Time-series-Forecasting/actions/runs/37282168003), commit `6f0d6a7edbdebe08c719ebe74d1a05200bad4762`; all three jobs passed. This run predates the new T010/T012 changes below.
 
 ## 4. Phase 1 — Data acquisition and immutable manifests
 
@@ -152,6 +154,8 @@ VNDIRECT was selected by the user on 2026-10-05. The captured history begins on 
 Resolve material discrepancies involving the chosen primary source. Investigations of rejected providers remain evidence; acceptance does not require repairing their entire histories. Source selection and candidate sharing are complete decisions; T010's quality acceptance remains pending.
 
 ### T010 — Select and validate a VN30 OHLC provider
+
+Progress 2026-10-05 (selected-source rerun): fresh capture through 2026-10-02 has 2,272 VNDIRECT rows with no structural/date anomalies. Seeded comparisons cover 50 year-stratified VPS dates and 35 DNSE dates plus extremes. All 39 discrepant fields on 30 dates were investigated: shorter requests reproduce every difference; four Close values have contemporaneous publications supporting VNDIRECT; 35 O/H/L values remain unadjudicated. Additional diagnosis finds 71 consecutive VNDIRECT sessions with Open equal to previous Close, 2025-05-05–2025-08-11. Upstream independence and construction rules are unverified; G1 remains pending. Evidence: `reports/vndirect_39_discrepancy_review.md`, `artifacts/source_audit/vndirect_39_cases_20261005/`, alongside `reports/vndirect_T010_T012_review.md`. Old captures and shared snapshots remain unchanged.
 
 Progress 2026-10-05: VNDIRECT selected explicitly by the user, recorded in `configs/primary_data_source.yaml`. Candidate contributor packages and checks are available under T006. G1 remains pending; no accepted dataset/splits have been published.
 
@@ -164,9 +168,9 @@ Progress 2026-10-01 (vnstock): KBS and VCI retrieved in an isolated, version-fro
 Progress 2026-10-01: replayable three-provider audit completed. Acceptance remains pending: material discrepancies, provider permission and exchange-session reconciliation require resolution. Evidence: `reports/data_source_acceptance.md`, `reports/source_discrepancies.md`, `data/manifests/source_investigation.yaml` and `artifacts/source_audit/20261001T151513588605Z/`. The earlier `source_crosscheck.parquet` remains exploratory; it has not been replaced or accepted as G1 evidence.
 
 - [x] Select the primary provider and record observed coverage/limitations (VNDIRECT).
-- [ ] Confirm reproducible daily OHLC download, explicit dates and consistent units.
+- [x] Confirm reproducible daily OHLC download, explicit dates and consistent units. New raw hashes and exact offline replay verified; values are VN30 index points. This does not establish independent price correctness.
 - [ ] Cross-check at least 30 year-stratified observations plus extreme-return dates against an independent source.
-- [ ] Define field-level numeric tolerances before cross-checking.
+- [x] Define field-level numeric tolerances before cross-checking. Selected-source rerun uses 0.02 index points per field, seed 20261005 and zero relative tolerance in `configs/vndirect_source_audit.yaml`.
 - [ ] Investigate every material discrepancy.
 - Depends on: T001; final quality acceptance additionally requires T012 reconciliation. Calendar acquisition can proceed before G1.
 - Outputs:
@@ -190,6 +194,8 @@ Progress 2026-10-01: `scripts/freeze_phase1.py` implements byte-preserving snaps
 - Plan reference: Section 5.5.
 
 ### T012 — Build and version the HOSE session calendar
+
+Progress 2026-10-05 (selected interval): hash-verified year-specific candidates were combined for 2017-08-24–2026-10-02. All 2,272 VNDIRECT dates match candidate sessions with no missing/non-session/duplicate dates. New captured 2021 HOSE-attributed holiday transcription supplements the earlier HNX diagnostic; original 2018/2020/2021 notices and full exception review remain pending. Shortened sessions are retained. Evidence: `reports/vndirect_T010_T012_review.md`, `data/manifests/hose_calendar_2021_selected_evidence.yaml`, `artifacts/source_audit/vndirect_review_20261005_v2/`. Date agreement is not calendar acceptance.
 
 Progress 2026-10-02 (2014 partial): captured SHS/Asean broker notices and BMSC's earlier HNX table. Recorded conflicting holiday intervals, the SHS Friday date listed among Saturdays, and Asean's title/body year mismatch. No annual coverage inferred. Evidence: `data/manifests/hose_2014_partial_holiday_evidence.yaml`.
 
