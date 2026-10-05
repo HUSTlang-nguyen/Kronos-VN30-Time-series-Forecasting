@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import argparse
+
 import hashlib
 import json
 from pathlib import Path
@@ -48,6 +50,9 @@ def verify_component(name: str, component: dict) -> dict:
 
 
 def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--output", type=Path, default=OUTPUT)
+    args = parser.parse_args()
     manifest = yaml.safe_load(MANIFEST.read_text(encoding="utf-8"))
     components = {
         "chronos_2_small": manifest["models"]["chronos_2_small"],
@@ -61,8 +66,8 @@ def main() -> int:
         "status": "pass" if all(result["status"] == "pass" for result in results) else "fail",
         "components": results,
     }
-    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
-    OUTPUT.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+    args.output.parent.mkdir(parents=True, exist_ok=True)
+    args.output.write_text(json.dumps(payload, indent=2), encoding="utf-8")
     print(json.dumps(payload, indent=2))
     return 0 if payload["status"] == "pass" else 1
 

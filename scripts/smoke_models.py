@@ -83,7 +83,7 @@ def smoke_chronos2(device: str) -> dict:
 def smoke_kronos(device: str) -> dict:
     vendor = ROOT / ".vendor" / "Kronos"
     if not (vendor / "model" / "kronos.py").exists():
-        raise FileNotFoundError("Run scripts/bootstrap_kronos.ps1 before the Kronos smoke test")
+        raise FileNotFoundError("Run python scripts/bootstrap_kronos.py before the Kronos smoke test")
     sys.path.insert(0, str(vendor))
     from model import Kronos, KronosPredictor, KronosTokenizer
 
@@ -137,6 +137,7 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--model", choices=["all", "chronos2", "kronos"], default="all")
     parser.add_argument("--device", default="auto")
+    parser.add_argument("--output", type=Path, default=SMOKE_OUTPUT)
     args = parser.parse_args()
 
     torch.manual_seed(42)
@@ -166,8 +167,8 @@ def main() -> int:
         finally:
             release_memory()
 
-    SMOKE_OUTPUT.parent.mkdir(parents=True, exist_ok=True)
-    SMOKE_OUTPUT.write_text(json.dumps(result, indent=2), encoding="utf-8")
+    args.output.parent.mkdir(parents=True, exist_ok=True)
+    args.output.write_text(json.dumps(result, indent=2), encoding="utf-8")
     print(json.dumps(result, indent=2))
     return 1 if failed else 0
 
