@@ -6,7 +6,7 @@ Current evidence (2026-10-05): [T010/T012](../reports/vndirect_T010_T012_review.
 
 ## Replay diagnostic evidence
 
-Obtain the exact retained raw captures and calendar sources identified by the configs/manifests before running. Outputs are diagnostic and immutable; these commands never write accepted Phase 1 inputs. Run at the repository root in the data environment:
+After Drive access/OAuth setup, run `dvc pull data/raw.dvc` to obtain the exact retained raw captures and calendar sources identified by the configs/manifests. Drive upload/restore is verified; use the versioned DVC pointers and receipts from the same Git checkout. See [DVC guide](DVC_Data_Versioning.md). Outputs are diagnostic and immutable; these commands never write accepted Phase 1 inputs. Run at the repository root in the data environment:
 
 ```sh
 python scripts/validate_vn30_sources.py --config configs/vndirect_source_audit.yaml --replay data/raw/source_audit/20261005T084027989272Z

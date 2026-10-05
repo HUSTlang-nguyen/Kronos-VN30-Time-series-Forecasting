@@ -1,14 +1,16 @@
-# Shared VN30 snapshots
+# Shared candidate snapshots
 
-This directory is versioned in Git. Clone/pull supplies the same candidate SQLite/ZIP files and checksums to every contributor once the snapshot commit is pushed.
+SQLite/ZIP bytes are managed by DVC on the team's Google Drive. Git contains `.dvc` pointers, SHA256 files and receipts under `data/manifests/`.
 
-The current snapshot has 2,271 provider rows from 2017-08-24 through 2026-10-01. It is **not an accepted research dataset**; source/calendar acceptance remains pending. The newer 2,272-row audit through 2026-10-02 does not replace these files or receipts. See the [39-field review](../../reports/vndirect_39_discrepancy_review.md) for unresolved O/H/L and Open-construction evidence.
+Google Drive upload and fresh-cache restore verified all 89 data files on 2026-10-06. Git versions the migration pointers and receipts; download the data with DVC. See [DVC setup](../../docs/DVC_Data_Versioning.md) for access and authentication, and [verification receipt](../manifests/dvc_drive_verification.json).
+
+After the remote is populated:
 
 ```sh
+dvc pull data/share/vn30_vndirect_20261001T151513588605Z_candidate.sqlite.dvc
 python scripts/check_shared_data.py
-python scripts/check_shared_data.py --format zip
 ```
 
-Use SQLite read-only. Do not write experiment results into the shared database or commit journal/WAL/SHM files. A new version must have a new filename plus updated checksum/receipt in the same PR. Keep raw working files, weights and large results outside this directory.
+Optional ZIP: pull the adjacent `.zip.dvc` pointer and verify with `--format zip`. Raw audit replay uses `dvc pull data/raw.dvc`.
 
-See [the data guide](../../docs/Contributor_Data_Guide.md) and [contribution guide](../../CONTRIBUTING.md).
+Candidate snapshot: 2,271 rows, 2017-08-24 through 2026-10-01; G1 pending. The newer audit does not replace this snapshot. Read SQLite locally in read-only mode; keep outputs elsewhere. [Data/schema guide](../../docs/Collaborator_Data_Guide.md).

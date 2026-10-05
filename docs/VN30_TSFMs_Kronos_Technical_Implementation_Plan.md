@@ -7,6 +7,8 @@
 **Document status:** Reviewed implementation plan v4; G2 accepted, G1/G3/G4 pending
 **Date:** 2026-09-26
 
+**Data versioning update — 2026-10-06:** Raw captures and shared candidate SQLite/ZIP bytes are managed by DVC with the team's Google Drive remote; Git retains pointers, SHA256 and receipts. Custom Desktop OAuth and upload/fresh-cache restore verified all 89 files without SHA256 changes. Pointers/receipts are versioned in Git; another collaborator's independent download remains pending. This infrastructure migration does not alter dataset bytes, study v4 or G1/G3/G4. See [DVC workflow](DVC_Data_Versioning.md) and [validation](../reports/dvc_migration_validation.md).
+
 **Execution update — 2026-10-05:** VNDIRECT remains the selected candidate. The fresh audit through 2026-10-02 has 2,272 rows; all 39 discrepant fields on 30 dates were investigated, with four publication-supported Close values and 35 unadjudicated O/H/L values. A 71-session Open/previous-Close pattern during 2025-05-05–2025-08-11 requires construction-rule clarification. Calendar agreement is diagnostic; original historical notices and exception review remain pending. See [T010/T012 review](../reports/vndirect_T010_T012_review.md) and [case-level review](../reports/vndirect_39_discrepancy_review.md). Existing shared snapshots remain unchanged through 2026-10-01.
 
 **Literature amendment status:** [Four-paper review](../reports/vn30_baseline_literature_review.md) proposes daily ARIMA as a replacement E0 anchor and a conditional KTPCA extension. These proposals are not adopted by this update: study v4, Zhang replication protocol, core models and test contract remain unchanged. Any adoption must version the study, plan, task definitions and replication manifest together before execution. Latest task and CI acceptance evidence is in the [checklist](VN30_TSFMs_Kronos_End_to_End_Tasks.md).
@@ -282,7 +284,7 @@ Use the following hierarchy:
 
 Do not merge providers by default. Provider switching can introduce hidden discontinuities.
 
-Source selection (2026-10-05, explicit user decision): **VNDIRECT** is the primary provider for Dataset B. The retained capture starts on 2017-08-24, so this source cannot cover the full Dataset A replication period. Use verified provider coverage without splicing earlier prices from another feed; disclose the final accepted period in the dataset manifest. Selection does not itself pass G1 or accept the calendar. The decision is recorded in `configs/primary_data_source.yaml`; contributor snapshot exchange is documented in `docs/Contributor_Data_Guide.md`.
+Source selection (2026-10-05, explicit user decision): **VNDIRECT** is the primary provider for Dataset B. The retained capture starts on 2017-08-24, so this source cannot cover the full Dataset A replication period. Use verified provider coverage without splicing earlier prices from another feed; disclose the final accepted period in the dataset manifest. Selection does not itself pass G1 or accept the calendar. The decision is recorded in `configs/primary_data_source.yaml`; collaborator snapshot exchange is documented in `docs/Collaborator_Data_Guide.md`.
 
 ### 5.4 Data-source acceptance gate
 

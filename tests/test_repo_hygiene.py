@@ -34,6 +34,10 @@ def test_gitignore_ignores_disposable_and_large_artifacts() -> None:
         "data/share/snapshot.sqlite-shm",
         ".vendor/test.py",
         ".cache/test.txt",
+        ".dvc/cache/files/md5/test",
+        ".dvc/config.local",
+        "data/share/vn30_vndirect_20261001T151513588605Z_candidate.sqlite",
+        "data/share/vn30_vndirect_20261001T151513588605Z_candidate.zip",
     ]
     for p in test_paths:
         res = subprocess.run(
@@ -52,8 +56,9 @@ def test_canonical_evidence_not_ignored() -> None:
         "data/manifests/source_crosscheck.parquet",
         "references/zhang_2025/attribution.md",
         "docs/archive/Kronos_VN30_Agent_Implementation_Plan.md",
-        "data/share/vn30_vndirect_20261001T151513588605Z_candidate.sqlite",
-        "data/share/vn30_vndirect_20261001T151513588605Z_candidate.zip",
+        "data/raw.dvc",
+        "data/share/vn30_vndirect_20261001T151513588605Z_candidate.sqlite.dvc",
+        "data/share/vn30_vndirect_20261001T151513588605Z_candidate.zip.dvc",
         "data/share/vn30_vndirect_20261001T151513588605Z_candidate.sqlite.sha256",
         "data/share/vn30_vndirect_20261001T151513588605Z_candidate.zip.sha256",
     ]

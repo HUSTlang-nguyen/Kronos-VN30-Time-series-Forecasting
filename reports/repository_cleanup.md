@@ -1,5 +1,7 @@
 # Repository cleanup and shared-data policy
 
+Current update (2026-10-06): data versioning is migrating to DVC/Google Drive. Git retains pointers/checksums/receipts; SQLite/ZIP bytes are removed from the working index. Drive upload and empty-cache recovery of all 89 files are verified; local data remains available for use. Pointers/receipts and collaborator documentation are included in the Git migration. See [DVC validation](dvc_migration_validation.md). The direct-Git policy described below is historical and superseded by this migration.
+
 Reviewed: 2026-10-05, following the user's request to version `data/share/` and simplify contributor onboarding.
 
 ## Changes

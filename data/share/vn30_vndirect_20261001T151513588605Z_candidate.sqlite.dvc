@@ -1,0 +1,5 @@
+outs:
+- md5: 2ee1b6c28f4db44fc7155990232793bc
+  size: 589824
+  hash: md5
+  path: vn30_vndirect_20261001T151513588605Z_candidate.sqlite

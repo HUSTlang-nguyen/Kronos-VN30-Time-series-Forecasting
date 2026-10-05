@@ -1,4 +1,7 @@
 .git
+.dvc/cache
+.dvc/tmp
+.dvc/config.local
 .venv
 .venv-data
 venv

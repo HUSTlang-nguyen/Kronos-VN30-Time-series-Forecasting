@@ -1,4 +1,4 @@
-"""Export/verify a candidate contributor snapshot; never accept or freeze Phase 1."""
+"""Export/verify a candidate collaborator snapshot; never accept or freeze Phase 1."""
 from __future__ import annotations
 
 import argparse

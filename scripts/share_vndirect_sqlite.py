@@ -132,7 +132,7 @@ def _check_content(name: str, digest: str, size: int, raw: bytes) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--source", type=Path, default=ROOT / "data/share" / f"vn30_vndirect_{RUN}_candidate.zip")
-    parser.add_argument("--receipt", type=Path, default=ROOT / "data/manifests/vndirect_contributor_snapshot.json")
+    parser.add_argument("--receipt", type=Path, default=ROOT / "data/manifests/vndirect_collaborator_snapshot.json")
     parser.add_argument("--output", type=Path, default=ROOT / "data/share" / f"vn30_vndirect_{RUN}_candidate.sqlite")
     parser.add_argument("--verify", type=Path)
     parser.add_argument("--expected-sha256")

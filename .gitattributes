@@ -18,8 +18,10 @@ scripts/phase1_pipeline.py -text
 scripts/reconcile_hose_sessions.py -text
 scripts/validate_vn30_sources.py -text
 scripts/verify_vnstock_capture.py -text
-# Preserve contributor snapshot/checksum bytes across Windows/Linux checkouts.
-data/share/*.sqlite binary
-data/share/*.zip binary
+# DVC stores binary bytes; Git stores portable pointers and exact SHA256 receipts.
+*.dvc text eol=lf
+.dvc/.gitignore text eol=lf
+.dvc/config text eol=lf
+.dvcignore text eol=lf
 data/share/*.sha256 -text
 docs/archive/Kronos_VN30_Agent_Implementation_Plan.md -text whitespace=cr-at-eol

@@ -1,4 +1,15 @@
-# Hướng dẫn contributor
+# Hướng dẫn collaborator
+
+## Quyền và trách nhiệm trong nhóm
+
+| Thành phần | Quyền/thiết lập cho collaborator |
+|---|---|
+| GitHub | Write để push branch và mở PR trong repo chung |
+| Google Drive | Editor khi cùng tạo/upload phiên bản DVC; Viewer đủ cho thành viên chỉ kiểm tra/tải |
+| OAuth | Thêm email vào Audience → Test users khi app đang Testing; mỗi người đăng nhập bằng tài khoản riêng |
+| Nghiên cứu | Thống nhất task, owner/reviewer, dữ liệu, interfaces và tiêu chí nghiệm thu trước khi chạy |
+
+Quyền GitHub, Drive và OAuth được cấp riêng. Có quyền upload không tự chấp nhận dữ liệu hoặc thay hợp đồng nghiên cứu. Collaborator có thể làm nguồn/calendar, xử lý dữ liệu, xây model, đánh giá và viết báo cáo theo task đã thống nhất.
 
 ## Nhận task và phối hợp
 
@@ -8,7 +19,7 @@ Trước khi làm T010–T014 hoặc T030, đọc [39-field review](reports/vndi
 
 | Nhóm công việc | Phạm vi | Điểm phối hợp |
 |---|---|---|
-| Data/source | T010–T014 | Một người quản lý phiên bản snapshot; người khác kiểm tra nguồn/calendar |
+| Data/source | T010–T014 | Collaborator phụ trách task phát hành phiên bản; người khác review nguồn/calendar và hashes |
 | Framework/evaluation | T020–T027 | Chốt interface/artifact schema trước khi chia adapter |
 | Baselines | T030–T033 | Phụ thuộc engine/metrics và accepted origins |
 | TSFM/adapters | T040–T042 | Revision cố định và cùng dữ liệu quan sát |
@@ -20,18 +31,12 @@ Có thể viết interface, metrics và tests với fixtures giả khi dữ li�
 
 ## Branch và PR
 
-Có quyền push: `origin` là repo chính. Chưa có quyền push: fork repo trên GitHub, clone fork, thêm repo chính làm upstream:
+Collaborator là thành viên cùng nghiên cứu, được chủ repo mời với quyền Write. Mọi người clone cùng repo và push branch của mình vào `origin`; quy trình nhóm dùng branch/PR trong repo chung.
 
 ```sh
-git clone https://github.com/<your-account>/Kronos-VN30-Time-series-Forecasting.git
+git clone https://github.com/HUSTlang-nguyen/Kronos-VN30-Time-series-Forecasting.git
 cd Kronos-VN30-Time-series-Forecasting
-git remote add upstream https://github.com/HUSTlang-nguyen/Kronos-VN30-Time-series-Forecasting.git
-git fetch upstream
-git switch main
-git merge --ff-only upstream/main
 ```
-
-Thay `<your-account>` bằng tài khoản GitHub của bạn. Với fork, đồng bộ qua `upstream/main`; với clone repo chính, dùng `git pull --ff-only` như bên dưới. Không cố force/reset nếu branch đã diverge: xử lý commits của bạn trước.
 
 ```sh
 git switch main
@@ -51,7 +56,7 @@ git commit -m "Implement T021 model interface"
 git push -u origin codex/t021-model-interface
 ```
 
-Thay `<files-for-your-task>` bằng file thật thuộc task; tránh `git add .` khi working tree chứa thay đổi của task khác. Mở PR trên GitHub với base `HUSTlang-nguyen/Kronos-VN30-Time-series-Forecasting:main`, compare branch của bạn trong repo chính/fork. Đợi CI và reviewer, sửa feedback trên cùng branch. Sau merge, đồng bộ main rồi nhận task tiếp theo.
+Thay `<files-for-your-task>` bằng file thật thuộc task; tránh `git add .` khi working tree chứa thay đổi của task khác. Mở PR trên GitHub với base `HUSTlang-nguyen/Kronos-VN30-Time-series-Forecasting:main`, compare branch của bạn trong repo chung. Đợi CI và reviewer, sửa feedback trên cùng branch. Sau merge, đồng bộ main rồi nhận task tiếp theo.
 
 PR ghi task/issue, vấn đề và hành vi mới, lệnh kiểm tra đã chạy, evidence, thay đổi data/config/split và checklist liên quan. Dùng `.github/pull_request_template.md`. Task accepted cần đầu ra, mọi acceptance criteria đạt và reviewer kiểm tra bằng chứng.
 
@@ -65,7 +70,7 @@ docker compose run --rm data python scripts/export_data_requirements.py --check
 docker compose run --rm data
 ```
 
-Contributor docs/data không cần tải weights/CUDA. Model contributors dùng service `cuda` hoặc `.venv` khóa bởi `uv.lock`; các lệnh nằm trong README.
+Collaborator docs/data không cần tải weights/CUDA. Model collaborators dùng service `cuda` hoặc `.venv` khóa bởi `uv.lock`; các lệnh nằm trong README.
 
 Checks cho PR:
 
@@ -79,14 +84,16 @@ Sửa dependencies có chủ đích trong `pyproject.toml`, cập nhật `uv.loc
 
 ## Dữ liệu và output
 
-- Dùng đúng SQLite/ZIP theo receipt; chạy `python scripts/check_shared_data.py` trước khi dùng.
+- Tải SQLite/ZIP bằng `dvc pull` với pointer của checkout; xem [DVC guide](docs/DVC_Data_Versioning.md) để cài tool và xác thực Drive. Dùng đúng receipt; chạy `python scripts/check_shared_data.py` trước khi dùng.
 - Giữ dữ liệu nguồn, thứ tự và quality flags. Không splice, impute, sửa OHLC hoặc bỏ duplicate để qua kiểm tra.
-- SQLite là snapshot: mỗi contributor dùng bản local chỉ đọc; kết quả riêng đặt ở file khác.
+- SQLite là snapshot: mỗi collaborator dùng bản local chỉ đọc; kết quả riêng đặt ở file khác.
 - Output thử nghiệm đặt tại `artifacts/local/<task-or-name>/` hoặc `reports/local/`, được gitignore. Smoke/provenance nhận `--output` để tránh sửa bằng chứng chung.
 - File đã hash-bound không được sửa chỉ để đổi kết luận; tạo evidence/manifest mới và liên kết bản cũ.
-- Snapshot SQLite/ZIP nhỏ trong `data/share/` được quản lý bằng Git cùng checksum/receipts. Working raw data, weights và outputs lớn vẫn gitignore. Không đưa dữ liệu/weights vào Docker image hoặc tự upload từ CI.
+- Git quản lý DVC pointers, checksum/receipts; SQLite/ZIP và raw bytes ở DVC/Drive. Interim/processed chưa có pointer, weights và outputs lớn vẫn gitignore. Không đưa dữ liệu/weights vào Docker image hoặc tự upload từ CI.
 
-Người quản lý dữ liệu xuất phiên bản mới bằng `share_vndirect_*`, cập nhật receipt theo bytes thực tế, chạy checks và đưa snapshot/checksum/receipts vào cùng PR. Contributor nhận qua clone/pull commit đó; không sửa DB trong repo để lưu kết quả riêng. Journal/WAL/SHM không được commit. Việc cập nhật Git không tự làm G1 pass.
+Collaborator phụ trách task dữ liệu xuất phiên bản mới bằng `share_vndirect_*`, cập nhật receipt theo bytes thực tế, chạy checks, `dvc add` rồi `dvc push`. Kiểm tra tải từ checkout/cache trống trước khi publish pointers/checksum/receipts trong cùng PR. collaborator nhận code bằng Git và dữ liệu bằng `dvc pull`; không sửa DB trong repo để lưu kết quả riêng. Journal/WAL/SHM không được commit. Người phát hành ghi task, nguồn/biến đổi, hashes và reviewer; cả nhóm dùng phiên bản đã review. Việc cập nhật Git không tự làm G1 pass.
+
+DVC tool dùng `requirements/dvc.txt`, tách khỏi dependency graph CUDA. Sau thay đổi quy trình versioning, chạy `python scripts/check_dvc_roundtrip.py`; CI kiểm tra local remote với fixtures giả, không kiểm tra Drive.
 
 ## Nghiệm thu task
 

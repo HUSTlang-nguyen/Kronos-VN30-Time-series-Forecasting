@@ -17,7 +17,7 @@ venv/
 .vendor/
 .cache/
 
-# Working market data; shared versioned snapshots are tracked
+# Data bytes are managed by DVC; Git keeps pointers and receipts.
 data/raw/
 data/interim/
 data/processed/

@@ -1,0 +1,5 @@
+# Install separately from the CUDA/data environments.
+dvc[gdrive]==3.67.1
+dvc-gdrive==3.0.1
+# PyDrive2 caps pyOpenSSL; an unconstrained solve selected an incompatible 22.0.0.
+pyOpenSSL==24.2.1

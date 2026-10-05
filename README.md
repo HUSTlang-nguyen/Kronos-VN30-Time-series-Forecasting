@@ -10,7 +10,8 @@ Repo đang triển khai; chưa có kết quả benchmark chính thức. Script s
 |---|---|
 | Phase 0: hợp đồng nghiên cứu, provenance, môi trường CUDA, smoke tests | Đã có bằng chứng kiểm tra |
 | Nguồn chính VN30 | VNDIRECT, chọn ngày 05/10/2026 |
-| Snapshot cho contributor | SQLite/ZIP candidate; 2.271 hàng, 24/08/2017–01/10/2026 |
+| Snapshot cho collaborator | SQLite/ZIP candidate; 2.271 hàng, 24/08/2017–01/10/2026 |
+| Data versioning | DVC + Google Drive; đã upload/restore 89 file, SHA256 không đổi; pointers và receipts được version trong Git |
 | Audit mới, chưa thay snapshot | 2.272 hàng, 24/08/2017–02/10/2026; 39 trường trên 30 ngày đã kiểm tra |
 | Phase 1: chất lượng nguồn, calendar, accepted dataset/splits | Chưa hoàn tất; G1 pending |
 | Phase 2–5: framework, baseline, adapters, holdout và thống kê | Chưa triển khai đầy đủ |
@@ -27,7 +28,7 @@ Snapshot candidate và tests đạt không tự xác nhận G1. Chưa chạy ben
 
 Cập nhật kiểm định 05/10/2026: bốn Close được bản tin cùng ngày hỗ trợ theo giá VNDIRECT; 35 O/H/L chưa phân xử. VNDIRECT có 71 phiên liên tiếp Open bằng Close phiên trước (05/05–11/08/2025), cần làm rõ cách dựng nến. Calendar candidate khớp ngày nhưng còn thiếu bằng chứng lịch sử/exception. [Review T010/T012](reports/vndirect_T010_T012_review.md), [bảng đủ 39 sai khác](reports/vndirect_39_discrepancy_review.md).
 
-[Review bốn bài nghiên cứu](reports/vn30_baseline_literature_review.md) đề xuất daily ARIMA cho supporting replication và KTPCA ở nhánh mở rộng. Đây là đề xuất; study v4, E0/T030 và core baseline vẫn giữ nguyên. Local tests hiện có 49 tests pass; CI remote phải đối chiếu đúng commit, không dùng run cũ để chứng nhận thay đổi mới.
+[Review bốn bài nghiên cứu](reports/vn30_baseline_literature_review.md) đề xuất daily ARIMA cho supporting replication và KTPCA ở nhánh mở rộng. Đây là đề xuất; study v4, E0/T030 và core baseline vẫn giữ nguyên. Local tests hiện có 52 tests pass; CI remote phải đối chiếu đúng commit, không dùng run cũ để chứng nhận thay đổi mới.
 
 ## Bắt đầu bằng Docker
 
@@ -40,17 +41,25 @@ docker compose build data
 docker compose run --rm data
 ```
 
-Service `data` chạy tests hiện có. Image chứa NumPy, pandas, PyArrow, PyYAML, requests và pytest; contributor làm dữ liệu/tests không cần tải PyTorch hoặc weights. Dependencies và distribution hashes được xuất từ `uv.lock` vào `requirements/data.txt`.
+Service `data` chạy tests hiện có. Image chứa NumPy, pandas, PyArrow, PyYAML, requests và pytest; collaborator làm dữ liệu/tests không cần tải PyTorch hoặc weights. Dependencies và distribution hashes được xuất từ `uv.lock` vào `requirements/data.txt`.
 
-SQLite/ZIP cùng checksum được quản lý trong `data/share/` bằng Git. Clone hoặc pull repo sẽ nhận đúng snapshot theo receipts; kiểm tra ngay:
+Dữ liệu được quản lý bằng **DVC + Google Drive**. Git chỉ giữ pointers, checksum và receipts; clone không tải dữ liệu. Upload và phục hồi 89 file từ Drive đã được xác minh; checkout Git chứa pointers/tài liệu của migration. [Hướng dẫn DVC](docs/DVC_Data_Versioning.md) có quyền truy cập và cách xác thực. Với checkout chứa pointers, cài DVC trên host và tải SQLite:
+
+```sh
+uv tool install --with-requirements requirements/dvc.txt dvc
+dvc pull data/share/vn30_vndirect_20261001T151513588605Z_candidate.sqlite.dvc
+```
+
+Kiểm tra snapshot bằng container:
 
 ```sh
 docker compose run --rm data python scripts/check_shared_data.py
 ```
 
-Lệnh kiểm tra checksum từ receipt trong checkout, SQLite integrity, dữ liệu gốc và nến so với CSV. Nếu checkout cũ chưa có snapshot, pull commit chứa snapshot; unit tests vẫn chạy độc lập với dữ liệu thật. Với ZIP:
+Lệnh kiểm tra checksum từ receipt trong checkout, SQLite integrity, dữ liệu gốc và nến so với CSV. Nếu thiếu dữ liệu, chạy `dvc pull` với pointer của cùng checkout; unit tests vẫn chạy độc lập với dữ liệu thật. Nếu cần ZIP, tải trước rồi kiểm tra:
 
 ```sh
+dvc pull data/share/vn30_vndirect_20261001T151513588605Z_candidate.zip.dvc
 docker compose run --rm data python scripts/check_shared_data.py --format zip
 ```
 
@@ -74,7 +83,7 @@ Smoke test dùng OHLC giả, không phải kết quả nghiên cứu. Output t�
 
 ## Python trực tiếp
 
-Cần Python 3.11 và `uv`. Contributor dữ liệu dùng môi trường riêng.
+Cần Python 3.11 và `uv`. collaborator dữ liệu dùng môi trường riêng.
 
 Windows PowerShell:
 
@@ -114,7 +123,7 @@ python scripts/share_vndirect_snapshot.py
 python scripts/share_vndirect_sqlite.py
 ```
 
-Xuất ZIP cần môi trường `data` hoặc `.venv-data`; xuất/kiểm tra SQLite chỉ cần thư viện chuẩn Python. Raw captures gốc ngoài snapshot vẫn là dữ liệu làm việc local; contributor không cần chúng để dùng SQLite/ZIP đã commit. Mọi người dùng cùng commit và receipt, không tự nối nguồn hoặc sửa giá. [Hướng dẫn dữ liệu](docs/Contributor_Data_Guide.md) có schema, SQL/pandas và quy trình cập nhật snapshot.
+Xuất ZIP cần môi trường `data` hoặc `.venv-data`; xuất/kiểm tra SQLite chỉ cần thư viện chuẩn Python. Raw captures có pointer `data/raw.dvc`; tải khi cần replay. collaborator chỉ cần SQLite cho truy vấn thông thường. Quy trình upload trước rồi commit pointers/receipts nằm trong hướng dẫn DVC. Mọi người dùng cùng commit và receipt, không tự nối nguồn hoặc sửa giá. [Hướng dẫn dữ liệu](docs/Collaborator_Data_Guide.md) có schema, SQL/pandas và quy trình cập nhật snapshot.
 
 Freeze dữ liệu nghiên cứu sau khi có accepted inputs:
 
@@ -128,7 +137,7 @@ Với cấu hình hiện tại, lệnh đầu **phải exit 1** vì `status: pen
 ## Làm việc cùng nhau
 
 1. Chọn một task pending trong checklist, ghi Task ID/phạm vi vào issue và trao đổi owner trước khi làm. Không nhận trùng task đang có người làm.
-2. Nếu có quyền push, clone repo chính. Nếu chưa có quyền push, fork trên GitHub rồi clone fork và thêm remote `upstream` theo [CONTRIBUTING](CONTRIBUTING.md).
+2. Chủ repo mời collaborator với quyền GitHub Write; cả nhóm clone repo chung và push branch riêng vào `origin`. Thành viên cùng upload dữ liệu cần Drive Editor và được thêm OAuth Test users khi app ở Testing. Xem [quy trình nhóm](COLLABORATING.md).
 3. Đồng bộ main, tạo branch riêng. Ví dụ T021:
 
 ```sh
@@ -154,15 +163,17 @@ Các file T021 trên là ví dụ cho task chưa triển khai; không chạy `gi
 
 6. Mở Pull Request trên GitHub từ branch của bạn về `main` của repo chính. Điền template: Task ID/issue, vấn đề và hành vi mới, lệnh kiểm tra, evidence và tác động tới nghiên cứu. Đợi CI/reviewer; cập nhật cùng branch để xử lý feedback. Đóng issue/đánh dấu task accepted sau khi đủ nghiệm thu; không push trực tiếp lên main.
 
-`data/share/` là ngoại lệ có chủ đích cho snapshot SQLite/ZIP nhỏ, cùng checksum/receipt. Không commit dữ liệu làm việc ở `data/raw/`, `data/interim/`, `data/processed/`, weights, credentials hoặc `.venv`. Snapshot SHA256 xác nhận cùng phiên bản, không thay cho kiểm định chất lượng.
+Git giữ `data/share/*.dvc`, `data/raw.dvc`, checksum và receipts; DVC giữ binary/raw bytes trên Drive. Không commit SQLite/ZIP, dữ liệu làm việc ở `data/raw/`, `data/interim/`, `data/processed/`, weights, credentials hoặc `.venv`. Snapshot SHA256 xác nhận cùng phiên bản, không thay cho kiểm định chất lượng.
+
+Repo public không làm hash DVC thành quyền tải Drive. Remote cần được chia sẻ theo tài khoản; hash/pointers chỉ là metadata. SQLite/ZIP cũ đã được gỡ khỏi cây file hiện tại nhưng vẫn còn trong lịch sử GitHub public. Chi tiết phạm vi truy cập ở [DVC guide](docs/DVC_Data_Versioning.md).
 
 ## Cấu trúc repo
 
 ```text
 configs/                 Hợp đồng nghiên cứu, nguồn, pending freeze inputs
 data/manifests/          Provenance, receipts, calendar/source evidence
-data/raw/                Phản hồi gốc tại máy, gitignored
-data/share/              Snapshot SQLite/ZIP và checksums, quản lý bằng Git
+data/raw/                Phản hồi gốc, DVC qua data/raw.dvc
+data/share/              DVC snapshots; Git giữ pointers/checksums
 data/interim/            Dữ liệu làm việc, gitignored
 data/processed/          Accepted dataset khi hoàn tất Phase 1
 scripts/                 Audit, calendar, freeze, môi trường và chia sẻ dữ liệu
@@ -172,15 +183,17 @@ artifacts/               Bằng chứng và output thí nghiệm theo loại
 docs/                    Plan, tasks, runbooks; plan cũ ở archive/
 reports/                 Báo cáo kiểm định và nghiên cứu
 requirements/data.txt    Dependency subset xuất từ uv.lock
+requirements/dvc.txt     DVC/Drive tool pins, môi trường riêng
 Dockerfile               Targets data và cuda
-compose.yaml             Bind mount và model cache cho contributor
+compose.yaml             Bind mount và model cache cho collaborator
 ```
 
 ## File cần giữ và file có thể dọn
 
 | Nhóm | Chính sách |
 |---|---|
-| `data/share/` và receipts | Giữ trong Git để clone/pull có cùng snapshot |
+| DVC pointers, checksum và receipts | Giữ trong Git; tải binary bằng `dvc pull` |
+| SQLite/ZIP/raw bytes và DVC cache | Chỉ dọn local sau khi upload và phục hồi remote đã được kiểm tra |
 | `docs/archive/` | Plan cũ để tham khảo; dùng technical plan/checklist hiện tại khi làm task |
 | `.pytest_cache/`, `__pycache__/`, ảnh PNG render tạm | Có thể xóa và tạo lại; không commit |
 | `tmp/vnstock-env/` | Môi trường audit riêng có thể tạo lại từ requirements; giữ khi còn cần replay |
@@ -195,8 +208,9 @@ Chi tiết lượt dọn hiện tại: [repository cleanup](reports/repository_c
 |---|---|
 | [Technical plan](docs/VN30_TSFMs_Kronos_Technical_Implementation_Plan.md) | Quy trình và lựa chọn nghiên cứu |
 | [End-to-end tasks](docs/VN30_TSFMs_Kronos_End_to_End_Tasks.md) | Task ID, phụ thuộc, đầu ra, nghiệm thu |
-| [Contributor guide](CONTRIBUTING.md) | Nhận task, branch/PR, tests, evidence |
-| [Data guide](docs/Contributor_Data_Guide.md) | Cùng phiên bản SQLite/ZIP |
+| [collaborator guide](COLLABORATING.md) | Nhận task, branch/PR, tests, evidence |
+| [Data guide](docs/Collaborator_Data_Guide.md) | Cùng phiên bản SQLite/ZIP |
+| [DVC guide](docs/DVC_Data_Versioning.md) | Drive access, OAuth, tải/phát hành dữ liệu |
 | [Docker runbook](docs/Docker_Runbook.md) | Build, chạy CPU/CUDA, xử lý lỗi |
 | [Freeze runbook](docs/Phase1_Freeze_Runbook.md) | Accepted inputs và immutable outputs |
 | [Phase 1 readiness](reports/phase1_readiness_review.md) | Điều kiện dữ liệu còn pending |

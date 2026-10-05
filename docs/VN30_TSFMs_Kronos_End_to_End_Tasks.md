@@ -5,14 +5,14 @@
 **Primary endpoint:** pooled Close MAE at h=1  
 **Primary comparison:** Kronos-small vs Naive and frozen generic multivariate TSFM  
 
-**Contributor update:** 2026-10-05. Primary source selected: VNDIRECT. Shared SQLite/ZIP snapshots are candidate artifacts, not accepted Phase 1 inputs. Setup: [README](../README.md), [CONTRIBUTING](../CONTRIBUTING.md), [data guide](Contributor_Data_Guide.md), [Docker runbook](Docker_Runbook.md).
+**collaborator update:** 2026-10-05. Primary source selected: VNDIRECT. Shared SQLite/ZIP snapshots are candidate artifacts, not accepted Phase 1 inputs. Setup: [README](../README.md), [CONTRIBUTING](../COLLABORATING.md), [data guide](Collaborator_Data_Guide.md), [Docker runbook](Docker_Runbook.md).
 
-## 0. Current state and contributor workflow
+## 0. Current state and collaborator workflow
 
 | Phase | Tasks | Current state | Completion evidence |
 |---|---|---|---|
 | 0 — research/environment | T001–T004 | Accepted evidence exists | `configs/study.yaml`, provenance manifest, `reports/environment.md`, smoke artifacts |
-| Contributor setup | T005–T009 | Implemented; acceptance below | `reports/contributor_setup_validation.md` |
+| collaborator setup | T005–T009 | Implemented; acceptance below | `reports/collaborator_setup_validation.md` |
 | 1 — source/data/calendar/splits | T010–T014 | Primary source chosen; quality/calendar acceptance pending | Source reports and freeze runbook; no accepted freeze receipt |
 | 2 — evaluation framework | T020–T027 | Pending | Interface, engine, metrics, inference, Naive end-to-end artifacts |
 | 3 — baseline ladder | T030–T033 | Pending | Replication and development artifacts |
@@ -22,9 +22,9 @@
 | 7 — optional | T070–T076 | Not scheduled | Separate evidence or explicit deferred reason |
 | 8 — final package | T080–T081 | Pending | Claim/evidence matrix and frozen research package |
 
-Owner/reviewer assignments live in issues/PRs rather than invented names in this checklist. Before work: claim Task ID, list dependencies and files, create `codex/<task-id>-<description>`, and agree interface boundaries with related contributors. On completion: record commands, output paths/hashes, deviations and review in `reports/experiment_log.md`, then update this checklist.
+Owner/reviewer assignments live in issues/PRs rather than invented names in this checklist. Before work: claim Task ID, list dependencies and files, create `codex/<task-id>-<description>`, and agree interface boundaries with related collaborators. On completion: record commands, output paths/hashes, deviations and review in `reports/experiment_log.md`, then update this checklist.
 
-The source/calendar track and synthetic interface/metric tests can progress independently. Real-data inference waits for the mandatory gates. One coordinator manages accepted data versions and final holdout execution; separate contributors must not overwrite shared artifacts or independently tune against test metrics.
+The source/calendar track and synthetic interface/metric tests can progress independently. Real-data inference waits for the mandatory gates. One coordinator manages accepted data versions and final holdout execution; separate collaborators must not overwrite shared artifacts or independently tune against test metrics.
 
 ## 1. Usage rules
 
@@ -99,25 +99,28 @@ Literature follow-up 2026-10-05: four alternative references have been reviewed 
 - Acceptance: environment rebuild succeeds and both TSFM adapters return a 20-step finite multivariate forecast; remaining mandatory adapters follow the unified contract tests in T021 and their implementation tasks.
 - Plan reference: Sections 23, 29, 30 Phase 0.
 
-### Contributor setup — T005–T009
+### collaborator setup — T005–T009
 
-### T005 — Contributor documentation and setup contract
+### T005 — collaborator documentation and setup contract
 
 - [x] Document project scope/status, Windows/Linux/Docker setup, task ownership, PR review and evidence requirements.
 - Depends on: T001, T004.
-- Outputs: `README.md`, `CONTRIBUTING.md`, `.github/pull_request_template.md`, this checklist.
+- Outputs: `README.md`, `COLLABORATING.md`, `.github/pull_request_template.md`, this checklist.
 - Acceptance: every documented executable command maps to an existing script/service; future framework commands are explicitly pending; no candidate data is mislabeled accepted.
-- Evidence: `reports/contributor_setup_validation.md`.
+- Evidence: `reports/collaborator_setup_validation.md`.
 
-### T006 — Share and verify one contributor snapshot
+### T006 — Share and verify one collaborator snapshot
 
 - [x] Record VNDIRECT selection and export versioned candidate ZIP/SQLite preserving source bytes, prices, rows and quality flags.
 - [x] Verify local snapshots against tracked SHA256 receipts; provide a read-only SQL/pandas example.
-- [x] Version small shared SQLite/ZIP snapshots and checksums in `data/share/` through Git; keep source-working data and SQLite runtime journals ignored.
+- [x] Create DVC pointers/cache for raw captures and shared SQLite/ZIP; Git retains checksums/receipts and ignores binary bytes/journals.
+- [x] Complete custom Google Desktop OAuth, upload to the configured team Drive and verify recovery with an empty cache before publishing the migration. Evidence: `data/manifests/dvc_drive_verification.json`, 89 files with identical SHA256, both snapshot formats verified on 2026-10-06.
+- [x] Version DVC pointers, checksum/receipts and updated collaborator documentation together in the migration publication commit (2026-10-06).
+- [ ] Another collaborator independently downloads with their own Google account/assigned Drive access and verifies the receipt-bound snapshot.
 - Depends on: source-selection portion of T010, not G1 acceptance.
-- Outputs: `configs/primary_data_source.yaml`, `data/manifests/vndirect_*snapshot.json`, `scripts/share_vndirect_*`, `scripts/check_shared_data.py`, `docs/Contributor_Data_Guide.md`.
-- Acceptance: tampered data is rejected; original bytes and duplicate/anomaly rows survive round-trip; contributors can verify without CUDA. Local package creation does not imply remote upload or data acceptance.
-- Evidence: snapshot receipts, `tests/test_contributor_snapshot.py`, infrastructure validation report.
+- Outputs: `configs/primary_data_source.yaml`, `data/manifests/vndirect_*snapshot.json`, `scripts/share_vndirect_*`, `scripts/check_shared_data.py`, `docs/Collaborator_Data_Guide.md`.
+- Acceptance: tampered data is rejected; original bytes and duplicate/anomaly rows survive round-trip; collaborators can verify without CUDA. Local package creation does not imply remote upload or data acceptance.
+- Evidence: snapshot receipts, `tests/test_collaborator_snapshot.py`, infrastructure validation report, `reports/dvc_migration_validation.md`; workflow: `docs/DVC_Data_Versioning.md`.
 
 ### T007 — Data/test Docker environment
 
@@ -125,21 +128,22 @@ Literature follow-up 2026-10-05: four alternative references have been reviewed 
 - [ ] Verify both shared snapshot formats in the container and compare dependency subset to uv.lock.
 - Depends on: T004, T006.
 - Outputs: `Dockerfile`, `compose.yaml`, `.dockerignore`, generated `requirements/data.txt`, `docs/Docker_Runbook.md`.
-- Acceptance: a contributor without torch/GPU can run tests and inspect data; raw data/weights are excluded from build context; host `.venv` is not mounted over `/opt/venv`.
-- Evidence: `reports/contributor_setup_validation.md`, image ID and actual commands.
+- Acceptance: a collaborator without torch/GPU can run tests and inspect data; raw data/weights are excluded from build context; host `.venv` is not mounted over `/opt/venv`.
+- Evidence: `reports/collaborator_setup_validation.md`, image ID and actual commands.
 
-### T008 — Portable CUDA contributor environment
+### T008 — Portable CUDA collaborator environment
 
 - [ ] Build the `cuda` target from the frozen lock and check GPU availability inside the container.
 - [ ] Provide portable pinned Kronos bootstrap and isolated local output paths for smoke/provenance checks.
 - Depends on: T003, T004.
 - Outputs: CUDA target/profile, `scripts/bootstrap_kronos.py`, smoke/provenance `--output`, Docker runbook.
 - Acceptance: build succeeds and actual torch/CUDA/device check passes on a supported host; a CPU-only host may leave GPU validation pending. This task does not imply adapter T040/T041 or G4 completion.
-- Evidence: `reports/contributor_setup_validation.md`.
+- Evidence: `reports/collaborator_setup_validation.md`.
 
-### T009 — Contributor CI
+### T009 — collaborator CI
 
 - [x] Execute GitHub CI successfully on main or a PR: Python 3.11 Windows/Linux tests and Docker data build/tests.
+- [ ] After the DVC migration is published, confirm the new `dvc-local` job and existing jobs pass for that commit; previous runs do not certify this change.
 - Depends on: the Docker build/test portion of T007; the separate in-container snapshot checks remain under T007.
 - Outputs: `.github/workflows/ci.yml`, successful run URL.
 - Acceptance: dependency-lock drift is rejected; tests require neither production dataset nor checkpoint downloads. Workflow configuration alone is not a successful CI run.
@@ -157,7 +161,7 @@ Resolve material discrepancies involving the chosen primary source. Investigatio
 
 Progress 2026-10-05 (selected-source rerun): fresh capture through 2026-10-02 has 2,272 VNDIRECT rows with no structural/date anomalies. Seeded comparisons cover 50 year-stratified VPS dates and 35 DNSE dates plus extremes. All 39 discrepant fields on 30 dates were investigated: shorter requests reproduce every difference; four Close values have contemporaneous publications supporting VNDIRECT; 35 O/H/L values remain unadjudicated. Additional diagnosis finds 71 consecutive VNDIRECT sessions with Open equal to previous Close, 2025-05-05–2025-08-11. Upstream independence and construction rules are unverified; G1 remains pending. Evidence: `reports/vndirect_39_discrepancy_review.md`, `artifacts/source_audit/vndirect_39_cases_20261005/`, alongside `reports/vndirect_T010_T012_review.md`. Old captures and shared snapshots remain unchanged.
 
-Progress 2026-10-05: VNDIRECT selected explicitly by the user, recorded in `configs/primary_data_source.yaml`. Candidate contributor packages and checks are available under T006. G1 remains pending; no accepted dataset/splits have been published.
+Progress 2026-10-05: VNDIRECT selected explicitly by the user, recorded in `configs/primary_data_source.yaml`. Candidate collaborator packages and checks are available under T006. G1 remains pending; no accepted dataset/splits have been published.
 
 Progress 2026-10-02 (complete anomaly review): hash-verified raw responses from all five tested providers; assembled 440 unchanged candles across all 119 dates with invalid OHLC or duplicate rows. All 100 invalid OHLC rows and 52 duplicate VPS rows remain retained. Immutable replay passed. This investigation table is not an accepted dataset or source-selection decision. Evidence: `artifacts/source_audit/anomaly_review_20261002/`, `scripts/build_anomaly_review.py`.
 
@@ -655,7 +659,7 @@ The primary study is complete only when all items below are checked:
 - [ ] No test-informed tuning or selective rerun occurred.
 - [ ] Final numbers trace to immutable hashes and revisions.
 
-A pilot requires the same source-quality, leakage, artifact and freeze checks, with the G3/provenance limitation recorded explicitly and no confirmatory superiority claim. Contributor setup or passing unit tests alone cannot complete this research checklist.
+A pilot requires the same source-quality, leakage, artifact and freeze checks, with the G3/provenance limitation recorded explicitly and no confirmatory superiority claim. collaborator setup or passing unit tests alone cannot complete this research checklist.
 
 ## 13. Per-task evidence template
 

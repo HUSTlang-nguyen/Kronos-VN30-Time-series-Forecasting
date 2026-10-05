@@ -53,7 +53,7 @@ Visually inspected HOSE notices 2079 (2025), 2294 (2026 annual, mirrored signed 
 
 ## Contributor setup update - 2026-10-05
 
-Infrastructure evidence is recorded in reports/contributor_setup_validation.md. VNDIRECT candidate ZIP/SQLite receipts identify the contributor snapshot; G1 and accepted dataset/splits remain pending. No primary holdout run is introduced by this setup update.
+Infrastructure evidence is recorded in reports/collaborator_setup_validation.md. VNDIRECT candidate ZIP/SQLite receipts identify the contributor snapshot; G1 and accepted dataset/splits remain pending. No primary holdout run is introduced by this setup update.
 
 ## Selected-source T010/T012 execution — 2026-10-05
 
@@ -78,3 +78,27 @@ Validation: `tmp/ci-data-env/Scripts/python.exe -B -m pytest -q -p no:cacheprovi
 Synchronized README, contributor/data/Docker/freeze guides, shared-data notes, implementation-plan execution status, research report, task checklist and acceptance reports with the T010/T012 and complete 39-field investigation. Literature changes remain proposals; the v4 study and Zhang E0 contract are preserved. Shared snapshot bytes/receipts and historical raw/config/parser evidence remain unchanged. New reports/configs/scripts/tests and compact diagnostic artifacts are included for publication; raw/PDF/runtime directories remain ignored.
 
 Pre-publication checks against the local working tree based on `6f0d6a7`: 49 tests passed; locked data dependency export matched; shared SQLite/ZIP verified; all three offline replays matched persisted artifacts. Remote CI for the publication must be identified by its actual pushed commit rather than attributed to the earlier run. Publication commit identities are available in Git history.
+
+## T006 — DVC/Google Drive migration preparation — 2026-10-06
+
+Working tree based on `e8527db`; no migration commit/push yet. Created three DVC pointers for all 87 raw files and the unchanged SQLite/ZIP candidate snapshots. Removed binary files only from the Git index; preserved local bytes and scientific receipts. Configured the user-provided team Drive folder, updated contributor/data/Docker/freeze documentation and added a synthetic DVC CI roundtrip check. DVC is an isolated uv tool, leaving research lock/CUDA dependencies unchanged.
+
+Validation: 52 unit tests pass; synthetic upload, empty-cache download and two-version historical restore pass. Actual-data local remote upload/restoration also verified all 89 file SHA256 hashes and both scientific snapshot receipts with a fresh cache. Dependency export, Compose configuration, DVC status and diff checks pass. Initial pyOpenSSL incompatibility was resolved with the tool pin. The user reported default Google OAuth blocked; upload/Drive recovery remain pending the team's Desktop client. T006 remote sharing and CI for this revision remain unchecked. No G1/G3/G4 acceptance or research results are claimed. Details: `reports/dvc_migration_validation.md`.
+
+## T006 — Google Drive upload and recovery verified — 2026-10-06
+
+The user configured the custom Desktop OAuth client locally and completed Google sign-in. `dvc push -r team` exited 0: 89 files pushed. A separate temporary workspace/cache pulled all 89 files from the team Drive; each SHA256 matched the original, and both SQLite/ZIP receipts verified the unchanged 2,271-row candidate. Logical file size: 22,475,925 bytes. Evidence: `data/manifests/dvc_drive_verification.json`. Credentials remain excluded from Git; source bytes remain local and the temporary restore was cleaned up. Updated README/data/plan/checklist/validation documents to record successful Drive upload and recovery. Git migration publication, its CI and independent Viewer verification remain pending; no research gate or data acceptance changed.
+
+## Research collaborator workflow clarification — 2026-10-06
+
+Updated active documentation to describe peers collaborating on the research: shared GitHub repository with Write access and branch/PR review, task ownership/reviewer coordination, separate Drive/OAuth permissions, reproducible local processing and versioned output sharing. Collaborators responsible for data work can publish new DVC versions with Editor access after validation and review; this role is not restricted to a fixed maintainer. Canonical data guide: `docs/Collaborator_Data_Guide.md`; the previous URL redirects for historical links. Existing script/test/receipt names are retained for compatibility. No cloud permissions, dataset bytes, research gates or published Git state were changed by this documentation update.
+
+## Collaborator filenames and public-data clarification — 2026-10-06
+
+At the user's explicit request, renamed `CONTRIBUTING.md` to `COLLABORATING.md`, the setup report to `reports/collaborator_setup_validation.md`, the snapshot test to `tests/test_collaborator_snapshot.py`, and the ZIP receipt to `data/manifests/vndirect_collaborator_snapshot.json`; removed the old guide redirect now that `docs/Collaborator_Data_Guide.md` is canonical. Updated live links and executable receipt defaults. ZIP receipt contents and SQLite/ZIP/raw bytes remain unchanged.
+
+Verified via GitHub API that the repository is public and its current `main` still contains the old SQLite/ZIP binaries. Documented that public DVC hashes/pointers do not grant private Drive access, while actual data already committed to public Git is directly downloadable and remains in history after a normal deletion commit. No visibility, Drive sharing or history rewrite was performed.
+
+## DVC/collaborator migration publication — 2026-10-06
+
+Publication revision is the commit containing this entry. Versions the three DVC pointers, verified Drive receipt, isolated tooling/CI check, renamed collaborator guides/report/test/ZIP receipt, and research collaboration workflow. Removes SQLite/ZIP bytes from the current Git tree while retaining local data and public Git history. Research gates, data prices and CUDA lock are unchanged. Pre-publication evidence: 52 unit tests, both snapshot formats verified, local DVC roundtrip, Drive roundtrip of 89 files, portable pointer hashes and local Markdown links. Actual remote CI must be recorded against this commit after push; another collaborator's account/access verification remains pending.

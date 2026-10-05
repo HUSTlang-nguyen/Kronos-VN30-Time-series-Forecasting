@@ -1,4 +1,8 @@
-# Contributor setup validation
+# collaborator setup validation
+
+## DVC migration checks (2026-10-06)
+
+The current working tree passes 52 tests and the synthetic local DVC upload/download/history check. Actual-data local upload and fresh-cache restore verified all 89 file SHA256 hashes plus SQLite/ZIP receipts. Google Drive upload and independent empty-cache restoration are now also verified using a custom Desktop OAuth client. Pointers/receipts are included in the migration commit; independent collaborator access and GitHub CI for this revision remain pending. See [migration validation](dvc_migration_validation.md) and [DVC setup](../docs/DVC_Data_Versioning.md). Historical Git-distributed snapshot instructions below are superseded by DVC.
 
 ## Successful remote CI (2026-10-05)
 
@@ -10,7 +14,7 @@ The isolated Python 3.11 data environment passes **49 tests**. `export_data_requ
 
 ## Original local validation record
 
-Reviewed: 2026-10-05. This report validates contributor infrastructure, not source acceptance or research results. At this earlier stage, changes were tested in a working tree; no new commit, remote CI run or primary holdout run was claimed.
+Reviewed: 2026-10-05. This report validates collaborator infrastructure, not source acceptance or research results. At this earlier stage, changes were tested in a working tree; no new commit, remote CI run or primary holdout run was claimed.
 
 ## Checks completed
 
@@ -22,7 +26,7 @@ Reviewed: 2026-10-05. This report validates contributor infrastructure, not sour
 | `python -S scripts/check_shared_data.py --format zip` | ZIP integrity verified, same candidate snapshot |
 | `python scripts/bootstrap_kronos.py` | Existing clean checkout verified at pinned 67b630e67f6a18c9e9be918d9b4337c960db1e9a |
 | Smoke/provenance `--help` | New `--output` argument available; no model inference required for this check |
-| README/contributor/runbook/checklist local Markdown links | All explicit local links resolve |
+| README/collaborator/runbook/checklist local Markdown links | All explicit local links resolve |
 | Task registry | 49 unique Task IDs; original research IDs retained |
 | `docker compose --profile cuda config --quiet` | Compose configuration valid |
 | `docker compose build data` | Successful first build; requirements installed with hashes |
@@ -57,7 +61,7 @@ The task update also adds explicit dependencies, outputs and acceptance criteria
 
 ## CI failure and dependency correction (2026-10-05)
 
-[Contributor checks run 37280140739](https://github.com/HUSTlang-nguyen/Kronos-VN30-Time-series-Forecasting/actions/runs/37280140739), for commit `bb43229bef28c4251372cdab0bf6a11388c142f2`, failed in the Ubuntu tests and Docker data jobs during pytest collection: `tests/test_vnstock_audit.py` imports `scripts/audit_vnstock_sources.py`, which imports `requests`. The generated data dependency subset omitted this package. The Windows matrix job was cancelled. The Docker data image built successfully in that run; its test command failed.
+[collaborator checks run 37280140739](https://github.com/HUSTlang-nguyen/Kronos-VN30-Time-series-Forecasting/actions/runs/37280140739), for commit `bb43229bef28c4251372cdab0bf6a11388c142f2`, failed in the Ubuntu tests and Docker data jobs during pytest collection: `tests/test_vnstock_audit.py` imports `scripts/audit_vnstock_sources.py`, which imports `requests`. The generated data dependency subset omitted this package. The Windows matrix job was cancelled. The Docker data image built successfully in that run; its test command failed.
 
 The export roots now include `requests`; `requirements/data.txt` was regenerated from the existing `uv.lock`, preserving locked versions and distribution hashes. The hash-bound audit script and host CUDA environment were not modified.
 

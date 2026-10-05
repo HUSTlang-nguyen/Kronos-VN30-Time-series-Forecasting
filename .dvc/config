@@ -1,0 +1,7 @@
+[core]
+    analytics = false
+    remote = team
+[cache]
+    type = copy
+['remote "team"']
+    url = gdrive://1FDP-QGk_-UdcZsjaEuYjXgEu_1Nd62ur
