@@ -29,6 +29,9 @@ def test_gitignore_ignores_disposable_and_large_artifacts() -> None:
         "artifacts/checkpoints/model.bin",
         "artifacts/samples/test.parquet",
         "artifacts/cache/test.cache",
+        "data/share/snapshot.sqlite-journal",
+        "data/share/snapshot.sqlite-wal",
+        "data/share/snapshot.sqlite-shm",
         ".vendor/test.py",
         ".cache/test.txt",
     ]
@@ -48,7 +51,11 @@ def test_canonical_evidence_not_ignored() -> None:
         "data/manifests/artifact_registry.yaml",
         "data/manifests/source_crosscheck.parquet",
         "references/zhang_2025/attribution.md",
-        "docs/tmp/Kronos_VN30_Agent_Implementation_Plan.md",
+        "docs/archive/Kronos_VN30_Agent_Implementation_Plan.md",
+        "data/share/vn30_vndirect_20261001T151513588605Z_candidate.sqlite",
+        "data/share/vn30_vndirect_20261001T151513588605Z_candidate.zip",
+        "data/share/vn30_vndirect_20261001T151513588605Z_candidate.sqlite.sha256",
+        "data/share/vn30_vndirect_20261001T151513588605Z_candidate.zip.sha256",
     ]
     for p in canonical_paths:
         res = subprocess.run(

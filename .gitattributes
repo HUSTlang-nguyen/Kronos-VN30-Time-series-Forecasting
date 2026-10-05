@@ -11,3 +11,8 @@ scripts/phase1_pipeline.py -text
 scripts/reconcile_hose_sessions.py -text
 scripts/validate_vn30_sources.py -text
 scripts/verify_vnstock_capture.py -text
+# Preserve contributor snapshot/checksum bytes across Windows/Linux checkouts.
+data/share/*.sqlite binary
+data/share/*.zip binary
+data/share/*.sha256 -text
+docs/archive/Kronos_VN30_Agent_Implementation_Plan.md -text whitespace=cr-at-eol

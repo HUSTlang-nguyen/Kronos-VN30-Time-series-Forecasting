@@ -2,8 +2,13 @@
 __pycache__/
 *.py[cod]
 .venv/
+.venv-data/
 venv/
 .python-version
+.pytest_cache/
+.env
+.env.*
+!.env.example
 
 # Disposable/local audit material
 /tmp/
@@ -12,10 +17,14 @@ venv/
 .vendor/
 .cache/
 
-# Market data bytes; manifests stay tracked
+# Working market data; shared versioned snapshots are tracked
 data/raw/
 data/interim/
 data/processed/
+# SQLite runtime files are local; never share an active writer's journal
+data/share/*-journal
+data/share/*-wal
+data/share/*-shm
 
 # Large generated experiment outputs
 artifacts/forecasts/
@@ -23,6 +32,8 @@ artifacts/scored/
 artifacts/checkpoints/
 artifacts/samples/
 artifacts/cache/
+artifacts/local/
+reports/local/
 
 # OS/editor
 .DS_Store
