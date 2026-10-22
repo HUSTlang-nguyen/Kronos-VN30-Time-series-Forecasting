@@ -1,27 +1,9 @@
-# Preserve exact bytes for SHA256-bound Phase 1 evidence and replay scripts.
+# Preserve the original snapshot's hash-bound config and parser.
 configs/data_source_acceptance.yaml -text
-configs/vndirect_source_audit.yaml -text
-configs/vndirect_candidate_review.yaml -text
-configs/vndirect_discrepancy_investigation.yaml -text
-scripts/investigate_vndirect_discrepancies.py -text
-artifacts/source_audit/vndirect_39_cases_*/* -text
-scripts/review_vndirect_candidate.py -text
-artifacts/source_audit/vndirect_review_*/* -text
-data/manifests/*_evidence.yaml -text whitespace=cr-at-eol
-scripts/audit_holdout_feasibility.py -text
-scripts/audit_vnstock_sources.py -text
-scripts/build_anomaly_review.py -text
-scripts/build_hose_calendar.py -text
-scripts/freeze_phase1.py -text
-scripts/investigate_source_anomalies.py -text
-scripts/phase1_pipeline.py -text
-scripts/reconcile_hose_sessions.py -text
 scripts/validate_vn30_sources.py -text
-scripts/verify_vnstock_capture.py -text
-# DVC stores binary bytes; Git stores portable pointers and exact SHA256 receipts.
+# Git stores portable DVC pointers and exact SHA256 receipts.
 *.dvc text eol=lf
 .dvc/.gitignore text eol=lf
 .dvc/config text eol=lf
 .dvcignore text eol=lf
 data/share/*.sha256 -text
-docs/archive/Kronos_VN30_Agent_Implementation_Plan.md -text whitespace=cr-at-eol

@@ -1,220 +1,147 @@
-# VN30 Time-Series Forecasting
+# VN30 Forecasting
 
-Nghiên cứu dự báo VN30 bằng mô hình thống kê, mô hình nền tảng chuỗi thời gian và Kronos. Benchmark chính so sánh **Kronos-small**, **Chronos-2-small** và các baseline với cùng lịch giao dịch, dữ liệu quan sát và forecast origins.
+Thử nghiệm dự báo VN30 bằng **Kronos-small**, **Chronos-2-small** và các baseline như Naive, ARIMA, ETS. Repo tập trung vào chạy model và đánh giá dự báo; không còn quy trình viết bài báo hoặc các gate nghiên cứu.
 
-Repo đang triển khai; chưa có kết quả benchmark chính thức. Script smoke test dùng dữ liệu giả để kiểm tra môi trường.
+Repo có loader cho snapshot VN30 cố định, runner dự báo và đánh giá Open/Close trên cùng các phiên. Context là 128 phiên, path dự báo 20 phiên; score tại h=1/5/20. Dữ liệu VNDIRECT là một snapshot lịch sử, vì vậy kết quả chỉ áp dụng cho snapshot này.
 
-## Trạng thái và phạm vi
+Các bước triển khai và điều kiện hoàn thành nằm trong [checklist end-to-end](docs/VN30_TSFMs_Kronos_End_to_End_Tasks.md).
 
-| Thành phần | Trạng thái |
-|---|---|
-| Phase 0: hợp đồng nghiên cứu, provenance, môi trường CUDA, smoke tests | Đã có bằng chứng kiểm tra |
-| Nguồn chính VN30 | VNDIRECT, chọn ngày 05/10/2026 |
-| Snapshot cho collaborator | SQLite/ZIP candidate; 2.271 hàng, 24/08/2017–01/10/2026 |
-| Data versioning | DVC + Google Drive; đã upload/restore 89 file, SHA256 không đổi; pointers và receipts được version trong Git |
-| Audit mới, chưa thay snapshot | 2.272 hàng, 24/08/2017–02/10/2026; 39 trường trên 30 ngày đã kiểm tra |
-| Phase 1: chất lượng nguồn, calendar, accepted dataset/splits | Chưa hoàn tất; G1 pending |
-| Phase 2–5: framework, baseline, adapters, holdout và thống kê | Chưa triển khai đầy đủ |
-| Phase 6–8 | Secondary/optional và bộ báo cáo cuối |
+## Cài môi trường CUDA
 
-- Asset chính: VN30 price index; OHLC theo điểm chỉ số, ngày theo `Asia/Ho_Chi_Minh`.
-- Context chính: 128 phiên; dự báo path 20 phiên, đánh giá h=1/5/20.
-- Endpoint chính: Close MAE tại h=1; point forecast của TSFM là median.
-- Mandatory models: Naive, ARIMA, ETS, DLinear-C, Ridge-OHLC, Chronos-2-small, Kronos-small.
-- Dataset chính dùng phạm vi VNDIRECT đã được xác minh. Capture hiện có chưa đủ giai đoạn replication 2016–2023.
-- TSLA/MSTR không thuộc phạm vi triển khai hiện tại.
-
-Snapshot candidate và tests đạt không tự xác nhận G1. Chưa chạy benchmark chính thức trước khi source/calendar/splits được chấp nhận và G4 được freeze. [Checklist end-to-end](docs/VN30_TSFMs_Kronos_End_to_End_Tasks.md) ghi task, phụ thuộc và điều kiện hoàn thành.
-
-Cập nhật kiểm định 05/10/2026: bốn Close được bản tin cùng ngày hỗ trợ theo giá VNDIRECT; 35 O/H/L chưa phân xử. VNDIRECT có 71 phiên liên tiếp Open bằng Close phiên trước (05/05–11/08/2025), cần làm rõ cách dựng nến. Calendar candidate khớp ngày nhưng còn thiếu bằng chứng lịch sử/exception. [Review T010/T012](reports/vndirect_T010_T012_review.md), [bảng đủ 39 sai khác](reports/vndirect_39_discrepancy_review.md).
-
-[Review bốn bài nghiên cứu](reports/vn30_baseline_literature_review.md) đề xuất daily ARIMA cho supporting replication và KTPCA ở nhánh mở rộng. Đây là đề xuất; study v4, E0/T030 và core baseline vẫn giữ nguyên. Local tests hiện có 52 tests pass; CI remote phải đối chiếu đúng commit, không dùng run cũ để chứng nhận thay đổi mới.
-
-## Bắt đầu bằng Docker
-
-Cần Git và Docker có Linux containers/Compose. Chạy từ thư mục gốc repo; các lệnh dùng được trên PowerShell và shell Linux.
+Cần Python 3.11, Git, uv và NVIDIA GPU/driver hỗ trợ CUDA 13.0. Giữ phiên bản PyTorch đã khóa, không cài đè bằng bản CPU.
 
 ```sh
-git clone https://github.com/HUSTlang-nguyen/Kronos-VN30-Time-series-Forecasting.git
-cd Kronos-VN30-Time-series-Forecasting
+uv sync --frozen
+uv run --no-sync python scripts/bootstrap_kronos.py
+uv run --no-sync python -c "import torch; print(torch.__version__, torch.version.cuda, torch.cuda.is_available())"
+uv run --no-sync python scripts/smoke_models.py --model all --device cuda:0
+```
+
+Smoke dùng dữ liệu giả, chỉ kiểm tra model chạy được. Có thể chọn `--model kronos` hoặc `--model chronos2`; dùng `--device cpu` khi cần. Kết quả sinh trong `artifacts/`, không commit. Weights được tải và cache khi chạy lần đầu.
+
+Kiểm tra hash checkpoint nếu cần:
+
+```sh
+uv run --no-sync python scripts/verify_checkpoint_provenance.py
+```
+
+## Tải dữ liệu bằng DVC
+
+Git giữ pointers/checksum; dữ liệu nằm trên Google Drive của nhóm. Chủ Drive cấp **Viewer** để tải, **Editor** để upload. Nhóm dùng chung một Desktop OAuth client JSON gửi riêng ngoài repo; mỗi collaborator đăng nhập tài khoản Google của mình. Thêm email vào Test users nếu OAuth app đang ở Testing. Không chia sẻ token đăng nhập hoặc commit credentials.
+
+```sh
+uv tool install --with-requirements requirements/dvc.txt dvc
+```
+
+Thay đường dẫn JSON bằng file trên máy bạn:
+
+```sh
+uv run --no-sync python scripts/configure_dvc_drive.py --client-json "C:/Users/<user>/Downloads/dvc-client.json"
+dvc pull data/share/vn30_vndirect_20261001T151513588605Z_candidate.sqlite.dvc
+uv run --no-sync python scripts/check_shared_data.py
+```
+
+Helper ghi client ID/secret vào `.dvc/config.local` đã được gitignore. Khi DVC yêu cầu, hoàn tất đăng nhập Google bằng tài khoản có quyền thư mục Drive.
+
+SQLite hiện có **2.271 hàng, 24/08/2017–01/10/2026**, nguồn VNDIRECT. Snapshot là phiên bản cố định để cả nhóm dùng cùng dữ liệu; không có nghĩa đã làm sạch. Các cờ `duplicate_date`, `invalid_numeric`, `invalid_ohlc`, `outside_request` vẫn được giữ. Đặc biệt, từng ghi nhận 71 phiên Open bằng Close phiên trước trong 05/05–11/08/2025; cần hiểu cách nguồn định nghĩa Open trước khi đánh giá gap. Dữ liệu chưa được cập nhật tới hôm nay.
+
+Đọc SQLite ở chế độ chỉ đọc; ghi dữ liệu xử lý vào `data/processed/`:
+
+```python
+from pathlib import Path
+import sqlite3
+import pandas as pd
+
+path = Path("data/share/vn30_vndirect_20261001T151513588605Z_candidate.sqlite")
+with sqlite3.connect(path.resolve().as_uri() + "?mode=ro", uri=True) as connection:
+    candles = pd.read_sql_query(
+        "SELECT date, open, high, low, close, duplicate_date, invalid_numeric, "
+        "invalid_ohlc, outside_request FROM candles ORDER BY date, row_id",
+        connection,
+    )
+```
+
+Raw là phản hồi gốc để kiểm tra hoặc xử lý lại; ZIP là bản đóng gói kèm CSV và nguồn gốc:
+
+```sh
+dvc pull data/raw.dvc
+dvc pull data/share/vn30_vndirect_20261001T151513588605Z_candidate.zip.dvc
+uv run --no-sync python scripts/check_shared_data.py --format zip
+```
+
+`scripts/share_vndirect_snapshot.py` và `scripts/share_vndirect_sqlite.py` giữ khả năng đóng gói snapshot cũ. `configs/data_source_acceptance.yaml` và `scripts/validate_vn30_sources.py` được giữ nguyên byte để khớp hash của bản dữ liệu đó; các trường gate trong metadata chỉ là thông tin lịch sử.
+
+Sau khi cập nhật dữ liệu, kiểm tra nội dung rồi chạy `dvc add <đường-dẫn-dữ-liệu>` và `dvc push`. Commit các pointer `.dvc`, checksum và receipts tương ứng cùng code/config. Không commit raw, SQLite/ZIP, weights hoặc credentials. Hash công khai trong Git không cấp quyền truy cập Drive.
+
+## Chạy dự báo VN30
+
+Sau khi tải SQLite và cài môi trường CUDA, chạy từng model trên cùng `split.json` (Windows PowerShell hoặc shell):
+
+```sh
+uv run --no-sync python scripts/forecast_vn30.py prepare --output artifacts/local/vn30-run/split.json
+uv run --no-sync python scripts/forecast_vn30.py run --manifest artifacts/local/vn30-run/split.json --model naive --device cpu --output artifacts/local/vn30-run/naive.csv
+uv run --no-sync python scripts/forecast_vn30.py run --manifest artifacts/local/vn30-run/split.json --model ridge --device cpu --output artifacts/local/vn30-run/ridge.csv
+uv run --no-sync python scripts/forecast_vn30.py run --manifest artifacts/local/vn30-run/split.json --model chronos2 --device cuda:0 --output artifacts/local/vn30-run/chronos2.csv
+uv run --no-sync python scripts/forecast_vn30.py run --manifest artifacts/local/vn30-run/split.json --model kronos --device cuda:0 --output artifacts/local/vn30-run/kronos.csv
+uv run --no-sync python scripts/forecast_vn30.py score --manifest artifacts/local/vn30-run/split.json --forecasts artifacts/local/vn30-run/naive.csv artifacts/local/vn30-run/ridge.csv artifacts/local/vn30-run/chronos2.csv artifacts/local/vn30-run/kronos.csv --output artifacts/local/vn30-run/evaluation
+uv run --no-sync python scripts/forecast_vn30.py report --scores artifacts/local/vn30-run/evaluation
+```
+
+`run --limit 2` chỉ là kiểm tra nhanh; không dùng score đó thay kết quả toàn tập. Runner từ chối ghi đè output cũ: dùng thư mục chạy mới cho mỗi lần thử. `prepare` tạo split theo thời gian 70/15/15, giữ đủ 2.271 hàng và lưu hash dataset; mỗi model dùng cùng 323 origin test. Dự báo được lưu trước khi ghép nhãn thật trong `score`. `ridge` chỉ fit trên train; Kronos dùng 3 path và Chronos dùng 13 path, cùng báo sample mean. Kronos nhận lịch phiên đích thực tế dưới dạng thông tin ngày; đây là giới hạn cần nhớ khi diễn giải kết quả. `artifacts/local/` nằm ngoài Git.
+
+Để chạy **đủ train/validation/test** bằng PowerShell, dùng một thư mục output mới:
+
+```powershell
+$base = "artifacts/local/vn30-full-splits"
+uv run --no-sync python scripts/forecast_vn30.py prepare --output "$base/split.json"
+foreach ($split in @("train", "validation", "test")) {
+  foreach ($model in @("naive", "ridge", "chronos2", "kronos")) {
+    $device = if ($model -in @("chronos2", "kronos")) { "cuda:0" } else { "cpu" }
+    uv run --no-sync python scripts/forecast_vn30.py run --manifest "$base/split.json" --model $model --split $split --device $device --output "$base/$model-$split.csv"
+    if ($LASTEXITCODE -ne 0) { throw "Forecast failed: $split/$model" }
+  }
+  uv run --no-sync python scripts/forecast_vn30.py score --manifest "$base/split.json" --forecasts "$base/naive-$split.csv" "$base/ridge-$split.csv" "$base/chronos2-$split.csv" "$base/kronos-$split.csv" --output "$base/evaluation-$split"
+  if ($LASTEXITCODE -ne 0) { throw "Scoring failed: $split" }
+  uv run --no-sync python scripts/forecast_vn30.py report --scores "$base/evaluation-$split"
+}
+uv run --no-sync python scripts/compare_vn30_splits.py --manifest "$base/split.json" --train "$base/evaluation-train" --validation "$base/evaluation-validation" --test "$base/evaluation-test" --output "$base/comparison"
+```
+
+Train có 1.589 phiên và 1.442 origin đủ context/path; validation có 340 phiên/321 origin; test có 342 phiên/323 origin. Cả 2.271 phiên đều thuộc đúng một tập. 128 phiên context được phép nhìn về quá khứ qua ranh giới tập, nhưng toàn bộ 20 nhãn của một origin phải nằm trong tập của nó. Naive không cần fit; Ridge fit trên train nên điểm train là **in-sample**; Chronos/Kronos dùng checkpoint pretrained và chưa fine-tune bằng train VN30. Validation dùng so sánh cấu hình, test là holdout lịch sử. Giai đoạn test này đã được xem trong lần thử trước, nên không còn là holdout hoàn toàn chưa từng xem.
+
+Lần chạy local 23/10/2026 lưu bảng ba tập tại `artifacts/local/vn30-full-splits-20261023/comparison/summary.md` và toàn bộ MAE/RMSE tại `scores_all_splits.csv` cùng thư mục; output nằm ngoài Git. Test của lần này được chấm lại từ forecast đã lưu của lần chạy cùng snapshot/hash, không chạy lại inference.
+
+Xem [checklist](docs/VN30_TSFMs_Kronos_End_to_End_Tasks.md) để đối chiếu từng bước. Giá Open trong score là giá từ VNDIRECT; cách nguồn dựng Open ở một số phiên chưa được xác nhận.
+
+## Docker
+
+```sh
 docker compose build data
 docker compose run --rm data
 ```
 
-Service `data` chạy tests hiện có. Image chứa NumPy, pandas, PyArrow, PyYAML, requests và pytest; collaborator làm dữ liệu/tests không cần tải PyTorch hoặc weights. Dependencies và distribution hashes được xuất từ `uv.lock` vào `requirements/data.txt`.
+Lệnh mặc định xác minh SQLite đã tải bằng DVC. Container data không cần PyTorch; tải DVC trên host trước. Compose mount thư mục dự án nên output nằm trên máy bạn.
 
-Dữ liệu được quản lý bằng **DVC + Google Drive**. Git chỉ giữ pointers, checksum và receipts; clone không tải dữ liệu. Upload và phục hồi 89 file từ Drive đã được xác minh; checkout Git chứa pointers/tài liệu của migration. [Hướng dẫn DVC](docs/DVC_Data_Versioning.md) có quyền truy cập và cách xác thực. Với checkout chứa pointers, cài DVC trên host và tải SQLite:
-
-```sh
-uv tool install --with-requirements requirements/dvc.txt dvc
-dvc pull data/share/vn30_vndirect_20261001T151513588605Z_candidate.sqlite.dvc
-```
-
-Kiểm tra snapshot bằng container:
-
-```sh
-docker compose run --rm data python scripts/check_shared_data.py
-```
-
-Lệnh kiểm tra checksum từ receipt trong checkout, SQLite integrity, dữ liệu gốc và nến so với CSV. Nếu thiếu dữ liệu, chạy `dvc pull` với pointer của cùng checkout; unit tests vẫn chạy độc lập với dữ liệu thật. Nếu cần ZIP, tải trước rồi kiểm tra:
-
-```sh
-dvc pull data/share/vn30_vndirect_20261001T151513588605Z_candidate.zip.dvc
-docker compose run --rm data python scripts/check_shared_data.py --format zip
-```
-
-Docker không chứa dataset/weights trong image và không tự tải VN30. Compose mount checkout vào `/workspace`: code sửa trên máy được dùng ngay; rebuild khi dependencies hoặc Dockerfile thay đổi. [Docker runbook](docs/Docker_Runbook.md) có lệnh kiểm tra và xử lý lỗi.
-
-## Docker CUDA cho mô hình
-
-Cần NVIDIA GPU và driver tương thích PyTorch CUDA 13.0. Windows dùng Docker Desktop với WSL2 backend; Linux cần NVIDIA Container Toolkit. Tham khảo [Compose GPU](https://docs.docker.com/compose/how-tos/gpu-support/) và [Windows GPU prerequisites](https://docs.docker.com/desktop/features/gpu/).
+Chạy model bằng GPU cần Docker có hỗ trợ NVIDIA GPU (Windows: Docker Desktop/WSL2):
 
 ```sh
 docker compose --profile cuda build cuda
 docker compose --profile cuda run --rm cuda
 docker compose --profile cuda run --rm cuda python scripts/bootstrap_kronos.py
-docker compose --profile cuda run --rm cuda python scripts/verify_checkpoint_provenance.py --output artifacts/local/checkpoint_verification.json
-docker compose --profile cuda run --rm cuda python scripts/smoke_models.py --model all --device cuda:0 --output artifacts/local/model_smoke.json
+docker compose --profile cuda run --rm cuda python scripts/smoke_models.py --model all --device cuda:0
 ```
 
-Service `cuda` cài toàn bộ môi trường từ `pyproject.toml`/`uv.lock` bằng `uv sync --frozen`, không đổi torch trên host. Lệnh mặc định kiểm tra PyTorch nhận GPU. Hai lệnh cuối có thể tải weights từ Hugging Face ở revision cố định; cache nằm trong Docker volume `hf-cache`.
-
-Smoke test dùng OHLC giả, không phải kết quả nghiên cứu. Output tại `artifacts/local/` tránh sửa bằng chứng Phase 0 đã lưu. Hiện chưa có CLI chạy benchmark Phase 2–5; các task đó còn pending.
-
-## Python trực tiếp
-
-Cần Python 3.11 và `uv`. collaborator dữ liệu dùng môi trường riêng.
-
-Windows PowerShell:
-
-```powershell
-uv venv .venv-data --python 3.11
-uv pip install --python .venv-data/Scripts/python.exe --require-hashes -r requirements/data.txt
-.venv-data/Scripts/python.exe -m pytest -q
-.venv-data/Scripts/python.exe scripts/check_shared_data.py
-```
-
-Linux:
-
-```sh
-uv venv .venv-data --python 3.11
-uv pip install --python .venv-data/bin/python --require-hashes -r requirements/data.txt
-.venv-data/bin/python -m pytest -q
-.venv-data/bin/python scripts/check_shared_data.py
-```
-
-Môi trường nghiên cứu đầy đủ, giữ torch CUDA đã khóa:
-
-```sh
-uv sync --frozen --group dev
-uv run --no-sync python scripts/bootstrap_kronos.py
-uv run --no-sync python scripts/verify_checkpoint_provenance.py --output artifacts/local/checkpoint_verification.json
-uv run --no-sync python scripts/smoke_models.py --model all --device auto --output artifacts/local/model_smoke.json
-```
-
-`--device auto` có thể chọn CPU; thí nghiệm CUDA dùng `--device cuda:0` và ghi lại thiết bị. Không thay torch bằng `pip install torch` trong `.venv` đã khóa.
-
-## Dữ liệu và Phase 1
-
-Người quản lý dữ liệu tạo ZIP từ phản hồi gốc đã giữ tại máy, sau đó tạo SQLite từ ZIP đã xác minh:
-
-```sh
-python scripts/share_vndirect_snapshot.py
-python scripts/share_vndirect_sqlite.py
-```
-
-Xuất ZIP cần môi trường `data` hoặc `.venv-data`; xuất/kiểm tra SQLite chỉ cần thư viện chuẩn Python. Raw captures có pointer `data/raw.dvc`; tải khi cần replay. collaborator chỉ cần SQLite cho truy vấn thông thường. Quy trình upload trước rồi commit pointers/receipts nằm trong hướng dẫn DVC. Mọi người dùng cùng commit và receipt, không tự nối nguồn hoặc sửa giá. [Hướng dẫn dữ liệu](docs/Collaborator_Data_Guide.md) có schema, SQL/pandas và quy trình cập nhật snapshot.
-
-Freeze dữ liệu nghiên cứu sau khi có accepted inputs:
-
-```sh
-docker compose run --rm data python scripts/freeze_phase1.py
-docker compose run --rm data python scripts/freeze_phase1.py --verify
-```
-
-Với cấu hình hiện tại, lệnh đầu **phải exit 1** vì `status: pending`; `--verify` chỉ có ý nghĩa sau freeze hoàn tất. Không đổi status sang accepted chỉ để lệnh chạy. Hợp đồng input/output ở [Phase 1 freeze runbook](docs/Phase1_Freeze_Runbook.md).
-
-## Làm việc cùng nhau
-
-1. Chọn một task pending trong checklist, ghi Task ID/phạm vi vào issue và trao đổi owner trước khi làm. Không nhận trùng task đang có người làm.
-2. Chủ repo mời collaborator với quyền GitHub Write; cả nhóm clone repo chung và push branch riêng vào `origin`. Thành viên cùng upload dữ liệu cần Drive Editor và được thêm OAuth Test users khi app ở Testing. Xem [quy trình nhóm](COLLABORATING.md).
-3. Đồng bộ main, tạo branch riêng. Ví dụ T021:
-
-```sh
-git switch main
-git pull --ff-only
-git switch -c codex/t021-model-interface
-```
-
-4. Sửa code/docs và tests liên quan. Output thử nghiệm đặt tại `artifacts/local/<task-or-name>/` hoặc `reports/local/`. Cập nhật evidence/checklist khi đủ acceptance criteria; không đánh dấu done chỉ vì có script.
-5. Chạy checks, stage đúng file đã sửa, xem diff rồi commit/push branch. Thay tên file ví dụ bằng các file thuộc task của bạn:
-
-```sh
-docker compose run --rm data
-git diff --check
-git status --short
-git add src/models/base.py tests/test_model_interface.py
-git diff --cached
-git commit -m "Implement T021 model interface"
-git push -u origin codex/t021-model-interface
-```
-
-Các file T021 trên là ví dụ cho task chưa triển khai; không chạy `git add` với tên chưa tồn tại. PR docs/data có thể chạy tests bằng `.venv-data` thay Docker.
-
-6. Mở Pull Request trên GitHub từ branch của bạn về `main` của repo chính. Điền template: Task ID/issue, vấn đề và hành vi mới, lệnh kiểm tra, evidence và tác động tới nghiên cứu. Đợi CI/reviewer; cập nhật cùng branch để xử lý feedback. Đóng issue/đánh dấu task accepted sau khi đủ nghiệm thu; không push trực tiếp lên main.
-
-Git giữ `data/share/*.dvc`, `data/raw.dvc`, checksum và receipts; DVC giữ binary/raw bytes trên Drive. Không commit SQLite/ZIP, dữ liệu làm việc ở `data/raw/`, `data/interim/`, `data/processed/`, weights, credentials hoặc `.venv`. Snapshot SHA256 xác nhận cùng phiên bản, không thay cho kiểm định chất lượng.
-
-Repo public không làm hash DVC thành quyền tải Drive. Remote cần được chia sẻ theo tài khoản; hash/pointers chỉ là metadata. SQLite/ZIP cũ đã được gỡ khỏi cây file hiện tại nhưng vẫn còn trong lịch sử GitHub public. Chi tiết phạm vi truy cập ở [DVC guide](docs/DVC_Data_Versioning.md).
-
-## Cấu trúc repo
+## Cấu trúc
 
 ```text
-configs/                 Hợp đồng nghiên cứu, nguồn, pending freeze inputs
-data/manifests/          Provenance, receipts, calendar/source evidence
-data/raw/                Phản hồi gốc, DVC qua data/raw.dvc
-data/share/              DVC snapshots; Git giữ pointers/checksums
-data/interim/            Dữ liệu làm việc, gitignored
-data/processed/          Accepted dataset khi hoàn tất Phase 1
-scripts/                 Audit, calendar, freeze, môi trường và chia sẻ dữ liệu
-src/                     Chỗ triển khai framework/models; core benchmark chưa có
-tests/                   Tests dữ liệu, calendar, freeze, snapshot integrity
-artifacts/               Bằng chứng và output thí nghiệm theo loại
-docs/                    Plan, tasks, runbooks; plan cũ ở archive/
-reports/                 Báo cáo kiểm định và nghiên cứu
-requirements/data.txt    Dependency subset xuất từ uv.lock
-requirements/dvc.txt     DVC/Drive tool pins, môi trường riêng
-Dockerfile               Targets data và cuda
-compose.yaml             Bind mount và model cache cho collaborator
+configs/          Cấu hình nguồn và cấu hình gốc để đóng gói dữ liệu
+scripts/          Bootstrap, model smoke, dữ liệu và DVC
+requirements/     Dependencies data và DVC riêng
+data/manifests/   Phiên bản checkpoint và receipts snapshot
+data/raw/         Phản hồi gốc, quản lý bằng DVC
+data/share/       SQLite/ZIP, pointers và checksum
+data/processed/   Dữ liệu xử lý, không commit
+artifacts/        Kết quả chạy model, không commit
 ```
 
-## File cần giữ và file có thể dọn
-
-| Nhóm | Chính sách |
-|---|---|
-| DVC pointers, checksum và receipts | Giữ trong Git; tải binary bằng `dvc pull` |
-| SQLite/ZIP/raw bytes và DVC cache | Chỉ dọn local sau khi upload và phục hồi remote đã được kiểm tra |
-| `docs/archive/` | Plan cũ để tham khảo; dùng technical plan/checklist hiện tại khi làm task |
-| `.pytest_cache/`, `__pycache__/`, ảnh PNG render tạm | Có thể xóa và tạo lại; không commit |
-| `tmp/vnstock-env/` | Môi trường audit riêng có thể tạo lại từ requirements; giữ khi còn cần replay |
-| `.venv/`, `.vendor/`, model cache | Runtime local đang dùng; không là rác và không commit |
-| `data/raw/`, audit manifests/reports/artifacts, PDF tham khảo | Giữ bằng chứng tái lập; không xóa chỉ vì không dùng cho benchmark chính |
-
-Chi tiết lượt dọn hiện tại: [repository cleanup](reports/repository_cleanup.md).
-
-## Tài liệu chính
-
-| Tài liệu | Mục đích |
-|---|---|
-| [Technical plan](docs/VN30_TSFMs_Kronos_Technical_Implementation_Plan.md) | Quy trình và lựa chọn nghiên cứu |
-| [End-to-end tasks](docs/VN30_TSFMs_Kronos_End_to_End_Tasks.md) | Task ID, phụ thuộc, đầu ra, nghiệm thu |
-| [collaborator guide](COLLABORATING.md) | Nhận task, branch/PR, tests, evidence |
-| [Data guide](docs/Collaborator_Data_Guide.md) | Cùng phiên bản SQLite/ZIP |
-| [DVC guide](docs/DVC_Data_Versioning.md) | Drive access, OAuth, tải/phát hành dữ liệu |
-| [Docker runbook](docs/Docker_Runbook.md) | Build, chạy CPU/CUDA, xử lý lỗi |
-| [Freeze runbook](docs/Phase1_Freeze_Runbook.md) | Accepted inputs và immutable outputs |
-| [Phase 1 readiness](reports/phase1_readiness_review.md) | Điều kiện dữ liệu còn pending |
-| [T010/T012 review](reports/vndirect_T010_T012_review.md) | Audit mới, calendar candidate và acceptance boundary |
-| [39-field review](reports/vndirect_39_discrepancy_review.md) | Từng sai khác, bằng chứng và vấn đề Open |
-| [Baseline literature review](reports/vn30_baseline_literature_review.md) | Bốn tài liệu, giới hạn và đề xuất thay đổi chưa áp dụng |
-| [Research report](docs/TSFM_VN30Index_Report.md) | Nội dung trình bày nghiên cứu |
+Collaborator làm trên branch riêng, mở PR vào `main`; ghi model, phiên bản dữ liệu và lệnh chạy để người khác lặp lại. CI kiểm tra cú pháp, CLI dữ liệu, dependencies và Docker; không chạy GPU hoặc truy cập Drive riêng.

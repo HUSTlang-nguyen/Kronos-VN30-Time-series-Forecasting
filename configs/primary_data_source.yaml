@@ -1,34 +1,18 @@
 schema_version: 1
-selected_on: '2026-10-05'
-selected_by: explicit_user_request
 provider: vndirect
 symbol: VN30
 endpoint: https://dchart-api.vndirect.com.vn/dchart/history
 resolution: D
 timezone: Asia/Ho_Chi_Minh
 units: index_points
-selection_status: selected_for_main_dataset
-quality_acceptance_status: pending
-latest_quality_review: reports/vndirect_T010_T012_review.md
-latest_discrepancy_review: reports/vndirect_39_discrepancy_review.md
-latest_discrepancy_artifacts: artifacts/source_audit/vndirect_39_cases_20261005
-latest_quality_audit_run: 20261005T084027989272Z
-latest_quality_review_through: '2026-10-02'
-reference_audit_run: 20261001T151513588605Z
-observed_first_date: '2017-08-24'
-observed_last_date: '2026-10-01'
-observed_raw_rows: 2271
-coverage_policy: use_verified_provider_coverage_without_splicing
-limitations:
-  - Current capture cannot cover the full 2016-2023 replication slice.
-  - Snapshot includes one row outside the original requested end; retain and flag it.
-  - Source discrepancies and session-calendar reconciliation remain pending.
-sharing:
-  method: versioned_snapshot_with_sha256
-  formats: [sqlite, zip]
-  storage: dvc_google_drive
-  remote: team
-  versioning_guide: docs/DVC_Data_Versioning.md
-  directory: data/share
-  classification: candidate_snapshot_not_accepted_dataset
-  guide: docs/Collaborator_Data_Guide.md
+snapshot_run: 20261001T151513588605Z
+snapshot_first_date: '2017-08-24'
+snapshot_last_date: '2026-10-01'
+snapshot_rows: 2271
+raw_pointer: data/raw.dvc
+sqlite_receipt: data/manifests/vndirect_sqlite_snapshot.json
+zip_receipt: data/manifests/vndirect_collaborator_snapshot.json
+quality_notes:
+  - Preserve provider prices and quality flags; do not silently splice or repair.
+  - Open construction and cross-provider O/H/L discrepancies remain unresolved.
+  - Historical snapshot is not automatically updated to the current date.

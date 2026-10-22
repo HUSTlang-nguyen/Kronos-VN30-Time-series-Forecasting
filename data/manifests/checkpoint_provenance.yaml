@@ -1,6 +1,6 @@
 schema_version: 1
 audit_date: 2026-09-26
-status: accepted_for_phase_0
+status: pinned
 
 common_provenance_boundary:
   timestamp_utc: 2025-12-03T11:57:35Z
@@ -8,7 +8,6 @@ common_provenance_boundary:
   rule: >-
     Chronos-2-small training cutoff is not documented for this exact checkpoint,
     so the exact revision's verified public availability is used conservatively.
-  next_step: map to the first later VN30 session after the HOSE calendar is frozen
 
 models:
   chronos_2_small:
@@ -68,8 +67,6 @@ implementation_code:
     reviewed_revision: 10afa9ebe016e514f9d7dc1aa873f66af57e116b
     reviewed_revision_timestamp_utc: 2026-09-17T07:39:21Z
 
-gate_G2:
-  status: pass
-  unresolved_limitations:
-    - Chronos-2-small exact pretraining cutoff is not documented.
-    - Public availability is a conservative fallback and does not prove absence of training-data overlap before that date.
+limitations:
+  - Chronos-2-small exact pretraining cutoff is not documented.
+  - Public availability does not prove absence of training-data overlap before that date.
