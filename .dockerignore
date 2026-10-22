@@ -16,8 +16,6 @@ data/interim
 data/processed
 data/share
 artifacts
-reports/figures
-reports/local
 .env
 .env.*
 !.env.example
