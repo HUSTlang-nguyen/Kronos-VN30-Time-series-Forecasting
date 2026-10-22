@@ -47,4 +47,25 @@ T001–T013 đã có bản chạy end-to-end trên snapshot cố định. Thứ 
 
 **Kết quả tham chiếu h=1 trên 323 origin test (MAE, điểm chỉ số):** Naive Open 5,96 / Close 17,72; Kronos Open 10,64 / Close 19,75; Chronos-2 Open 21,04 / Close 19,99; Ridge Open 22,02 / Close 28,80. Đây là phép thử trên snapshot VNDIRECT cũ; không suy ra lợi nhuận giao dịch hay kết quả trên phiên mới.
 
+## Kết quả đủ ba tập (23/10/2026)
+
+MAE dưới đây tính bằng điểm VN30; càng thấp càng tốt. Cả bốn model dùng cùng origin trong mỗi tập. Bảng được lấy từ `artifacts/local/vn30-full-splits-20261023/comparison/scores_all_splits.csv` trên snapshot SHA256 nêu đầu tài liệu. Các CSV chi tiết và đồ thị là output local, không commit vào Git.
+
+| Tập | Model | Open h1 | Close h1 | Open h5 | Close h5 | Open h20 | Close h20 |
+|---|---|---:|---:|---:|---:|---:|---:|
+| train | Naive | 2,12 | 10,12 | 22,28 | 24,96 | 50,15 | 50,91 |
+| train | Ridge | 10,60 | 14,60 | 24,15 | 26,44 | 47,25 | 47,97 |
+| train | Chronos-2 | 11,24 | 11,32 | 26,40 | 26,64 | 51,26 | 49,88 |
+| train | Kronos | 5,43 | 11,79 | 27,05 | 30,41 | 79,00 | 80,35 |
+| validation | Naive | 3,26 | 8,80 | 20,21 | 21,84 | 40,03 | 40,49 |
+| validation | Ridge | 10,50 | 13,98 | 23,48 | 25,33 | 48,13 | 48,94 |
+| validation | Chronos-2 | 9,38 | 9,48 | 21,48 | 21,93 | 40,05 | 40,56 |
+| validation | Kronos | 4,70 | 10,20 | 22,05 | 22,93 | 41,38 | 41,55 |
+| test | Naive | 5,96 | 17,72 | 40,85 | 45,16 | 91,95 | 93,83 |
+| test | Ridge | 22,02 | 28,80 | 50,24 | 54,02 | 106,47 | 108,40 |
+| test | Chronos-2 | 21,04 | 19,99 | 48,65 | 47,70 | 103,23 | 102,07 |
+| test | Kronos | 10,64 | 19,75 | 48,09 | 53,30 | 153,24 | 155,24 |
+
+Naive thấp nhất ở cả sáu cột trên validation và test. Điểm train của Ridge là in-sample; Chronos-2/Kronos dùng checkpoint pretrained, chưa fine-tune trên train VN30. Test đã được xem ở lần thử trước, nên không phải holdout hoàn toàn mới. Open từ VNDIRECT có một số phiên với cách dựng chưa rõ; khác biệt MAE giữa các giai đoạn cũng chịu ảnh hưởng của mức chỉ số và biến động thị trường.
+
 Mỗi collaborator nhận một task/nhánh, ghi lệnh chạy và file đầu ra trong PR. Khi đánh dấu `[x]`, ghi đường dẫn artifact và lệnh kiểm tra; nếu đã publish thì thêm commit hoặc PR. Cùng checkout pointer/receipt của dataset đã khóa; không thay SQLite giữa các model hoặc âm thầm cập nhật dữ liệu trong vòng này. Không commit raw/SQLite/ZIP, weights hoặc credential. CI hiện chỉ kiểm tra cú pháp và công cụ dữ liệu; chạy model/CUDA cần xác minh trên máy có GPU.
