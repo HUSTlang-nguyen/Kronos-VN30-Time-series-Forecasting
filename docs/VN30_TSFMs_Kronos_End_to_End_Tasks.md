@@ -40,10 +40,14 @@ Mục tiêu: chạy Kronos-small, Chronos-2-small và baseline **trực tiếp t
   - Kiểm tra local 22/10/2026: `artifacts/local/vn30-experiment/evaluation/summary.md` và bốn đồ thị; kèm hash, split, revision, seed và lệnh tái chạy trong README.
 - [x] **T013 — Đánh giá đầy đủ theo train/validation/test.** Chạy cùng bốn model trên mọi origin có đủ context 128 phiên và toàn bộ path 20 phiên nằm trong tập nhãn. Chấm điểm, vẽ chẩn đoán cho từng tập và tổng hợp kết quả. Train: 1.589 hàng/1.442 origin; validation: 340/321; test: 342/323. Ridge fit trên train, nên điểm train là in-sample; Kronos/Chronos là zero-shot trên VN30, không gọi là fine-tune. Kết quả test cũ được chấm lại trên cùng manifest/hash thay vì chạy lại inference.
   - Kiểm tra local 23/10/2026: `artifacts/local/vn30-full-splits-20261023/comparison/summary.md`, `scores_all_splits.csv`, các thư mục `evaluation-{train,validation,test}/`. Lệnh tái chạy đủ ba tập ở [README](../README.md#chạy-dự-báo-vn30).
+- [x] **T014 — Fine-tune hai mô hình small.** `scripts/finetune_vn30.py` cập nhật toàn bộ trọng số Chronos-2-small/Kronos-small trên 1.442 cửa sổ train; tokenizer Kronos cố định, chuẩn hóa bằng 128 phiên context. Chạy 5 epoch, batch 8 × accumulation 2, AdamW/lr `1e-6`, FP32/CUDA, seed 42. Chọn bằng native validation loss trên 321 cửa sổ; Chronos chọn epoch 1, Kronos chọn epoch 5. Không dùng test để cập nhật trọng số/chọn checkpoint. Lưu loss từng epoch, cấu hình, hash tham số và hash checkpoint.
+  - Kiểm tra local 27/10/2026: checkpoint tại `artifacts/local/vn30-finetune-20261027/{chronos2,kronos-causal}/best/`; `history.csv`, `training.json`. `scripts/check_finetune_protocol.py` xác minh test không đi vào train/validation, chuẩn hóa context-only và causal teacher forcing của Kronos. Replay epoch 1 Chronos cùng seed cho hash trọng số giống hệt. Hash ba checkpoint pretrained khớp manifest. Máy GTX 1650 4 GB; PyTorch peak allocated lần lượt 577,5/796,1 MiB, không phải toàn bộ bộ nhớ GPU của tiến trình.
+- [x] **T015 — So sánh fine-tune/zero-shot/baseline.** Dự báo đủ validation/test từ checkpoint đã chọn, giữ nguyên origin, horizon, seed và phép lấy point forecast; chấm sáu model bằng cùng nhãn. `scripts/compare_vn30_finetuning.py` kiểm cấu hình và hash checkpoint rồi xuất MAE/RMSE, mức thay đổi, loss curve và biểu đồ test.
+  - Kiểm tra local 27/10/2026: `artifacts/local/vn30-finetune-20261027/comparison-final/{summary.md,comparison.csv,scores.csv,manifest.json,test_comparison.png,training_loss.png}`. Evaluation hợp lệ nằm trong `evaluation-validation-final/` và `evaluation-test/`. Các folder chạy thử khác trong artifacts không phải đầu vào của báo cáo này. Fine-tune giảm MAE 5/6 chỉ tiêu test cho Chronos và 4/6 cho Kronos; cả hai vẫn chưa thấp hơn Naive ở bất kỳ chỉ tiêu test nào.
 
 ## Trình tự và cách đối chiếu
 
-T001–T013 đã có bản chạy end-to-end trên snapshot cố định. Thứ tự để tái chạy: T004 → T005 → (T006, T007, T008) → T009 → T010 → T011 → T012 → T013. Lệnh cụ thể ở [README](../README.md#chạy-dự-báo-vn30); kết quả local nằm trong `artifacts/local/` và không được Git theo dõi.
+T001–T015 đã có bản chạy end-to-end trên snapshot cố định. Thứ tự để tái chạy zero-shot: T004 → T005 → (T006, T007, T008) → T009 → T010 → T011 → T012 → T013. Fine-tune và đối chiếu: T014 → T015. Lệnh cụ thể ở [README](../README.md#fine-tune-trên-vn30); kết quả local nằm trong `artifacts/local/` và không được Git theo dõi.
 
 **Kết quả tham chiếu h=1 trên 323 origin test (MAE, điểm chỉ số):** Naive Open 5,96 / Close 17,72; Kronos Open 10,64 / Close 19,75; Chronos-2 Open 21,04 / Close 19,99; Ridge Open 22,02 / Close 28,80. Đây là phép thử trên snapshot VNDIRECT cũ; không suy ra lợi nhuận giao dịch hay kết quả trên phiên mới.
 
@@ -67,5 +71,22 @@ MAE dưới đây tính bằng điểm VN30; càng thấp càng tốt. Cả bố
 | test | Kronos | 10,64 | 19,75 | 48,09 | 53,30 | 153,24 | 155,24 |
 
 Naive thấp nhất ở cả sáu cột trên validation và test. Điểm train của Ridge là in-sample; Chronos-2/Kronos dùng checkpoint pretrained, chưa fine-tune trên train VN30. Test đã được xem ở lần thử trước, nên không phải holdout hoàn toàn mới. Open từ VNDIRECT có một số phiên với cách dựng chưa rõ; khác biệt MAE giữa các giai đoạn cũng chịu ảnh hưởng của mức chỉ số và biến động thị trường.
+
+## Fine-tune — kết quả test (27/10/2026)
+
+Giữ nguyên dataset, split và 323 origin test. MAE tính bằng điểm chỉ số; càng thấp càng tốt. Các dòng zero-shot giữ forecast cũ để đối chiếu; hai dòng fine-tune là inference mới trên checkpoint đã chọn bằng validation loss.
+
+| Model | Open h1 | Close h1 | Open h5 | Close h5 | Open h20 | Close h20 |
+|---|---:|---:|---:|---:|---:|---:|
+| Naive | 5,96 | 17,72 | 40,85 | 45,16 | 91,95 | 93,83 |
+| Ridge | 22,02 | 28,80 | 50,24 | 54,02 | 106,47 | 108,40 |
+| Chronos-2 zero-shot | 21,04 | 19,99 | 48,65 | 47,70 | 103,23 | 102,07 |
+| Chronos-2 fine-tuned | 20,26 | 19,62 | 48,45 | 47,72 | 100,43 | 99,41 |
+| Kronos zero-shot | 10,64 | 19,75 | 48,09 | 53,30 | 153,24 | 155,24 |
+| Kronos fine-tuned | 9,89 | 19,60 | 52,17 | 55,38 | 130,78 | 138,30 |
+
+Kronos giảm MAE Close h20 khoảng 10,9% và Open h20 khoảng 14,7% so với zero-shot, nhưng h5 kém đi. Trên validation, Kronos fine-tuned thấp hơn Naive ở h20 (Open 37,96 so với 40,03; Close 38,57 so với 40,49); lợi thế này chưa giữ được trên test. Chronos giảm nhẹ phần lớn MAE test, nhưng validation loss tăng từ 2,5728 lên 2,7766 ngay ở epoch được chọn, còn train loss giảm: dấu hiệu overfit của cấu hình này. Đây là một cấu hình/một seed; chưa có kiểm định ý nghĩa thống kê và test đã được xem trong các vòng trước.
+
+Chronos trả 13 **quantile**, không phải 13 path lấy mẫu; point forecast vẫn là trung bình đều 13 quantile như vòng trước để giữ phép so sánh. Kronos dùng trung bình 3 path. Metadata Chronos cũ ghi `sample_mean` được đính chính ở runner/README; số liệu zero-shot không bị thay đổi.
 
 Mỗi collaborator nhận một task/nhánh, ghi lệnh chạy và file đầu ra trong PR. Khi đánh dấu `[x]`, ghi đường dẫn artifact và lệnh kiểm tra; nếu đã publish thì thêm commit hoặc PR. Cùng checkout pointer/receipt của dataset đã khóa; không thay SQLite giữa các model hoặc âm thầm cập nhật dữ liệu trong vòng này. Không commit raw/SQLite/ZIP, weights hoặc credential. CI hiện chỉ kiểm tra cú pháp và công cụ dữ liệu; chạy model/CUDA cần xác minh trên máy có GPU.

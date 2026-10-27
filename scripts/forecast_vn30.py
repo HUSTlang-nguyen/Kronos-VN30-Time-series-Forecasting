@@ -23,7 +23,7 @@ from vn30_forecast import (  # noqa: E402 - src is resolved from this checkout
 )
 
 
-def forecast(df, manifest, name, split, device, seed, out, limit):
+def forecast(df, manifest, name, split, device, seed, out, limit, checkpoint=None):
     if out.exists() or out.with_suffix(".json").exists():
         raise FileExistsError(out)
     origins = manifest["origins"][split]
@@ -31,7 +31,7 @@ def forecast(df, manifest, name, split, device, seed, out, limit):
         if limit < 1:
             raise ValueError("--limit must be positive")
         origins = origins[:limit]
-    predictor, revision, samples = build_model(name, df, manifest, device)
+    predictor, revision, samples = build_model(name, df, manifest, device, checkpoint)
     prices = df[COLS].to_numpy(dtype=np.float64)
     rows = []
     for number, i in enumerate(origins, 1):
@@ -63,8 +63,10 @@ def forecast(df, manifest, name, split, device, seed, out, limit):
         "horizon": HORIZON,
         "device": device,
         "seed": seed,
-        "sample_count": samples,
-        "point_functional": "sample_mean" if samples else "deterministic",
+        "sample_count": samples if name.startswith("kronos") else 0,
+        "quantile_count": samples if name.startswith("chronos2") else 0,
+        "point_functional": "quantile_mean" if name.startswith("chronos2") else "sample_mean" if samples else "deterministic",
+        "checkpoint": str(checkpoint) if checkpoint else None,
         "origins": len(origins),
         "limited": limit is not None,
         "calendar_note": manifest["calendar_note"],
@@ -357,8 +359,9 @@ def main():
     run = sub.add_parser("run")
     run.add_argument("--manifest", type=Path, required=True)
     run.add_argument(
-        "--model", choices=["naive", "ridge", "chronos2", "kronos"], required=True
+        "--model", choices=["naive", "ridge", "chronos2", "kronos", "chronos2-ft", "kronos-ft"], required=True
     )
+    run.add_argument("--checkpoint", type=Path, help="Fine-tuning output directory with training.json")
     run.add_argument("--split", choices=["train", "validation", "test"], default="test")
     run.add_argument("--device", default="cuda:0")
     run.add_argument("--seed", type=int, default=42)
@@ -391,6 +394,7 @@ def main():
             args.seed,
             args.output,
             args.limit,
+            args.checkpoint,
         )
     else:
         score(df, manifest, args.forecasts, args.output)

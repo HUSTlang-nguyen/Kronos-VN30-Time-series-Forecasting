@@ -6,6 +6,8 @@ Repo có loader cho snapshot VN30 cố định, runner dự báo và đánh giá
 
 Các bước triển khai và điều kiện hoàn thành nằm trong [checklist end-to-end](docs/VN30_TSFMs_Kronos_End_to_End_Tasks.md).
 
+[Báo cáo kết quả Q1–Q4](docs/VN30_Experimental_Results_Q1_Q4.md) tổng hợp bằng chứng về zero-shot, K-line representation, fine-tuning với dữ liệu hiện có và độ ổn định theo horizon/volatility.
+
 ## Cài môi trường CUDA
 
 Cần Python 3.11, Git, uv và NVIDIA GPU/driver hỗ trợ CUDA 13.0. Giữ phiên bản PyTorch đã khóa, không cài đè bằng bản CPU.
@@ -87,7 +89,7 @@ uv run --no-sync python scripts/forecast_vn30.py score --manifest artifacts/loca
 uv run --no-sync python scripts/forecast_vn30.py report --scores artifacts/local/vn30-run/evaluation
 ```
 
-`run --limit 2` chỉ là kiểm tra nhanh; không dùng score đó thay kết quả toàn tập. Runner từ chối ghi đè output cũ: dùng thư mục chạy mới cho mỗi lần thử. `prepare` tạo split theo thời gian 70/15/15, giữ đủ 2.271 hàng và lưu hash dataset; mỗi model dùng cùng 323 origin test. Dự báo được lưu trước khi ghép nhãn thật trong `score`. `ridge` chỉ fit trên train; Kronos dùng 3 path và Chronos dùng 13 path, cùng báo sample mean. Kronos nhận lịch phiên đích thực tế dưới dạng thông tin ngày; đây là giới hạn cần nhớ khi diễn giải kết quả. `artifacts/local/` nằm ngoài Git.
+`run --limit 2` chỉ là kiểm tra nhanh; không dùng score đó thay kết quả toàn tập. Runner từ chối ghi đè output cũ: dùng thư mục chạy mới cho mỗi lần thử. `prepare` tạo split theo thời gian 70/15/15, giữ đủ 2.271 hàng và lưu hash dataset; mỗi model dùng cùng 323 origin test. Dự báo được lưu trước khi ghép nhãn thật trong `score`. `ridge` chỉ fit trên train; Kronos dùng trung bình 3 path. Chronos trả **13 quantile**, lấy trung bình đều các quantile để giữ quy tắc so sánh cũ; đây không phải 13 mẫu ngẫu nhiên. Metadata cũ ghi `sample_mean` cho Chronos chưa chính xác; metadata mới ghi `quantile_mean`, không đổi phép tính giá dự báo. Kronos nhận lịch phiên đích thực tế dưới dạng thông tin ngày; đây là giới hạn cần nhớ khi diễn giải kết quả. `artifacts/local/` nằm ngoài Git.
 
 Để chạy **đủ train/validation/test** bằng PowerShell, dùng một thư mục output mới:
 
@@ -112,6 +114,44 @@ Train có 1.589 phiên và 1.442 origin đủ context/path; validation có 340 p
 Lần chạy local 23/10/2026 lưu bảng ba tập tại `artifacts/local/vn30-full-splits-20261023/comparison/summary.md` và toàn bộ MAE/RMSE tại `scores_all_splits.csv` cùng thư mục; output nằm ngoài Git. Test của lần này được chấm lại từ forecast đã lưu của lần chạy cùng snapshot/hash, không chạy lại inference.
 
 Xem [checklist](docs/VN30_TSFMs_Kronos_End_to_End_Tasks.md) để đối chiếu từng bước. Giá Open trong score là giá từ VNDIRECT; cách nguồn dựng Open ở một số phiên chưa được xác nhận.
+
+## Fine-tune trên VN30
+
+`scripts/finetune_vn30.py` cập nhật toàn bộ trọng số Chronos-2-small hoặc Kronos-small; tokenizer Kronos được giữ cố định. Dùng nguyên split đã khóa, 1.442 cửa sổ train/321 validation, context 128 và 20 nhãn tương lai. Chuẩn hóa chỉ bằng context, mọi cửa sổ train được dùng một lần mỗi epoch. Checkpoint tốt nhất được chọn bằng validation loss trong các epoch đã huấn luyện; có ghi loss pretrained để biết fine-tune có làm validation kém đi hay không. Test không được dùng để cập nhật trọng số hoặc chọn checkpoint.
+
+Mặc định: FP32/CUDA, 5 epoch, learning rate `1e-6`, batch 8 cửa sổ và accumulation 2, AdamW/weight decay `0.01`, seed 42. Chronos tối ưu quantile loss gốc; Kronos tối ưu token cross-entropy trên 20 phiên đích với teacher forcing. `history.csv` ghi train/validation loss; `training.json` giữ epoch chọn, cấu hình, hash tham số trước/sau và SHA256 checkpoint. Runner kiểm hash/checkpoint/split trước khi dự báo.
+
+Teacher-forced validation của Kronos giữ causal mask ở dependency cross-attention; chỉ riêng attention có dropout bằng 0 được đặt cờ cần thiết, các dropout còn lại vẫn ở eval. `scripts/check_finetune_protocol.py` kiểm bằng cách thay token tương lai và xác nhận logits quá khứ không đổi, đồng thời kiểm tra test không đi vào cửa sổ train/validation và chuẩn hóa chỉ dùng context.
+
+Ví dụ PowerShell, dùng thư mục mới cho mỗi lần thử:
+
+```powershell
+$base = "artifacts/local/vn30-finetune-new"
+uv run --no-sync python scripts/forecast_vn30.py prepare --output "$base/split.json"
+uv run --no-sync python scripts/check_finetune_protocol.py --manifest "$base/split.json" --output "$base/protocol_checks.json"
+if ($LASTEXITCODE -ne 0) { throw "Fine-tuning protocol check failed" }
+foreach ($model in @("chronos2", "kronos")) {
+  uv run --no-sync python scripts/finetune_vn30.py --manifest "$base/split.json" --model $model --output "$base/$model"
+  if ($LASTEXITCODE -ne 0) { throw "Training failed: $model" }
+}
+foreach ($split in @("validation", "test")) {
+  foreach ($model in @("naive", "ridge", "chronos2", "kronos", "chronos2-ft", "kronos-ft")) {
+    $device = if ($model -in @("naive", "ridge")) { "cpu" } else { "cuda:0" }
+    $checkpointArgs = @()
+    if ($model.EndsWith("-ft")) { $checkpointArgs = @("--checkpoint", "$base/$($model.Replace('-ft',''))") }
+    uv run --no-sync python scripts/forecast_vn30.py run --manifest "$base/split.json" --model $model --split $split --device $device --output "$base/$model-$split.csv" @checkpointArgs
+    if ($LASTEXITCODE -ne 0) { throw "Forecast failed: $split/$model" }
+  }
+  uv run --no-sync python scripts/forecast_vn30.py score --manifest "$base/split.json" --forecasts "$base/naive-$split.csv" "$base/ridge-$split.csv" "$base/chronos2-$split.csv" "$base/kronos-$split.csv" "$base/chronos2-ft-$split.csv" "$base/kronos-ft-$split.csv" --output "$base/evaluation-$split"
+  if ($LASTEXITCODE -ne 0) { throw "Scoring failed: $split" }
+  uv run --no-sync python scripts/forecast_vn30.py report --scores "$base/evaluation-$split"
+}
+uv run --no-sync python scripts/compare_vn30_finetuning.py --validation "$base/evaluation-validation" --test "$base/evaluation-test" --chronos-checkpoint "$base/chronos2" --kronos-checkpoint "$base/kronos" --output "$base/comparison"
+```
+
+Trainer dùng lớp dataset/loss của [Chronos](https://github.com/amazon-science/chronos-forecasting/blob/10afa9ebe016e514f9d7dc1aa873f66af57e116b/src/chronos/chronos2/pipeline.py) và kiến trúc/tokenizer của [Kronos](https://github.com/shiyu-coder/Kronos/tree/67b630e67f6a18c9e9be918d9b4337c960db1e9a/finetune_csv). Vòng này cố định tokenizer, chuẩn hóa bằng context và giới hạn loss vào phần dự báo để bám đúng tác vụ đang đánh giá. Không có thêm dependency ngoài môi trường đã khóa.
+
+Lần chạy 27/10/2026: báo cáo tại `artifacts/local/vn30-finetune-20261027/comparison-final/summary.md`; checkpoint hợp lệ trong `chronos2/` và `kronos-causal/` của cùng thư mục chạy. Fine-tune cải thiện một phần sai số test, nhưng Naive vẫn có MAE thấp nhất ở cả Open/Close h=1/5/20. Xem [bảng kết quả và giới hạn](docs/VN30_TSFMs_Kronos_End_to_End_Tasks.md#fine-tune--kết-quả-test-27102026).
 
 ## Docker
 

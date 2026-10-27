@@ -118,7 +118,35 @@ def check_manifest(df, sha, manifest):
         assert all(i >= CONTEXT - 1 and i + 1 >= a and i + HORIZON < b for i in origins)
 
 
-def build_model(name, df, manifest, device):
+def build_model(name, df, manifest, device, checkpoint=None):
+    revision_override = None
+    if name.endswith("-ft"):
+        if checkpoint is None:
+            raise ValueError("Fine-tuned models require --checkpoint")
+        checkpoint = Path(checkpoint)
+        trained = json.loads((checkpoint / "training.json").read_text(encoding="utf-8"))
+        base_name = name.removesuffix("-ft")
+        if (
+            trained["dataset_sha256"] != manifest["sha256"]
+            or trained["base_model"] != base_name
+            or trained["context"] != CONTEXT or trained["horizon"] != HORIZON
+            or trained["boundaries"] != manifest["boundaries"]
+            or trained["test_used_for_training_or_selection"]
+            or (base_name == "kronos" and not trained.get("teacher_forcing_causal_validation", False))
+        ):
+            raise ValueError("Fine-tuned checkpoint has a different dataset/split/protocol")
+        files = trained["checkpoint_files"]
+        if not files or "model.safetensors" not in files:
+            raise ValueError("Missing checkpoint weight hash")
+        best = (checkpoint / "best").resolve()
+        for relative, expected in files.items():
+            path = (best / relative).resolve()
+            if not path.is_relative_to(best) or digest(path) != expected:
+                raise ValueError(f"Checkpoint hash mismatch: {relative}")
+        revision_override = "finetuned:" + files["model.safetensors"]
+        name = base_name
+    elif checkpoint is not None:
+        raise ValueError("--checkpoint is only valid for fine-tuned models")
     if name == "naive":
         return (
             lambda history, dates, seed: np.full((HORIZON, 4), history[-1, 3]),
@@ -158,13 +186,17 @@ def build_model(name, df, manifest, device):
     provenance = yaml.safe_load(
         (ROOT / "data/manifests/checkpoint_provenance.yaml").read_text(encoding="utf-8")
     )
+    if revision_override:
+        base_spec = provenance["models"]["chronos_2_small" if name == "chronos2" else "kronos_small"]
+        if trained["base_revision"] != base_spec["repository_revision"]:
+            raise ValueError("Fine-tuning started from a different pretrained revision")
     if name == "chronos2":
         from chronos import BaseChronosPipeline
 
         spec = provenance["models"]["chronos_2_small"]
         pipeline = BaseChronosPipeline.from_pretrained(
-            spec["repository"],
-            revision=spec["repository_revision"],
+            str(best) if revision_override else spec["repository"],
+            **({} if revision_override else {"revision": spec["repository_revision"]}),
             device_map=device,
             torch_dtype=torch.float32,
         )
@@ -180,7 +212,7 @@ def build_model(name, df, manifest, device):
                 )[0]
             return samples.float().mean(dim=1).cpu().numpy().T
 
-        return predict, spec["repository_revision"], 13
+        return predict, revision_override or spec["repository_revision"], 13
     if name == "kronos":
         vendor = ROOT / ".vendor/Kronos"
         if not (vendor / "model/kronos.py").exists():
@@ -194,8 +226,11 @@ def build_model(name, df, manifest, device):
             token_spec["repository"], revision=token_spec["repository_revision"]
         )
         model = Kronos.from_pretrained(
-            model_spec["repository"], revision=model_spec["repository_revision"]
+            str(best) if revision_override else model_spec["repository"],
+            **({} if revision_override else {"revision": model_spec["repository_revision"]}),
         )
+        model.eval()
+        tokenizer.eval()
         predictor = KronosPredictor(model, tokenizer, device=device, max_context=512)
 
         def predict(history, dates, seed):
@@ -218,5 +253,5 @@ def build_model(name, df, manifest, device):
             )
             return result[COLS].to_numpy(dtype=np.float64)
 
-        return predict, model_spec["repository_revision"], 3
+        return predict, revision_override or model_spec["repository_revision"], 3
     raise ValueError(name)
