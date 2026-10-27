@@ -1,4 +1,4 @@
-"""Export the data/test dependency subset from uv.lock, including package hashes."""
+"""Export data dependencies from uv.lock, including package hashes."""
 from __future__ import annotations
 
 import argparse
@@ -6,7 +6,7 @@ import tomllib
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-ROOT_PACKAGES = ("numpy", "pandas", "pyarrow", "pyyaml", "pytest", "requests")
+ROOT_PACKAGES = ("numpy", "pandas", "pyarrow", "pyyaml")
 
 
 def render() -> str:
@@ -21,7 +21,7 @@ def render() -> str:
         selected.add(name)
         pending.extend(item["name"] for item in packages[name].get("dependencies", []))
     lines = ["# Generated from uv.lock by scripts/export_data_requirements.py.",
-             "# Data/audit/tests only; no PyTorch or model inference dependencies."]
+             "# Data tools only; no PyTorch or model inference dependencies."]
     for name in sorted(selected):
         package = packages[name]
         hashes = sorted({item["hash"] for item in package.get("wheels", []) +

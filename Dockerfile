@@ -25,11 +25,11 @@ RUN uv venv /opt/venv --python /usr/local/bin/python \
     && uv pip install --python /opt/venv/bin/python --require-hashes -r /opt/requirements-data.txt
 COPY --chown=researcher:researcher . /workspace
 USER researcher
-CMD ["python", "-m", "pytest", "-q", "-p", "no:cacheprovider"]
+CMD ["python", "scripts/check_shared_data.py"]
 
 FROM base AS cuda
 COPY pyproject.toml uv.lock /workspace/
-RUN --mount=type=cache,target=/root/.cache/uv uv sync --frozen --group dev
+RUN --mount=type=cache,target=/root/.cache/uv uv sync --frozen
 COPY --chown=researcher:researcher . /workspace
 USER researcher
 CMD ["python", "-c", "import torch; print(torch.__version__, torch.version.cuda, torch.cuda.is_available()); assert torch.cuda.is_available(), 'CUDA is unavailable inside the container'"]

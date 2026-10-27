@@ -13,7 +13,7 @@ import torch
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SMOKE_OUTPUT = ROOT / "artifacts" / "smoke" / "phase0_model_smoke.json"
+SMOKE_OUTPUT = ROOT / "artifacts" / "model_smoke.json"
 
 CHRONOS_MODEL = "autogluon/chronos-2-small"
 CHRONOS_REVISION = "ddec01313e50b6bc58ebaa92ede81bc24a3d9f9a"

@@ -12,7 +12,7 @@ from huggingface_hub import hf_hub_download
 
 ROOT = Path(__file__).resolve().parents[1]
 MANIFEST = ROOT / "data" / "manifests" / "checkpoint_provenance.yaml"
-OUTPUT = ROOT / "artifacts" / "smoke" / "checkpoint_hash_verification.json"
+OUTPUT = ROOT / "artifacts" / "checkpoint_verification.json"
 
 
 def sha256_file(path: Path) -> str:

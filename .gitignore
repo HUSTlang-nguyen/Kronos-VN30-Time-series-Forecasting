@@ -1,4 +1,4 @@
-# Python
+# Python and local environments
 __pycache__/
 *.py[cod]
 .venv/
@@ -10,30 +10,20 @@ venv/
 .env.*
 !.env.example
 
-# Disposable/local audit material
+# Temporary output and model/runtime caches
 /tmp/
-
-# Local model/runtime caches
 .vendor/
 .cache/
+/artifacts/
+*.log
 
-# Data bytes are managed by DVC; Git keeps pointers and receipts.
+# DVC manages data bytes; Git keeps pointers and receipts.
 data/raw/
 data/interim/
 data/processed/
-# SQLite runtime files are local; never share an active writer's journal
 data/share/*-journal
 data/share/*-wal
 data/share/*-shm
-
-# Large generated experiment outputs
-artifacts/forecasts/
-artifacts/scored/
-artifacts/checkpoints/
-artifacts/samples/
-artifacts/cache/
-artifacts/local/
-reports/local/
 
 # OS/editor
 .DS_Store

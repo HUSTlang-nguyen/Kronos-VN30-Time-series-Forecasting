@@ -31,7 +31,7 @@ def main() -> None:
     except (ValueError, KeyError, OSError) as exc:
         parser.exit(1, f"Shared data unavailable or invalid: {exc}\n"
                     "Run dvc pull for the matching .dvc pointer, then verify again.\n"
-                    "See docs/DVC_Data_Versioning.md for Drive access and setup.\n")
+                    "See README.md for Drive access and setup.\n")
 
 
 if __name__ == "__main__":
