@@ -1,0 +1,15 @@
+{
+  "model": "chronos2",
+  "revision": "ddec01313e50b6bc58ebaa92ede81bc24a3d9f9a",
+  "dataset_sha256": "fee0bd8c240a9d2be4ef5c9d287eede6c5506b0358c25545e72de99709da4fd2",
+  "split": "test",
+  "context": 128,
+  "horizon": 20,
+  "device": "cuda:0",
+  "seed": 42,
+  "sample_count": 13,
+  "point_functional": "sample_mean",
+  "origins": 323,
+  "limited": false,
+  "calendar_note": "realized historical exchange dates supplied to Kronos"
+}

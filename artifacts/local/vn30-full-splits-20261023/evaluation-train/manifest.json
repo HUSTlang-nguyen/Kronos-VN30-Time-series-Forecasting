@@ -1,0 +1,19 @@
+{
+  "dataset_sha256": "fee0bd8c240a9d2be4ef5c9d287eede6c5506b0358c25545e72de99709da4fd2",
+  "split": "train",
+  "origins": 1442,
+  "models": [
+    "naive",
+    "ridge",
+    "chronos2",
+    "kronos"
+  ],
+  "source_forecasts": [
+    "artifacts\\local\\vn30-full-splits-20261023\\naive-train.csv",
+    "artifacts\\local\\vn30-full-splits-20261023\\ridge-train.csv",
+    "artifacts\\local\\vn30-full-splits-20261023\\chronos2-train.csv",
+    "artifacts\\local\\vn30-full-splits-20261023\\kronos-train.csv"
+  ],
+  "open_label": "VNDIRECT provider Open, construction uncertain",
+  "tradability": "VN30 index; no trading PnL inferred"
+}

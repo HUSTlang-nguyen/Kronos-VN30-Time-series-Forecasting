@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "manifest": "data\\manifests\\checkpoint_provenance.yaml",
+  "status": "pass",
+  "components": [
+    {
+      "component": "chronos_2_small",
+      "repository": "autogluon/chronos-2-small",
+      "revision": "ddec01313e50b6bc58ebaa92ede81bc24a3d9f9a",
+      "filename": "model.safetensors",
+      "expected_sha256": "492290ae82bb89f9769e3479ce90b3179de1f33e600c34daa0352531538b23cd",
+      "actual_sha256": "492290ae82bb89f9769e3479ce90b3179de1f33e600c34daa0352531538b23cd",
+      "expected_size_bytes": 111749048,
+      "actual_size_bytes": 111749048,
+      "status": "pass"
+    },
+    {
+      "component": "kronos_small",
+      "repository": "NeoQuasar/Kronos-small",
+      "revision": "901c26c1332695a2a8f243eb2f37243a37bea320",
+      "filename": "model.safetensors",
+      "expected_sha256": "b082dfcbd8e8c142a725c8bbb99781802f38fec81210e13479effb32b3c3e020",
+      "actual_sha256": "b082dfcbd8e8c142a725c8bbb99781802f38fec81210e13479effb32b3c3e020",
+      "expected_size_bytes": 98980656,
+      "actual_size_bytes": 98980656,
+      "status": "pass"
+    },
+    {
+      "component": "kronos_tokenizer_base",
+      "repository": "NeoQuasar/Kronos-Tokenizer-base",
+      "revision": "0e0117387f39004a9016484a186a908917e22426",
+      "filename": "model.safetensors",
+      "expected_sha256": "59d85f6af76a2c3b8240ea06cb21db4213b4eeca053f246b23e29cf832fc6bee",
+      "actual_sha256": "59d85f6af76a2c3b8240ea06cb21db4213b4eeca053f246b23e29cf832fc6bee",
+      "expected_size_bytes": 15842368,
+      "actual_size_bytes": 15842368,
+      "status": "pass"
+    }
+  ]
+}

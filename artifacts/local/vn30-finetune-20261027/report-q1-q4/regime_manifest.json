@@ -1,0 +1,42 @@
+{
+  "dataset_sha256": "fee0bd8c240a9d2be4ef5c9d287eede6c5506b0358c25545e72de99709da4fd2",
+  "source_forecast_evaluation": "evaluation-test",
+  "rolling_regime": {
+    "lookback": 20,
+    "return": "log close-to-close",
+    "std_ddof": 1,
+    "annualized": false,
+    "threshold_quantile": 0.9,
+    "threshold_fitted_on": "all available rolling volatility observations inside train only",
+    "threshold": 0.021148087001992926,
+    "counts": {
+      "normal": 306,
+      "high": 17
+    },
+    "knowledge_time": "after close of origin t",
+    "posthoc_diagnostic": true,
+    "high_origin_clusters": [
+      {
+        "first_origin": "2026-03-11",
+        "last_origin": "2026-03-18",
+        "n": 6
+      },
+      {
+        "first_origin": "2026-03-20",
+        "last_origin": "2026-04-03",
+        "n": 11
+      }
+    ]
+  },
+  "existing_realized_shock_bucket": {
+    "threshold": 0.022047074052908625,
+    "fitted_on": "realized target-day returns in test",
+    "horizon": 1,
+    "posthoc": true
+  },
+  "checks": {
+    "n_per_model_target_horizon": 323,
+    "weighted_regime_mae_reconstructs_full_test": true,
+    "weighted_regime_mse_reconstructs_full_test_rmse": true
+  }
+}

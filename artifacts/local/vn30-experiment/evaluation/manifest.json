@@ -1,0 +1,19 @@
+{
+  "dataset_sha256": "fee0bd8c240a9d2be4ef5c9d287eede6c5506b0358c25545e72de99709da4fd2",
+  "split": "test",
+  "origins": 323,
+  "models": [
+    "naive",
+    "ridge",
+    "chronos2",
+    "kronos"
+  ],
+  "source_forecasts": [
+    "artifacts\\local\\vn30-experiment\\naive.csv",
+    "artifacts\\local\\vn30-experiment\\ridge.csv",
+    "artifacts\\local\\vn30-experiment\\chronos2.csv",
+    "artifacts\\local\\vn30-experiment\\kronos.csv"
+  ],
+  "open_label": "VNDIRECT provider Open, construction uncertain",
+  "tradability": "VN30 index; no trading PnL inferred"
+}

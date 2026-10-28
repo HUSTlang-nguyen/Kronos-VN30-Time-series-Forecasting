@@ -1,0 +1,14 @@
+{
+  "dataset_sha256": "fee0bd8c240a9d2be4ef5c9d287eede6c5506b0358c25545e72de99709da4fd2",
+  "source_sha256": {
+    "artifacts\\local\\vn30-finetune-20261027\\evaluation-validation-final\\scores.csv": "65e2b75b11833f347df7a38d969600e6053916bfab1613ba3a4cffba8a7c3850",
+    "artifacts\\local\\vn30-finetune-20261027\\evaluation-test\\scores.csv": "2e5df04b36115b7828d3e0ac277bba145af6ea695ec2a2b10bc8b228b06b3651",
+    "artifacts\\local\\vn30-finetune-20261027\\chronos2\\training.json": "4c91445602c96abcab3d2c19dae006bd849f9d475b4107ac2bddbc60fc67b519",
+    "artifacts\\local\\vn30-finetune-20261027\\kronos-causal\\training.json": "9df00def35bb3a46559e580e5802e2d88cc68189375f7ce7b0c06b5ed57366a7"
+  },
+  "selected_checkpoint_sha256": {
+    "chronos2": "1a0e86152e211105c7ba84677c185909f5637ee6892a3365f11e0c51161c563c",
+    "kronos": "cdaab4c290cc1e11475472397f9972067c2e0bf2ae63bf643e9ff6c4eda5d8f2"
+  },
+  "test_used_for_training_or_selection": false
+}

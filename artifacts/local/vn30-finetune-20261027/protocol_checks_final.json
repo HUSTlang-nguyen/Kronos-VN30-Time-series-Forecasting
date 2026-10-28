@@ -1,0 +1,11 @@
+{
+  "dataset_sha256": "fee0bd8c240a9d2be4ef5c9d287eede6c5506b0358c25545e72de99709da4fd2",
+  "test_price_isolation": "pass",
+  "context_only_normalization": "pass",
+  "teacher_forcing_causality": "pass",
+  "prefix_logit_max_deltas": [
+    0.0,
+    0.0
+  ],
+  "device": "cpu"
+}

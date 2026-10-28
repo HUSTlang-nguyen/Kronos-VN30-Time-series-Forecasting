@@ -14,14 +14,6 @@ venv/
 /tmp/
 .vendor/
 .cache/
-/artifacts/*
-!/artifacts/local/
-/artifacts/local/*
-!/artifacts/local/vn30-finetune-20261027/
-/artifacts/local/vn30-finetune-20261027/*
-!/artifacts/local/vn30-finetune-20261027/split.json
-!/artifacts/local/vn30-finetune-20261027/chronos2/
-!/artifacts/local/vn30-finetune-20261027/kronos-causal/
 *.log
 
 # DVC manages data bytes; Git keeps pointers and receipts.

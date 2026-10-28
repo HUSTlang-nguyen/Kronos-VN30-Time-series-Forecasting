@@ -1,0 +1,17 @@
+{
+  "model": "chronos2-ft",
+  "revision": "finetuned:1a0e86152e211105c7ba84677c185909f5637ee6892a3365f11e0c51161c563c",
+  "dataset_sha256": "fee0bd8c240a9d2be4ef5c9d287eede6c5506b0358c25545e72de99709da4fd2",
+  "split": "validation",
+  "context": 128,
+  "horizon": 20,
+  "device": "cuda:0",
+  "seed": 42,
+  "sample_count": 0,
+  "quantile_count": 13,
+  "point_functional": "quantile_mean",
+  "checkpoint": "artifacts\\local\\vn30-finetune-20261027\\chronos2",
+  "origins": 321,
+  "limited": false,
+  "calendar_note": "realized historical exchange dates supplied to Kronos"
+}

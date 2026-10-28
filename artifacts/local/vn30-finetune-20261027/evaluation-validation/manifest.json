@@ -1,0 +1,23 @@
+{
+  "dataset_sha256": "fee0bd8c240a9d2be4ef5c9d287eede6c5506b0358c25545e72de99709da4fd2",
+  "split": "validation",
+  "origins": 321,
+  "models": [
+    "naive",
+    "ridge",
+    "chronos2",
+    "kronos",
+    "chronos2-ft",
+    "kronos-ft"
+  ],
+  "source_forecasts": [
+    "artifacts\\local\\vn30-full-splits-20261023\\naive-validation.csv",
+    "artifacts\\local\\vn30-full-splits-20261023\\ridge-validation.csv",
+    "artifacts\\local\\vn30-full-splits-20261023\\chronos2-validation.csv",
+    "artifacts\\local\\vn30-full-splits-20261023\\kronos-validation.csv",
+    "artifacts\\local\\vn30-finetune-20261027\\chronos2-ft-validation.csv",
+    "artifacts\\local\\vn30-finetune-20261027\\kronos-ft-validation.csv"
+  ],
+  "open_label": "VNDIRECT provider Open, construction uncertain",
+  "tradability": "VN30 index; no trading PnL inferred"
+}

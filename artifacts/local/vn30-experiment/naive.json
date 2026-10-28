@@ -1,0 +1,15 @@
+{
+  "model": "naive",
+  "revision": "last_close",
+  "dataset_sha256": "fee0bd8c240a9d2be4ef5c9d287eede6c5506b0358c25545e72de99709da4fd2",
+  "split": "test",
+  "context": 128,
+  "horizon": 20,
+  "device": "cpu",
+  "seed": 42,
+  "sample_count": 0,
+  "point_functional": "deterministic",
+  "origins": 323,
+  "limited": false,
+  "calendar_note": "realized historical exchange dates supplied to Kronos"
+}

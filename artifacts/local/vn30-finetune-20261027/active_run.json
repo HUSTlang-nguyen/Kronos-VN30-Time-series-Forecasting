@@ -1,0 +1,17 @@
+{
+  "dataset_sha256": "fee0bd8c240a9d2be4ef5c9d287eede6c5506b0358c25545e72de99709da4fd2",
+  "active_comparison": "comparison-final",
+  "active_validation": "evaluation-validation-final",
+  "active_test": "evaluation-test",
+  "active_checkpoints": {
+    "chronos2": "chronos2",
+    "kronos": "kronos-causal"
+  },
+  "protocol_checks": "protocol_checks_final.json",
+  "chronos_replay": "reproducibility.json",
+  "checks": {
+    "syntax": "pass",
+    "table_matches_scores": "pass",
+    "full_coverage": "pass"
+  }
+}

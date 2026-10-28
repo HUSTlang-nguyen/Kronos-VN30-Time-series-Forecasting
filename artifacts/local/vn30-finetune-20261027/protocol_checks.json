@@ -1,0 +1,11 @@
+{
+  "kronos_teacher_forcing_future_perturbation": {
+    "native_eval_prefix_max_logit_change": 0.08739852905273438,
+    "causal_eval_prefix_max_logit_change": 0.0,
+    "pass": true
+  },
+  "test_price_perturbation_preserves_train_validation_windows": true,
+  "normalizer_uses_context_only": true,
+  "checkpoint_rejects_wrong_dataset_and_modified_config": true,
+  "pretrained_checkpoint_sha256_verified": true
+}

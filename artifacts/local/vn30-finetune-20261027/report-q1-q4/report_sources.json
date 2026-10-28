@@ -1,0 +1,29 @@
+{
+  "report": "docs\\VN30_Experimental_Results_Q1_Q4.md",
+  "report_sha256": "2e2470474045e8edb2b1f67b60665fd413e610595de987b50b33d6b61210944b",
+  "source_sha256": {
+    "artifacts\\local\\vn30-finetune-20261027\\comparison-final\\scores.csv": "6c4d4665a1200b0d66d41523fdd7a4c1ab72b0fa1cc25d6e2f8fb6b512a9172a",
+    "artifacts\\local\\vn30-finetune-20261027\\comparison-final\\comparison.csv": "e52a839e46d4066e103de9a7b60353f8c33884091f0f5f0c65b213d115ca5d3d",
+    "artifacts\\local\\vn30-finetune-20261027\\report-q1-q4\\rolling_volatility_scores.csv": "a83fc5a58b8459d925a71e34b51da15a658a21e527f13c506435d1afa5d9cf71",
+    "artifacts\\local\\vn30-finetune-20261027\\report-q1-q4\\regime_manifest.json": "3c8e07b05688d5bc76e382832c8b7a5fbc0fec7b6802d972a3f858d53a5561df",
+    "artifacts\\local\\vn30-finetune-20261027\\evaluation-test\\volatility_diagnostic.csv": "56b5d30cc80830874c1c78735d5aa44b4ad93de1b894bf443de3d9e1f8570c13",
+    "artifacts\\local\\vn30-finetune-20261027\\evaluation-test\\open_pattern_diagnostic.csv": "3484d2693792494ce938e29113fd031c8eff75f3649077485cb90d2bc9621b57",
+    "artifacts\\local\\vn30-finetune-20261027\\split.json": "ec05ca5ebe0962446152a7862b5379fb570649d5f02de22309d93a6c62715283",
+    "artifacts\\local\\vn30-finetune-20261027\\chronos2\\training.json": "4c91445602c96abcab3d2c19dae006bd849f9d475b4107ac2bddbc60fc67b519",
+    "artifacts\\local\\vn30-finetune-20261027\\kronos-causal\\training.json": "9df00def35bb3a46559e580e5802e2d88cc68189375f7ce7b0c06b5ed57366a7",
+    "artifacts\\local\\vn30-finetune-20261027\\chronos2\\history.csv": "2c83f3e1aa8334fbff8ad2e20fdccdf5909e993d39c0b1cf70b50e13a7bb9bd7",
+    "artifacts\\local\\vn30-finetune-20261027\\kronos-causal\\history.csv": "da1302d43cbbe1f7e4e9e86c82440f9c90de6d8108af0ec016e79654ebfdbdf9",
+    "data\\manifests\\checkpoint_provenance.yaml": "c567c7ac96b3f7b8c3ff55428cf1adfb6c78055ebd35c878633e29c62430e195",
+    "src\\vn30_forecast.py": "8bf7dea50a72c927ebd4211f80c3b0f85a931d93f6321c42db2d6780bceafc96",
+    "scripts\\finetune_vn30.py": "e72778ad51b5ef3e5f660d2c12cbf228819cd2df53b333097069446ea0753f20"
+  },
+  "tables_generated_from_saved_results": true,
+  "checks": {
+    "main_table_values": 36,
+    "rolling_regime_table_values": 36,
+    "shock_table_values": 12,
+    "key_conclusions": "pass",
+    "local_links": "pass",
+    "placeholders": "none"
+  }
+}
