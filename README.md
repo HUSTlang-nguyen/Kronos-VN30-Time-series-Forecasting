@@ -153,6 +153,23 @@ Trainer dùng lớp dataset/loss của [Chronos](https://github.com/amazon-scien
 
 Lần chạy 27/10/2026: báo cáo tại `artifacts/local/vn30-finetune-20261027/comparison-final/summary.md`; checkpoint hợp lệ trong `chronos2/` và `kronos-causal/` của cùng thư mục chạy. Fine-tune cải thiện một phần sai số test, nhưng Naive vẫn có MAE thấp nhất ở cả Open/Close h=1/5/20. Xem [bảng kết quả và giới hạn](docs/VN30_TSFMs_Kronos_End_to_End_Tasks.md#fine-tune--kết-quả-test-27102026).
 
+### Tải checkpoint đã fine-tune
+
+Hai checkpoint được lưu trên GitHub bằng Git LFS. Cài [Git LFS](https://git-lfs.com/), rồi chạy trong repo:
+
+```sh
+git lfs install
+git lfs pull
+```
+
+Checkpoint nằm tại `artifacts/local/vn30-finetune-20261027/chronos2/` (~112 MB) và `artifacts/local/vn30-finetune-20261027/kronos-causal/` (~99 MB). Mỗi thư mục có `best/model.safetensors`, config, `training.json` và `history.csv`. Dùng trực tiếp để inference, không cần train lại:
+
+```powershell
+uv run --no-sync python scripts/forecast_vn30.py run --manifest artifacts/local/vn30-finetune-20261027/split.json --model kronos-ft --checkpoint artifacts/local/vn30-finetune-20261027/kronos-causal --split test --device cuda:0 --output artifacts/local/kronos-ft-test-rerun.csv
+```
+
+Với Chronos, đổi `--model` thành `chronos2-ft` và `--checkpoint` thành `artifacts/local/vn30-finetune-20261027/chronos2`. Cần tải dataset bằng DVC và chuẩn bị môi trường theo hướng dẫn phía trên; tokenizer Kronos pretrained được tải riêng từ Hugging Face khi chạy lần đầu. Manifest split được lưu cùng checkpoint; các kết quả chạy khác vẫn nằm ngoài Git.
+
 ## Docker
 
 ```sh

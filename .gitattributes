@@ -7,3 +7,7 @@ scripts/validate_vn30_sources.py -text
 .dvc/config text eol=lf
 .dvcignore text eol=lf
 data/share/*.sha256 -text
+artifacts/local/vn30-finetune-20261027/*/best/*.safetensors filter=lfs diff=lfs merge=lfs -text
+# Checkpoint verification hashes exact config/model-card bytes across platforms.
+artifacts/local/vn30-finetune-20261027/*/best/*.json -text whitespace=cr-at-eol
+artifacts/local/vn30-finetune-20261027/*/best/*.md -text whitespace=cr-at-eol

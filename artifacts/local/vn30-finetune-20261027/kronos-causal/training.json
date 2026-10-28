@@ -1,0 +1,63 @@
+{
+  "base_model": "kronos",
+  "base_revision": "901c26c1332695a2a8f243eb2f37243a37bea320",
+  "dataset_sha256": "fee0bd8c240a9d2be4ef5c9d287eede6c5506b0358c25545e72de99709da4fd2",
+  "context": 128,
+  "horizon": 20,
+  "seed": 42,
+  "device": "cuda:0",
+  "epochs": 5,
+  "batch_size_windows": 8,
+  "accumulation": 2,
+  "learning_rate": 1e-06,
+  "weight_decay": 0.01,
+  "method": "full",
+  "objective": "future20_token_cross_entropy_teacher_forcing",
+  "tokenizer": "frozen_pretrained",
+  "teacher_forcing_causal_validation": true,
+  "normalization": "context_only",
+  "selection": "minimum_validation_loss_among_trained_epochs",
+  "origins": {
+    "train": 1442,
+    "validation": 321
+  },
+  "boundaries": {
+    "train": {
+      "row_start": 0,
+      "row_end_exclusive": 1589,
+      "first_date": "2017-08-24",
+      "last_date": "2023-12-29",
+      "rows": 1589
+    },
+    "validation": {
+      "row_start": 1589,
+      "row_end_exclusive": 1929,
+      "first_date": "2024-01-02",
+      "last_date": "2025-05-20",
+      "rows": 340
+    },
+    "test": {
+      "row_start": 1929,
+      "row_end_exclusive": 2271,
+      "first_date": "2025-05-21",
+      "last_date": "2026-10-01",
+      "rows": 342
+    }
+  },
+  "test_used_for_training_or_selection": false,
+  "trainable_parameters": 24741376,
+  "torch_version": "2.14.0+cu130",
+  "cuda_version": "13.0",
+  "initial_parameter_sha256": "a3f59383127556358cd5fead50b6035566d5605c45023f5bdb95ca1a60f5410f",
+  "selected_parameter_sha256": "a4164a0a24780624aa60acc831f7721b69eaa58180876456c2e3815897e4f6f2",
+  "initial_validation_loss": 2.158310308634678,
+  "best_validation_loss": 1.9645996272006883,
+  "best_epoch": 5,
+  "elapsed_seconds": 170.5319999998901,
+  "checkpoint_files": {
+    "config.json": "9f2eaded8ae01947aa7e1967e3a2a618b35f895fd4daf7f0bcfd728dab57a040",
+    "model.safetensors": "cdaab4c290cc1e11475472397f9972067c2e0bf2ae63bf643e9ff6c4eda5d8f2",
+    "README.md": "ec40d6b5978fe1ed22e92abe5f9033b5147fc474209dc245df3b4fb8d4dfbf4c"
+  },
+  "peak_cuda_allocated_bytes": 834774528
+}
