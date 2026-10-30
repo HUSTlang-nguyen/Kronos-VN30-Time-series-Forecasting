@@ -1,0 +1,5 @@
+model,high_volatility,n,close_mae
+kronos-small-ft,False,290,32.81753867524246
+kronos-small-ft,True,33,70.09714754971593
+naive,False,290,13.409620689655169
+naive,True,33,55.62181818181822

@@ -1,0 +1,8 @@
+{
+  "threshold": 0.020438043474118418,
+  "threshold_fitted_on": "train only",
+  "known_at": "origin close",
+  "block": 20,
+  "bootstrap_draws": 2000,
+  "dependent_overlapping_origins": true
+}

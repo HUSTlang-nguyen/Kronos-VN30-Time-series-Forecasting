@@ -2,12 +2,711 @@
   "evidence_scope": "exploratory_only",
   "jobs": {
     "kronos-small-s42-n500-pretrained": {
-      "status": "running",
+      "status": "complete",
       "task": {
         "model": "kronos-small",
         "seed": 42,
         "budget": 500,
         "initialization": "pretrained"
+      },
+      "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/checkpoints/kronos-small-s42-n500-pretrained",
+      "training_sha256": "aec83dc14e3352e4822fef2ffb1809e93c5a047cc287562e7cd311b6c987a55d",
+      "train_windows": 353,
+      "best_epoch": 5,
+      "selection": {
+        "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/checkpoints/kronos-small-s42-n500-pretrained",
+        "learning_rate": 1e-06
+      }
+    },
+    "kronos-small-s42-n500-random": {
+      "status": "complete",
+      "task": {
+        "model": "kronos-small",
+        "seed": 42,
+        "budget": 500,
+        "initialization": "random"
+      },
+      "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/lr-trials/kronos-small-s42-n500-random/0.0001",
+      "training_sha256": "ec75ed378070557227b4213caae58d3e99c022b8498b9397bd17f97585f7909e",
+      "train_windows": 353,
+      "best_epoch": 2,
+      "selection": {
+        "status": "pass",
+        "learning_rate": 0.0001,
+        "validation_loss": 2.7751999109333547,
+        "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/lr-trials/kronos-small-s42-n500-random/0.0001",
+        "training_sha256": "ec75ed378070557227b4213caae58d3e99c022b8498b9397bd17f97585f7909e",
+        "test_used": false,
+        "reused_winning_trial": true
+      }
+    },
+    "kronos-small-s42-n1000-pretrained": {
+      "status": "complete",
+      "task": {
+        "model": "kronos-small",
+        "seed": 42,
+        "budget": 1000,
+        "initialization": "pretrained"
+      },
+      "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/checkpoints/kronos-small-s42-n1000-pretrained",
+      "training_sha256": "2937af12229948655362474153e1bf5b99b434fa7e1b4147145a0268e4f24e79",
+      "train_windows": 853,
+      "best_epoch": 5,
+      "selection": {
+        "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/checkpoints/kronos-small-s42-n1000-pretrained",
+        "learning_rate": 1e-06
+      }
+    },
+    "kronos-small-s42-n1000-random": {
+      "status": "complete",
+      "task": {
+        "model": "kronos-small",
+        "seed": 42,
+        "budget": 1000,
+        "initialization": "random"
+      },
+      "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/lr-trials/kronos-small-s42-n1000-random/0.0001",
+      "training_sha256": "92347c2fe4024759a5692d39956529d777b7aa3de0235b07672982c8dea99496",
+      "train_windows": 853,
+      "best_epoch": 3,
+      "selection": {
+        "status": "pass",
+        "learning_rate": 0.0001,
+        "validation_loss": 1.9956998973620643,
+        "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/lr-trials/kronos-small-s42-n1000-random/0.0001",
+        "training_sha256": "92347c2fe4024759a5692d39956529d777b7aa3de0235b07672982c8dea99496",
+        "test_used": false,
+        "reused_winning_trial": true
+      }
+    },
+    "kronos-small-s42-nfull-pretrained": {
+      "status": "complete",
+      "task": {
+        "model": "kronos-small",
+        "seed": 42,
+        "budget": null,
+        "initialization": "pretrained"
+      },
+      "checkpoint": "artifacts/local/pc-exploratory-20261030/checkpoints/train-kronos-small-s42",
+      "training_sha256": "0f52a3747bd6ec6cf03493b0cc2a21f52679723fae1f52effe547e82daae4fd2",
+      "train_windows": 1442,
+      "best_epoch": 5,
+      "selection": {
+        "checkpoint": "artifacts/local/pc-exploratory-20261030/checkpoints/train-kronos-small-s42",
+        "learning_rate": 1e-06,
+        "reused_main_full_budget": true
+      }
+    },
+    "kronos-small-s42-nfull-random": {
+      "status": "complete",
+      "task": {
+        "model": "kronos-small",
+        "seed": 42,
+        "budget": null,
+        "initialization": "random"
+      },
+      "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/lr-trials/kronos-small-s42-nfull-random/0.0001",
+      "training_sha256": "cd2bd9bc584db62af8c69723566eb8cd03f89721ffd25d61bbc78edee2b25931",
+      "train_windows": 1442,
+      "best_epoch": 2,
+      "selection": {
+        "status": "pass",
+        "learning_rate": 0.0001,
+        "validation_loss": 1.830831966667532,
+        "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/lr-trials/kronos-small-s42-nfull-random/0.0001",
+        "training_sha256": "cd2bd9bc584db62af8c69723566eb8cd03f89721ffd25d61bbc78edee2b25931",
+        "test_used": false,
+        "reused_winning_trial": true
+      }
+    },
+    "chronos2-s42-n500-pretrained": {
+      "status": "complete",
+      "task": {
+        "model": "chronos2",
+        "seed": 42,
+        "budget": 500,
+        "initialization": "pretrained"
+      },
+      "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/checkpoints/chronos2-s42-n500-pretrained",
+      "training_sha256": "e5b3be0a929c0419dfb97744cd2c263dc602c90222687696cbc4e7529f369c8e",
+      "train_windows": 353,
+      "best_epoch": 1,
+      "selection": {
+        "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/checkpoints/chronos2-s42-n500-pretrained",
+        "learning_rate": 1e-06
+      }
+    },
+    "chronos2-s42-n500-random": {
+      "status": "complete",
+      "task": {
+        "model": "chronos2",
+        "seed": 42,
+        "budget": 500,
+        "initialization": "random"
+      },
+      "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/lr-trials/chronos2-s42-n500-random/0.0001",
+      "training_sha256": "c22b23f3db2f3ac6b8c005d30af27f3955f2416cbbdcb7018db3982bf26353b6",
+      "train_windows": 353,
+      "best_epoch": 3,
+      "selection": {
+        "status": "pass",
+        "learning_rate": 0.0001,
+        "validation_loss": 4.593603945224085,
+        "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/lr-trials/chronos2-s42-n500-random/0.0001",
+        "training_sha256": "c22b23f3db2f3ac6b8c005d30af27f3955f2416cbbdcb7018db3982bf26353b6",
+        "test_used": false,
+        "reused_winning_trial": true
+      }
+    },
+    "chronos2-s42-n1000-pretrained": {
+      "status": "complete",
+      "task": {
+        "model": "chronos2",
+        "seed": 42,
+        "budget": 1000,
+        "initialization": "pretrained"
+      },
+      "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/checkpoints/chronos2-s42-n1000-pretrained",
+      "training_sha256": "41649abe4a796cccbcab469a32cb92eae8960782298753ee65028280be4832e3",
+      "train_windows": 853,
+      "best_epoch": 1,
+      "selection": {
+        "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/checkpoints/chronos2-s42-n1000-pretrained",
+        "learning_rate": 1e-06
+      }
+    },
+    "chronos2-s42-n1000-random": {
+      "status": "complete",
+      "task": {
+        "model": "chronos2",
+        "seed": 42,
+        "budget": 1000,
+        "initialization": "random"
+      },
+      "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/lr-trials/chronos2-s42-n1000-random/0.0001",
+      "training_sha256": "9d806a03b972a79a02bcc5b3c7807d7d1ee255f17292c986b391dc8aad40f2c8",
+      "train_windows": 853,
+      "best_epoch": 3,
+      "selection": {
+        "status": "pass",
+        "learning_rate": 0.0001,
+        "validation_loss": 3.105190568252516,
+        "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/lr-trials/chronos2-s42-n1000-random/0.0001",
+        "training_sha256": "9d806a03b972a79a02bcc5b3c7807d7d1ee255f17292c986b391dc8aad40f2c8",
+        "test_used": false,
+        "reused_winning_trial": true
+      }
+    },
+    "chronos2-s42-nfull-pretrained": {
+      "status": "complete",
+      "task": {
+        "model": "chronos2",
+        "seed": 42,
+        "budget": null,
+        "initialization": "pretrained"
+      },
+      "checkpoint": "artifacts/local/pc-exploratory-20261030/checkpoints/train-chronos2-s42",
+      "training_sha256": "8bb957e54b765eeb0902d579a82e200305dc22a87237516162be4eacbcd06d57",
+      "train_windows": 1442,
+      "best_epoch": 1,
+      "selection": {
+        "checkpoint": "artifacts/local/pc-exploratory-20261030/checkpoints/train-chronos2-s42",
+        "learning_rate": 1e-06,
+        "reused_main_full_budget": true
+      }
+    },
+    "chronos2-s42-nfull-random": {
+      "status": "complete",
+      "task": {
+        "model": "chronos2",
+        "seed": 42,
+        "budget": null,
+        "initialization": "random"
+      },
+      "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/lr-trials/chronos2-s42-nfull-random/0.0001",
+      "training_sha256": "a4c0f45feffffb178c9d810da8ce76ad7b7f29c39f9abf6da13d7b84ecaddb96",
+      "train_windows": 1442,
+      "best_epoch": 4,
+      "selection": {
+        "status": "pass",
+        "learning_rate": 0.0001,
+        "validation_loss": 3.757510957688186,
+        "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/lr-trials/chronos2-s42-nfull-random/0.0001",
+        "training_sha256": "a4c0f45feffffb178c9d810da8ce76ad7b7f29c39f9abf6da13d7b84ecaddb96",
+        "test_used": false,
+        "reused_winning_trial": true
+      }
+    },
+    "kronos-small-s43-n500-pretrained": {
+      "status": "complete",
+      "task": {
+        "model": "kronos-small",
+        "seed": 43,
+        "budget": 500,
+        "initialization": "pretrained"
+      },
+      "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/checkpoints/kronos-small-s43-n500-pretrained",
+      "training_sha256": "8334ed2103e35a5b7a8440410bacd3d9bd63e6dbf84f639052ae263ccab4070a",
+      "train_windows": 353,
+      "best_epoch": 5,
+      "selection": {
+        "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/checkpoints/kronos-small-s43-n500-pretrained",
+        "learning_rate": 1e-06
+      }
+    },
+    "kronos-small-s43-n500-random": {
+      "status": "complete",
+      "task": {
+        "model": "kronos-small",
+        "seed": 43,
+        "budget": 500,
+        "initialization": "random"
+      },
+      "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/lr-trials/kronos-small-s43-n500-random/0.0001",
+      "training_sha256": "5861b428b75a632dfe52d52a6b88fcc4a1637f65375a9f1d59b418a48d6ef6ab",
+      "train_windows": 353,
+      "best_epoch": 5,
+      "selection": {
+        "status": "pass",
+        "learning_rate": 0.0001,
+        "validation_loss": 2.564351523033926,
+        "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/lr-trials/kronos-small-s43-n500-random/0.0001",
+        "training_sha256": "5861b428b75a632dfe52d52a6b88fcc4a1637f65375a9f1d59b418a48d6ef6ab",
+        "test_used": false,
+        "reused_winning_trial": true
+      }
+    },
+    "kronos-small-s43-n1000-pretrained": {
+      "status": "complete",
+      "task": {
+        "model": "kronos-small",
+        "seed": 43,
+        "budget": 1000,
+        "initialization": "pretrained"
+      },
+      "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/checkpoints/kronos-small-s43-n1000-pretrained",
+      "training_sha256": "27c541417db5da179c2b3e469de0ab05ea62381f287b8fb65b8e9309fccac984",
+      "train_windows": 853,
+      "best_epoch": 5,
+      "selection": {
+        "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/checkpoints/kronos-small-s43-n1000-pretrained",
+        "learning_rate": 1e-06
+      }
+    },
+    "kronos-small-s43-n1000-random": {
+      "status": "complete",
+      "task": {
+        "model": "kronos-small",
+        "seed": 43,
+        "budget": 1000,
+        "initialization": "random"
+      },
+      "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/lr-trials/kronos-small-s43-n1000-random/0.0001",
+      "training_sha256": "30870223b68faac28de04b4fe2307f79e69cb09ae33c847dfbf5e0f8eacca8a7",
+      "train_windows": 853,
+      "best_epoch": 2,
+      "selection": {
+        "status": "pass",
+        "learning_rate": 0.0001,
+        "validation_loss": 2.0042626590372246,
+        "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/lr-trials/kronos-small-s43-n1000-random/0.0001",
+        "training_sha256": "30870223b68faac28de04b4fe2307f79e69cb09ae33c847dfbf5e0f8eacca8a7",
+        "test_used": false,
+        "reused_winning_trial": true
+      }
+    },
+    "kronos-small-s43-nfull-pretrained": {
+      "status": "complete",
+      "task": {
+        "model": "kronos-small",
+        "seed": 43,
+        "budget": null,
+        "initialization": "pretrained"
+      },
+      "checkpoint": "artifacts/local/pc-exploratory-20261030/checkpoints/train-kronos-small-s43",
+      "training_sha256": "ee1627bdf5b9c6e7e97686585f71c9488f68a434d6a7c4ac724559247328cc63",
+      "train_windows": 1442,
+      "best_epoch": 5,
+      "selection": {
+        "checkpoint": "artifacts/local/pc-exploratory-20261030/checkpoints/train-kronos-small-s43",
+        "learning_rate": 1e-06,
+        "reused_main_full_budget": true
+      }
+    },
+    "kronos-small-s43-nfull-random": {
+      "status": "complete",
+      "task": {
+        "model": "kronos-small",
+        "seed": 43,
+        "budget": null,
+        "initialization": "random"
+      },
+      "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/lr-trials/kronos-small-s43-nfull-random/0.0001",
+      "training_sha256": "c962c4978ad12463f6f24c3145ef1f9ffe95133b60266c85c9f51c66b5eab93c",
+      "train_windows": 1442,
+      "best_epoch": 2,
+      "selection": {
+        "status": "pass",
+        "learning_rate": 0.0001,
+        "validation_loss": 1.8251439069290398,
+        "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/lr-trials/kronos-small-s43-nfull-random/0.0001",
+        "training_sha256": "c962c4978ad12463f6f24c3145ef1f9ffe95133b60266c85c9f51c66b5eab93c",
+        "test_used": false,
+        "reused_winning_trial": true
+      }
+    },
+    "chronos2-s43-n500-pretrained": {
+      "status": "complete",
+      "task": {
+        "model": "chronos2",
+        "seed": 43,
+        "budget": 500,
+        "initialization": "pretrained"
+      },
+      "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/checkpoints/chronos2-s43-n500-pretrained",
+      "training_sha256": "3365a12cbae8340e9c967c8e370c56a640751252200f56667bb1fafa70f23271",
+      "train_windows": 353,
+      "best_epoch": 1,
+      "selection": {
+        "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/checkpoints/chronos2-s43-n500-pretrained",
+        "learning_rate": 1e-06
+      }
+    },
+    "chronos2-s43-n500-random": {
+      "status": "complete",
+      "task": {
+        "model": "chronos2",
+        "seed": 43,
+        "budget": 500,
+        "initialization": "random"
+      },
+      "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/lr-trials/chronos2-s43-n500-random/0.0001",
+      "training_sha256": "e4dee6f5773cb8f24bcbc77a81d76260340536d5d6ec3fd546e5084e8be89a1b",
+      "train_windows": 353,
+      "best_epoch": 5,
+      "selection": {
+        "status": "pass",
+        "learning_rate": 0.0001,
+        "validation_loss": 4.573250684411355,
+        "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/lr-trials/chronos2-s43-n500-random/0.0001",
+        "training_sha256": "e4dee6f5773cb8f24bcbc77a81d76260340536d5d6ec3fd546e5084e8be89a1b",
+        "test_used": false,
+        "reused_winning_trial": true
+      }
+    },
+    "chronos2-s43-n1000-pretrained": {
+      "status": "complete",
+      "task": {
+        "model": "chronos2",
+        "seed": 43,
+        "budget": 1000,
+        "initialization": "pretrained"
+      },
+      "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/checkpoints/chronos2-s43-n1000-pretrained",
+      "training_sha256": "446e7e2ef51d0804712eebb20ddaf77d8fe8de7fed4407c56b135bef9b0e8d31",
+      "train_windows": 853,
+      "best_epoch": 1,
+      "selection": {
+        "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/checkpoints/chronos2-s43-n1000-pretrained",
+        "learning_rate": 1e-06
+      }
+    },
+    "chronos2-s43-n1000-random": {
+      "status": "complete",
+      "task": {
+        "model": "chronos2",
+        "seed": 43,
+        "budget": 1000,
+        "initialization": "random"
+      },
+      "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/lr-trials/chronos2-s43-n1000-random/0.0001",
+      "training_sha256": "3c727578e882de8113eadd8aacd23a0ba8dd47b42aaaff272f91e4311440ad52",
+      "train_windows": 853,
+      "best_epoch": 3,
+      "selection": {
+        "status": "pass",
+        "learning_rate": 0.0001,
+        "validation_loss": 3.06678549968565,
+        "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/lr-trials/chronos2-s43-n1000-random/0.0001",
+        "training_sha256": "3c727578e882de8113eadd8aacd23a0ba8dd47b42aaaff272f91e4311440ad52",
+        "test_used": false,
+        "reused_winning_trial": true
+      }
+    },
+    "chronos2-s43-nfull-pretrained": {
+      "status": "complete",
+      "task": {
+        "model": "chronos2",
+        "seed": 43,
+        "budget": null,
+        "initialization": "pretrained"
+      },
+      "checkpoint": "artifacts/local/pc-exploratory-20261030/checkpoints/train-chronos2-s43",
+      "training_sha256": "e4ee6230b8eb50567ce66443e7539d1d7115f81cd3e21c63ce91442b31f560a5",
+      "train_windows": 1442,
+      "best_epoch": 1,
+      "selection": {
+        "checkpoint": "artifacts/local/pc-exploratory-20261030/checkpoints/train-chronos2-s43",
+        "learning_rate": 1e-06,
+        "reused_main_full_budget": true
+      }
+    },
+    "chronos2-s43-nfull-random": {
+      "status": "complete",
+      "task": {
+        "model": "chronos2",
+        "seed": 43,
+        "budget": null,
+        "initialization": "random"
+      },
+      "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/lr-trials/chronos2-s43-nfull-random/0.0001",
+      "training_sha256": "27393fa4f4b45f84b852a0e9ea6a1a3e3bdc30f8ddde81ce1c2d4e7e8d340886",
+      "train_windows": 1442,
+      "best_epoch": 1,
+      "selection": {
+        "status": "pass",
+        "learning_rate": 0.0001,
+        "validation_loss": 3.7675795302584163,
+        "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/lr-trials/chronos2-s43-nfull-random/0.0001",
+        "training_sha256": "27393fa4f4b45f84b852a0e9ea6a1a3e3bdc30f8ddde81ce1c2d4e7e8d340886",
+        "test_used": false,
+        "reused_winning_trial": true
+      }
+    },
+    "kronos-small-s44-n500-pretrained": {
+      "status": "complete",
+      "task": {
+        "model": "kronos-small",
+        "seed": 44,
+        "budget": 500,
+        "initialization": "pretrained"
+      },
+      "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/checkpoints/kronos-small-s44-n500-pretrained",
+      "training_sha256": "1a1bacd009256ad36ea8fa3e3ab916eb85559d85c043d7a4d980f95eac7f7890",
+      "train_windows": 353,
+      "best_epoch": 5,
+      "selection": {
+        "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/checkpoints/kronos-small-s44-n500-pretrained",
+        "learning_rate": 1e-06
+      }
+    },
+    "kronos-small-s44-n500-random": {
+      "status": "complete",
+      "task": {
+        "model": "kronos-small",
+        "seed": 44,
+        "budget": 500,
+        "initialization": "random"
+      },
+      "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/lr-trials/kronos-small-s44-n500-random/0.0001",
+      "training_sha256": "828b56005f68c239793a158f7081aff0f4c44c6f7b8ac902a886a6716767800d",
+      "train_windows": 353,
+      "best_epoch": 3,
+      "selection": {
+        "status": "pass",
+        "learning_rate": 0.0001,
+        "validation_loss": 2.751168062382398,
+        "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/lr-trials/kronos-small-s44-n500-random/0.0001",
+        "training_sha256": "828b56005f68c239793a158f7081aff0f4c44c6f7b8ac902a886a6716767800d",
+        "test_used": false,
+        "reused_winning_trial": true
+      }
+    },
+    "kronos-small-s44-n1000-pretrained": {
+      "status": "complete",
+      "task": {
+        "model": "kronos-small",
+        "seed": 44,
+        "budget": 1000,
+        "initialization": "pretrained"
+      },
+      "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/checkpoints/kronos-small-s44-n1000-pretrained",
+      "training_sha256": "64c7cb2e3f006e61acbca4c09787edb873cb2a5c19ea5228f8503cfd8d5c1059",
+      "train_windows": 853,
+      "best_epoch": 5,
+      "selection": {
+        "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/checkpoints/kronos-small-s44-n1000-pretrained",
+        "learning_rate": 1e-06
+      }
+    },
+    "kronos-small-s44-n1000-random": {
+      "status": "complete",
+      "task": {
+        "model": "kronos-small",
+        "seed": 44,
+        "budget": 1000,
+        "initialization": "random"
+      },
+      "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/lr-trials/kronos-small-s44-n1000-random/0.0001",
+      "training_sha256": "ec83a8a071100565d3fb06d1dcc9acd580ed93f909d2f66a24ab6661ca2cae4a",
+      "train_windows": 853,
+      "best_epoch": 2,
+      "selection": {
+        "status": "pass",
+        "learning_rate": 0.0001,
+        "validation_loss": 2.0637597918881805,
+        "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/lr-trials/kronos-small-s44-n1000-random/0.0001",
+        "training_sha256": "ec83a8a071100565d3fb06d1dcc9acd580ed93f909d2f66a24ab6661ca2cae4a",
+        "test_used": false,
+        "reused_winning_trial": true
+      }
+    },
+    "kronos-small-s44-nfull-pretrained": {
+      "status": "complete",
+      "task": {
+        "model": "kronos-small",
+        "seed": 44,
+        "budget": null,
+        "initialization": "pretrained"
+      },
+      "checkpoint": "artifacts/local/pc-exploratory-20261030/checkpoints/train-kronos-small-s44",
+      "training_sha256": "52b5b7af5e0ef808bc703a9c97cbc7723d1634ae0bd79724aa4816cb858ffa86",
+      "train_windows": 1442,
+      "best_epoch": 5,
+      "selection": {
+        "checkpoint": "artifacts/local/pc-exploratory-20261030/checkpoints/train-kronos-small-s44",
+        "learning_rate": 1e-06,
+        "reused_main_full_budget": true
+      }
+    },
+    "kronos-small-s44-nfull-random": {
+      "status": "complete",
+      "task": {
+        "model": "kronos-small",
+        "seed": 44,
+        "budget": null,
+        "initialization": "random"
+      },
+      "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/lr-trials/kronos-small-s44-nfull-random/0.0001",
+      "training_sha256": "a67ab0052645962ab0afd63e43ffde82311e65c696d81ffd9e2255dd6339e48f",
+      "train_windows": 1442,
+      "best_epoch": 2,
+      "selection": {
+        "status": "pass",
+        "learning_rate": 0.0001,
+        "validation_loss": 1.8437887151664663,
+        "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/lr-trials/kronos-small-s44-nfull-random/0.0001",
+        "training_sha256": "a67ab0052645962ab0afd63e43ffde82311e65c696d81ffd9e2255dd6339e48f",
+        "test_used": false,
+        "reused_winning_trial": true
+      }
+    },
+    "chronos2-s44-n500-pretrained": {
+      "status": "complete",
+      "task": {
+        "model": "chronos2",
+        "seed": 44,
+        "budget": 500,
+        "initialization": "pretrained"
+      },
+      "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/checkpoints/chronos2-s44-n500-pretrained",
+      "training_sha256": "322fff469904ceeee08d582fee297fe17ccc19861b6c9934acdf70b18e92dafe",
+      "train_windows": 353,
+      "best_epoch": 1,
+      "selection": {
+        "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/checkpoints/chronos2-s44-n500-pretrained",
+        "learning_rate": 1e-06
+      }
+    },
+    "chronos2-s44-n500-random": {
+      "status": "complete",
+      "task": {
+        "model": "chronos2",
+        "seed": 44,
+        "budget": 500,
+        "initialization": "random"
+      },
+      "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/lr-trials/chronos2-s44-n500-random/0.0001",
+      "training_sha256": "ee19afefd27ca00fe37b697afb995d7572423be2c8026e801bf3e412c064ea1b",
+      "train_windows": 353,
+      "best_epoch": 3,
+      "selection": {
+        "status": "pass",
+        "learning_rate": 0.0001,
+        "validation_loss": 4.6862840659893195,
+        "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/lr-trials/chronos2-s44-n500-random/0.0001",
+        "training_sha256": "ee19afefd27ca00fe37b697afb995d7572423be2c8026e801bf3e412c064ea1b",
+        "test_used": false,
+        "reused_winning_trial": true
+      }
+    },
+    "chronos2-s44-n1000-pretrained": {
+      "status": "complete",
+      "task": {
+        "model": "chronos2",
+        "seed": 44,
+        "budget": 1000,
+        "initialization": "pretrained"
+      },
+      "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/checkpoints/chronos2-s44-n1000-pretrained",
+      "training_sha256": "13cc9402b80460f62b9a795acc26d1480180cbe962a1bd3b5fd1e8907d674321",
+      "train_windows": 853,
+      "best_epoch": 1,
+      "selection": {
+        "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/checkpoints/chronos2-s44-n1000-pretrained",
+        "learning_rate": 1e-06
+      }
+    },
+    "chronos2-s44-n1000-random": {
+      "status": "complete",
+      "task": {
+        "model": "chronos2",
+        "seed": 44,
+        "budget": 1000,
+        "initialization": "random"
+      },
+      "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/lr-trials/chronos2-s44-n1000-random/0.0001",
+      "training_sha256": "021a0d24e280fc2008a293fd6481fc5e089e6ba3286147469932f139408955ec",
+      "train_windows": 853,
+      "best_epoch": 2,
+      "selection": {
+        "status": "pass",
+        "learning_rate": 0.0001,
+        "validation_loss": 3.165424301616871,
+        "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/lr-trials/chronos2-s44-n1000-random/0.0001",
+        "training_sha256": "021a0d24e280fc2008a293fd6481fc5e089e6ba3286147469932f139408955ec",
+        "test_used": false,
+        "reused_winning_trial": true
+      }
+    },
+    "chronos2-s44-nfull-pretrained": {
+      "status": "complete",
+      "task": {
+        "model": "chronos2",
+        "seed": 44,
+        "budget": null,
+        "initialization": "pretrained"
+      },
+      "checkpoint": "artifacts/local/pc-exploratory-20261030/checkpoints/train-chronos2-s44",
+      "training_sha256": "2ec03a3bbbe2569afcbdae4a3f530f8c9e3ce6fa702d0374064fc109a430c2cb",
+      "train_windows": 1442,
+      "best_epoch": 1,
+      "selection": {
+        "checkpoint": "artifacts/local/pc-exploratory-20261030/checkpoints/train-chronos2-s44",
+        "learning_rate": 1e-06,
+        "reused_main_full_budget": true
+      }
+    },
+    "chronos2-s44-nfull-random": {
+      "status": "complete",
+      "task": {
+        "model": "chronos2",
+        "seed": 44,
+        "budget": null,
+        "initialization": "random"
+      },
+      "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/lr-trials/chronos2-s44-nfull-random/0.0001",
+      "training_sha256": "85f1259a84b004e9c43b2b3b1434009a7cb01a0e436b89b39fdde6334a923886",
+      "train_windows": 1442,
+      "best_epoch": 3,
+      "selection": {
+        "status": "pass",
+        "learning_rate": 0.0001,
+        "validation_loss": 3.854098416563135,
+        "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/lr-trials/chronos2-s44-nfull-random/0.0001",
+        "training_sha256": "85f1259a84b004e9c43b2b3b1434009a7cb01a0e436b89b39fdde6334a923886",
+        "test_used": false,
+        "reused_winning_trial": true
       }
     }
   }

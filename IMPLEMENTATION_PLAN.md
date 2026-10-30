@@ -151,6 +151,15 @@ Các tối ưu đang để xem xét, **chưa được tuyên bố đã làm**:
 
 ## 6. Thực thi không cần agent theo dõi trong 3 giờ
 
+**Trạng thái mới nhất (30/10/2026 21:17 +07):** hàng đợi đã kết thúc 18:22:28 +07; 11/11 baseline jobs, 48/48 neural forecasts, chấm đủ ba seed, 36/36 Q3 comparisons, 3/3 ablation seed và 2/2 folds. Đối chiếu state/events và process thật: không còn worker sống, không cần restart. Các dòng đang chạy/xếp hàng bên dưới là lịch sử. Chưa coi Q1–Q4 chính hoàn thành: dữ liệu còn unverified, cần kiểm định trực tiếp forecast/nhãn và dựng báo cáo nghiên cứu đầy đủ.
+
+**Bổ sung kiểm định sau khi người dùng quay lại:** verifier độc lập đã tính lại trực tiếp 2.160 dòng metric của 88 nhóm score từ 182 forecast CSV và SQLite; đủ path/ngày/split/finite, MAE/RMSE/Naive delta đều khớp. 85 output receipts và 90 cặp training/selection khớp bytes checkpoint. Xem `review/numerical_validation.json` và `review/STATUS.md`; chưa thay thế kiểm định bootstrap/selection hoặc chất lượng giá. Người dùng đã quay lại với quota đầy, không pause theo yêu cầu cũ; goal tự động đã được xóa.
+
+- Supervisor chạy độc lập qua Windows Task Scheduler, task `VN30-PC-Supervisor-20261030`, không có trigger định kỳ; tự thoát khi hết hàng đợi. API chống sleep được nhả lúc thoát.
+- Auto Git đã bỏ qua vì index đang có staged changes; hoàn tất checkpoint thủ công khi bàn giao. Đã thêm ignore PID lock để tránh đưa lock vào commit. Không có checkpoint/optimizer weights được push.
+- Không có lịch tự gọi agent đã tạo thành công. Lần thử cấu hình hai lượt bị bộ duyệt từ chối do vượt yêu cầu một lần sau ba giờ; giữ pause theo yêu cầu, người dùng tiếp tục chat khi quay lại.
+- Bước tiếp tục: kiểm đủ forecast/hash/origin/checkpoint receipts, tính lại MAE/RMSE trực tiếp từ forecast và SQLite, kiểm folds/learning/ablation, tiếp tục adjudication nguồn giá rồi tổng hợp báo cáo với giới hạn rõ ràng. Không chạy lại để đổi kết quả sau khi đã xem test.
+
 - Main đã có baseline đủ validation/test; 48 forecast neural đang chạy. Chấm tự động khi đủ mọi file, không giảm seed hoặc origin. Bảng seed 42 chỉ là bản tạm 1/3.
 - Q3 đã xếp hàng GPU, sau main; giữ 500/1.000/full, pretrained/random, 42/43/44. Nhánh candidate mới dùng trực tiếp checkpoint LR thắng validation và tái dùng full-budget SFT PC đã khớp protocol. Worker primary cũ chưa đổi tối ưu này.
 - Q2/Q4 đã xếp sau Q3: ba ablation seed rồi hai fold, bốn neural model, seed 42; CI block 20, 2.000 bootstrap như protocol. Chưa được đánh dấu hoàn thành trước khi worker thực sự chạy và output được kiểm.

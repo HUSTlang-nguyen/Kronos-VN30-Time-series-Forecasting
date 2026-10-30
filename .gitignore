@@ -25,6 +25,7 @@ artifacts/local/pc-exploratory-*/**/*-last.pt
 artifacts/local/pc-exploratory-*/**/*-best.pt
 artifacts/local/pc-exploratory-*/**/*.tmp
 artifacts/local/pc-exploratory-*/**/*.progress.json
+artifacts/local/pc-exploratory-*/supervision/*.lock
 # Exploratory weights stay on this PC; publish code, losses and hash receipts.
 artifacts/local/pc-exploratory-*/**/best/
 artifacts/local/pc-exploratory-*/**/selected/

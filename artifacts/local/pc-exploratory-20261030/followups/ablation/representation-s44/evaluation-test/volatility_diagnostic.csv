@@ -1,0 +1,7 @@
+model,high_volatility,n,close_mae
+naive,False,290,13.409620689655169
+naive,True,33,55.62181818181822
+representation-continuous,False,290,20.037617894665942
+representation-continuous,True,33,59.5505995501894
+representation-quantized,False,290,18.900406620420256
+representation-quantized,True,33,58.686056906960225

@@ -1,0 +1,5 @@
+{
+  "checkpoint": "artifacts/local/pc-exploratory-20261030/checkpoints/train-kronos-small-s43",
+  "learning_rate": 1e-06,
+  "reused_main_full_budget": true
+}

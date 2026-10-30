@@ -185,6 +185,19 @@ Hướng dẫn chạy: `docs/PC_Rerun.md`.
 
 ## Việc chưa hoàn thành / rủi ro cần giữ nguyên trong bàn giao
 
+### 17 — Xác minh hàng đợi đã tự hoàn tất, bàn giao pause
+
+- Thời điểm kiểm tra lại thực tế: 30/10/2026 21:17 +07. `supervision/events.jsonl` ghi supervisor PID 30948 chạy từ 16:27:44 và tự kết thúc **18:22:28 +07** với pipeline_complete=true, chưa chạm deadline gốc. `psutil.process_iter` không còn process supervisor/learning/stability khớp command thật; không restart.
+- State đối chiếu: baseline 11/11, neural 48/48, score ba seed xong; learning 36/36; followups ablation seed 42/43/44 và fold1/fold2 đều terminal complete. Ba ablation có verified.json. Đây là bằng chứng hoàn tất hàng đợi, chưa thay cho kiểm định nghiên cứu toàn diện hoặc chấp nhận dataset.
+- Supervisor được chuyển sang Windows Task Scheduler `VN30-PC-Supervisor-20261030` để độc lập vòng đời tool. Truy vấn CIM Task Scheduler ở lần kiểm tra mới bị hạn chế quyền; dùng process thật và events để xác minh kết thúc, không suy từ lỗi truy vấn là worker lỗi.
+- Phát hiện Git checkpoint tự động bị bỏ qua vì index còn staged. Nguyên nhân ban đầu là supervisor.lock nằm trong payload; đã bỏ stage lock và thêm ignore `supervision/*.lock`, giữ dữ liệu khác nguyên vẹn. Bàn giao bằng commit/push thủ công sau kiểm staged; toàn bộ 1.683 file mới đều CSV/JSON/PNG/Markdown, không weights/optimizer.
+- Không tạo thành công lịch gọi agent một lần sau ba giờ: cấu hình COUNT=1 ban đầu không có future run; cấu hình có DTSTART chỉ được phép ở chế độ đề xuất; lần thử COUNT=2 bị **automatic approval review từ chối** vì có thể tạo hai lượt gọi và dùng thêm quota ngoài phạm vi. Không lách bằng cron hay lịch khác; không có automation được tạo. Cần nói rõ với người dùng không có tự thức dậy.
+- Người dùng đã xác nhận pause agent ba giờ, PC tiếp tục. Pipeline thực tế đã tự xong trước bàn giao; không khởi chạy công việc thừa. Pause goal chat sau khi lưu checkpoint, không đánh dấu mục tiêu nghiên cứu complete.
+- Điểm tiếp tục: kiểm trực tiếp metric từ forecast/SQLite và đầy đủ hash/origin/receipt; kiểm learning/folds/ablation rồi dựng báo cáo mới. Tiếp tục bằng chứng OHLC/calendar, không tự nâng scope exploratory_only. Deadline 31/10/2026 14:09:17 +07 giữ nguyên.
+- Người dùng đã quay lại, thông báo quota đầy và hỏi complete đã xong chưa. Yêu cầu pause cũ không còn áp dụng cho phần kiểm định đang tiếp tục; goal tự động đã được người dùng xóa, không tự tạo mới. Đã giải thích complete là hàng đợi thăm dò xong, chưa phải bài hoàn thiện.
+- Thêm post-run verifier riêng `experiments/verify_completed_candidate.py`, không sửa frozen src/scripts hoặc artifact cũ. Đọc forecast CSV và SQLite read-only, không dùng scorer/details.csv để tính metric. **Đạt:** 88 nhóm score, 182 forecast files, 2.160 dòng metric (cả Open/Close và gap/intraday); kiểm full path/ngày/split/finite/n/MAE/RMSE/Naive delta. Negative check đổi ngày nhãn bị từ chối. 85 output receipts và 90 cặp training/selection khớp hash bytes checkpoint (90 gồm benchmark và LR trials). Receipt `review/numerical_validation.json`, CSV tính lại và trạng thái tự chứa ở `review/STATUS.md`.
+- F12 phần kiểm metric trực tiếp forecast/nhãn đã có bằng chứng mới; không còn chỉ tính từ details.csv. Giới hạn: verifier này chưa độc lập chạy lại bootstrap/tuning hoặc chứng minh giá thị trường đúng. Bảng -ft hiện dùng best-trained; Chronos selected epoch 0 phải được giải thích riêng trong báo cáo.
+
 - Chưa giải quyết bằng chứng giá O/H/L/Close giữa các nhà cung cấp và chưa có calendar độc lập đầy đủ.
 - Đã có SFT và forecast/score tạm seed 42; main đủ ba seed và Q2/Q3/Q4 đang chạy/xếp hàng. Chưa đủ bằng chứng chính Q1–Q4.
 - Đã có benchmark dữ liệu thật nhưng chưa chứng minh toàn bộ ma trận, kiểm toán và báo cáo vừa 24 giờ.

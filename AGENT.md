@@ -17,6 +17,10 @@ Các quyết định đã được người dùng chốt:
 
 ## Hiện trạng quan trọng
 
+**Cập nhật bàn giao 30/10/2026 21:17 +07:** hàng đợi thăm dò đã kết thúc lúc **18:22:28 +07**, supervisor tự thoát sau khi đủ 11 baseline jobs, 48 neural forecasts, score ba seed, 36 learning comparisons và 5 followup jobs (ba ablation seed, hai fold). Kiểm tra process thật bằng psutil không còn supervisor/Q3/followup sống. Không khởi động lại các job đã xong. Các mô tả “đang chạy/xếp hàng” bên dưới là lịch sử trước mốc này. Đây mới là hoàn tất hàng đợi phần mềm; cần kiểm định đầu ra từ forecast/nhãn và tổng hợp báo cáo, chưa hoàn tất nghiên cứu. Dataset vẫn unverified.
+
+Người dùng từng yêu cầu pause agent ba giờ; chưa tạo được lịch tự gọi lại agent. Không hứa tự thức dậy: cấu hình hai lần gọi đã bị bộ duyệt tự động từ chối và không được thực hiện. PC đã tự hoàn tất công việc trong lúc chờ, không cần giữ GPU chạy vô ích. **Người dùng đã quay lại, thông báo quota đầy và hỏi trạng thái; tiếp tục kiểm định đầu ra và báo cáo, không pause theo yêu cầu cũ.** Goal tự động trong chat đã được người dùng xóa; không tự tạo goal mới. Deadline gốc vẫn giữ.
+
 **Đã bắt đầu huấn luyện thăm dò trên PC. Dataset vẫn unverified; thí nghiệm chính chưa được phép dùng làm kết luận.**
 
 PC: Windows/PowerShell, RTX 4070 SUPER 12 GB, RAM khoảng 32 GB. Python 3.11.9. Môi trường `.venv` đã cài đúng `uv.lock`, torch `2.14.0+cu130`, CUDA thực tế dùng được. `.venv-data` chứa uv và DVC riêng; `.vendor/Kronos` đã checkout revision đã khóa.

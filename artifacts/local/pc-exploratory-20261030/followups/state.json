@@ -1,0 +1,20 @@
+{
+  "evidence_scope": "exploratory_only",
+  "jobs": {
+    "ablation-s42": {
+      "status": "complete"
+    },
+    "ablation-s43": {
+      "status": "complete"
+    },
+    "ablation-s44": {
+      "status": "complete"
+    },
+    "fold1": {
+      "status": "complete"
+    },
+    "fold2": {
+      "status": "complete"
+    }
+  }
+}

@@ -1,8 +1,6 @@
 {
-  "pid": 33968,
-  "status": "running",
+  "status": "complete",
   "evidence_scope": "exploratory_only",
-  "stage_deadline_unix": 1793401757.9180253,
   "orchestrator_sha256": "08922b86fd0a6069395f0024dc30434f489ef474d08c69a260a77d275dc8704c",
-  "planned_comparisons": 36
+  "completed_comparisons": 36
 }

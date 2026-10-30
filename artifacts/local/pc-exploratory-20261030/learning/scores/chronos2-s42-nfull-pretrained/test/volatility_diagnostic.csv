@@ -1,0 +1,5 @@
+model,high_volatility,n,close_mae
+chronos2-ft,False,290,15.749248585668107
+chronos2-ft,True,33,54.00506732362691
+naive,False,290,13.409620689655169
+naive,True,33,55.62181818181822

@@ -1,0 +1,26 @@
+{
+  "test_used": false,
+  "trials": [
+    {
+      "status": "pass",
+      "learning_rate": 1e-06,
+      "validation_loss": 4.9484110398455945,
+      "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/lr-trials/kronos-small-s44-n1000-random/1e-06",
+      "training_sha256": "acc51bc3d27d43dd0f7a672dc45daf9cd7d548e02cbf488e8403959020b62728"
+    },
+    {
+      "status": "pass",
+      "learning_rate": 1e-05,
+      "validation_loss": 2.4044862699657212,
+      "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/lr-trials/kronos-small-s44-n1000-random/1e-05",
+      "training_sha256": "167b8b93fe317c30bd41ab442894625fde39b05ddcc89372ccd98191d0524e3a"
+    },
+    {
+      "status": "pass",
+      "learning_rate": 0.0001,
+      "validation_loss": 2.0637597918881805,
+      "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/lr-trials/kronos-small-s44-n1000-random/0.0001",
+      "training_sha256": "ec83a8a071100565d3fb06d1dcc9acd580ed93f909d2f66a24ab6661ca2cae4a"
+    }
+  ]
+}
