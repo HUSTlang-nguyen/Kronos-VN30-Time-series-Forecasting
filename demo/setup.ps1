@@ -15,7 +15,7 @@ if ($Compute -eq 'auto') {
     $Compute = 'cpu'
     if (Get-Command nvidia-smi -ErrorAction SilentlyContinue) {
         $driverInfo = & nvidia-smi 2>$null | Out-String
-        if ($driverInfo -match 'CUDA Version:\s*(\d+)\.(\d+)') {
+        if ($driverInfo -match 'CUDA (?:UMD )?Version:\s*(\d+)\.(\d+)') {
             if ([int]$Matches[1] -ge 13) { $Compute = 'cu130' }
         }
     }

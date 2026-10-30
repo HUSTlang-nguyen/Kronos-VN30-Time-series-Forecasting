@@ -254,3 +254,13 @@ Hướng dẫn chạy: `docs/PC_Rerun.md`.
 - ZIP demo/bundle/VN30-Inference-Studio.zip: 518.705.873 bytes, SHA256 075023c229fe6c9c353c763f66376797cf2dec166bd143145625cc7f30d21295. Đủ 66 file, kiểm từng hash rồi giải nén sang .cache/demo-portable/VN30-Inference-Studio. Dùng đúng code/data/model trong bản giải nén, chặn mạng/download, kiểm static UI, health, API mini dự báo thật 20 phiên hữu hạn và CSV21 dòng đạt. Receipt demo/checks/portable.json. Không có venv/cache/node_modules/raw/SQLite/optimizer/token trong ZIP; license fonts/components đã kèm.
 - Điểm bàn giao: dashboard v1 hoàn tất trên PC, public models đã xác minh; benchmark laptop được bỏ theo yêu cầu. Preview http://127.0.0.1:8000; Start-Dashboard.cmd mở lại, demo/README.md hướng dẫn cài trên laptop. Lưu checkpoint/push code/docs/receipts/screenshots, weights/ZIP giữ ignored local và weights đã trên HF. Không publish Space/hosted inference, không dùng chi phí dịch vụ.
 - Việc nghiên cứu còn lại giữ nguyên: dataset chưa có đủ bằng chứng chấp nhận; không đánh dấu Q1–Q4 chính hoàn thiện hoặc dùng demo để thay kết luận. Không cần chạy lại các job đã xong.
+
+### 22 — Khởi chạy demo dashboard theo yêu cầu người dùng
+
+- Người dùng yêu cầu chạy demo dashboard theo `demo/README.md`.
+- Đã checkout nhánh `neikhn/lam-lai-vn30-pc`.
+- Chuẩn bị môi trường `.venv-demo` với `Python 3.11`, cài đặt đầy đủ thư viện theo `demo/requirements.lock` và `torch==2.14.0+cu130` qua `uv`.
+- Sửa regex nhận diện phiên bản CUDA trong `demo/setup.ps1` (`CUDA (?:UMD )?Version:\s*(\d+)\.(\d+)`) để tương thích với output driver hiện tại.
+- Cài đặt frontend dependencies với `pnpm install --frozen-lockfile` và build production frontend Vite (`demo/frontend/dist/index.html`).
+- Chạy kiểm thử: 6/6 demo tests đạt; `demo.smoke` kiểm tra inference thực tế cả 3 model Kronos (mini, small, base) trên GPU GTX 1650 và mini trên CPU, xác thực SHA256 weights tải từ Hugging Face Hub cache, kết quả 20 phiên hữu hạn, sai khác lặp lại 0.0.
+- Khởi động server dashboard local tại `http://127.0.0.1:8000`, API `/api/health` trả về `ready` trên GPU `NVIDIA GeForce GTX 1650`, catalog sẵn sàng phục vụ 3 model và 323 mốc origin lịch sử. Đã tự động mở trình duyệt.
