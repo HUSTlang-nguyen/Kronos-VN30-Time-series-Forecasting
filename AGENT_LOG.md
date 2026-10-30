@@ -1,6 +1,6 @@
 # Agent log — VN30 PC rerun
 
-**Bàn giao mới nhất 31/10/2026:** slide09 đã giải thích lại theo góp ý, xem mục27; báo cáo LaTeX/PDF/source ZIP hoàn tất ở mục26. Slide V2 và dashboard đã hoàn tất ở các mục21–25. Các trạng thái ở đầu log bên dưới là lịch sử của primary pipeline; không nhầm chúng với kết quả thăm dò đã hoàn tất/kiểm định. Dataset vẫn unverified; không có nghiên cứu chính mới được chấp nhận.
+**Bàn giao mới nhất 31/10/2026:** slide14–15 đã bổ sung BSQ/binning, xem mục28; slide09 chỉnh ở mục27; báo cáo LaTeX/PDF/source ZIP hoàn tất ở mục26. Slide V2 và dashboard đã hoàn tất ở các mục21–25. Các trạng thái ở đầu log bên dưới là lịch sử của primary pipeline; không nhầm chúng với kết quả thăm dò đã hoàn tất/kiểm định. Dataset vẫn unverified; không có nghiên cứu chính mới được chấp nhận.
 
 ## Trạng thái bàn giao hiện tại — 30/10/2026, Asia/Bangkok
 
@@ -321,3 +321,13 @@ Hướng dẫn chạy: `docs/PC_Rerun.md`.
 - Lượt kiểm đầu phát hiện body overflow19px và header Close phiên đầu dài; đã rút câu/header mà không thu nhỏ font hoặc đổi CSS chung. Bản cuối Chrome QA đạt20slide, không tràn/JS error/network request, fontVI/mono, Tab/ShiftTab/hash/scroll/fullscreen/notes và mobile. Đối chiếu riêng nội dung09 với yêu cầu và code đã khóa; không thêm unit test cho thay đổi trình bày.
 - Đã xem slide09 HTML và PDF render90dpi. So với bản trước chỉ sectionquy-trinh/page09 thay đổi;19section HTML khác byte-identical và19trang PDF khác text-identical. Hash input/authoring/HTML đúng manifest. HTML618.858bytes SHA256957df6bcf2c27aea1bcabcf3ca01dff9b4dd48d0a112e87feb9f98c0382d68ae; PDF530.964bytes SHA25622030db962e29149eb02d5f3597c7857c9765d3d5b9ec90b95e68e0fcf23b431. Receipt final_receipt-s09.json ở cache riêng.
 - Điểm tiếp tục: HTML/PDF đã cập nhật tại đường dẫn cũ, chờ góp ý tiếp theo. Giữ19slide khác, bộ dữ liệu, checkpoint, forecast và LaTeX report. Lưu checkpoint/push nhánh neikhn/lam-lai-vn30-pc; không cần train lại hoặc dựng lại từ đầu.
+
+### 28 — Slide14 thêm BSQ, slide15 giải thích quantization bằng binning
+
+- Người dùng yêu cầu thêm BSQ tokenization của Kronos vào14 và giải thích ngắn quantization làm gì vào15, dùng ví dụ regression→classification bằng binning. Đã giữ20slide và Paper & Ink, đồng bộ builder/outline/REVIEW/README, HTML/PDF. Không thay09 vừa sửa hoặc report LaTeX.
+- Đọc lại state/audit/verification và working tree; audit unverified vẫn giữ nguyên, không chạy model hoặc thay source nghiên cứu. Dùng code gốc được khóa trong demo/vendor/kronos/model/{kronos,module}.py để xác minh normalize/quantize/bits và cross-entropy. Đối chiếu paper gốc https://arxiv.org/html/2508.02739v1; đặt nguồn trong notes.
+- Slide14: BSQ = Binary Spherical Quantization; encoder tạo features, L2 normalize, lấy dấu âm/dương, bits0/1 thành hai subtoken coarse/fine. Notes giải thích scale1/sqrt(d), vector khác0, ngưỡngz>0, APIencode đã cóquantize và ví dụsign-to-bit lược bỏchi tiết. Không gọi đây là chia trực tiếp giá thành bin.
+- Slide15: quantization tạo token để predictor làm classification, sau đó decode OHLC. Toy binning cóA<100,B=[100;105),C≥105;102,4 cólabelB, rõ là minh họa. Nêu BSQ thực tế trênfeatures. Đã giải quyết nguy cơ hiểu nhầm biểu đồ là so regression/classification: ablation của bài vẫn dùng numeric head/MSE ở cả hai nhánh, chỉ thay representation trước/sauBSQ. Giữ nguyên MAE/SD/kết luận.
+- QA đầu phát hiện overflow21px ở15. Giảm chiều cao plot320→280, giữ font/data/labels và CSS chung; không bớt điểm số hoặc đổi graphscale. Chrome QA cuối đạt20slide: không overflow/JSerror/networkrequest, fontViệt/mono, điều hướng/fullscreen/notes/mobile. Đã xem14/15 HTML và PDF render90dpi, chữ/hình/bảng đủ và không cắt.
+- So sánh với trước: chỉ hai section tokenization-quantize/q2-luong-tu-hoa và hai trang PDF14/15 thay đổi;18sectionHTML byte-identical và18pagePDF text-identical. Hash input/authoring/HTML đúngmanifest. Private receipt `.cache/slides-qa/final_receipt-s14-s15.json`. Không thêm unit test cho sửa trình bày.
+- Bản giao HTML620.981bytes SHA25652abc17488ca7c41c1d80caede114d01d4cd061381cbab91d807f4e4e12d5571; PDF534.068bytes SHA2568ba4c1785b4e5d7bee1d3848874741689f05244b4769612ebf23a4be3ea90d11,20trang16:9. Điểm tiếp tục: nhận góp ý theo slide, dùng source mới nhất, giữ09và18slide khác, kết quả/model/LaTeXreport không đổi. Lưu checkpoint/push neikhn/lam-lai-vn30-pc.

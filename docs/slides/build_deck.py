@@ -395,8 +395,9 @@ add('q2-kich-thuoc','Q2 · Model size và SFT','KẾT QUẢ',
     'Nguồn: main_summary.csv / resources.csv · GPU RTX 4070 SUPER',
     'Model size là số tham số, không bảo đảm prediction chính xác hơn. Ba Kronos lần lượt khoảng 4,1M / 24,7M / 102,3M. Mini dùng tokenizer khác nên không đo tác động riêng của số tham số. Train seconds là tổng thời gian SFT của mỗi lượt, lấy mean ba seed, không phải inference time. Peak tensor allocation khác tổng VRAM của process. Close h=20 của base giảm từ 166,781 xuống 98,849, cải thiện 67,932 điểm; Naive vẫn thấp hơn ở 93,826.',['main_summary.csv','resources.csv'])
 
-add('tokenization-quantize','Tokenization và quantize','GIẢI THÍCH',
-    flow([('OHLC','Numeric input'),('Encode','Continuous features'),('Quantize','Features thành mã hữu hạn'),('Token IDs','Input cho predictor')])
+add('tokenization-quantize','BSQ trong tokenizer của Kronos','GIẢI THÍCH',
+    brief('<strong>BSQ = Binary Spherical Quantization</strong>, bước quantize trong tokenizer của Kronos.')
+    + flow([('OHLC / Encode','Continuous features'),('L2 normalize','Độ dài vector = 1'),('BSQ quantize','Dấu âm / dương thành bits 0 / 1'),('Token IDs','Hai subtoken: coarse / fine')])
     + table(['Khái niệm','Ý nghĩa'],[
         ['<strong>Tokenization</strong>','Toàn bộ quá trình chuyển input thành token mà predictor xử lý.'],
         ['<strong>Quantize</strong>','Một bước trong tokenization: chuyển continuous features thành discrete codes (mã hữu hạn).'],
@@ -404,7 +405,7 @@ add('tokenization-quantize','Tokenization và quantize','GIẢI THÍCH',
     + '<div class="formula">Ví dụ minh họa theo dấu: [0,2; −0,7] → bits [1; 0]</div>',
     '',
     'Nguồn: KronosTokenizer / BSQuantizer · Ví dụ chỉ minh họa cơ chế',
-    'Tokenization là toàn bộ quá trình chuyển input thành token; quantize là một bước trong đó. BSQ là Binary Spherical Quantization: latent vector được chuẩn hóa rồi quantize theo dấu; các bits tạo token IDs. Ví dụ hai chiều trên slide chỉ minh họa positive thành bit 1, negative thành bit 0, lược bỏ normalization, scale và hierarchical split. Không phải token thật của một session VN30. Encode API thực tế đã gồm quantize, sơ đồ tách ra để giải thích. Decode dùng weight đã học để khôi phục OHLC, không phải đảo bit thành giá bằng một công thức đơn giản.',['repo:demo/vendor/kronos/model/kronos.py','repo:demo/vendor/kronos/model/module.py'])
+    'Tokenization là toàn bộ quá trình chuyển input thành token; quantize là một bước trong đó. BSQ là Binary Spherical Quantization. Trong code gốc, encoder và quant_embed tạo latent features; BSQuantizer dùng L2 normalize để vector khác 0 có độ dài 1. BinarySphericalQuantizer lấy mỗi thành phần dương thành +1, thành phần không dương thành -1, rồi scale bằng 1/sqrt(d) với d là số chiều mã. Khi tạo token IDs, dấu dương tương ứng bit 1, dấu âm tương ứng bit 0. Mã được chia thành hai nhóm coarse/fine subtokens; predictor dự đoán chúng theo thứ tự. Vì vậy BSQ quantize trong không gian features đã học, không chia trực tiếp trục giá thành các khoảng cố định. Ví dụ hai chiều [0,2; -0,7] chỉ minh họa sign-to-bit, lược bỏ normalization, scale và hierarchical split; không phải token thật của một session VN30. Encode API thực tế đã gồm quantize, sơ đồ tách bước để giải thích. Decode dùng weight đã học để khôi phục OHLC. Tham khảo thêm phần K-line Tokenization trong <a href="https://arxiv.org/html/2508.02739v1">bài Kronos gốc</a>.',['repo:demo/vendor/kronos/model/kronos.py','repo:demo/vendor/kronos/model/module.py'])
 
 ablation=read_csv('ablation_summary.csv')
 bar_values=[]
@@ -412,11 +413,13 @@ for model,label,color in [('representation-continuous','Trước quantize','#aaa
     rr=[next(r for r in ablation if r['model']==model and r['split']=='test' and r['target']=='close' and int(r['horizon'])==h) for h in (1,5,20)]
     bar_values.append((label,[float(r['mae']) for r in rr],[float(r['mae_sd']) for r in rr],color))
 add('q2-luong-tu-hoa','Q2 · Quantize ablation','KẾT QUẢ',
-    '<div class="ablation-branches"><p><strong>A</strong> Encoder cố định · continuous features · predictor</p><p><strong>B</strong> Cùng encoder · <b>quantize</b> · cùng predictor initialization</p></div>'
-    + grouped_bars(['h=1','h=5','h=20'],bar_values,200,width=1698,height=320),
-    'Giữ data, initialization và train budget giống nhau. Quantize chưa giúp Close MAE giảm đồng nhất.',
+    brief('<strong>Vai trò trong Kronos:</strong> tạo token để predict bằng <strong>classification</strong>, rồi decode ra OHLC, thay vì regression giá trực tiếp.')
+    + brief('<strong>Binning minh họa:</strong> A &lt; 100, B = [100; 105), C ≥ 105. Giá 102,4 thành class B. <strong>BSQ áp dụng trên features.</strong>')
+    + '<div class="ablation-branches"><p><strong>Ablation:</strong> cả hai nhánh vẫn regression (numeric head/MSE).</p><p><strong>A</strong> Trước BSQ · <strong>B</strong> Sau BSQ · Cùng data, encoder, init và budget.</p></div>'
+    + grouped_bars(['h=1','h=5','h=20'],bar_values,200,width=1698,height=280),
+    'Quantize chưa giúp Close MAE giảm đồng nhất trong ablation này.',
     'Nguồn: ablation_summary.csv · MAE Close, mean ± SD ba seed',
-    'Ablation nghĩa là thay riêng một thành phần để đo đóng góp. Hai nhánh dùng cùng fixed small encoder, cùng random small backbone, numeric head/MSE, data và train budget. Nhánh A dùng L2-normalized features trước BSQ; nhánh B dùng features sau BSQ. Initialization hash khớp theo từng seed. Đây là một representation ablation với numeric head; không phải bỏ quantize khỏi pre-trained token predictor rồi giả định nguyên model vẫn chạy được. Mean ± SD theo seed không phải CI. Không mở rộng kết luận thành lợi/hại cho mọi thành phần K-line representation.',['ablation_summary.csv'])
+    'Quantization tạo một vocabulary hữu hạn để predictor Kronos dự đoán xác suất token tiếp theo bằng classification/cross-entropy, sau đó tokenizer decode thành giá liên tục. Có thể hiểu ý tưởng qua ví dụ binning: A cho giá dưới 100, B cho [100;105), C cho giá từ 105; label của 102,4 là B, nên model học dự đoán class B thay vì regression trực tiếp ra đúng 102,4. Đây chỉ là minh họa khái niệm, không phải tokenizer Kronos thực tế và không phải dữ liệu VN30. BSQ thực tế quantize latent features đã học theo dấu, không dùng các bin giá A/B/C cố định. Quantization cũng có thể làm mất thông tin; việc chuyển sang token không tự bảo đảm sai số thấp hơn. Ablation nghĩa là thay riêng một thành phần để đo đóng góp. Hai nhánh ở biểu đồ dùng cùng fixed small encoder, cùng random small backbone, numeric head/MSE, data và train budget. Nhánh A dùng L2-normalized features trước BSQ; nhánh B dùng features sau BSQ. Initialization hash khớp theo từng seed. Cả hai nhánh vẫn regression với numeric head/MSE, nhằm tách ảnh hưởng của representation; biểu đồ không phải so regression với classification hoặc bỏ quantize khỏi pre-trained token predictor. Mean ± SD theo seed không phải CI. Không mở rộng kết luận thành lợi/hại cho mọi thành phần K-line representation.',['ablation_summary.csv','repo:demo/vendor/kronos/model/module.py'])
 
 add('q3-du-lieu','Q3 · Data budget và pre-trained','KẾT QUẢ',
     '<div class="two-col">'+learning_chart('kronos-small-ft','Kronos-small')+learning_chart('chronos2-ft','Chronos-2-small')+'</div>'

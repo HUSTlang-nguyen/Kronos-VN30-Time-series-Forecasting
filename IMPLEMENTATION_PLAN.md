@@ -222,6 +222,14 @@ Các tối ưu đang để xem xét, **chưa được tuyên bố đã làm**:
 - Chrome QA đạt cả20slide/offline/font/layout/navigation/mobile; slide09 có kiểm nội dung riêng. Đã xem trang09 HTML và PDF render; đối chiếu19section HTML và19page text PDF còn lại giống bản trước, hash manifest đúng. Private receipt final_receipt-s09.json. Không chạy model hoặc đổi experiment/LaTeX report.
 - Điểm tiếp tục: bàn giao hai bản, tiếp nhận góp ý tiếp theo tại đúng slide; giữ cấu hình/score/20slide và notes. Commit/push nhánh hiện tại.
 
+### 8.4. Slide 14–15 — BSQ và vai trò quantization, hoàn tất 31/10/2026
+
+- Theo yêu cầu mới, bổ sung tên đầy đủ BSQ và flow features/L2 normalize/sign-to-bit/hierarchical IDs vào14. Thêm15 hai dòng ngắn về classification token và binning minh họa102,4→classB, không coi bin giá là BSQ thật.
+- Làm rõ hai mức so sánh: predictor Kronos gốc học token với cross-entropy rồi decode; ablation của bài giữ regression/numeric head/MSE ở cả hai nhánh để chỉ can thiệp representation trước/sau BSQ. Đối chiếu code gốc khóa và bài Kronos arXiv2508.02739v1, nguồn trong notes.
+- Đã đồng bộ builder/outline/REVIEW/README/HTML/PDF. Giữ data/score/chart labels, rút chiều cao plot320→280 để hết overflow21px; không đổi font hoặc CSS chung.
+- Chrome QA20slide đạt về layout/font/offline/navigation/mobile. Đã xem14/15 HTML và PDF; kiểm18section HTML/trang PDF khác giống bản trước, manifest hash đúng. Không thêm unit test hoặc train/inference, không sửa LaTeX report.
+- Điểm tiếp tục: bàn giao hai bản tại đường dẫn cũ, giữ20slide và tiếp nhận góp ý. Private receipt final_receipt-s14-s15.json; commit/push nhánh hiện tại.
+
 ## 9. Báo cáo LaTeX — hoàn tất 31/10/2026
 
 - Yêu cầu: tạo báo cáo LaTeX, trình bày gọn, không nhắc agent. Giữ nhóm/tác giả đã chốt, English technical terms. Tập trung vào phương pháp và kết quả chính; các giới hạn liên quan dữ liệu, epoch selection, test hồi cứu và pre-training cutoff vẫn được trình bày ngắn để phạm vi kết luận chính xác. Không sửa score, dataset, checkpoint hoặc trạng thái audit.

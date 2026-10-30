@@ -169,29 +169,31 @@
 
 > REVIEW:
 
-## Slide 14 — Tokenization và quantize
+## Slide 14 — BSQ trong tokenizer của Kronos
 
-**Vai trò:** Giải thích tokenization khác quantize.
+**Vai trò:** Giải thích BSQ trong tokenizer Kronos và phân biệt tokenization với quantize.
 
-**Nội dung:** Tokenization là toàn bộ quá trình chuyển input thành token; quantize là một bước trong đó. BSQ là Binary Spherical Quantization: latent vector được chuẩn hóa rồi quantize theo dấu; các bits tạo token IDs. Ví dụ hai chiều trên slide chỉ minh họa positive thành bit 1, negative thành bit 0, lược bỏ normalization, scale và hierarchical split. Không phải token thật của một session VN30. Encode API thực tế đã gồm quantize, sơ đồ tách ra để giải thích. Decode dùng weight đã học để khôi phục OHLC, không phải đảo bit thành giá bằng một công thức đơn giản.
+**Nội dung:** BSQ = Binary Spherical Quantization, một bước trong tokenizer Kronos. Encoder/quant_embed tạo continuous features; L2 normalize đưa vector khác 0 về độ dài 1; BSQ quantize theo dấu và scale bằng 1/sqrt(d); bits tạo token IDs coarse/fine. Dấu dương tương ứng bit1, không dương thành bit0. Toàn bộ quá trình là tokenization, bước features thành discrete codes là quantize. Ví dụ [0,2; −0,7] thành bits[1;0] chỉ minh họa sign-to-bit, lược bỏ normalization/scale/hierarchical split, không phải token thật của VN30. BSQ làm trên features đã học, không trực tiếp chia giá vào bin cố định. Decode khôi phục OHLC từ token bằng weight đã học.
 
-**Visualize:** Sơ đồ và định nghĩa tokenization/quantize. Ví dụ sign coding [0,2; −0,7] thành bits [1; 0] chỉ minh họa.
+**Visualize:** Tên đầy đủ BSQ, flow OHLC/Encode → L2 normalize → BSQ quantize → hai subtoken IDs, bảng hai khái niệm và ví dụ sign-to-bit.
 
 **Nguồn và lưu ý:** Nguồn: KronosTokenizer / BSQuantizer · Ví dụ chỉ minh họa cơ chế. Source links đầy đủ trong speaker notes.
 
 > REVIEW:
+> Góp ý 31/10: thêm BSQ tokenization của Kronos. Đã đưa tên đầy đủ, normalize, sign-to-bit và coarse/fine lên slide; chi tiết scale/encode/decode trong notes.
 
 ## Slide 15 — Q2 · Quantize ablation
 
-**Vai trò:** Đọc quantize ablation sau khi hiểu cơ chế.
+**Vai trò:** Giải thích quantization giúp predictor làm classification token, rồi đọc ablation representation.
 
-**Nội dung:** Ablation nghĩa là thay riêng một thành phần để đo đóng góp. Hai nhánh dùng cùng fixed small encoder, cùng random small backbone, numeric head/MSE, data và train budget. Nhánh A dùng L2-normalized features trước BSQ; nhánh B dùng features sau BSQ. Initialization hash khớp theo từng seed. Đây là một representation ablation với numeric head; không phải bỏ quantize khỏi pre-trained token predictor rồi giả định nguyên model vẫn chạy được. Mean ± SD theo seed không phải CI. Không mở rộng kết luận thành lợi/hại cho mọi thành phần K-line representation.
+**Nội dung:** Trong Kronos, quantization tạo token cho predictor học classification/cross-entropy, sau đó decode thành OHLC liên tục thay vì regression trực tiếp giá. Ví dụ binning minh họa: A dưới100, B=[100;105), C từ105; giá102,4 có label B. Đây chỉ là ví dụ chuyển target số thực thành class, không phải các bin giá thật của BSQ. BSQ thực tế quantize features đã học. Biểu đồ ablation vẫn dùng cùng numeric head/MSE ở hai nhánh, tức cả hai vẫn regression; chỉ thay representation trước/sau BSQ. Giữ cùng fixed small encoder, random small backbone, initialization theo seed, data và budget. Mean ± SD theo seed không phải CI; không diễn giải biểu đồ này thành so classification với regression hoặc lợi/hại cho mọi thành phần K-line representation.
 
-**Visualize:** Hai nhánh trước/sau BSQ, cùng encoder và predictor initialization; plot MAE ± SD h=1/5/20.
+**Visualize:** Hai dòng ngắn giải thích vai trò và ví dụ binning, hai nhánh trước/sau BSQ với numeric head/MSE chung; giữ nguyên số liệu plot MAE ± SD h=1/5/20.
 
 **Nguồn và lưu ý:** Nguồn: ablation_summary.csv · MAE Close, mean ± SD ba seed. Source links đầy đủ trong speaker notes.
 
 > REVIEW:
+> Góp ý 31/10: thêm ngắn gọn quantization trong Kronos làm gì, ví dụ regression thành classification bằng binning. Đã thêm ví dụ102,4 thành classB, ghi BSQ trên features và phân biệt với ablation regression/MSE.
 
 ## Slide 16 — Q3 · Data budget và pre-trained
 
