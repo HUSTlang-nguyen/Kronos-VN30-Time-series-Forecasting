@@ -336,18 +336,20 @@ add('kiem-tra-du-lieu','Pre-process data','DATASET',
     '', 'Nguồn: Raw replay / audit / source comparison',
     'Slide mô tả các bước pre-process đã làm, không tuyên bố mọi khác biệt đã xử lý xong. Audit giữ unverified: 1.230 phép so sánh OHLC khác nguồn hơn 0,02 điểm, gồm 60 ngày Close khác nguồn; có 78 Open bằng Close trước, trong đó 71 phiên liên tiếp từ 05/05 đến 11/08/2025. Đây là số phép so sánh khác nhau, chưa phải số lỗi VNDIRECT đã chứng minh. Calendar khớp lịch VNINDEX quan sát từ VPS, chưa là xác nhận lịch sàn chính thức. Không điền session thiếu, không sửa giá, không ghép nguồn theo từng ô.',['data_adjudication.csv'])
 
-add('quy-trinh','Inference và prediction cuối','INFERENCE',
-    brief('<strong>Ví dụ minh họa</strong> tại hai target session. Số trong hai bảng không phải output thực nghiệm.')
-    + '<div class="two-col aligned"><div><h3>Kronos · sample 3 paths</h3>'
-    + table(['Path','t+1','t+2'],[['A','100','102'],['B','102','100'],['C','101','101'],['<strong>Mean</strong>','<strong>101</strong>','<strong>101</strong>']],[46,27,27],'extra-dense scores',highlight=(3,))
-    + brief('Cùng input, sample 3 paths dài 20 session. Lấy mean tại từng target session.')
-    + '</div><div><h3>Chronos · quantile output</h3>'
-    + table(['Quantile minh họa','t+1','t+2'],[['q10 · mức thấp','98','99'],['q50 · median','101','102'],['q90 · mức cao','104','105']],[54,23,23],'extra-dense scores')
-    + brief('Trong experiment, lấy mean của đủ <strong>13 quantile</strong> tại từng target session.')
+add('quy-trinh','Một lần predict tạo ra kết quả thế nào?','INFERENCE',
+    brief('Cùng <strong>128 phiên input</strong>, predict <strong>20 phiên tiếp theo</strong>. Hai bảng chỉ minh họa Close của phiên đầu.')
+    + '<div class="two-col aligned"><div><h3>Kronos · sample các kịch bản</h3>'
+    + brief('Thư viện gốc có sẵn <strong>sampling và mean</strong>.')
+    + table(['Bài này: 3 path','Close'],[['Path A','100'],['Path B','102'],['Path C','101'],['<strong>Mean = (100 + 102 + 101) / 3</strong>','<strong>101</strong>']],[72,28],'extra-dense scores',highlight=(3,))
+    + brief('Mỗi path có 20 phiên. Mean theo từng phiên và trường OHLC.')
+    + '</div><div><h3>Chronos · các mức quantile</h3>'
+    + brief('Đầu ra gốc: các <strong>quantile của giá</strong>.')
+    + table(['Mức','Giá','Theo model ước tính'],[['q10','98','10% khả năng giá ≤ 98'],['q50','101','50% khả năng giá ≤ 101'],['q90','104','90% khả năng giá ≤ 104']],[16,16,68],'extra-dense scores')
+    + brief('Bài này tự lấy <strong>mean đủ 13 quantile</strong> để có một giá predict. Bảng chỉ minh họa 3 mức.')
     + '</div></div>',
-    'Sampled paths và quantile là hai loại output khác nhau. Ba paths không phải ba model hay ba training seed.',
-    'Nguồn: Adapter Kronos / Chronos · Aggregation đã khóa',
-    'Inference là chạy model với input để tạo prediction. Kronos sample 3 paths, mỗi path dài 20 session, dùng T = 1 và top-p = 0,9; cuối cùng lấy mean theo từng target session và từng kênh. Chronos trả 13 quantile levels. Q50 là median; q10/q90 là vị trí thấp/cao trong phân phối prediction. Ví dụ trên slide chỉ hiện 3 mức để giải thích, không phải experiment chỉ dùng 3 quantile. Implementation lấy mean của đủ 13 quantile, không gọi đó là median hoặc kỳ vọng chính xác, cũng không phải 13 random paths. Ba seed 42/43/44 là ba lần chạy experiment, khác với 3 sampled paths trong mỗi lần.',['repo:src/vn30_forecast.py'])
+    'Mỗi input chỉ gọi predict một lần. 3 path là 3 kịch bản ngẫu nhiên. 13 quantile là 13 mức đầu ra của model.',
+    'Nguồn: KronosPredictor gốc / Adapter Chronos · Ví dụ minh họa',
+    'Một lần gọi predict là một lần gọi API cho cùng input, không có nghĩa là chỉ một forward pass. Với Kronos, code gốc hỗ trợ sample nhiều path rồi tự lấy mean bên trong auto_regressive_inference. Bài này truyền sample_count=3 trong một lần predictor.predict, pred_len=20, T=1 và top-p=0,9. Ba path được xử lý trong batch của quá trình autoregressive, không phải ba lần gọi hàm predict độc lập. Mỗi path là một kịch bản 20 phiên và có thể khác nhau do sampling. Mean được lấy tại từng phiên và từng trường OHLC. Ví dụ Close phiên đầu: (100+102+101)/3=101. Số 3 là lựa chọn của bài, không phải yêu cầu bắt buộc của Kronos; API predict mặc định sample_count=1. Với Chronos-2-small, đầu ra gốc là 13 quantile của phân phối giá tại từng phiên. Ví dụ q10=98 nghĩa là theo model có khoảng 10% khả năng giá nhỏ hơn hoặc bằng 98, q50=101 là median, q90=104 tương ứng khoảng 90%. Đây là các xác suất model ước tính, chưa đảm bảo được calibration thực tế. Bảng chỉ hiển thị 3 mức minh họa, không phải số liệu VN30 hay đủ 13 quantile. Adapter của bài lấy mean đủ 13 mức để có một giá predict; đây là quy tắc tổng hợp của bài, không bắt buộc của Chronos. Mean quantile không được gọi là median hoặc kỳ vọng chính xác. 13 quantile không phải 13 sampled paths hoặc 13 lần inference. Path thấp nhất trong ba mẫu Kronos không được gán thành q10. Ba seed 42/43/44 thuộc các lượt experiment khác nhau, khác với ba path trong một lần predict. Không đổi cấu hình hoặc kết quả nghiên cứu.',['repo:src/vn30_forecast.py','repo:demo/vendor/kronos/model/kronos.py'])
 
 epoch_rows=[['Kronos mini / small / base','5','5'],['Chronos-2-small','1','0']]
 add('chon-checkpoint','Train và checkpoint selection','TRAIN',

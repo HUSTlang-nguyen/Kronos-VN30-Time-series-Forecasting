@@ -6,10 +6,10 @@
   "data_revision": "10180073ec60ff7cdb1f67009398f1b1ae9b8563",
   "evidence_scope": "exploratory_only",
   "dataset_accepted": false,
-  "output_sha256": "f36995136ebafcfdad2221c56734cd6263711db755914d027778603d707d83ed",
+  "output_sha256": "957df6bcf2c27aea1bcabcf3ca01dff9b4dd48d0a112e87feb9f98c0382d68ae",
   "authoring_sha256": {
-    "build_deck.py": "e6cee90e4a20837758335a4bf4acc2bf327183d715ec36d3c757c0d4838bd77e",
-    "slide-outline.md": "90f277208bfdaa799521e63ac03f6a0fd2de599a7a6b6e22390ae549181405c6"
+    "build_deck.py": "fc4473f29068184753e3541fae35140b9bc7ffa940ad436ddde138909c3e5c4c",
+    "slide-outline.md": "4ce483055fd12ca4d93534cf5eca3860832aef0c8643d5e53c2d9796461a9722"
   },
   "input_sha256": {
     "artifacts/local/pc-exploratory-20261030/checkpoints/train-kronos-small-s42/history.csv": "0a7ce1aade043148975ce4e528fcd6030e5523c88041b2e9de00c375ecea41f7",

@@ -108,17 +108,18 @@
 
 > REVIEW:
 
-## Slide 09 — Inference và prediction cuối
+## Slide 09 — Một lần predict tạo ra kết quả thế nào?
 
-**Vai trò:** Phân biệt sampled paths và quantile.
+**Vai trò:** Giải thích một lần gọi predict và phân biệt cơ chế gốc với cấu hình của bài.
 
-**Nội dung:** Inference là chạy model với input để tạo prediction. Kronos sample 3 paths, mỗi path dài 20 session, dùng T = 1 và top-p = 0,9; cuối cùng lấy mean theo từng target session và từng kênh. Chronos trả 13 quantile levels. Q50 là median; q10/q90 là vị trí thấp/cao trong phân phối prediction. Ví dụ trên slide chỉ hiện 3 mức để giải thích, không phải experiment chỉ dùng 3 quantile. Implementation lấy mean của đủ 13 quantile, không gọi đó là median hoặc kỳ vọng chính xác, cũng không phải 13 random paths. Ba seed 42/43/44 là ba lần chạy experiment, khác với 3 sampled paths trong mỗi lần.
+**Nội dung:** Cùng 128 phiên input, predict 20 phiên tiếp theo. Kronos có sẵn sampling và lấy mean trong thư viện gốc; bài này chọn sample_count=3. Một lần gọi predict tạo ba path, mỗi path dài 20 phiên, rồi thư viện tự lấy mean theo từng phiên và từng trường OHLC. Ví dụ Close phiên đầu là 100/102/101 thì mean bằng 101. Chronos có đầu ra gốc là quantile của phân phối giá: q10=98 nghĩa là theo model khoảng 10% khả năng giá ≤98, q50=101 là median, q90=104 nghĩa là khoảng 90% khả năng giá ≤104. Bài này tự lấy mean đủ 13 quantile để có một giá predict. Các số chỉ minh họa, không phải output VN30. 13 quantile là các mức đầu ra, không phải 13 lần inference. Một lần gọi API vẫn có nhiều bước tính nội bộ, nhất là autoregressive Kronos; không đồng nhất với một forward pass. Quantile là ước tính của model, chưa đảm bảo calibration thực tế. Mean quantile không mặc định là median hoặc kỳ vọng chính xác. Ba training seed khác với ba path trong một lần predict.
 
-**Visualize:** Hai bảng minh họa sampled paths/quantile, ghi rõ không phải output thực nghiệm. Experiment dùng đủ 13 quantile.
+**Visualize:** Hai cột giữ Paper & Ink. Kronos có bảng ba path và phép tính mean 101. Chronos có bảng q10/q50/q90 kèm cách đọc xác suất. Mỗi cột chỉ rõ cơ chế gốc và lựa chọn của bài; chốt mỗi input chỉ gọi predict một lần.
 
-**Nguồn và lưu ý:** Nguồn: Adapter Kronos / Chronos · Aggregation đã khóa. Source links đầy đủ trong speaker notes.
+**Nguồn và lưu ý:** KronosPredictor gốc và adapter Chronos đã khóa; nguồn chi tiết trong speaker notes. Không đổi sample_count, aggregation, checkpoint hoặc score.
 
 > REVIEW:
+> Góp ý 31/10: làm rõ một lần predict có phải ba lần inference, quantile khác sampled path thế nào và phần nào là cấu hình riêng của bài. Đã sửa bằng ví dụ một phiên, phép tính mean 101, cách đọc q10/q50/q90 và phân biệt cơ chế gốc/lựa chọn của bài. Notes giải thích một lần gọi API khác một forward pass.
 
 ## Slide 10 — Train và checkpoint selection
 

@@ -15,6 +15,8 @@ HTML giữ nền giấy có hạt nhẹ và bóng của mẫu. PDF bỏ hiệu �
 
 Nguồn là báo cáo thực nghiệm và CSV đã kiểm định. Bìa giữ đúng project và thành viên trong dàn ý. Bản V2 giải thích baseline, kiến trúc Kronos, forecast origin, sampling/quantile, epoch, quantize, p90 và fold trước khi đọc kết quả. Source boundary giữ trong notes. Dashboard là phần riêng.
 
+Slide 09 đã viết lại theo góp ý: một lần gọi predict, Kronos có sẵn sampling/mean và bài chọn ba path; Chronos trả quantile và bài tự lấy mean đủ 13 mức. Ví dụ minh họa một phiên và speaker notes phân biệt lần gọi API với các bước tính nội bộ.
+
 Thuật ngữ thống nhất: **pre-trained, encode, decode, weight, train, inference, predict, tokenizer, quantize**. Tokenization là toàn bộ quá trình tạo token, quantize là một bước trong đó. Ví dụ giải thích có nhãn minh họa; ví dụ Open ngày 21/05/2025 là dữ liệu thật đã đối chiếu prediction CSV.
 
 Bạn có thể ghi số slide và cụm từ muốn giải thích hoặc sửa trong `slide-outline.md`. Các REVIEW gốc được giữ cùng ghi nhận đã xử lý. Khi chỉnh, cần cập nhật nguồn dựng và xuất lại hai bản để tránh lệch nội dung.

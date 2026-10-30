@@ -215,6 +215,13 @@ Các tối ưu đang để xem xét, **chưa được tuyên bố đã làm**:
 - HTML/PDF tại đường dẫn cũ, đủ 20 slide. Đã kiểm Chrome về nội dung, thuật ngữ, font, offline, layout, điều hướng, F/S và viewport; xem đủ 20 slide HTML và 20 trang PDF Poppler. PDF 525.347 bytes, 16:9. Receipt riêng tại .cache/slides-qa/final_receipt-v2.json; source hashes trong build_manifest.json.
 - Điểm tiếp tục: bàn giao V2 và chờ góp ý theo số slide/cụm từ. Không tự train thêm hoặc nâng trạng thái nghiên cứu. Đọc dàn ý/REVIEW mới nhất trước khi sửa, giữ theme, bìa, số liệu và cập nhật cả HTML/PDF.
 
+### 8.3. Slide 09 — giải thích inference, hoàn tất 31/10/2026
+
+- Theo góp ý mới, chỉ viết lại slide09. Dùng ví dụ Close một phiên, giải thích mean ba sampled path và ý nghĩa q10/q50/q90. Nêu rõ Kronos có sẵn sampling/mean, bài chọn sample_count3; Chronos có quantile output, bài tự lấy mean13mức. Notes phân biệt một lần gọi API với forward pass/autoregressive steps và training seed.
+- Đã đồng bộ outline/REVIEW, builder, HTML, PDF và README. Rút câu để hết overflow19px và rút header Close để không tràn cột; giữ cỡ chữ/theme, không chỉnh19slide khác.
+- Chrome QA đạt cả20slide/offline/font/layout/navigation/mobile; slide09 có kiểm nội dung riêng. Đã xem trang09 HTML và PDF render; đối chiếu19section HTML và19page text PDF còn lại giống bản trước, hash manifest đúng. Private receipt final_receipt-s09.json. Không chạy model hoặc đổi experiment/LaTeX report.
+- Điểm tiếp tục: bàn giao hai bản, tiếp nhận góp ý tiếp theo tại đúng slide; giữ cấu hình/score/20slide và notes. Commit/push nhánh hiện tại.
+
 ## 9. Báo cáo LaTeX — hoàn tất 31/10/2026
 
 - Yêu cầu: tạo báo cáo LaTeX, trình bày gọn, không nhắc agent. Giữ nhóm/tác giả đã chốt, English technical terms. Tập trung vào phương pháp và kết quả chính; các giới hạn liên quan dữ liệu, epoch selection, test hồi cứu và pre-training cutoff vẫn được trình bày ngắn để phạm vi kết luận chính xác. Không sửa score, dataset, checkpoint hoặc trạng thái audit.
