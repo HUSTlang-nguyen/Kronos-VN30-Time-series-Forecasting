@@ -1,12 +1,14 @@
 # Kronos-VN30-Time-series-Forecasting
 
-**Dàn ý V2 đã triển khai · 20 slide · 31/10/2026**
+**Dàn ý hiện tại · 19 slide · 31/10/2026**
+
+Đã xóa slide 12 cũ (Q1 Open) theo yêu cầu và đánh lại số trang; BSQ ở slide 13, quantize ablation ở slide 14.
 
 - Giữ Paper & Ink, nhóm **1nsider**, **Vi Nguyễn Ngọc Châu** và **Nguyễn Hoàng Kiên**.
 
 - Thuật ngữ: **pre-trained, encode, decode, weight, train, inference, predict, tokenizer, quantize, baseline, validation, test, epoch**. Tokenization và quantize không đồng nghĩa.
 
-- HTML offline và PDF cùng 20 slide. Chỉ sửa trình bày, không train thêm hoặc thay data/checkpoint/report/score. Q3 giữ small/Chronos.
+- HTML offline và PDF cùng 19 slide. Chỉ sửa trình bày, không train thêm hoặc thay data/checkpoint/report/score. Q3 giữ small/Chronos.
 
 - Source boundary và assumptions cần thiết trong notes; bỏ nhãn trạng thái, câu chuyện môi trường mới và hai trang kiểm định/giới hạn riêng khỏi phần trình chiếu.
 
@@ -108,7 +110,7 @@
 
 > REVIEW:
 
-## Slide 09 — Một lần predict tạo ra kết quả thế nào?
+## Slide 09 — Inference & predict tạo ra kết quả thế nào?
 
 **Vai trò:** Giải thích một lần gọi predict và phân biệt cơ chế gốc với cấu hình của bài.
 
@@ -145,19 +147,7 @@
 
 > REVIEW:
 
-## Slide 12 — Q1 · Vì sao Naive Open error = 0?
-
-**Vai trò:** Giải thích Naive Open error bằng 0 bằng dữ liệu thật.
-
-**Nội dung:** Dữ liệu thật: Close ngày 20/05/2025 = 1407,52; Open ngày 21/05/2025 = 1407,52; Naive Open prediction = 1407,52. Absolute error = |1407,52 - 1407,52| = 0. Hàng này đã đối chiếu SQLite gốc, CSV sample và naive-s42-zs-test.csv. Có 59 origins h=1 có target trong đoạn Open 05/05–11/08/2025, đều cho error bằng 0. Naive không có rule riêng cho nhóm này, không sửa forecast và không nhìn target. Nhãn Open bằng Close trước làm Naive được lợi trên metric, không chứng minh predict giá mở cửa chính thức hoàn hảo. Trên 264 origins còn lại, MAE = 7,291; toàn bộ 323 origins, MAE = 5,959. Full Open h=5/20 và SD có trong CSV nguồn.
-
-**Visualize:** Ví dụ thật origin 20/05/2025, target 21/05/2025; prediction và actual đều 1.407,52. So nhóm 59/264 origins và Open h=1 MAE.
-
-**Nguồn và lưu ý:** Nguồn: Snapshot VN30 + prediction CSV của Naive · Ví dụ dữ liệu thật. Source links đầy đủ trong speaker notes.
-
-> REVIEW:
-
-## Slide 13 — Q2 · Model size và SFT
+## Slide 12 — Q2 · Model size và SFT
 
 **Vai trò:** So model size và tác động SFT.
 
@@ -169,7 +159,7 @@
 
 > REVIEW:
 
-## Slide 14 — BSQ trong tokenizer của Kronos
+## Slide 13 — BSQ trong tokenizer của Kronos
 
 **Vai trò:** Giải thích BSQ trong tokenizer Kronos và phân biệt tokenization với quantize.
 
@@ -182,9 +172,11 @@
 > REVIEW:
 > Góp ý 31/10: thêm BSQ tokenization của Kronos. Đã đưa tên đầy đủ, normalize, sign-to-bit và coarse/fine lên slide; chi tiết scale/encode/decode trong notes.
 
-## Slide 15 — Q2 · Quantize ablation
+## Slide 14 — Q2 · Ablation chỉ thay input features
 
 **Vai trò:** Giải thích quantization giúp predictor làm classification token, rồi đọc ablation representation.
+
+**Làm rõ theo câu hỏi mới:** quantize input không tự đổi task. Kronos gốc dùng classification head/cross-entropy để predict token. Cả hai nhánh ablation dùng cùng numeric head Linear(d_model,4), target OHLC và MSE. Nhánh B chỉ thay vector features bằng features sau BSQ, không đổi target sang token IDs. Biểu đồ này chỉ so representation trong regression; so regression/classification cần một thí nghiệm khác.
 
 **Nội dung:** Trong Kronos, quantization tạo token cho predictor học classification/cross-entropy, sau đó decode thành OHLC liên tục thay vì regression trực tiếp giá. Ví dụ binning minh họa: A dưới100, B=[100;105), C từ105; giá102,4 có label B. Đây chỉ là ví dụ chuyển target số thực thành class, không phải các bin giá thật của BSQ. BSQ thực tế quantize features đã học. Biểu đồ ablation vẫn dùng cùng numeric head/MSE ở hai nhánh, tức cả hai vẫn regression; chỉ thay representation trước/sau BSQ. Giữ cùng fixed small encoder, random small backbone, initialization theo seed, data và budget. Mean ± SD theo seed không phải CI; không diễn giải biểu đồ này thành so classification với regression hoặc lợi/hại cho mọi thành phần K-line representation.
 
@@ -194,8 +186,9 @@
 
 > REVIEW:
 > Góp ý 31/10: thêm ngắn gọn quantization trong Kronos làm gì, ví dụ regression thành classification bằng binning. Đã thêm ví dụ102,4 thành classB, ghi BSQ trên features và phân biệt với ablation regression/MSE.
+> Câu hỏi tiếp theo: vì sao sau quantize trong ablation vẫn regression? Đã nêu rõ input representation khác output task/head/loss, đổi title và legend thành continuous/BSQ features, giữ nguyên số liệu. Hai nhánh đều predict OHLC bằng MSE.
 
-## Slide 16 — Q3 · Data budget và pre-trained
+## Slide 15 — Q3 · Data budget và pre-trained
 
 **Vai trò:** Giữ Q3 small/Chronos, không thêm experiment.
 
@@ -207,7 +200,7 @@
 
 > REVIEW:
 
-## Slide 17 — Q4 · MAE có ổn định không?
+## Slide 16 — Q4 · MAE có ổn định không?
 
 **Vai trò:** Giải thích độ ổn định và khoảng bất định.
 
@@ -219,7 +212,7 @@
 
 > REVIEW:
 
-## Slide 18 — Q4 · Volatility và threshold p90
+## Slide 17 — Q4 · Volatility và threshold p90
 
 **Vai trò:** Giải thích volatility, p90 và 17 origins.
 
@@ -231,7 +224,7 @@
 
 > REVIEW:
 
-## Slide 19 — Q4 · Fold là gì?
+## Slide 18 — Q4 · Fold là gì?
 
 **Vai trò:** Giải thích fold theo thời gian.
 
@@ -243,7 +236,7 @@
 
 > REVIEW:
 
-## Slide 20 — Kết luận Q1–Q4
+## Slide 19 — Kết luận Q1–Q4
 
 **Vai trò:** Kết luận Q1–Q4, không thêm trang hành động.
 
@@ -314,4 +307,4 @@ Nhận xét gốc dưới đây là lịch sử, không phải nội dung slide 
 
 ## Chỉnh tiếp
 
-Đọc lại REVIEW trước khi sửa. Đồng bộ nguồn dựng, HTML, notes và PDF, giữ đúng 20 slide, theme, bìa và source links. Không sửa kết quả nghiên cứu để khớp lời trình bày.
+Đọc lại REVIEW trước khi sửa. Đồng bộ nguồn dựng, HTML, notes và PDF, giữ đúng 19 slide, theme, bìa và source links. Không sửa kết quả nghiên cứu để khớp lời trình bày.

@@ -208,7 +208,7 @@ def add(identifier, title, section, body, takeaway, source, notes, files=()):
 </div><aside class="notes">{notes_html}</aside></section>''')
 
 
-# Content revision 2: approved 20-slide structure, unchanged experiment results.
+# Current structure: 19 slides after removing the Open example slide.
 resources = read_csv('resources.csv')
 selection = read_csv('checkpoint_selection.csv')
 history_path = ROOT / 'artifacts/local/pc-exploratory-20261030/checkpoints/train-kronos-small-s42/history.csv'
@@ -237,21 +237,6 @@ def validation_chart():
               svg_text(x(5),y(validation_losses[-1])-15,num(validation_losses[-1]),24,'end')]
     return ''.join(parts)+'</svg>'
 
-
-sample_path = ROOT/'demo/data/vn30.csv'
-forecast_path = ROOT/'artifacts/local/pc-exploratory-20261030/evaluation-main/forecasts/naive-s42-zs-test.csv'
-inputs.update((sample_path,forecast_path))
-with sample_path.open(encoding='utf-8',newline='') as stream:
-    sample={r['date']:r for r in csv.DictReader(stream)}
-with forecast_path.open(encoding='utf-8',newline='') as stream:
-    naive_rows=[r for r in csv.DictReader(stream) if r['horizon']=='1']
-example=next(r for r in naive_rows if r['target_date']=='2025-05-21')
-origin_close=float(sample[example['origin_date']]['close'])
-actual_open=float(sample[example['target_date']]['open'])
-naive_open=float(example['pred_open'])
-assert origin_close==actual_open==naive_open==1407.52
-anomalous=[r for r in naive_rows if '2025-05-05'<=r['target_date']<='2025-08-11']
-assert len(anomalous)==59 and all(float(r['pred_open'])==float(sample[r['target_date']]['open']) for r in anomalous)
 
 slides.append('''<section id="mo-dau" aria-label="Kronos-VN30-Time-series-Forecasting"><div class="frame title-slide">
 <p class="eyebrow">1NSIDER</p><div class="heading"><span class="section-number" data-section></span>
@@ -336,7 +321,7 @@ add('kiem-tra-du-lieu','Pre-process data','DATASET',
     '', 'Nguồn: Raw replay / audit / source comparison',
     'Slide mô tả các bước pre-process đã làm, không tuyên bố mọi khác biệt đã xử lý xong. Audit giữ unverified: 1.230 phép so sánh OHLC khác nguồn hơn 0,02 điểm, gồm 60 ngày Close khác nguồn; có 78 Open bằng Close trước, trong đó 71 phiên liên tiếp từ 05/05 đến 11/08/2025. Đây là số phép so sánh khác nhau, chưa phải số lỗi VNDIRECT đã chứng minh. Calendar khớp lịch VNINDEX quan sát từ VPS, chưa là xác nhận lịch sàn chính thức. Không điền session thiếu, không sửa giá, không ghép nguồn theo từng ô.',['data_adjudication.csv'])
 
-add('quy-trinh','Một lần predict tạo ra kết quả thế nào?','INFERENCE',
+add('quy-trinh','Inference & predict tạo ra kết quả thế nào?','INFERENCE',
     brief('Cùng <strong>128 phiên input</strong>, predict <strong>20 phiên tiếp theo</strong>. Hai bảng chỉ minh họa Close của phiên đầu.')
     + '<div class="two-col aligned"><div><h3>Kronos · sample các kịch bản</h3>'
     + brief('Thư viện gốc có sẵn <strong>sampling và mean</strong>.')
@@ -369,18 +354,6 @@ add('q1-close','Q1 · Close MAE','KẾT QUẢ',
     'Nguồn: main_summary.csv · Test 323 forecast origins',
     'MAE là mean absolute error, đơn vị điểm chỉ số. Mean ± SD mô tả ba seed 42/43/44. SFT trong bảng là best-trained để đo tác động cập nhật, không phải mọi selected checkpoint. Chronos selected giữ epoch 0. ARIMA/ETS Close trùng Naive trong experiment này, không phải ba bằng chứng độc lập. SD giữa seed không phải confidence interval theo thị trường. CSV có đủ validation/test, zero-shot và RMSE.',['main_summary.csv'])
 
-open_one=[num(main_score(m,'open',1)['mae']) for m in ['naive','kronos-mini-ft','kronos-small-ft','kronos-base-ft','chronos2-ft']]
-add('q1-open','Q1 · Vì sao Naive Open error = 0?','KẾT QUẢ',
-    brief('Naive: Open prediction[t+1] = Close[t]. Ngày 20/05/2025: Close = <strong>1.407,52</strong>.')
-    + table(['Origin','Target','Naive predict','Actual Open','Abs. error'],[
-        ['20/05/2025','21/05/2025',num(naive_open,2),num(actual_open,2),'<strong>0,00</strong>']
-    ],[20,20,22,22,16],'dense scores')
-    + '<div class="diagnosis"><p><strong>59 origins trong đoạn Open đặc biệt</strong><br><span>Naive Open MAE = 0,000</span></p><p><strong>264 origins còn lại</strong><br><span>Naive Open MAE = 7,291</span></p></div>'
-    + table(['Open h=1 MAE','Naive','Mini SFT','Small SFT','Base SFT','Chronos SFT'],[['Mean']+open_one],[17,14,17,17,17,18],'extra-dense scores'),
-    'Trong snapshot: Open[t+1] = Close[t] nên error = 0. <strong>Naive không có rule riêng cho 59 origins.</strong>',
-    'Nguồn: Snapshot VN30 + prediction CSV của Naive · Ví dụ dữ liệu thật',
-    'Dữ liệu thật: Close ngày 20/05/2025 = 1407,52; Open ngày 21/05/2025 = 1407,52; Naive Open prediction = 1407,52. Absolute error = |1407,52 - 1407,52| = 0. Hàng này đã đối chiếu SQLite gốc, CSV sample và naive-s42-zs-test.csv. Có 59 origins h=1 có target trong đoạn Open 05/05–11/08/2025, đều cho error bằng 0. Naive không có rule riêng cho nhóm này, không sửa forecast và không nhìn target. Nhãn Open bằng Close trước làm Naive được lợi trên metric, không chứng minh predict giá mở cửa chính thức hoàn hảo. Trên 264 origins còn lại, MAE = 7,291; toàn bộ 323 origins, MAE = 5,959. Full Open h=5/20 và SD có trong CSV nguồn.',['main_summary.csv','repo:demo/data/vn30.csv','repo:artifacts/local/pc-exploratory-20261030/evaluation-main/forecasts/naive-s42-zs-test.csv'])
-
 zero=[float(main_score('kronos-'+v,'close',20)['mae']) for v in ('mini','small','base')]
 ft=[float(main_score('kronos-'+v+'-ft','close',20)['mae']) for v in ('mini','small','base')]
 costs=[next(r for r in resources if r['model']=='kronos-'+v) for v in ('mini','small','base')]
@@ -409,17 +382,17 @@ add('tokenization-quantize','BSQ trong tokenizer của Kronos','GIẢI THÍCH',
 
 ablation=read_csv('ablation_summary.csv')
 bar_values=[]
-for model,label,color in [('representation-continuous','Trước quantize','#aaa99f'),('representation-quantized','Sau quantize','#151610')]:
+for model,label,color in [('representation-continuous','Continuous features','#aaa99f'),('representation-quantized','BSQ features','#151610')]:
     rr=[next(r for r in ablation if r['model']==model and r['split']=='test' and r['target']=='close' and int(r['horizon'])==h) for h in (1,5,20)]
     bar_values.append((label,[float(r['mae']) for r in rr],[float(r['mae_sd']) for r in rr],color))
-add('q2-luong-tu-hoa','Q2 · Quantize ablation','KẾT QUẢ',
-    brief('<strong>Vai trò trong Kronos:</strong> tạo token để predict bằng <strong>classification</strong>, rồi decode ra OHLC, thay vì regression giá trực tiếp.')
+add('q2-luong-tu-hoa','Q2 · Ablation chỉ thay input features','KẾT QUẢ',
+    brief('<strong>Kronos gốc:</strong> BSQ tạo code; <strong>classification head + cross-entropy</strong> predict token, rồi decode OHLC.')
     + brief('<strong>Binning minh họa:</strong> A &lt; 100, B = [100; 105), C ≥ 105. Giá 102,4 thành class B. <strong>BSQ áp dụng trên features.</strong>')
-    + '<div class="ablation-branches"><p><strong>Ablation:</strong> cả hai nhánh vẫn regression (numeric head/MSE).</p><p><strong>A</strong> Trước BSQ · <strong>B</strong> Sau BSQ · Cùng data, encoder, init và budget.</p></div>'
+    + '<div class="ablation-branches"><p><strong>Ablation này:</strong> thay input features; <strong>output vẫn OHLC + MSE ở cả hai nhánh.</strong></p><p><strong>A:</strong> L2-normalized features · <strong>B:</strong> Features sau BSQ · Cùng numeric head.</p></div>'
     + grouped_bars(['h=1','h=5','h=20'],bar_values,200,width=1698,height=280),
-    'Quantize chưa giúp Close MAE giảm đồng nhất trong ablation này.',
+    'Quantize input không tự đổi regression thành classification.',
     'Nguồn: ablation_summary.csv · MAE Close, mean ± SD ba seed',
-    'Quantization tạo một vocabulary hữu hạn để predictor Kronos dự đoán xác suất token tiếp theo bằng classification/cross-entropy, sau đó tokenizer decode thành giá liên tục. Có thể hiểu ý tưởng qua ví dụ binning: A cho giá dưới 100, B cho [100;105), C cho giá từ 105; label của 102,4 là B, nên model học dự đoán class B thay vì regression trực tiếp ra đúng 102,4. Đây chỉ là minh họa khái niệm, không phải tokenizer Kronos thực tế và không phải dữ liệu VN30. BSQ thực tế quantize latent features đã học theo dấu, không dùng các bin giá A/B/C cố định. Quantization cũng có thể làm mất thông tin; việc chuyển sang token không tự bảo đảm sai số thấp hơn. Ablation nghĩa là thay riêng một thành phần để đo đóng góp. Hai nhánh ở biểu đồ dùng cùng fixed small encoder, cùng random small backbone, numeric head/MSE, data và train budget. Nhánh A dùng L2-normalized features trước BSQ; nhánh B dùng features sau BSQ. Initialization hash khớp theo từng seed. Cả hai nhánh vẫn regression với numeric head/MSE, nhằm tách ảnh hưởng của representation; biểu đồ không phải so regression với classification hoặc bỏ quantize khỏi pre-trained token predictor. Mean ± SD theo seed không phải CI. Không mở rộng kết luận thành lợi/hại cho mọi thành phần K-line representation.',['ablation_summary.csv','repo:demo/vendor/kronos/model/module.py'])
+    'Cần tách input representation khỏi output target/head/loss. Quantize features không tự quy định model phải làm classification. Trong Kronos gốc, BSQ tạo discrete codes, predictor có classification head và cross-entropy để predict token IDs, rồi tokenizer decode ra OHLC. Binning trên slide chỉ minh họa một cách tạo class target: A dưới100, B=[100;105), C từ105;102,4 có labelB. BSQ thực tế làm trên learned features, không bin trực tiếp giá. Trong ablation này, nhánh A dùng L2-normalized features trước BSQ; nhánh B dùng vector features sau BSQ. Cả hai đi qua cùng kiểu numeric head Linear(d_model,4), output bốn giá trị OHLC và cùng MSE loss. Code không dùng token IDs làm classification target ở nhánh B. Vì vậy đây là representation ablation với regression ở cả hai nhánh, không phải so regression với classification. Giữ encoder cố định, random small backbone, data, init ghép cặp và budget giống nhau để chỉ can thiệp quantize. Đổi thêm output head/target/loss sẽ là một thí nghiệm khác, không thể diễn giải lại các cột MAE hiện có thành kết quả của thí nghiệm đó. Kết quả hiện tại chưa cho thấy quantize giảm Close MAE đồng nhất, mean ± SD qua ba seed không phải CI.',['ablation_summary.csv','repo:experiments/candidate_ablation.py','repo:demo/vendor/kronos/model/module.py'])
 
 add('q3-du-lieu','Q3 · Data budget và pre-trained','KẾT QUẢ',
     '<div class="two-col">'+learning_chart('kronos-small-ft','Kronos-small')+learning_chart('chronos2-ft','Chronos-2-small')+'</div>'
@@ -478,7 +451,7 @@ add('ket-luan','Kết luận Q1–Q4','KẾT LUẬN',
     'Kết luận chỉ trong snapshot, split, model và budget đã thử. Không suy lợi nhuận giao dịch từ MAE, không khẳng định train đã hội tụ hoặc dataset acceptance đã đạt. Các source links giữ khả năng truy vết. Q3 chỉ đánh giá Kronos-small và Chronos; Q2 mini/small/base khác tokenizer, nên không tách riêng được tác động số tham số. Bản kết luận không chứa lời kêu gọi xác minh dữ liệu, nhưng không thay đổi trạng thái dataset trong hồ sơ nghiên cứu.',['completion_matrix.csv'])
 
 
-assert len(slides)==20
+assert len(slides)==19
 
 extra_css = '''
 .members { text-align:center; font-size:36px; line-height:1.7; }

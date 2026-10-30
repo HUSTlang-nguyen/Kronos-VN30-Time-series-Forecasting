@@ -23,7 +23,7 @@ const setup = await page.evaluate(()=>({
   monoFont:document.fonts.check('400 30px "IBM Plex Mono"','123,456'),
   scrollView:Reveal.isScrollView(),
 }));
-if(setup.slides!==20 || !setup.vietnameseFont || !setup.monoFont || !setup.scrollView) throw Error(JSON.stringify(setup));
+if(setup.slides!==19 || !setup.vietnameseFont || !setup.monoFont || !setup.scrollView) throw Error(JSON.stringify(setup));
 const content=await page.evaluate(()=>{
  const slides=Reveal.getSlides();
  const text=slides.map(s=>s.querySelector('.frame').innerText).join('\n');
@@ -31,13 +31,12 @@ const content=await page.evaluate(()=>{
  return {ids:slides.map(s=>s.id),forbiddenTerms:words.filter(w=>text.toLowerCase().includes(w.toLowerCase())),
          removedSections:slides.some(s=>s.id==='kiem-dinh'||s.id==='gioi-han'),
          removedConclusion:text.includes('Ưu tiên tiếp theo:'),
-         realOpenExample:text.includes('1.407,52')&&text.includes('21/05/2025'),
          clarifiedP90:text.includes('90% volatility train')&&text.includes('không bắt buộc là 10% test'),
          quantizeExample:text.includes('Ví dụ minh họa theo dấu'),
  };
 });
-const expectedIds=['mo-dau','cau-hoi','baseline-naive-ridge','baseline-arima-ets','cach-kronos-du-bao','cac-model','du-lieu','kiem-tra-du-lieu','quy-trinh','chon-checkpoint','q1-close','q1-open','q2-kich-thuoc','tokenization-quantize','q2-luong-tu-hoa','q3-du-lieu','q4-khoang-bat-dinh','q4-thoi-gian','q4-folds','ket-luan'];
-if(JSON.stringify(content.ids)!==JSON.stringify(expectedIds)||content.forbiddenTerms.length||content.removedSections||content.removedConclusion||!content.realOpenExample||!content.clarifiedP90||!content.quantizeExample)throw Error(JSON.stringify(content));
+const expectedIds=['mo-dau','cau-hoi','baseline-naive-ridge','baseline-arima-ets','cach-kronos-du-bao','cac-model','du-lieu','kiem-tra-du-lieu','quy-trinh','chon-checkpoint','q1-close','q2-kich-thuoc','tokenization-quantize','q2-luong-tu-hoa','q3-du-lieu','q4-khoang-bat-dinh','q4-thoi-gian','q4-folds','ket-luan'];
+if(JSON.stringify(content.ids)!==JSON.stringify(expectedIds)||content.forbiddenTerms.length||content.removedSections||content.removedConclusion||!content.clarifiedP90||!content.quantizeExample)throw Error(JSON.stringify(content));
 const nearest=()=>page.evaluate(()=>{
   const v=Reveal.getViewportElement(),center=v.getBoundingClientRect().top+v.clientHeight/2;
   return Reveal.getSlides().map((s,i)=>({i,d:Math.abs(s.getBoundingClientRect().top+s.getBoundingClientRect().height/2-center)})).sort((a,b)=>a.d-b.d)[0].i;
@@ -50,7 +49,7 @@ const center=async i=>{
   await page.waitForTimeout(70);
 };
 const layout=[];
-for(let i=0;i<20;i++){
+for(let i=0;i<19;i++){
   await center(i);
   const row=await page.evaluate(i=>{
     const s=Reveal.getSlides()[i],b=s.querySelector('.body'),h=s.querySelector('h1,h2'),f=s.querySelector('.chrome-foot');
@@ -74,8 +73,8 @@ for(let i=0;i<5;i++)await page.keyboard.press('Tab');
 if(await nearest()!==6)throw Error('Rapid Tab destination lost');
 await page.keyboard.press('Shift+Tab');
 if(await nearest()!==5)throw Error('Shift+Tab failed');
-await center(19);await page.waitForTimeout(200);await page.keyboard.press('Tab');
-if(await nearest()!==19)throw Error('Last slide wrapped');
+await center(18);await page.waitForTimeout(200);await page.keyboard.press('Tab');
+if(await nearest()!==18)throw Error('Last slide wrapped');
 const endProgress=await page.locator('.reading-progress').getAttribute('aria-valuenow');
 await center(0);await page.waitForTimeout(200);await page.keyboard.press('Shift+Tab');
 if(await nearest()!==0)throw Error('First slide wrapped');
@@ -83,7 +82,7 @@ const startProgress=await page.locator('.reading-progress').getAttribute('aria-v
 await page.evaluate(()=>{location.hash='#/2';});await page.waitForTimeout(200);
 if(await nearest()!==2)throw Error('Numeric hash failed');
 await page.evaluate(()=>{location.hash='#/ket-luan';});await page.waitForTimeout(200);
-if(await nearest()!==19)throw Error('ID hash failed');
+if(await nearest()!==18)throw Error('ID hash failed');
 await page.evaluate(()=>{location.hash='#/does-not-exist';});await page.waitForTimeout(200);
 if(await nearest()!==0)throw Error('Invalid hash failed');
 await center(9);await page.waitForTimeout(200);
@@ -128,7 +127,7 @@ if(process.argv.includes('--pdf')&&receipt.status==='pass'){
  printPage.on('pageerror',e=>errors.push(e.message));
  await printPage.route(/^https?:/,route=>route.abort());
  await printPage.goto(url+'?print-pdf');
- await printPage.waitForFunction(()=>document.querySelectorAll('.pdf-page').length===20,{timeout:30000});
+ await printPage.waitForFunction(()=>document.querySelectorAll('.pdf-page').length===19,{timeout:30000});
  await printPage.evaluate(()=>document.fonts.ready);
  await printPage.waitForTimeout(350);
  await printPage.pdf({path:resolve(here,'vn30-paper-ink.pdf'),printBackground:true,preferCSSPageSize:true,width:'1920px',height:'1080px',displayHeaderFooter:false,margin:{top:0,right:0,bottom:0,left:0}});

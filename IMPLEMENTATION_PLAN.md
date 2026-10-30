@@ -230,6 +230,14 @@ Các tối ưu đang để xem xét, **chưa được tuyên bố đã làm**:
 - Chrome QA20slide đạt về layout/font/offline/navigation/mobile. Đã xem14/15 HTML và PDF; kiểm18section HTML/trang PDF khác giống bản trước, manifest hash đúng. Không thêm unit test hoặc train/inference, không sửa LaTeX report.
 - Điểm tiếp tục: bàn giao hai bản tại đường dẫn cũ, giữ20slide và tiếp nhận góp ý. Private receipt final_receipt-s14-s15.json; commit/push nhánh hiện tại.
 
+### 8.5. Xóa slide12 và làm rõ representation ablation — hoàn tất 31/10/2026
+
+- Đã xóa trang Q1 Open cũ, còn19trang; đồng bộ số lượng trong builder/Chrome checker, đánh lại outline12–19, README/rootREADME và exportPDF. Bỏ phần đọc/kiểm ví dụ Open chỉ phục vụ trang bị xóa khỏi builder, không xóa dữ liệu hoặc kết quả.
+- Phát hiện HTML đã có title09 sửa riêng khác builder. Giữ title “Inference & predict tạo ra kết quả thế nào?” và đưa về builder/outline; cập nhật aria và PDF thay vì ghi đè sửa trực tiếp bằng title cũ.
+- Người dùng hỏi vì sao ảnh mô tả quantize→classification khác ablation. Đối chiếu code: cả hai nhánh dùng cùng numeric head4giátrị/MSE; BSQ chỉ thay features. Kronos predictor gốc dùng token classification/cross-entropy là thiết lập khác. Đã làm rõ trên trang14 hiện tại, giữ MAE/SD và không đổi nghĩa thí nghiệm thành regression-vs-classification.
+- Chrome QA19slide đạt; HTML19section tương ứng giữ nguyên ngoài aria09 và nội dung clarification14, chỉ xóaq1-open. Bars/errorbars14 byte-identical;17PDF page texts khác giữ nguyên sau chuẩn hóa counter/whitespace,09đồng bộ titleHTML,14clarify. Đã xem PDF11–14/19 và ablationHTML/PDF, source/manifest hashes đúng.
+- Điểm tiếp tục: bàn giao19slide, tiếp nhận góp ý bằng số mới. Không phục hồi20slide hoặc đổi dataset/score/LaTeXreport. So classification-vs-regression cần experiment riêng; kết quả hiện tại không trả lời trực tiếp câu đó. Lưu checkpoint/push nhánh hiện tại.
+
 ## 9. Báo cáo LaTeX — hoàn tất 31/10/2026
 
 - Yêu cầu: tạo báo cáo LaTeX, trình bày gọn, không nhắc agent. Giữ nhóm/tác giả đã chốt, English technical terms. Tập trung vào phương pháp và kết quả chính; các giới hạn liên quan dữ liệu, epoch selection, test hồi cứu và pre-training cutoff vẫn được trình bày ngắn để phạm vi kết luận chính xác. Không sửa score, dataset, checkpoint hoặc trạng thái audit.

@@ -1,19 +1,18 @@
 {
-  "slides": 20,
+  "slides": 19,
   "format": "offline_html",
   "template": "Paper & Ink",
   "template_zip_sha256": "96e060255dddadaaf8c564757964d16dd123895a3fd3264bc4530b396e1a7264",
   "data_revision": "10180073ec60ff7cdb1f67009398f1b1ae9b8563",
   "evidence_scope": "exploratory_only",
   "dataset_accepted": false,
-  "output_sha256": "52abc17488ca7c41c1d80caede114d01d4cd061381cbab91d807f4e4e12d5571",
+  "output_sha256": "a6b3bf78230efd71c59da997f75747b7fd207f89daa2b1194572d3c96bec2529",
   "authoring_sha256": {
-    "build_deck.py": "99472b01be103a1e1a9c4c1904ff4fe22e99693ebdfd3b28383ca051368aeb63",
-    "slide-outline.md": "9326f02f1415cb5eeb14d3a8c27d6f761ef9b36b39be1c09b8333d332e2949d5"
+    "build_deck.py": "9134ecd3cc82c40def9d666ac98f33f501f2319e4072696054538f9509ff3fad",
+    "slide-outline.md": "6a9eaed5188fda742da22d11a66fc2ffa17ccefb5624706472bc5a1206c9cdb5"
   },
   "input_sha256": {
     "artifacts/local/pc-exploratory-20261030/checkpoints/train-kronos-small-s42/history.csv": "0a7ce1aade043148975ce4e528fcd6030e5523c88041b2e9de00c375ecea41f7",
-    "artifacts/local/pc-exploratory-20261030/evaluation-main/forecasts/naive-s42-zs-test.csv": "b3e0cc47ad4d150c61962bf508a137bdcf3a3536863844c890e7a29a6bcbc536",
     "artifacts/local/pc-exploratory-20261030/final-report/ablation_summary.csv": "ca84020f0431940c341f1b792e7abd9712d83618e4b95808efeecc416253cbec",
     "artifacts/local/pc-exploratory-20261030/final-report/baseline_selection.csv": "2449fd23b1fa0eda643614d929fdfebc62b71cdff0e43dcc0ca6d159cbc10261",
     "artifacts/local/pc-exploratory-20261030/final-report/checkpoint_selection.csv": "8f3b9e0541c2dd47e23699a639994750a67fcfb889e283f7f69cf6ab876fca96",
@@ -26,10 +25,10 @@
     "artifacts/local/pc-exploratory-20261030/final-report/paired_intervals.csv": "9675b95a8be72bde1e6334d1335ad58a7fecea7b61d52a94d50d61aa52211cda",
     "artifacts/local/pc-exploratory-20261030/final-report/random_lr_selection.csv": "8e7377d3a274c624b464ee4f485fe09a0e609edc4ab0b16c0eb9d172be3a57c9",
     "artifacts/local/pc-exploratory-20261030/final-report/resources.csv": "e79dac0ac7cf34a53b45706036b7f8d04aa8934cde9fff1ed66b6e5cc5a25106",
-    "demo/data/vn30.csv": "5a50aa699969e28508553b96037fd4047f60a1d7fee5a488846fad1cb087bd28",
     "demo/vendor/kronos/model/kronos.py": "0a5f90282e2039c2de0771473419715c845def154896dbd0f5747837e6241032",
     "demo/vendor/kronos/model/module.py": "a4df669998fa8115ac219b06687abaff2fac0fce9da762007dd142038949eee5",
     "docs/VN30_PC_Research_Report.md": "f85e7a23acaa6bf071e5b4c3dd0c1fd7f13ac52742d4a203743606bb709ddddf",
+    "experiments/candidate_ablation.py": "3d61f0146cb2edea4322c17a0363469a9e9a36e35bf379b5c5393758015fca64",
     "src/statistical_baselines.py": "eb47dbb106f1cbadad2ba5784a7214c201d1e17465a602ca0a27aff20b69f71b",
     "src/vn30_forecast.py": "39eb8b00ad7d7d2039a8376564d3e847bfd221b1672584acdfa2c61dc544d46b"
   },
