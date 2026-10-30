@@ -188,3 +188,11 @@ Các tối ưu đang để xem xét, **chưa được tuyên bố đã làm**:
 - Sáu tests, native GPU ba model/CPU mini, Chrome E2E bốn tổ hợp theme-language/mobile và portable ZIP offline đạt. Receipts: demo/checks/. Người dùng bỏ benchmark laptop; không để đó thành việc bắt buộc còn thiếu.
 - Gói bàn giao local: demo/bundle/VN30-Inference-Studio.zip, 518.705.873 bytes; SHA256 075023c229fe6c9c353c763f66376797cf2dec166bd143145625cc7f30d21295. ZIP/weights/env/cache được Git bỏ qua; code/docs/receipts/screenshot được lưu nhánh hiện tại, model weights trên HF.
 - Điểm tiếp tục: dashboard v1 đã xong, không chạy lại training hoặc publish lại model trùng. Dùng Start-Dashboard.cmd để mở; hướng dẫn ở demo/README.md. Nghiên cứu chính vẫn chưa hoàn thiện vì nguồn dữ liệu unverified.
+
+## 8. Slide nghiên cứu theo Paper & Ink — chờ duyệt dàn ý
+
+- Yêu cầu mới 31/10/2026: dùng paper-ink-slides.zip, viết file Markdown cấu trúc trước để người dùng duyệt, tối đa 20 slide kể cả bìa/kết luận/phụ lục.
+- Đã đọc mẫu thiết kế và khung HTML trong ZIP, không cài vào hệ thống, không chạy mã trong ZIP. Đã đọc báo cáo PC, audit, CSV và state thực tế; nghiên cứu chính vẫn incomplete (5 complete/283 blocked), dataset unverified.
+- Đã hoàn thành docs/slides/slide-outline.md với 20 slide. Mỗi slide có vai trò, nội dung, visualize, nguồn và REVIEW. Nội dung gồm thiết kế/Kronos, dữ liệu/audit, Q1–Q4, chi phí, kiểm định, giới hạn/kết luận; dashboard giữ riêng.
+- Kiểm tra: số thứ tự 01–20 và 20 REVIEW đúng; 20 nguồn local tồn tại; 15 giá trị MAE Close chính khớp CSV làm tròn ba chữ số. Chưa tạo HTML/PPTX/PDF hoặc chạy lại thí nghiệm.
+- Điểm tiếp tục: chờ người dùng duyệt dàn ý. Khi nhận góp ý, đọc lại file mới nhất và REVIEW, giữ chỉnh sửa trực tiếp, sau đó dựng bằng khung Paper & Ink theo phạm vi được duyệt. Không tự lấy quy trình 5-slide mặc định trong template để vượt yêu cầu dừng ở Markdown.
