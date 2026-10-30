@@ -1,0 +1,11 @@
+{
+  "classification": "synthetic_gpu_integration_not_research_results",
+  "model": "kronos-mini",
+  "gpu": "NVIDIA GeForce RTX 4070 SUPER",
+  "status": "pass",
+  "maximum_parameter_delta": 5.960464477539063e-08,
+  "reference_validation_loss": 0.7652203062685524,
+  "resumed_validation_loss": 0.7652203048147806,
+  "interrupted_after_completed_epoch": 1,
+  "epochs": 2
+}

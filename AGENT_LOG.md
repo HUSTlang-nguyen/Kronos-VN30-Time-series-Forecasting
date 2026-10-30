@@ -1,0 +1,160 @@
+# Agent log — VN30 PC rerun
+
+## Trạng thái bàn giao hiện tại — 30/10/2026, Asia/Bangkok
+
+**Đang triển khai yêu cầu làm lại bài; chưa hoàn thiện nghiên cứu.** Đã có code cho ma trận ba Kronos + Chronos và các đối chứng. Lượt PC dừng hợp lệ ở kiểm toán dữ liệu: 5/288 complete, 283 blocked. Không có huấn luyện VN30 mới hoặc score mới trên dữ liệu thật.
+
+Nguồn trạng thái: `artifacts/local/pc-rerun-20261030/state.json`.
+Nguồn kết luận dữ liệu: `artifacts/local/pc-rerun-20261030/audit/audit.json` và `summary.md`.
+Hướng dẫn chạy: `docs/PC_Rerun.md`.
+
+### Tiếp tục từ đây
+
+1. Đọc AGENTS.md → AGENT.md → IMPLEMENTATION_PLAN.md → file log này.
+2. Kiểm tra working tree, source hash và đồng hồ trong state. Không reset budget.
+3. F12 đã sửa và kiểm thử; tiếp tục bằng chứng giá/calendar. Code đã thay đổi sau preflight cũ; dùng quy trình refresh-preflight có lưu lịch sử và giữ deadline, không sửa identity thủ công.
+4. Không mở SFT VN30 trên dataset `unverified`. Không coi việc thực thi code trên dữ liệu giả là nghiên cứu hoàn thành.
+
+### Kiểm thử đã có bằng chứng
+
+- 17 unit tests đạt trên môi trường model: raw replay/hash, audit không tự accept, nguồn/calendar fixture, split/budget/coverage, Ridge và normalization isolation, portable paths, checkpoint variant, ma trận dependencies, CPU resume bằng uninterrupted, hết hạn resume không reset clock.
+- GPU smoke đủ Kronos-mini/small/base và Chronos-2-small: shape 20×4, hữu hạn, replay cùng seed, native loss/backward. Kronos có tokenizer prefix invariance và causal logits đạt. Receipt: `artifacts/local/pc-preflight-20261030/synthetic_smoke.json`.
+- Random-init GPU smoke cho Kronos-small và Chronos: loss/gradient hữu hạn. Receipt: `artifacts/local/pc-preflight-20261030/random_initialization_smoke.json`.
+- Ablation integration synthetic đã chạy hai nhánh, huấn luyện một epoch, validation/test forecast và score, paired bootstrap; initial backbone hashes bằng nhau. Output chỉ để kiểm thử ở `.cache/ablation-integration-6fy1em40/ablation/representation-s42/result.json`, không đưa vào bảng VN30.
+- Positive scorer/report integration synthetic đã chạy đủ validation/test coverage cho một nhóm so sánh, tính lại metric, chẩn đoán, seed summary, learning curve và đồ thị. Receipt: `artifacts/local/pc-preflight-20261030/report_integration.json`; output `.cache/report-integration-c8taigpn/`. Không phải kết quả VN30.
+- Syntax 26 file Python đạt; dependency data export khớp uv.lock; Ruff kiểm nhóm lỗi F đã đạt trước các thay đổi nhỏ cuối, cần kiểm lại khi sửa code thêm.
+- Coordinator đã chạy và resume thật; audit gate giữ nguyên trạng thái incomplete và không đổi deadline.
+
+### Mốc budget đã lưu
+
+- Bắt đầu: 30/10/2026 14:09:17 +07:00.
+- Deadline: 31/10/2026 14:09:17 +07:00.
+- Đọc lại số thực từ state khi tiếp tục. Không kết luận còn thời gian chỉ từ ngày trong log.
+
+## Nhật ký quyết định và thực hiện
+
+### 01 — Khảo sát bài cũ
+
+- Đọc README, checklist, báo cáo Q1–Q4, adapter/trainer và artifact đang active.
+- Tính lại 72 dòng metric validation/test và kiểm 36 ô MAE trong báo cáo cũ: khớp. Hai checkpoint active cũ khớp SHA256.
+- Nhận diện các thiếu sót nghiên cứu: chưa ARIMA/ETS, một seed/một mức train, thiếu đối chứng/ablation, nhóm volatility cao nhỏ, test đã xem, Open chưa rõ semantics.
+- Không kết luận bài cũ sai toàn bộ: số liệu nội bộ khớp, nhưng phạm vi kết luận còn hạn chế.
+
+### 02 — Chốt phạm vi với người dùng
+
+- Người dùng sửa rõ muốn **Kronos**, không phải thêm kích thước Chronos.
+- Chọn audit bản cũ + bản hiệu chỉnh có bằng chứng; đủ Q1–Q4; tổng 24 giờ; giữ Chronos ZS/SFT.
+- Không dùng checkpoint SFT cũ của môi trường khác cho kết quả mới.
+
+### 03 — Chuẩn bị PC và model
+
+- Tạo `.venv-data` cho uv/DVC; `.venv` được sync frozen từ lock CUDA.
+- CUDA kiểm thực tế: torch 2.14.0+cu130 nhận RTX 4070 SUPER.
+- Bootstrap `.vendor/Kronos` đúng revision `67b630e67f6a18c9e9be918d9b4337c960db1e9a`.
+- Bổ sung provenance mini/base/tokenizer-2k bằng revision và SHA256 từ model repository công khai. Đã tải/kiểm checksum cả bốn predictor và hai tokenizer.
+
+### 04 — Thay đổi phần mềm
+
+- `src/research_protocol.py`: model registry, portable paths, code identity, budget origins, coverage và folds.
+- `src/vn30_forecast.py`: dataset theo manifest/audit, variant/tokenizer phù hợp, baseline adapter, checkpoint validation và chọn epoch 0.
+- `scripts/finetune_vn30.py`: variant, random initialization, budget, resume optimizer/RNG/epoch, best-trained/selected riêng, OOM microbatch replay.
+- `scripts/run_experiment.py` + `experiment_tasks.py`: ma trận/dependencies, stage caps, clock bất biến, state/log/evidence và report.
+- `src/statistical_baselines.py`: grid validation, refit past-only, không silent fallback.
+- `scripts/representation_ablation.py`: continuous-vs-quantized fixed encoder, matched random backbone.
+- `src/research_statistics.py`: origin-known volatility, periods và paired block bootstrap.
+- Thêm kiểm toán/fetch/restore/smoke scripts; cập nhật CLI, kiểm thử CI, tài liệu và Git ignore/LFS cho checkpoint.
+
+### 05 — Lấy dữ liệu gốc từ Drive
+
+- DVC mở OAuth nhưng chờ đăng nhập; người dùng cung cấp link thư mục được mời qua Gmail.
+- Dùng computer-use đọc đúng Drive tab đang đăng nhập và tải thư mục `files/md5`; không thay quyền chia sẻ hoặc đọc email ngoài nhiệm vụ.
+- ZIP tải về: `C:/Users/neikh/Downloads/md5-20261030T022826Z-1-001.zip`.
+- Importer phát hiện Drive thêm đuôi kiểu file; sửa cách canonicalize bằng 32 ký tự hash và xác minh MD5 nội dung trước khi ghi.
+- Khôi phục đúng 89 file. Kiểm SQLite/ZIP SHA256, raw replay và flags đạt. Dừng tiến trình DVC OAuth do agent mở sau khi không còn cần.
+- Không lưu token hoặc OAuth credential vào repo/log.
+
+### 06 — Kết luận kiểm toán hiện tại
+
+- Fetch mới VPS: 2.271 hàng, 25/08/2017–02/10/2026; 2.270 ngày giao với snapshot.
+- Fetch mới DNSE: 1.565 hàng, 11/05/2020–01/10/2026; 1.565 ngày giao.
+- Ngưỡng phát hiện khác biệt: 0,02 điểm, không phải quy tắc chọn nguồn đúng.
+
+| Nguồn | Trường | Phép so sánh lệch | Chênh lệch lớn nhất |
+|---|---|---:|---:|
+| DNSE | Close | 54 | 16,35 |
+| DNSE | High | 114 | 36,81 |
+| DNSE | Low | 237 | 34,96 |
+| DNSE | Open | 448 | 47,91 |
+| VPS | Close | 6 | 2,47 |
+| VPS | High | 55 | 36,81 |
+| VPS | Low | 169 | 34,96 |
+| VPS | Open | 147 | 27,96 |
+
+- Tổng 1.230 phép so sánh lệch, 60 ngày Close khác nhau. Chưa xác định nguồn nào đúng cho mọi trường hợp.
+- Có 78 phiên Open bằng Close trước, gồm chuỗi 71 phiên đã được báo trong giai đoạn 2025; không coi cả 78 là cùng một bất thường đã chứng minh.
+- Chưa có calendar độc lập đầy đủ. Trạng thái **unverified**, không có sửa giá, không tạo dataset hiệu chỉnh thiếu căn cứ.
+- Raw cũ còn có các lần điều tra VCI/KBS và một số publication. Metadata VCI/KBS cũ cũng ghi pending validation và invalid OHLC. Chưa coi các file đó là lời giải cho toàn bộ khác biệt.
+
+### 07 — Sửa lỗi phát hiện khi kiểm thử
+
+- Temporary files ban đầu ở vùng tạm Windows không cho atomic rename trong môi trường chạy: chuyển fixture temp vào `.cache/test-runs` trong workspace.
+- SQLite audit dùng context manager connection nhưng chưa đóng connection thật: đổi sang `contextlib.closing`, xác minh test cleanup/locks đạt.
+- Audit không có nguồn đối chiếu làm `nlargest` lỗi dtype object: đổi sang sort/head để báo unverified bình thường, không crash.
+- Lint ablation phát hiện biến closure bị xóa cuối vòng: giữ binding bằng gán None sau khi dùng, kiểm tra lại và chạy integration GPU đạt.
+- Các sửa đổi là sửa phần mềm mới; không thay dữ liệu thị trường để làm test pass.
+
+### 08 — Chạy pipeline chính
+
+- Thực thi `run_experiment.py run --config configs/pc_rerun.json`, rồi `resume`/`status`.
+- Đạt recover/fetch/audit/weights/bootstrap; `prepare` blocked vì dataset chưa được kiểm chứng. Toàn bộ bước phụ thuộc giữ blocked.
+- Kết quả thực tế: 5 complete / 283 blocked / tổng 288. Không có GPU job VN30 chạy nền cần chờ.
+- Báo cáo: `artifacts/local/pc-rerun-20261030/report.md`; chi tiết audit trong `audit/summary.md`; việc còn thiếu trong `remaining.json`.
+
+### 09 — Yêu cầu ghi nhớ của người dùng
+
+- Tạo `AGENTS.md`, `AGENT.md`, `IMPLEMENTATION_PLAN.md`, `AGENT_LOG.md` để phục hồi mục tiêu, quyết định, artifact, flaw, cách xử lý và điểm tiếp tục sau compaction.
+- Không chỉ ghi checklist. Mỗi hướng tối ưu mới phải có lý do và bằng chứng; giải pháp chưa chạy đủ phải giữ trạng thái pending.
+
+### 10 — Kiểm tra đường đi có kết quả và điểm cần siết tiếp
+
+- Chạy scorer/report end-to-end với forecast synthetic đủ origin cho ZS/FT và các baseline; metric recomputation, bootstrap, bảng seed, learning curve và plot đều xuất được. Không thêm số liệu này vào main report VN30.
+- Trong lần rà soát, nhận diện F12: score worker cần thêm test âm cho seed/device/aggregation và receipt checkpoint; hiện chưa đánh dấu phần kiểm tra này hoàn thiện.
+- Hiện có cảnh báo Matplotlib về cache ở vùng user không ghi được trong môi trường giới hạn (đã tự dùng temp trong workspace) và pandas future warning về fillna. Không làm test fail; không đổi dependency lock chỉ để tắt cảnh báo. Khi tối ưu tiếp, cấu hình cache workspace và đổi cách ép dtype có kiểm thử.
+
+### 11 — Tiếp tục goal: siết protocol và xác minh resume GPU
+
+- Đọc lại bốn file ghi nhớ và working tree trước khi tiếp tục.
+- Thêm `src/forecast_protocol.py`, đối chiếu forecast với task/config/model provenance và receipt SFT. Kiểm seed/device/context/horizon/sampling/aggregation, baseline validation lock, budget/init/LR/epoch, tokenizer và hash weights; hash CSV cùng metadata vào receipt score.
+- Tái sử dụng score chỉ khi input/output hash vẫn khớp. Các ca sửa sai metadata hoặc weights bị từ chối. Kiểm thử integration xác nhận score đầy đủ chạy được rồi từ chối score/forecast bị thay.
+- Thêm refresh-preflight có lưu snapshot cũ, chỉ cho phép trước bất kỳ research artifact nào, config/provenance không đổi và evidence còn khớp; không đổi started/deadline. Chưa áp dụng lên lượt thật ở thời điểm ghi mục này.
+- Kiểm thử native Kronos-mini trên RTX 4070 SUPER bằng dữ liệu giả: interrupted sau epoch 1 rồi resume tới epoch 2 khớp uninterrupted. Receipt `artifacts/local/pc-preflight-20261030/native_resume_smoke.json`; không phải SFT VN30.
+- Bộ test đã đạt 31 tests trước integration bổ sung. Sau integration, lượt test đạt nhưng bị đếm lặp do import TestCase; đã sửa import sang module để tránh đếm trùng, cần kiểm lại số cuối.
+- Đã tải bản tin mới từ CSI (09/04/2020), Phú Hưng (bản tin 23/09 cho phiên 22/09/2020), và Pinetree (26/10/2022, 09/11/2022). Text và hình trang đầu hai PDF xác nhận các giá 697,85 và 852,72 khớp VNDIRECT, không khớp VPS ở hai ngày đó. Pinetree công bố 990,41 và 979,68 khớp VNDIRECT, khác DNSE. Đây là bằng chứng từng trường hợp, chưa chấp nhận cả dataset.
+- Raw mới lưu `data/raw/source_evidence/pc-20261030/manifest.json` cùng URL/hash. Không sửa giá gốc.
+
+### 12 — Chốt kiểm thử, lưu điều tra mới và refresh preflight có lịch sử
+
+- Bộ test cuối: **39 tests, OK, skipped=1**. Một ca bị bỏ qua mặc định là native GPU resume, đã bật và chạy riêng đạt. Sai khác tham số mini lớn nhất 5,96e-8; validation loss 0,7652203063 so với 0,7652203048. Receipt `artifacts/local/pc-preflight-20261030/test_summary.json` và `native_resume_smoke.json`.
+- `review_close_publications.py` đã thử 60 ngày Close tranh chấp: 46 URL không tải được, 14 bản tin có raw/hash. Lượt đầu 6 hỗ trợ giá gốc, 8 chưa đủ ngữ nghĩa Close. Bổ sung cụm “khép phiên” rồi phân tích lại raw đã tải, không gọi lại 46 URL lỗi: 7 hỗ trợ giá gốc, 7 còn là ứng viên. Giữ cả `review.json` và `cached_reparse.json`, không ghi đè lịch sử.
+- Hai bản tin 05/03 và 24/03/2021 có bảng chỉ số gần VPS; bản CSI cũ lại hỗ trợ VNDIRECT nhưng có nhãn hợp đồng cũ. Không coi giá ứng viên hoặc bản tin có dấu hiệu cũ là xác nhận tự động. Ghi F13: cần sổ adjudication có nguồn/semantics thay vì chờ mọi nhà cung cấp đồng thuận.
+- Ghi F14: chuỗi Open bất thường bắt đầu cùng ngày KRX vận hành; VNDIRECT 71/71, VPS 0/71, DNSE 5/71 trong đoạn. Đây chỉ là giả thuyết nguyên nhân để điều tra. Không chỉnh giá theo giả thuyết.
+- Hồ sơ đọc lại: `artifacts/local/pc-preflight-20261030/evidence_review.md`, dẫn raw/URL/hash và phạm vi chưa xác minh. Chưa tích hợp adjudication vào cổng audit, dataset vẫn unverified.
+- Áp dụng `refresh-preflight --reason` sau kiểm thử: lưu state/audit/log/report cũ tại `artifacts/local/pc-rerun-20261030/preflight_history/20261030T075623Z-83b83b50`; ghi source identity trước/sau, không thay config/provenance, không có artifact nghiên cứu. Sau đó resume thành công: **5 complete / 283 blocked / 288**. Không có training VN30 chạy nền.
+- Kiểm bằng assertion: started vẫn `2026-10-30T07:09:17.918025+00:00`, deadline Unix `1793430557.9180253`, chênh đúng 86.400 giây. Không cấp thêm thời gian. Git diff whitespace check đạt; hai Chronos LFS modified ban đầu vẫn được giữ nguyên.
+- Điểm tiếp tục: xử lý bằng chứng giá và calendar độc lập, thiết kế adjudication có kiểm thử nếu đủ nguồn; không lách audit để tạo bảng Q1–Q4. Code identity hiện đã khớp state sau refresh. Sửa Python tiếp sẽ lại làm resume từ chối; đọc điều kiện refresh trong tài liệu trước khi thay đổi.
+
+### 13 — Quy ước lưu Git theo yêu cầu người dùng
+
+- Nhánh làm lại: `neikhn/lam-lai-vn30-pc`; lưu checkpoint commit/push sau mỗi mốc đáng kể, message ngắn gọn. Stash khi cần giữ tạm để chuyển nhánh/ngữ cảnh.
+- Checkpoint đầu gồm code PC rerun, kiểm thử, plan/log và audit receipts hiện có; dữ liệu vẫn unverified. Đã rà danh sách file và mẫu credential trước khi stage.
+- Giữ ngoài commit hai weights Chronos LFS cũ đã hiện modified từ đầu; không đưa môi trường/cache/credential lên Git.
+
+## Việc chưa hoàn thành / rủi ro cần giữ nguyên trong bàn giao
+
+- Chưa giải quyết bằng chứng giá O/H/L/Close giữa các nhà cung cấp và chưa có calendar độc lập đầy đủ.
+- Chưa huấn luyện hoặc chấm thí nghiệm VN30 mới cho Q1–Q4.
+- Chưa có benchmark thời gian dữ liệu thật nên chưa chứng minh toàn bộ ma trận vừa 24 giờ.
+- Native GPU resume Kronos-mini đã đạt; các variant khác và forced-OOM stress chưa thử đầy đủ.
+- F12 đã có kiểm thử âm và integration; bộ test cuối 39 ca đạt như mục 12. Chỉ chạy lại khi có thay đổi hoặc nghi vấn mới cần kiểm chứng.
+- Không sửa code Python rồi giả vờ resume cùng identity. Ghi rõ thay đổi và xử lý tương thích/budget trước khi tiếp tục.
+- Một số lệnh Git trong môi trường giới hạn lỗi git-lfs filter. Dùng `git -c filter.lfs.required=false -c filter.lfs.process= -c filter.lfs.clean= ...` để đọc trạng thái/diff; không dùng kết quả modified của hai weights Chronos cũ để kết luận agent đã sửa chúng.

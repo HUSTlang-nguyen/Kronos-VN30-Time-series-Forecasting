@@ -1,6 +1,8 @@
 # VN30 Forecasting
 
-Thử nghiệm dự báo VN30 bằng **Kronos-small**, **Chronos-2-small** và các baseline như Naive, ARIMA, ETS. Repo tập trung vào chạy model và đánh giá dự báo; không còn quy trình viết bài báo hoặc các gate nghiên cứu.
+Thử nghiệm dự báo VN30 bằng **Kronos mini/small/base**, **Chronos-2-small**, Naive, Ridge, ARIMA và ETS. Kết quả cũ chỉ gồm các model đã được ghi trong báo cáo lịch sử; có runner không đồng nghĩa mọi thí nghiệm mới đã chạy xong.
+
+**Làm lại trên PC:** xem [quy trình và trạng thái kiểm toán dữ liệu](docs/PC_Rerun.md). Lượt mới tách hoàn toàn kết quả khỏi môi trường cũ, có giới hạn 24 giờ và chặn huấn luyện khi dữ liệu chưa được kiểm chứng.
 
 Repo có loader cho snapshot VN30 cố định, runner dự báo và đánh giá Open/Close trên cùng các phiên. Context là 128 phiên, path dự báo 20 phiên; score tại h=1/5/20. Dữ liệu VNDIRECT là một snapshot lịch sử, vì vậy kết quả chỉ áp dụng cho snapshot này.
 
@@ -19,7 +21,7 @@ uv run --no-sync python -c "import torch; print(torch.__version__, torch.version
 uv run --no-sync python scripts/smoke_models.py --model all --device cuda:0
 ```
 
-Smoke dùng dữ liệu giả, chỉ kiểm tra model chạy được. Có thể chọn `--model kronos` hoặc `--model chronos2`; dùng `--device cpu` khi cần. Kết quả sinh trong `artifacts/`, không commit. Weights được tải và cache khi chạy lần đầu.
+Smoke dùng dữ liệu giả, chỉ kiểm tra model chạy được. Có thể chọn `--model kronos` hoặc `--model chronos2`; dùng `--device cpu` khi cần. `scripts/smoke_pc_models.py` kiểm tra đủ ba bản Kronos và Chronos trên GPU. Weights pretrained được tải và cache khi chạy lần đầu; artifact kiểm thử được ghi rõ khác với kết quả VN30.
 
 Kiểm tra hash checkpoint nếu cần:
 
@@ -198,7 +200,7 @@ data/manifests/   Phiên bản checkpoint và receipts snapshot
 data/raw/         Phản hồi gốc, quản lý bằng DVC
 data/share/       SQLite/ZIP, pointers và checksum
 data/processed/   Dữ liệu xử lý, không commit
-artifacts/        Kết quả chạy model, không commit
+artifacts/        Kết quả, receipts và đồ thị theo phiên bản; weights dùng Git LFS
 ```
 
 Collaborator làm trên branch riêng, mở PR vào `main`; ghi model, phiên bản dữ liệu và lệnh chạy để người khác lặp lại. CI kiểm tra cú pháp, CLI dữ liệu, dependencies và Docker; không chạy GPU hoặc truy cập Drive riêng.

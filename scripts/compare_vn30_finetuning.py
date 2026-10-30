@@ -6,6 +6,9 @@ import argparse
 import hashlib
 import json
 from pathlib import Path
+import sys
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"src"))
+from research_protocol import portable_path
 
 import numpy as np
 import pandas as pd
@@ -41,7 +44,7 @@ def main():
             raise ValueError(f"Mismatched {split} evaluation")
         source_metadata = {}
         for path in manifest["source_forecasts"]:
-            meta = json.loads(Path(path).with_suffix(".json").read_text(encoding="utf-8"))
+            meta = json.loads(portable_path(path).with_suffix(".json").read_text(encoding="utf-8"))
             if meta["limited"] or meta["origins"] != manifest["origins"] or meta["dataset_sha256"] != sha:
                 raise ValueError("Incomplete forecast coverage")
             if meta["model"].endswith("-ft"):

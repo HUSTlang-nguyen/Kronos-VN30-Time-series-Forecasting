@@ -15,6 +15,11 @@ venv/
 .vendor/
 .cache/
 *.log
+# Optimizer/RNG resume snapshots stay local; published weights use Git LFS.
+artifacts/local/pc-rerun-*/**/last.pt
+artifacts/local/pc-rerun-*/**/*-last.pt
+artifacts/local/pc-rerun-*/**/*.tmp
+artifacts/local/pc-rerun-*/**/*.progress.json
 
 # DVC manages data bytes; Git keeps pointers and receipts.
 data/raw/

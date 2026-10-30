@@ -27,6 +27,8 @@ jobs:
       - run: python scripts/share_vndirect_sqlite.py --help
       - run: python scripts/validate_vn30_sources.py --help
       - run: python scripts/forecast_vn30.py --help
+      - name: Check temporal rules, data audit and experiment coordination
+        run: python -m unittest discover -s tests -v
   docker-data:
     runs-on: ubuntu-latest
     steps:

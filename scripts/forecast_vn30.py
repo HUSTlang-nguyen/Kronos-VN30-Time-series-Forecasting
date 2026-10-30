@@ -18,12 +18,25 @@ from vn30_forecast import (  # noqa: E402 - src is resolved from this checkout
     build_model,
     check_manifest,
     load,
+    load_manifest_data,
     save_json,
     split_manifest,
 )
 
 
-def forecast(df, manifest, name, split, device, seed, out, limit, checkpoint=None):
+def forecast(
+    df,
+    manifest,
+    name,
+    split,
+    device,
+    seed,
+    out,
+    limit,
+    checkpoint=None,
+    model_config=None,
+    checkpoint_choice="best-trained",
+):
     if out.exists() or out.with_suffix(".json").exists():
         raise FileExistsError(out)
     origins = manifest["origins"][split]
@@ -31,10 +44,46 @@ def forecast(df, manifest, name, split, device, seed, out, limit, checkpoint=Non
         if limit < 1:
             raise ValueError("--limit must be positive")
         origins = origins[:limit]
-    predictor, revision, samples = build_model(name, df, manifest, device, checkpoint)
+    import time
+    from research_protocol import atomic_json, source_identity
+
+    started = time.monotonic()
+    predictor, revision, samples = build_model(
+        name, df, manifest, device, checkpoint, model_config, checkpoint_choice
+    )
     prices = df[COLS].to_numpy(dtype=np.float64)
+    import os
+
+    progress = out.with_suffix(".progress.json")
+    identity = {
+        "dataset_sha256": manifest["sha256"],
+        "manifest": manifest,
+        "model": name,
+        "split": split,
+        "seed": seed,
+        "revision": revision,
+        "limit": limit,
+        "model_config": model_config or {},
+        "checkpoint_choice": checkpoint_choice,
+        "source": source_identity(),
+    }
     rows = []
+    completed = 0
+    if progress.exists():
+        saved = json.loads(progress.read_text(encoding="utf-8"))
+        if saved["identity"] != identity:
+            raise ValueError("Forecast resume identity differs")
+        rows = saved["rows"]
+        completed = saved["completed_origins"]
     for number, i in enumerate(origins, 1):
+        if number <= completed:
+            continue
+        if time.time() >= float(os.environ.get("VN30_DEADLINE_UNIX", "inf")):
+            atomic_json(
+                progress,
+                {"identity": identity, "rows": rows, "completed_origins": number - 1},
+            )
+            raise TimeoutError("Forecast budget exhausted; progress saved")
         history = prices[i - CONTEXT + 1 : i + 1]
         xdates = df.session_date.iloc[i - CONTEXT + 1 : i + 1].reset_index(drop=True)
         ydates = df.session_date.iloc[i + 1 : i + HORIZON + 1].reset_index(drop=True)
@@ -51,6 +100,11 @@ def forecast(df, manifest, name, split, device, seed, out, limit, checkpoint=Non
                     **{f"pred_{col}": float(v) for col, v in zip(COLS, values)},
                 }
             )
+        if number % 10 == 0:
+            atomic_json(
+                progress,
+                {"identity": identity, "rows": rows, "completed_origins": number},
+            )
         if number % 50 == 0 or number == len(origins):
             print(f"{name} {split}: {number}/{len(origins)} origins", flush=True)
     out.parent.mkdir(parents=True, exist_ok=True)
@@ -65,19 +119,34 @@ def forecast(df, manifest, name, split, device, seed, out, limit, checkpoint=Non
         "seed": seed,
         "sample_count": samples if name.startswith("kronos") else 0,
         "quantile_count": samples if name.startswith("chronos2") else 0,
-        "point_functional": "quantile_mean" if name.startswith("chronos2") else "sample_mean" if samples else "deterministic",
+        "point_functional": "quantile_mean"
+        if name.startswith("chronos2")
+        else "sample_mean"
+        if samples
+        else "deterministic",
         "checkpoint": str(checkpoint) if checkpoint else None,
+        "checkpoint_choice": checkpoint_choice,
         "origins": len(origins),
         "limited": limit is not None,
         "calendar_note": manifest["calendar_note"],
+        "model_config": model_config or {},
+        "elapsed_seconds": time.monotonic() - started,
+        "source_identity": source_identity(),
     }
+    from forecast_protocol import sampling_spec
+
+    meta["sampling"] = sampling_spec(name)
     temp = out.with_name(out.name + ".partial")
     if temp.exists():
         raise FileExistsError(temp)
     try:
         pd.DataFrame(rows).to_csv(temp, index=False)
         temp.replace(out)
+        from research_protocol import file_hash
+
+        meta["forecast_csv_sha256"] = file_hash(out)
         save_json(out.with_suffix(".json"), meta)
+        progress.unlink(missing_ok=True)
     except Exception:
         temp.unlink(missing_ok=True)
         raise
@@ -358,10 +427,33 @@ def main():
     )
     run = sub.add_parser("run")
     run.add_argument("--manifest", type=Path, required=True)
+    from research_protocol import MODELS
+
     run.add_argument(
-        "--model", choices=["naive", "ridge", "chronos2", "kronos", "chronos2-ft", "kronos-ft"], required=True
+        "--model",
+        choices=[
+            "naive",
+            "ridge",
+            "arima",
+            "ets",
+            "kronos",
+            "kronos-ft",
+            *MODELS,
+            *[m + "-ft" for m in MODELS],
+        ],
+        required=True,
     )
-    run.add_argument("--checkpoint", type=Path, help="Fine-tuning output directory with training.json")
+    run.add_argument("--model-config", type=Path)
+    run.add_argument(
+        "--checkpoint-choice",
+        choices=["best-trained", "selected"],
+        default="best-trained",
+    )
+    run.add_argument(
+        "--checkpoint",
+        type=Path,
+        help="Fine-tuning output directory with training.json",
+    )
     run.add_argument("--split", choices=["train", "validation", "test"], default="test")
     run.add_argument("--device", default="cuda:0")
     run.add_argument("--seed", type=int, default=42)
@@ -377,12 +469,13 @@ def main():
     if args.command == "report":
         report(args.scores)
         return
-    df, sha = load()
     if args.command == "prepare":
+        df, sha = load()
         save_json(args.output, split_manifest(df, sha))
         print(args.output)
         return
     manifest = json.loads(args.manifest.read_text(encoding="utf-8"))
+    df, sha = load_manifest_data(manifest)
     check_manifest(df, sha, manifest)
     if args.command == "run":
         forecast(
@@ -395,6 +488,10 @@ def main():
             args.output,
             args.limit,
             args.checkpoint,
+            json.loads(args.model_config.read_text(encoding="utf-8"))
+            if args.model_config
+            else None,
+            args.checkpoint_choice,
         )
     else:
         score(df, manifest, args.forecasts, args.output)

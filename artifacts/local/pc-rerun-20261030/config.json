@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "output": "artifacts/local/pc-rerun-20261030",
+  "hours": 24,
+  "device": "cuda:0",
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "models": [
+    "kronos-mini",
+    "kronos-small",
+    "kronos-base",
+    "chronos2"
+  ],
+  "epochs": 5,
+  "learning_rate": 1e-06,
+  "random_learning_rates": [
+    1e-06,
+    1e-05,
+    0.0001
+  ],
+  "data_budgets": [
+    500,
+    1000,
+    null
+  ],
+  "dvc_executable": ".venv-data/Scripts/dvc.exe",
+  "dataset": "data/share/vn30_vndirect_20261001T151513588605Z_candidate.sqlite",
+  "receipt": "data/manifests/vndirect_sqlite_snapshot.json",
+  "independent_sources": [],
+  "calendar": null,
+  "stage_hours": {
+    "setup": 3,
+    "main": 11,
+    "learning": 16,
+    "ablation": 20,
+    "folds": 20,
+    "report": 24
+  }
+}

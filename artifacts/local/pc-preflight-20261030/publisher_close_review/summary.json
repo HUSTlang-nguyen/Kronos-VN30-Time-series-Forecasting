@@ -1,0 +1,11 @@
+{
+  "expected_dates": 60,
+  "reviewed_dates": 60,
+  "counts": {
+    "unavailable": 46,
+    "unverified_close_semantics": 8,
+    "corroborates_original": 6
+  },
+  "dataset_accepted": false,
+  "ohlc_and_calendar_still_require_separate_evidence": true
+}

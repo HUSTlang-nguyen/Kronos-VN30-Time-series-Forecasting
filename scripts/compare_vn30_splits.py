@@ -5,6 +5,9 @@ from __future__ import annotations
 import argparse
 import json
 from pathlib import Path
+import sys
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"src"))
+from research_protocol import portable_path
 
 import pandas as pd
 
@@ -42,7 +45,7 @@ def main() -> None:
             raise ValueError("Model sets differ across splits")
         source_models = set()
         for source in evaluation["source_forecasts"]:
-            metadata = json.loads(Path(source).with_suffix(".json").read_text(encoding="utf-8"))
+            metadata = json.loads(portable_path(source).with_suffix(".json").read_text(encoding="utf-8"))
             model = metadata["model"]
             config = tuple(
                 metadata[key]

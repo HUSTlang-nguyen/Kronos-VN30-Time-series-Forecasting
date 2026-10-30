@@ -8,6 +8,7 @@ import sys
 from pathlib import Path
 import numpy as np
 import pandas as pd
+from research_protocol import MODELS, canonical_model, portable_path
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data/share/vn30_vndirect_20261001T151513588605Z_candidate.sqlite"
@@ -31,8 +32,9 @@ def save_json(path, data):
         json.dump(data, f, indent=2, ensure_ascii=False)
 
 
-def load(path=DATA):
-    receipt = json.loads(RECEIPT.read_text(encoding="utf-8"))
+def load(path=DATA, receipt_path=RECEIPT):
+    path = Path(path)
+    receipt = json.loads(Path(receipt_path).read_text(encoding="utf-8"))
     if not path.is_file():
         raise FileNotFoundError(f"{path}: run dvc pull")
     sha = digest(path)
@@ -74,24 +76,32 @@ def load(path=DATA):
     return df, sha
 
 
-def split_manifest(df, sha):
+def split_manifest(df, sha, dataset_info=None, ranges=None):
     n = len(df)
     train = int(n * 0.70)
     val = train + int(n * 0.15)
-    ranges = {"train": (0, train), "validation": (train, val), "test": (val, n)}
+    ranges = ranges or {
+        "train": (0, train),
+        "validation": (train, val),
+        "test": (val, n),
+    }
     origins = {
         s: list(range(max(CONTEXT - 1, a - 1), b - HORIZON))
         for s, (a, b) in ranges.items()
     }
     assert all(origins.values())
-    return {
-        "schema_version": 1,
-        "dataset": str(DATA.relative_to(ROOT)).replace("\\", "/"),
+    result = {
+        "schema_version": 2 if dataset_info else 1,
+        "dataset": dataset_info["dataset"]
+        if dataset_info
+        else str(DATA.relative_to(ROOT)).replace("\\", "/"),
         "sha256": sha,
         "rows": n,
         "context": CONTEXT,
         "horizon": HORIZON,
-        "rule": "chronological_70_15_15_floor",
+        "rule": "chronological_explicit"
+        if dataset_info
+        else "chronological_70_15_15_floor",
         "boundaries": {
             s: {
                 "row_start": a,
@@ -107,10 +117,48 @@ def split_manifest(df, sha):
         "origin_definition": "after close t; full future path in split",
         "calendar_note": "realized historical exchange dates supplied to Kronos",
     }
+    if dataset_info:
+        result["dataset_info"] = dataset_info
+    return result
+
+
+def load_manifest_data(manifest):
+    info = manifest.get("dataset_info")
+    if not info:
+        return load()
+    if info.get("audit_status") != "accepted_provider_scope":
+        raise ValueError("Dataset has not passed its audit; research run refused")
+    audit_path = portable_path(info["audit"])
+    from research_protocol import file_hash
+
+    if file_hash(audit_path) != info["audit_sha256"]:
+        raise ValueError("Audit receipt hash mismatch")
+    audit = json.loads(audit_path.read_text(encoding="utf-8"))
+    if (
+        audit.get("status") != "accepted_provider_scope"
+        or audit["dataset_sha256"] != manifest["sha256"]
+    ):
+        raise ValueError("Audit receipt does not accept this dataset")
+    return load(portable_path(info["dataset"]), portable_path(info["receipt"]))
 
 
 def check_manifest(df, sha, manifest):
-    if manifest != split_manifest(df, sha):
+    info = manifest.get("dataset_info")
+    ranges = None
+    if info:
+        ranges = {
+            s: (b["row_start"], b["row_end_exclusive"])
+            for s, b in manifest["boundaries"].items()
+        }
+        parts = list(ranges.values())
+        if (
+            list(ranges) != ["train", "validation", "test"]
+            or parts[0][0] != 0
+            or any(a < 0 or b <= a or b > len(df) for a, b in parts)
+            or any(parts[i][1] != parts[i + 1][0] for i in (0, 1))
+        ):
+            raise ValueError("Invalid or overlapping temporal partitions")
+    if manifest != split_manifest(df, sha, dataset_info=info, ranges=ranges):
         raise ValueError("Split manifest differs from fixed dataset/rule")
     for split, origins in manifest["origins"].items():
         a = manifest["boundaries"][split]["row_start"]
@@ -118,35 +166,69 @@ def check_manifest(df, sha, manifest):
         assert all(i >= CONTEXT - 1 and i + 1 >= a and i + HORIZON < b for i in origins)
 
 
-def build_model(name, df, manifest, device, checkpoint=None):
+def build_model(
+    name,
+    df,
+    manifest,
+    device,
+    checkpoint=None,
+    model_config=None,
+    checkpoint_choice="best-trained",
+):
+    model_config = model_config or {}
     revision_override = None
     if name.endswith("-ft"):
         if checkpoint is None:
             raise ValueError("Fine-tuned models require --checkpoint")
         checkpoint = Path(checkpoint)
-        trained = json.loads((checkpoint / "training.json").read_text(encoding="utf-8"))
+        if checkpoint_choice not in ("best-trained", "selected"):
+            raise ValueError("Unknown checkpoint choice")
+        receipt_name = (
+            "selection.json" if checkpoint_choice == "selected" else "training.json"
+        )
+        trained = json.loads((checkpoint / receipt_name).read_text(encoding="utf-8"))
         base_name = name.removesuffix("-ft")
         if (
             trained["dataset_sha256"] != manifest["sha256"]
-            or trained["base_model"] != base_name
-            or trained["context"] != CONTEXT or trained["horizon"] != HORIZON
+            or canonical_model(trained["base_model"]) != canonical_model(base_name)
+            or trained["context"] != CONTEXT
+            or trained["horizon"] != HORIZON
             or trained["boundaries"] != manifest["boundaries"]
             or trained["test_used_for_training_or_selection"]
-            or (base_name == "kronos" and not trained.get("teacher_forcing_causal_validation", False))
+            or (
+                base_name.startswith("kronos")
+                and not trained.get("teacher_forcing_causal_validation", False)
+            )
         ):
-            raise ValueError("Fine-tuned checkpoint has a different dataset/split/protocol")
+            raise ValueError(
+                "Fine-tuned checkpoint has a different dataset/split/protocol"
+            )
         files = trained["checkpoint_files"]
         if not files or "model.safetensors" not in files:
             raise ValueError("Missing checkpoint weight hash")
-        best = (checkpoint / "best").resolve()
+        best = (checkpoint / trained.get("checkpoint_directory", "best")).resolve()
         for relative, expected in files.items():
             path = (best / relative).resolve()
             if not path.is_relative_to(best) or digest(path) != expected:
                 raise ValueError(f"Checkpoint hash mismatch: {relative}")
-        revision_override = "finetuned:" + files["model.safetensors"]
+        prefix = (
+            "selected-pretrained:"
+            if checkpoint_choice == "selected" and trained["best_epoch"] == 0
+            else "finetuned:"
+        )
+        revision_override = prefix + files["model.safetensors"]
         name = base_name
     elif checkpoint is not None:
         raise ValueError("--checkpoint is only valid for fine-tuned models")
+    name = canonical_model(name)
+    if name in ("arima", "ets"):
+        from statistical_baselines import statistical_predictor
+
+        return (
+            statistical_predictor(name, model_config),
+            "validation_locked:" + json.dumps(model_config, sort_keys=True),
+            0,
+        )
     if name == "naive":
         return (
             lambda history, dates, seed: np.full((HORIZON, 4), history[-1, 3]),
@@ -172,14 +254,15 @@ def build_model(name, df, manifest, device, checkpoint=None):
             ]
         )
         sx, sy = StandardScaler().fit(xs), StandardScaler().fit(ys)
-        model = Ridge(alpha=100.0).fit(sx.transform(xs), sy.transform(ys))
+        alpha = float(model_config.get("alpha", 100.0))
+        model = Ridge(alpha=alpha).fit(sx.transform(xs), sy.transform(ys))
 
         def predict(history, dates, seed):
             return sy.inverse_transform(
                 model.predict(sx.transform(history.ravel()[None, :]))
             ).reshape(HORIZON, 4)
 
-        return predict, "ridge_train_only_alpha100", 0
+        return predict, f"ridge_train_only_alpha{alpha:g}", 0
     import torch
     import yaml
 
@@ -187,7 +270,7 @@ def build_model(name, df, manifest, device, checkpoint=None):
         (ROOT / "data/manifests/checkpoint_provenance.yaml").read_text(encoding="utf-8")
     )
     if revision_override:
-        base_spec = provenance["models"]["chronos_2_small" if name == "chronos2" else "kronos_small"]
+        base_spec = provenance["models"][MODELS[name][0]]
         if trained["base_revision"] != base_spec["repository_revision"]:
             raise ValueError("Fine-tuning started from a different pretrained revision")
     if name == "chronos2":
@@ -213,25 +296,40 @@ def build_model(name, df, manifest, device, checkpoint=None):
             return samples.float().mean(dim=1).cpu().numpy().T
 
         return predict, revision_override or spec["repository_revision"], 13
-    if name == "kronos":
+    if name.startswith("kronos-"):
         vendor = ROOT / ".vendor/Kronos"
         if not (vendor / "model/kronos.py").exists():
             raise FileNotFoundError("Run scripts/bootstrap_kronos.py first")
         sys.path.insert(0, str(vendor))
         from model import Kronos, KronosPredictor, KronosTokenizer
 
-        model_spec = provenance["models"]["kronos_small"]
-        token_spec = provenance["tokenizers"]["kronos_tokenizer_base"]
+        model_key, token_key, max_context = MODELS[name]
+        model_spec = provenance["models"][model_key]
+        token_spec = provenance["tokenizers"][token_key]
+        if (
+            revision_override
+            and trained.get("tokenizer_revision", token_spec["repository_revision"])
+            != token_spec["repository_revision"]
+        ):
+            raise ValueError("Checkpoint tokenizer revision mismatch")
         tokenizer = KronosTokenizer.from_pretrained(
             token_spec["repository"], revision=token_spec["repository_revision"]
         )
         model = Kronos.from_pretrained(
             str(best) if revision_override else model_spec["repository"],
-            **({} if revision_override else {"revision": model_spec["repository_revision"]}),
+            **(
+                {}
+                if revision_override
+                else {"revision": model_spec["repository_revision"]}
+            ),
         )
         model.eval()
         tokenizer.eval()
-        predictor = KronosPredictor(model, tokenizer, device=device, max_context=512)
+        if (model.s1_bits, model.s2_bits) != (tokenizer.s1_bits, tokenizer.s2_bits):
+            raise ValueError("Tokenizer/model vocabulary mismatch")
+        predictor = KronosPredictor(
+            model, tokenizer, device=device, max_context=max_context
+        )
 
         def predict(history, dates, seed):
             torch.manual_seed(seed)

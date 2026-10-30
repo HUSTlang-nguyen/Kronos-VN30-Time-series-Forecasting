@@ -10,3 +10,4 @@ data/share/*.sha256 -text
 # Preserve artifact bytes for checkpoint hashes and experiment receipts.
 artifacts/** -text whitespace=cr-at-eol
 artifacts/**/*.safetensors filter=lfs diff=lfs merge=lfs -text
+artifacts/local/pc-rerun-*/**/*-best.pt filter=lfs diff=lfs merge=lfs -text
