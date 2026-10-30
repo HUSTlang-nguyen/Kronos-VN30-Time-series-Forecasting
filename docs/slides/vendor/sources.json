@@ -1,0 +1,78 @@
+{
+  "reset.css": {
+    "sha256": "1aa8e84c9cabcbfe4d95b19879fe48b9c2c5e6d54574cbe679bc22edb9fe12b6"
+  },
+  "reveal.css": {
+    "sha256": "9cbc5082797d938f0ee780328790a131ae3d7bc5c09c176e77927c174f29e60a"
+  },
+  "reveal.js": {
+    "sha256": "9736bf3d8918e391e8c07c85c53773800d4004dc25f948916e319ca371ca881a"
+  },
+  "notes.js": {
+    "sha256": "288fe7cb27ff696a3e1c137b22b0cd117395a84dba2a703e2bfc3136e65612a8"
+  },
+  "LICENSE": {
+    "sha256": "34014800f4126ac2525e224166f099f26628612e95c41f76d70841b63138c989"
+  },
+  "fonts": {
+    "css_url": "https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap",
+    "files": [
+      {
+        "url": "https://fonts.gstatic.com/s/bevietnampro/v12/QdVPSTAyLFyeg_IDWvOJmVES_Hw4BXoKZA.woff2",
+        "sha256": "dc085e2fba3414e5c5bf1e6172f921a9f81c5859946a4ed3d63c1e470d96a9e2"
+      },
+      {
+        "url": "https://fonts.gstatic.com/s/bevietnampro/v12/QdVPSTAyLFyeg_IDWvOJmVES_Hw3BXo.woff2",
+        "sha256": "03d1b589cff172e1a670b3573e731d3380bc326f80cf83b0d3504e3188e2e074"
+      },
+      {
+        "url": "https://fonts.gstatic.com/s/bevietnampro/v12/QdVMSTAyLFyeg_IDWvOJmVES_HTEJm86Rb0bcw.woff2",
+        "sha256": "86341610cbe907eecf461c9159c168d5efb52bb1a33963813a08f520555d8e66"
+      },
+      {
+        "url": "https://fonts.gstatic.com/s/bevietnampro/v12/QdVMSTAyLFyeg_IDWvOJmVES_HTEJm81Rb0.woff2",
+        "sha256": "b621f77d35f777023aa11ca524462d511b4b28a813adbc0e9d15a10fc61dfe4e"
+      },
+      {
+        "url": "https://fonts.gstatic.com/s/bevietnampro/v12/QdVMSTAyLFyeg_IDWvOJmVES_HToIW86Rb0bcw.woff2",
+        "sha256": "97658c6f9a384f29a3005c3d96e2a0d1c810192cf68979071c290f5a377a9f99"
+      },
+      {
+        "url": "https://fonts.gstatic.com/s/bevietnampro/v12/QdVMSTAyLFyeg_IDWvOJmVES_HToIW81Rb0.woff2",
+        "sha256": "9503dec2a7c532c8331e9600bcafea287a4fd208573b8668d85ab8d8de1863c7"
+      },
+      {
+        "url": "https://fonts.gstatic.com/s/bevietnampro/v12/QdVMSTAyLFyeg_IDWvOJmVES_HSMIG86Rb0bcw.woff2",
+        "sha256": "4f58af2d1c3e28a9ba14c51c82db2751d78344b75bdcb34de24a1031ebe59da6"
+      },
+      {
+        "url": "https://fonts.gstatic.com/s/bevietnampro/v12/QdVMSTAyLFyeg_IDWvOJmVES_HSMIG81Rb0.woff2",
+        "sha256": "a193dd87699bd2e18ddf72dc271493ea82a23dad9f5c334d9f2a257b1e05fc30"
+      },
+      {
+        "url": "https://fonts.gstatic.com/s/ibmplexmono/v20/-F63fjptAgt5VM-kVkqdyU8n1iAq129k.woff2",
+        "sha256": "62632b6375305e70ddcafdd895218e6ae41a184fcd280a69c739460604ca00a9"
+      },
+      {
+        "url": "https://fonts.gstatic.com/s/ibmplexmono/v20/-F63fjptAgt5VM-kVkqdyU8n1i8q1w.woff2",
+        "sha256": "08949f728dc52d528e69b1667d15c89a5686a4ee9a296ff90983985f99c380f7"
+      },
+      {
+        "url": "https://fonts.gstatic.com/s/ibmplexmono/v20/-F6qfjptAgt5VM-kVkqdyU8n3twJwl9FgtIU.woff2",
+        "sha256": "781633d95de88040fb77141d1e65d928c87c0144691fbc74da5a64d137a7e910"
+      },
+      {
+        "url": "https://fonts.gstatic.com/s/ibmplexmono/v20/-F6qfjptAgt5VM-kVkqdyU8n3twJwlBFgg.woff2",
+        "sha256": "01d285447409c8a588692162439a038b8cbd7871309ee20267b0d2d91c6e8e22"
+      },
+      {
+        "url": "https://fonts.gstatic.com/s/ibmplexmono/v20/-F6qfjptAgt5VM-kVkqdyU8n3vAOwl9FgtIU.woff2",
+        "sha256": "51b74d53e106ba8a26dd33464b231a562069be2a234b923c115beb622e6f6bc6"
+      },
+      {
+        "url": "https://fonts.gstatic.com/s/ibmplexmono/v20/-F6qfjptAgt5VM-kVkqdyU8n3vAOwlBFgg.woff2",
+        "sha256": "0d1f0b8d0722224e32e9f28261bdc86c79115be73444ae5eceb73976a1bcdf83"
+      }
+    ]
+  }
+}

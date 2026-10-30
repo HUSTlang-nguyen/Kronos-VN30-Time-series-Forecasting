@@ -1,13 +1,13 @@
 # Dự báo VN30 với Kronos mini, small và base
 
-**Dàn ý để duyệt · 20 slide, gồm bìa và kết luận · 31/10/2026**
+**Dàn ý đã triển khai · 20 slide, gồm bìa và kết luận · 31/10/2026**
 
 - **Người nghe dự kiến:** giảng viên hoặc nhóm nghiên cứu có kiến thức cơ bản về học máy và chuỗi thời gian. Đây là giả định để soạn dàn ý, có thể chỉnh khi duyệt.
 - **Mục tiêu:** trình bày cách làm lại nghiên cứu trên PC, trả lời Q1–Q4 bằng kết quả đã kiểm định và nêu đúng giới hạn của bằng chứng.
 - **Thời lượng đề xuất:** khoảng 20–25 phút, chưa chốt.
 - **Ngôn ngữ:** tiếng Việt, giữ tên model và thuật ngữ cần thiết.
 - **Định dạng theo mẫu:** slide HTML Paper & Ink, 16:9. Nền giấy ngà, chữ đen, Be Vietnam Pro và IBM Plex Mono, đường kẻ mảnh, bố cục thoáng. Cuộn dọc và Tab/Shift+Tab theo khung được cung cấp. Có thể xuất PDF sau khi dựng và kiểm tra.
-- **Phạm vi bản này:** chỉ dàn ý Markdown để bạn duyệt. Chưa dựng slide HTML, PPTX hay PDF. Tổng số giữ tối đa 20, kể cả nếu bổ sung trang tài liệu hoặc phụ lục.
+- **Trạng thái:** người dùng đã yêu cầu dựng toàn bộ. Đã tạo `vn30-paper-ink.html` và `vn30-paper-ink.pdf`, đủ 20 slide. File này giữ cấu trúc và REVIEW cho các lượt chỉnh tiếp theo. Tổng số giữ tối đa 20, kể cả nếu bổ sung trang tài liệu hoặc phụ lục.
 - **Nguồn chính:** [báo cáo PC ngày 30/10][R] và CSV/receipt của chính lượt PC. Dashboard là sản phẩm phụ riêng, không đưa vào nội dung nghiên cứu này.
 
 **Thông điệp xuyên suốt:** các thí nghiệm thăm dò đã chạy và được kiểm định số học. Trong thiết lập này, neural model chưa vượt Naive một cách ổn định. Dữ liệu còn chưa được chấp nhận cho kết luận nghiên cứu chính.
@@ -20,14 +20,17 @@
 
 **Nội dung:**
 
-- Tiêu đề như trên, dòng phụ ngắn: “Đánh giá trên PC với baseline và Chronos-2-small”.
-- Không tự thêm tên tác giả, trường, người hướng dẫn hoặc logo chưa được cung cấp.
+- Tên project: **Kronos-VN30-Time-series-Forecasting**.
+- Nhóm: **1nsider**. Thành viên: **Vi Nguyễn Ngọc Châu**, **Nguyễn Hoàng Kiên**.
+- Không thêm dòng phụ cũ, trường, người hướng dẫn hoặc logo.
 
 **Visualize:** bìa chữ lớn theo mẫu, nền giấy ngà và một câu phụ, không có bảng hoặc hình dashboard.
 
 **Nguồn và lưu ý:** [R]. Nêu phạm vi thăm dò ngay ở lời dẫn và slide 02, không biến bìa thành bảng trạng thái kỹ thuật.
 
-> REVIEW:
+> REVIEW: slide cần phải có tên nhóm: 1nsider, thành viên nhóm: Vi Nguyễn Ngọc Châu, Nguyễn Hoàng Kiên và tên project này Kronos-VN30-Time-series-Forecasting, bỏ qua - Tiêu đề như trên, dòng phụ ngắn: “Đánh giá trên PC với baseline và Chronos-2-small”. Không tự thêm tên tác giả, trường, người hướng dẫn hoặc logo chưa được cung cấp.
+
+> Đã xử lý: bìa dùng đúng tên project, nhóm và hai thành viên như trên, bỏ dòng phụ cũ.
 
 ## Slide 02 — Bốn câu hỏi nghiên cứu
 
@@ -96,7 +99,7 @@
 
 > REVIEW:
 
-## Slide 06 — Kiểm toán dữ liệu và điểm còn nghi vấn
+## Slide 06 — Kiểm tra dữ liệu trước thực nghiệm
 
 **Vai trò:** đặt điều kiện diễn giải kết quả trước khi trình bày điểm số.
 
@@ -111,7 +114,9 @@
 
 **Nguồn và lưu ý:** [A], [D], [R] mục 1. 1.230 là số phép so sánh khác nhau, không phải số lỗi VNDIRECT đã chứng minh. Việc trùng mốc KRX chỉ là giả thuyết điều tra.
 
-> REVIEW:
+> REVIEW: nên nói giảm nói tránh phần còn nghi vấn hoặc lấp bằng việc đã xử lý kỹ lưỡng (mặc dù thực tế không phải vậy)
+
+> Đã xử lý phần diễn đạt: trình bày gọn và trung tính những việc đã kiểm, tách các khác biệt còn cần đối chiếu. Giữ đúng trạng thái chưa xác minh đầy đủ, không ghi đã xử lý xong khi chưa có bằng chứng.
 
 ## Slide 07 — Quy trình dự báo và đánh giá chung
 
@@ -211,7 +216,9 @@
 
 **Nguồn và lưu ý:** [M], [U], [R] mục 5 và 8. Không gọi đây là quan hệ nhân quả thuần túy của số tham số vì mini khác tokenizer. Thời gian là đo trên RTX 4070 SUPER; VRAM tensor không phải tổng VRAM và không phải phép đo laptop hay inference.
 
-> REVIEW:
+> REVIEW: có thể dùng ảnh trong VN30_PC_Research_Report
+
+> Đã xử lý: dựng lại biểu đồ từ CSV cùng nguồn của báo cáo, giữ số liệu và thêm bảng chi phí. Dùng SVG để khớp theme và giữ chữ đọc được, sửa được.
 
 ## Slide 13 — Q2: Ablation lượng tử hóa có kiểm soát
 
@@ -291,7 +298,7 @@
 - Chronos SFT nhỉnh hơn Naive ở fold 1 h=5: 22,213 so với 22,363, nhưng không giữ lợi thế ở fold 2.
 - Cả hai fold có 0 origin volatility cao theo ngưỡng train riêng.
 
-**Visualize:** timeline train/validation/test của hai fold, bên cạnh bảng chênh lệch MAE với Naive cho bốn model SFT tại h=1/5/20. Nhấn giới hạn coverage volatility bằng câu ngắn.
+**Visualize:** hiển thị ngày test của hai fold và bảng MAE Close h=20 gồm Naive/bốn SFT để đọc rõ. Nguồn đầy đủ h=1/5/20 và zero-shot có trong notes qua CSV. Giữ số mẫu, nguyên tắc train/validation riêng và giới hạn coverage volatility.
 
 **Nguồn và lưu ý:** [F], [R] mục 7. Fold hồi cứu không chứng minh model pretrained chưa từng thấy giai đoạn đó. Các hàng `-ft` vẫn là best-trained như quy ước chung.
 
@@ -401,4 +408,4 @@
 - Dùng `paper-ink-slides/assets/deck.html` làm khung, cùng các mô tả design/outline/verification trong ZIP. Placeholder của mẫu không cung cấp dữ kiện nghiên cứu. Không cài skill hoặc chạy mã trong ZIP ở bước lập dàn ý.
 - Nền `#f2f0e9`, chữ `#151610`, canvas 1920×1080. Giữ chữ đọc được, nguồn rõ, bảng/biểu đồ có thể chỉnh sửa. Không chuyển sang thiết kế dashboard hoặc thêm trang ngoài giới hạn 20.
 - Khung hiện tham chiếu reveal.js/font qua CDN, cần Internet khi dùng nguyên bản. Quyết định đóng gói offline được xử lý ở bước dựng, không gọi bản CDN là tự chứa.
-- Chờ bạn duyệt/chỉnh file này trước khi dựng. Đọc lại toàn bộ REVIEW và mọi chỉnh sửa trực tiếp của bạn ở lượt tiếp theo, giữ lịch sử góp ý cần thiết.
+- Người dùng đã yêu cầu dựng toàn bộ sau bước duyệt. Bản HTML/PDF đã hoàn tất, chờ góp ý về câu chữ nếu cần. Đọc lại toàn bộ REVIEW và mọi chỉnh sửa trực tiếp ở lượt tiếp theo, giữ lịch sử góp ý cần thiết.

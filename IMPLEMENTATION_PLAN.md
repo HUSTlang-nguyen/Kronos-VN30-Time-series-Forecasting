@@ -196,3 +196,12 @@ Các tối ưu đang để xem xét, **chưa được tuyên bố đã làm**:
 - Đã hoàn thành docs/slides/slide-outline.md với 20 slide. Mỗi slide có vai trò, nội dung, visualize, nguồn và REVIEW. Nội dung gồm thiết kế/Kronos, dữ liệu/audit, Q1–Q4, chi phí, kiểm định, giới hạn/kết luận; dashboard giữ riêng.
 - Kiểm tra: số thứ tự 01–20 và 20 REVIEW đúng; 20 nguồn local tồn tại; 15 giá trị MAE Close chính khớp CSV làm tròn ba chữ số. Chưa tạo HTML/PPTX/PDF hoặc chạy lại thí nghiệm.
 - Điểm tiếp tục: chờ người dùng duyệt dàn ý. Khi nhận góp ý, đọc lại file mới nhất và REVIEW, giữ chỉnh sửa trực tiếp, sau đó dựng bằng khung Paper & Ink theo phạm vi được duyệt. Không tự lấy quy trình 5-slide mặc định trong template để vượt yêu cầu dừng ở Markdown.
+
+### 8.1. Đã dựng toàn bộ slide theo yêu cầu mới
+
+- Người dùng cho phép dựng đủ20 slide, sẽ yêu cầu sửa từ khó sau khi xem, không cần dừng ở bản thử5 slide.
+- Đã xử lý REVIEW bìa: đúng project Kronos-VN30-Time-series-Forecasting, nhóm1nsider, Vi Nguyễn Ngọc Châu và Nguyễn Hoàng Kiên. Giữ REVIEW gốc và ghi phần đã xử lý trong dàn ý.
+- Đầu ra: docs/slides/vn30-paper-ink.html (offline, 604.477 bytes), vn30-paper-ink.pdf (20 trang16:9, 502.723 bytes), README hướng dẫn; builder/std CSV và manifest phục vụ chỉnh tiếp. Font và reveal5.1.0 nhúng sẵn, có giấy phép. Không đổi frozen core/report/artifact nghiên cứu.
+- Đã kiểm nội dung từ CSV, xem đủ20 slide và20 trang PDF render Poppler. Chrome kiểm không tràn, tiếng Việt, offline không request, Tab/ShiftTab/nhấn nhanh/biên/hash/scroll/resize/progress0–100, F fullscreen, S notes nhận đúng trang đạt. Không gắn nhãn dữ liệu đã xác minh.
+- Sửa các lỗi thực tế trong khi dựng: tự nhúng toàn bộ dependency, không chèn license vào chuỗi HTML nội bộ của plugin notes, rút gọn caption trang14/17 để không sát lề, tách nhãn Naive khỏi cột dữ liệu, tắt grain khi in để PDF giảm từ60MB còn503KB. Giữ theme và số liệu.
+- Điểm tiếp tục: bàn giao HTML/PDF, chờ góp ý câu chữ theo số slide. Không yêu cầu duyệt lại dàn ý/5slide khi user đã cho dựng toàn bộ. Khi sửa, đọc outline mới nhất và đồng bộ builder/HTML/PDF, kiểm lại phần có thay đổi.

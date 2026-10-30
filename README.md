@@ -1,5 +1,7 @@
 # VN30 Forecasting
 
+**Slide nhóm 1nsider:** [bản trình chiếu HTML offline](docs/slides/vn30-paper-ink.html), [PDF 20 trang](docs/slides/vn30-paper-ink.pdf) và [cách mở/chỉnh nội dung](docs/slides/README.md). Theo mẫu Paper & Ink, số liệu từ báo cáo PC.
+
 **Dashboard inference local:** xem [VN30 Inference Studio](demo/README.md). Chạy bằng `Start-Dashboard.cmd` từ gói ZIP đã build; có ba Kronos SFT, dữ liệu lịch sử mẫu, dark/light và VI/EN toggle. Demo được tách khỏi báo cáo nghiên cứu và không dùng hosted inference trả phí.
 
 Thử nghiệm dự báo VN30 bằng **Kronos mini/small/base**, **Chronos-2-small**, Naive, Ridge, ARIMA và ETS. Kết quả cũ chỉ gồm các model đã được ghi trong báo cáo lịch sử; có runner không đồng nghĩa mọi thí nghiệm mới đã chạy xong.
