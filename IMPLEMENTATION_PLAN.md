@@ -19,14 +19,14 @@ Không dùng mức 1 hoặc 2 để đánh dấu mức 3. Hiện chưa hoàn th�
 | Môi trường PC/CUDA, pinned code/model/tokenizer | Đã cài, checksum và GPU smoke đạt | Sẵn sàng về phần mềm |
 | Khôi phục dữ liệu, raw replay và đối chiếu nguồn | Đã chạy; có CSV và audit report | Chưa chấp nhận dataset |
 | Loader theo manifest, hash và điều kiện audit | Đã triển khai, có kiểm thử | Chặn dataset unverified |
-| Adapter mini/small/base/Chronos, alias tương thích | Đã triển khai; bốn model qua GPU smoke | Chưa chạy ZS VN30 mới |
+| Adapter mini/small/base/Chronos, alias tương thích | Đã triển khai; bốn model qua GPU smoke | Đủ 48 forecast validation/test thăm dò, ba seed |
 | SFT, epoch 0, checkpoint optimizer/RNG, resume | Đã triển khai; CPU/native mini GPU resume đạt | Đã đủ 12 SFT thăm dò × 5 epoch; chưa bằng chứng chính |
-| Ridge/ARIMA/ETS tuning validation, không fallback âm thầm | Đã triển khai | Chưa tuning/chấm dữ liệu thật |
-| Q3: 500/1.000/full, pretrained/random, ba seed | Đã triển khai; native random-init smoke đạt | Chưa có learning curve VN30 |
-| Q2: continuous/quantized, cùng encoder/backbone | Đã triển khai; integration GPU trên dữ liệu giả đạt | Chưa có ablation VN30 |
-| Q4: seed/horizon/volatility/fold/bootstrap | Đã triển khai; unit test và nhánh bootstrap integration đạt | Chưa có kết quả VN30 |
+| Ridge/ARIMA/ETS tuning validation, không fallback âm thầm | Đã triển khai; grid/lock kiểm lại | Đã có kết quả thăm dò; ARIMA 6/18 cấu hình không đủ coverage, không được chọn |
+| Q3: 500/1.000/full, pretrained/random, ba seed | Đã triển khai; kiểm 18 LR selection | Đủ 36 so sánh thăm dò và learning curve |
+| Q2: continuous/quantized, cùng encoder/backbone | Đã triển khai; hash khởi tạo hai nhánh khớp | Đủ ba seed thăm dò; không có lợi ích đồng nhất |
+| Q4: seed/horizon/volatility/fold/bootstrap | Đã kiểm lại trực tiếp 378 CI và 1.782 metric subgroup | Có bảng thăm dò, hai fold; hai fold không có high-vol origin |
 | Điều phối 24h, plan/run/resume/status/report | Đã chạy; clock không reset, audit gate chặn đúng | 5/288 hoàn thành; 283 blocked |
-| Báo cáo, seed summary, learning/loss plots, selected-score | Đã triển khai; incomplete report và positive scorer/report integration synthetic đạt | Chưa đủ số liệu kết luận Q1–Q4 |
+| Báo cáo, seed summary, learning/loss plots, selected-score | Postprocessor riêng kiểm input/selection và sinh từ CSV | Báo cáo PC Q1–Q4 thăm dò đã dựng; không đủ điều kiện nghiên cứu chính |
 | Tài liệu và ghi nhớ repo | Đang duy trì | Không thay thế artifact |
 
 ## 3. Đăng ký flaw và quyết định xử lý
@@ -140,6 +140,19 @@ Không dùng mức 1 hoặc 2 để đánh dấu mức 3. Hiện chưa hoàn th�
 Mốc budget lấy từ `state.json`. Việc chỉnh Markdown không reset hay thay đổi budget. Không tạo lại state hoặc âm thầm cấp thêm 24 giờ.
 
 ## 5. Cập nhật kế hoạch khi phát hiện hướng tốt hơn
+
+### F16 — Hậu kiểm và báo cáo chưa phản ánh kết quả mới
+
+- **Xử lý:** `experiments/finalize_pc_report.py` tách khỏi frozen core; không cần GPU lại. Kiểm input hashes, chọn baseline/random LR/epoch 0, tính lại CI/regime/period trực tiếp từ forecast/SQLite, xuất bảng/hình/nguồn và ma trận nghiệm thu.
+- **Bằng chứng:** numerical verifier vẫn đạt 88 nhóm/182 forecast/2.160 metric, CSV không đổi; kiểm thống kê 378 CI/1.782 subgroup rows khớp. Report mới tách best-trained/selected, giữ báo cáo lịch sử và chuyển README sang báo cáo PC.
+- **Giới hạn:** 1.230 sai khác OHLC vẫn chưa phân xử đầy đủ; sổ bằng chứng chỉ bổ sung hỗ trợ từng trường hợp, không mở audit gate. Source catalog có raw hash/URL; raw công bố local cần được giữ để tái kiểm byte.
+- **Nghiệm thu phần báo cáo:** full suite 64 ca đạt, skipped=1; hash các output khớp, local links không hỏng, đã xem hình main/ablation/hai learning curves. Kiểm ba orchestrator frozen cùng core; report_sources.json khóa đầu vào/đầu ra. Giá gốc vẫn không đổi. Giả thuyết High/Low bao gồm Close trước chỉ khớp 24/575 sai khác, đã ghi rõ không dùng để hiệu chỉnh đồng loạt.
+
+### F17 — Đường dẫn host và newline làm báo cáo khó kiểm lại
+
+- **Xử lý:** chỉ trong post-run reader, ánh xạ absolute receipt theo đúng tên repository sang root hiện tại, từ chối đường dẫn không nhận diện hoặc traversal. Không sửa các receipt forecast đã khóa. Giữ LF cho hai postprocessor và bytes của report sinh tự động bằng attributes.
+- **Kiểm chứng:** kiểm thử Windows/Linux path, traversal; numerical receipt cũ được archive khi thay verifier; metrics hash không đổi. Các source Python core vẫn đúng normalized hash đã khóa.
+- **Không khái quát:** chưa chạy toàn bộ pipeline huấn luyện trên Linux; đây là tương thích đọc lại artifact, không phải chứng nhận mọi environment.
 
 Mỗi thay đổi hướng làm cần ghi trong `AGENT_LOG.md`: flaw/bằng chứng, lựa chọn mới, lợi ích dự kiến, tác động tới tính công bằng/tái lập/chi phí, kiểm thử thực tế và trạng thái. Ghi ngắn gọn lý do kỹ thuật có thể kiểm chứng; không biến giả thuyết thành kết quả.
 

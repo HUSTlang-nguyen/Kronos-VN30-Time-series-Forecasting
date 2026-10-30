@@ -77,6 +77,19 @@ Mặc định `--checkpoint-choice best-trained` giữ đúng ý nghĩa so sánh
 
 ## Kiểm thử và đầu ra
 
+### Báo cáo kết quả PC và kiểm định sau chạy
+
+Đọc [báo cáo PC mới](VN30_PC_Research_Report.md). Hàng đợi thăm dò đã xong; không cần mở lại supervisor hoặc chạy GPU thêm để dựng báo cáo. Dataset vẫn unverified, primary run vẫn blocked; trạng thái complete của candidate không tự mở cổng nghiên cứu chính.
+
+```powershell
+.venv/Scripts/python.exe experiments/verify_completed_candidate.py
+.venv/Scripts/python.exe experiments/finalize_pc_report.py
+```
+
+Lệnh kiểm định đọc forecast và SQLite trực tiếp, kiểm 90 cặp best/selected checkpoint local. Postprocessor kiểm lại lựa chọn validation, bootstrap/regime/period, sinh bảng CSV/PNG và báo cáo Markdown. Cả hai không sửa checkpoint/forecast cũ; receipt numerical cũ được lưu vào history khi đổi phiên bản verifier. Các đường dẫn absolute trong receipt lịch sử được đọc bằng cách ánh xạ lại phần nằm trong chính repository, không cho traversal ra ngoài; output mới dùng đường dẫn tương đối.
+
+Các tham số postprocessor: `--candidate <candidate-directory>`, `--output <new-table-directory>`, `--report <new-report.md>`. Báo cáo mặc định ở `docs/VN30_PC_Research_Report.md`, bảng/hình và hồ sơ nguồn ở `artifacts/local/pc-exploratory-20261030/final-report/`. `selected_scores.csv` tách lựa chọn có xét epoch 0 khỏi best-trained; `completion_matrix.csv` ghi yêu cầu đã đạt và chưa đạt. Không lấy CSV mô tả volatility theo return thực hiện tương lai làm nhóm volatility của Q4.
+
 ### Huấn luyện thăm dò khi dataset vẫn unverified
 
 ```powershell

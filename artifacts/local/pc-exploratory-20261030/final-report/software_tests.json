@@ -1,0 +1,15 @@
+{
+  "status": "pass",
+  "tests": 64,
+  "skipped": 1,
+  "command": ".venv/Scripts/python.exe -m unittest discover -s tests -v",
+  "run_log_sha256": "acbde6baed2f654b34906bd232d5ceb0ea20393d8b51b3c2ad85162a6e97162d",
+  "native_gpu_resume": "previous separate opt-in pass; mini only",
+  "new_scenarios": [
+    "paired block bootstrap literal resampling",
+    "future test price changes leave past volatility and train cutoff unchanged",
+    "incomplete trial cannot win",
+    "foreign host paths and traversal",
+    "wrong cash-index symbol/date/semantics/value/hash rejected"
+  ]
+}

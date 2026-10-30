@@ -11,3 +11,7 @@ data/share/*.sha256 -text
 artifacts/** -text whitespace=cr-at-eol
 artifacts/**/*.safetensors filter=lfs diff=lfs merge=lfs -text
 artifacts/local/pc-rerun-*/**/*-best.pt filter=lfs diff=lfs merge=lfs -text
+# Generated report hashes must survive Windows/Linux checkout.
+docs/VN30_PC_Research_Report.md -text whitespace=cr-at-eol
+experiments/verify_completed_candidate.py text eol=lf
+experiments/finalize_pc_report.py text eol=lf

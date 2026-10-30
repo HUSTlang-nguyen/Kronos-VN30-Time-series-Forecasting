@@ -11,7 +11,7 @@ import argparse
 from datetime import datetime, timezone
 import hashlib
 import json
-from pathlib import Path
+from pathlib import Path, PureWindowsPath
 import sqlite3
 
 import numpy as np
@@ -30,8 +30,17 @@ def require(condition, message):
 
 
 def portable(value):
-    path = Path(str(value).replace("\\", "/"))
-    return path if path.is_absolute() else ROOT / path
+    value = str(value).replace("\\", "/")
+    path = Path(value)
+    if path.is_absolute() or value.startswith("/") or PureWindowsPath(value).is_absolute():
+        if path.is_absolute() and path.resolve().is_relative_to(ROOT):
+            return path.resolve()
+        marker = "/" + ROOT.name + "/"
+        require(marker in value, "Cannot rebase absolute artifact path outside this repository")
+        value = value.split(marker, 1)[1]
+    result = (ROOT / value).resolve()
+    require(result.is_relative_to(ROOT), "Artifact path escapes repository")
+    return result
 
 
 def close(actual, expected, message):
@@ -204,7 +213,17 @@ def main():
         "limitations": ["Does not certify market accuracy of provider labels", "Does not prove pretraining exclusion of VN30", "Does not independently rerun bootstrap or statistical model selection"],
         "input_hashes": {p.relative_to(ROOT).as_posix(): sha for p, sha in hashes.items() if p.is_relative_to(ROOT)},
     }
-    (out / "numerical_validation.json").write_text(json.dumps(receipt, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    target = out / "numerical_validation.json"
+    if target.exists() and read(target).get("verifier_sha256") != receipt["verifier_sha256"]:
+        old = read(target)
+        history = out / "history"
+        history.mkdir(exist_ok=True)
+        archived = history / ("numerical-validation-" + old["verifier_sha256"][:12] + ".json")
+        if archived.exists():
+            require(archived.read_bytes() == target.read_bytes(), "Numerical verification archive differs")
+        else:
+            archived.write_bytes(target.read_bytes())
+    target.write_text(json.dumps(receipt, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     print(json.dumps({k: v for k, v in receipt.items() if k != "input_hashes"}, indent=2))
 
 

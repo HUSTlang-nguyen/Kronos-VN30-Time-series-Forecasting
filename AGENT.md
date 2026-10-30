@@ -17,6 +17,12 @@ Các quyết định đã được người dùng chốt:
 
 ## Hiện trạng quan trọng
 
+**Cập nhật sau lệnh `proceed`:** đang hoàn thiện báo cáo mới `docs/VN30_PC_Research_Report.md` bằng postprocessor riêng, không sửa frozen src/scripts. Đã kiểm độc lập **378 CI bootstrap, 1.782 metric regime/period**, ba baseline validation locks, 18 lựa chọn random LR, 12 selected checkpoint có xét epoch 0. Báo cáo và bảng nằm ở `artifacts/local/pc-exploratory-20261030/final-report/`; đọc `verification.json`, `completion_matrix.csv` và `report_sources.json` thay vì các trạng thái lịch sử bên dưới. Dataset vẫn unverified; không đánh dấu nghiên cứu chính hoàn thiện.
+
+Phát hiện cần giữ: Chronos selected epoch 0 cả ba seed; Kronos-small random thắng pretrained ở Close h=5/20 tại budget 1.000/full trong ngân sách đã thử; lượng tử hóa không cải thiện đồng nhất; hai fold đều không có origin volatility cao theo train p90, test chính chỉ 17 origin cao trong hai cụm. Test h=1 có 59 nhãn trong đoạn Open bất thường khiến Naive Open error bằng 0; không coi đó là chứng minh dự báo Open chính thức tốt.
+
+Verifier hậu kiểm đã hỗ trợ ánh xạ receipt tuyệt đối của Windows/Linux về chính repo và chặn traversal. Lưu lịch sử numerical receipt khi đổi phiên bản verifier; metric CSV tính lại không đổi. `.gitattributes` giữ byte report và LF của postprocessor để hash ổn định qua checkout. Raw công bố bổ sung vẫn local; source catalog chứa URL/hash, không hứa tải lại HTML động cho cùng bytes.
+
 **Cập nhật bàn giao 30/10/2026 21:17 +07:** hàng đợi thăm dò đã kết thúc lúc **18:22:28 +07**, supervisor tự thoát sau khi đủ 11 baseline jobs, 48 neural forecasts, score ba seed, 36 learning comparisons và 5 followup jobs (ba ablation seed, hai fold). Kiểm tra process thật bằng psutil không còn supervisor/Q3/followup sống. Không khởi động lại các job đã xong. Các mô tả “đang chạy/xếp hàng” bên dưới là lịch sử trước mốc này. Đây mới là hoàn tất hàng đợi phần mềm; cần kiểm định đầu ra từ forecast/nhãn và tổng hợp báo cáo, chưa hoàn tất nghiên cứu. Dataset vẫn unverified.
 
 Người dùng từng yêu cầu pause agent ba giờ; chưa tạo được lịch tự gọi lại agent. Không hứa tự thức dậy: cấu hình hai lần gọi đã bị bộ duyệt tự động từ chối và không được thực hiện. PC đã tự hoàn tất công việc trong lúc chờ, không cần giữ GPU chạy vô ích. **Người dùng đã quay lại, thông báo quota đầy và hỏi trạng thái; tiếp tục kiểm định đầu ra và báo cáo, không pause theo yêu cầu cũ.** Goal tự động trong chat đã được người dùng xóa; không tự tạo goal mới. Deadline gốc vẫn giữ.
@@ -65,7 +71,7 @@ Nhánh thăm dò: `artifacts/local/pc-exploratory-20261030/`, chạy bằng `scr
 
 ## Cách tiếp tục
 
-### Bàn giao chạy cục bộ khi agent tạm dừng 3 giờ
+### Lịch sử bàn giao chạy cục bộ khi agent tạm dừng 3 giờ
 
 Người dùng đã yêu cầu sau khi kiểm tra bàn giao thì **tạm dừng agent theo dõi 3 giờ, PC tiếp tục chạy** để dành quota. Pipeline cục bộ không dùng LLM. Không dừng các tiến trình tính toán khi tạm dừng goal trong chat.
 

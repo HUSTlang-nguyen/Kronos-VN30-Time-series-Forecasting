@@ -1,10 +1,10 @@
 {
-  "checked_utc": "2026-10-30T14:21:44.892720+00:00",
+  "checked_utc": "2026-10-30T14:46:31.018140+00:00",
   "status": "pass",
   "evidence_scope": "exploratory_only",
   "dataset_accepted": false,
   "dataset_sha256": "fee0bd8c240a9d2be4ef5c9d287eede6c5506b0358c25545e72de99709da4fd2",
-  "verifier_sha256": "733a6efb11f1a265820917f05bbba5409604ce7c5a74073d73b72668e1801970",
+  "verifier_sha256": "2a3bef6c437d3e2b6329bb8b347af4e6f9c3f37344fb3f5535f3508b5d2d728e",
   "score_groups": 88,
   "forecast_files": 182,
   "metric_rows": 2160,
@@ -1943,7 +1943,7 @@
     "artifacts/local/pc-exploratory-20261030/learning/lr-trials/kronos-small-s44-nfull-random/1e-06/selected/config.json": "9f2eaded8ae01947aa7e1967e3a2a618b35f895fd4daf7f0bcfd728dab57a040",
     "artifacts/local/pc-exploratory-20261030/learning/lr-trials/kronos-small-s44-nfull-random/1e-06/selected/model.safetensors": "2e518b3a87969dbecd951d0269a6f3a58b4d6a53f24a698939dd5a72c2a9f915",
     "artifacts/local/pc-exploratory-20261030/learning/lr-trials/kronos-small-s44-nfull-random/1e-06/selected/README.md": "ec40d6b5978fe1ed22e92abe5f9033b5147fc474209dc245df3b4fb8d4dfbf4c",
-    "experiments/verify_completed_candidate.py": "733a6efb11f1a265820917f05bbba5409604ce7c5a74073d73b72668e1801970",
+    "experiments/verify_completed_candidate.py": "2a3bef6c437d3e2b6329bb8b347af4e6f9c3f37344fb3f5535f3508b5d2d728e",
     "artifacts/local/pc-exploratory-20261030/review/recomputed_metrics.csv": "ada0f6c1c85ade6ceb9cc5405d8194f2ae9258c9473122c43d623e46a0712fc2"
   }
 }
