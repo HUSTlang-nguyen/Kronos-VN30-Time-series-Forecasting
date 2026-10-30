@@ -1,385 +1,286 @@
-# Dự báo VN30 với Kronos mini, small và base
+# Kronos-VN30-Time-series-Forecasting
 
-**Dàn ý đã triển khai · 20 slide, gồm bìa và kết luận · 31/10/2026**
+**Dàn ý V2 đã triển khai · 20 slide · 31/10/2026**
 
-- **Người nghe dự kiến:** giảng viên hoặc nhóm nghiên cứu có kiến thức cơ bản về học máy và chuỗi thời gian. Đây là giả định để soạn dàn ý, có thể chỉnh khi duyệt.
-- **Mục tiêu:** trình bày cách làm lại nghiên cứu trên PC, trả lời Q1–Q4 bằng kết quả đã kiểm định và nêu đúng giới hạn của bằng chứng.
-- **Thời lượng đề xuất:** khoảng 20–25 phút, chưa chốt.
-- **Ngôn ngữ:** tiếng Việt, giữ tên model và thuật ngữ cần thiết.
-- **Định dạng theo mẫu:** slide HTML Paper & Ink, 16:9. Nền giấy ngà, chữ đen, Be Vietnam Pro và IBM Plex Mono, đường kẻ mảnh, bố cục thoáng. Cuộn dọc và Tab/Shift+Tab theo khung được cung cấp. Có thể xuất PDF sau khi dựng và kiểm tra.
-- **Trạng thái:** người dùng đã yêu cầu dựng toàn bộ. Đã tạo `vn30-paper-ink.html` và `vn30-paper-ink.pdf`, đủ 20 slide. File này giữ cấu trúc và REVIEW cho các lượt chỉnh tiếp theo. Tổng số giữ tối đa 20, kể cả nếu bổ sung trang tài liệu hoặc phụ lục.
-- **Nguồn chính:** [báo cáo PC ngày 30/10][R] và CSV/receipt của chính lượt PC. Dashboard là sản phẩm phụ riêng, không đưa vào nội dung nghiên cứu này.
+- Giữ Paper & Ink, nhóm **1nsider**, **Vi Nguyễn Ngọc Châu** và **Nguyễn Hoàng Kiên**.
 
-**Thông điệp xuyên suốt:** các thí nghiệm thăm dò đã chạy và được kiểm định số học. Trong thiết lập này, neural model chưa vượt Naive một cách ổn định. Dữ liệu còn chưa được chấp nhận cho kết luận nghiên cứu chính.
+- Thuật ngữ: **pre-trained, encode, decode, weight, train, inference, predict, tokenizer, quantize, baseline, validation, test, epoch**. Tokenization và quantize không đồng nghĩa.
 
-**Quy ước khi dựng:** `-ft` là checkpoint tốt nhất **sau cập nhật**, còn `selected` cho phép chọn cả pretrained ở epoch 0 bằng validation. Điểm chính dùng MAE, đơn vị điểm chỉ số. Trung bình và SD giữa ba seed không phải khoảng tin cậy theo thị trường. Số liệu dưới đây dùng dấu phẩy thập phân.
+- HTML offline và PDF cùng 20 slide. Chỉ sửa trình bày, không train thêm hoặc thay data/checkpoint/report/score. Q3 giữ small/Chronos.
 
-## Slide 01 — Dự báo VN30 với Kronos mini, small và base
+- Source boundary và assumptions cần thiết trong notes; bỏ nhãn trạng thái, câu chuyện môi trường mới và hai trang kiểm định/giới hạn riêng khỏi phần trình chiếu.
 
-**Vai trò:** giới thiệu đề tài và phạm vi đánh giá.
+- Giữ REVIEW gốc bên dưới, dùng các REVIEW theo số trang mới để góp ý tiếp.
 
-**Nội dung:**
+## Slide 01 — Bìa
 
-- Tên project: **Kronos-VN30-Time-series-Forecasting**.
-- Nhóm: **1nsider**. Thành viên: **Vi Nguyễn Ngọc Châu**, **Nguyễn Hoàng Kiên**.
-- Không thêm dòng phụ cũ, trường, người hướng dẫn hoặc logo.
+**Vai trò:** Nhận diện project và nhóm.
 
-**Visualize:** bìa chữ lớn theo mẫu, nền giấy ngà và một câu phụ, không có bảng hoặc hình dashboard.
+**Nội dung:** Kronos-VN30-Time-series-Forecasting. Nhóm 1nsider. Thành viên Vi Nguyễn Ngọc Châu, Nguyễn Hoàng Kiên.
 
-**Nguồn và lưu ý:** [R]. Nêu phạm vi thăm dò ngay ở lời dẫn và slide 02, không biến bìa thành bảng trạng thái kỹ thuật.
+**Visualize:** Bìa giữ nguyên tên project, nhóm và hai thành viên.
 
-> REVIEW: slide cần phải có tên nhóm: 1nsider, thành viên nhóm: Vi Nguyễn Ngọc Châu, Nguyễn Hoàng Kiên và tên project này Kronos-VN30-Time-series-Forecasting, bỏ qua - Tiêu đề như trên, dòng phụ ngắn: “Đánh giá trên PC với baseline và Chronos-2-small”. Không tự thêm tên tác giả, trường, người hướng dẫn hoặc logo chưa được cung cấp.
+**Nguồn và lưu ý:** Thông tin người dùng cung cấp.
 
-> Đã xử lý: bìa dùng đúng tên project, nhóm và hai thành viên như trên, bỏ dòng phụ cũ.
+> REVIEW:
 
 ## Slide 02 — Bốn câu hỏi nghiên cứu
 
-**Vai trò:** giúp người nghe biết mỗi nhóm thí nghiệm trả lời vấn đề gì.
+**Vai trò:** Nêu bốn câu hỏi bằng lời trực tiếp.
 
-**Nội dung:**
+**Nội dung:** Baseline là phương pháp làm chuẩn so sánh. Q2 kiểm tra hai việc: so các hệ thống mini/small/base và thay riêng bước quantize trong ablation. Q4 kiểm tra MAE khi đổi seed, prediction horizon và giai đoạn test. Một model tốt ở một giai đoạn chưa chắc tiếp tục tốt ở giai đoạn khác.
 
-- **Q1:** Kronos và Chronos so với Naive, Ridge, ARIMA, ETS như thế nào?
-- **Q2:** kích thước model và lượng tử hóa representation ảnh hưởng ra sao?
-- **Q3:** lượng dữ liệu và pretraining của predictor đóng góp như thế nào?
-- **Q4:** kết quả ổn định đến đâu theo seed, horizon và giai đoạn thị trường?
-- Một câu xác định phạm vi: “Kết quả thăm dò trên snapshot VN30 chưa được xác minh đầy đủ”.
+**Visualize:** Bảng Q1–Q4 và experiment tương ứng, giải thích MAE ngắn.
 
-**Visualize:** bảng bốn hàng, hai cột “Câu hỏi” và “Bằng chứng sử dụng”. Mỗi hàng gắn với nhóm slide kết quả tương ứng.
-
-**Nguồn và lưu ý:** [R], [C]. Không đặt mục tiêu chứng minh model lớn hoặc SFT chắc chắn tốt hơn.
+**Nguồn và lưu ý:** Nguồn: Báo cáo thực nghiệm · Bảng kết quả Q1–Q4. Source links đầy đủ trong speaker notes.
 
 > REVIEW:
 
-## Slide 03 — Cách Kronos xử lý chuỗi giá
+## Slide 03 — Baseline · Naive và Ridge
 
-**Vai trò:** giải thích representation trước khi nói về model và ablation.
+**Vai trò:** Giải thích Naive và Ridge trước cấu hình.
 
-**Nội dung:**
+**Nội dung:** Naive không train và không nhìn target Open tương lai. Ridge thực tế dùng 128 × 4 OHLC features; scaler input và target chỉ fit trên train, output gồm 20 × 4 giá trị. Công thức Ridge: prediction = bias + tổng weight_i × feature_i. Alpha điều khiển regularization, tức hạn chế weight quá lớn; alpha = 10 được chọn trên validation từ 1/10/100/1000. Ví dụ giá 100/102 và weight 0,3/0,7 trên slide chỉ minh họa, không phải weight đã fit.
 
-- Tokenizer mã hóa chuỗi nến thành biểu diễn rời rạc, predictor dự báo token, decoder khôi phục chuỗi giá.
-- Zero-shot dùng trọng số có sẵn, SFT cập nhật predictor bằng tập train VN30 và giữ tokenizer cố định.
-- Snapshot thiếu volume/amount, adapter điền 0. Đây là giới hạn đầu vào.
+**Visualize:** Bảng Naive/Ridge, cách predict và ví dụ số có nhãn minh họa.
 
-**Visualize:** sơ đồ một hàng có nhãn rõ: context OHLC và kênh phụ, encoder, lượng tử hóa, predictor, decoder, path giá. Đánh dấu phần cố định và phần cập nhật trong SFT bằng nét/nhãn, không dùng màu trang trí.
-
-**Nguồn và lưu ý:** [R] mục 2 và 5, [K]. Sơ đồ mô tả luồng xử lý, không suy ra lợi thế dự báo từ kiến trúc.
+**Nguồn và lưu ý:** Nguồn: Adapter Ridge / Naive · baseline_selection.csv. Source links đầy đủ trong speaker notes.
 
 > REVIEW:
 
-## Slide 04 — Các model trong thực nghiệm
+## Slide 04 — Baseline · ARIMA và ETS
 
-**Vai trò:** xác định ba Kronos và vai trò đối chứng của Chronos.
+**Vai trò:** Giải thích ARIMA và ETS.
 
-**Nội dung:**
+**Nội dung:** ARIMA là AutoRegressive Integrated Moving Average. AR dùng lag của chuỗi, I là differencing, MA dùng error quá khứ. Trong cấu hình (0,1,0) không drift, prediction bằng giá trị cuối của kênh. ETS ở đây dùng exponential smoothing, thử level, additive trend và damped trend, không seasonal. Cấu hình level được chọn cho Close prediction trùng Naive trong experiment này. ARIMA/ETS fit Open riêng với Close; Naive dùng Close cho cả hai nên Open error không trùng. Lỗi convergence được ghi, không có fallback thay bằng Naive.
 
-- Kronos-mini khoảng 4,1M, small 24,7M, base 102,3M tham số.
-- Mini dùng Tokenizer-2k, small/base dùng Tokenizer-base.
-- Chronos-2-small khoảng 27,9M là model đối chứng tổng quát cho chuỗi thời gian, đã có trong bài VN30 cũ.
-- Cả bốn có zero-shot và SFT. Toàn bộ checkpoint và kết quả trình bày lấy từ lượt PC mới.
+**Visualize:** Bảng ARIMA/ETS, thông tin dùng và cấu hình; giải thích Close trùng Naive.
 
-**Visualize:** bảng bốn hàng với cột model, số tham số, tokenizer/cách biểu diễn và chế độ đánh giá.
-
-**Nguồn và lưu ý:** [R], [P], [U]. Khác tokenizer khiến so mini với small/base không đo riêng tác động số tham số. Không so trực tiếp native loss giữa các họ model.
+**Nguồn và lưu ý:** Nguồn: statistical_baselines.py · baseline_selection.csv. Source links đầy đủ trong speaker notes.
 
 > REVIEW:
 
-## Slide 05 — Snapshot VN30 và phân chia thời gian
+## Slide 05 — Kiến trúc Kronos
 
-**Vai trò:** giới thiệu dữ liệu và quy mô thực tế của tập đánh giá.
+**Vai trò:** Giải thích kiến trúc và phần cập nhật khi SFT.
 
-**Nội dung:**
+**Nội dung:** KronosTokenizer gồm encoder/decoder Transformer và Binary Spherical Quantization (BSQ). API encode thực tế gồm embed, encoder, quant_embed và quantizer rồi trả token IDs. Sơ đồ tách encode features và quantize để giải thích rõ vai trò. Predictor có hierarchical token embedding, temporal embedding, causal Transformer, s1 head và conditional s2 head. S2 phụ thuộc s1 trong cùng bước. Causal nghĩa là chỉ nhìn token quá khứ để predict token tiếp theo. Decode chuyển token về OHLC rồi khôi phục thang giá. Khi SFT, tokenizer giữ nguyên weight, predictor được cập nhật weight. Volume/amount thiếu được điền 0, không phải khối lượng giao dịch thực.
 
-- VNDIRECT, 2.271 phiên từ 24/08/2017 đến 01/10/2026, đơn vị điểm chỉ số.
-- Train: 1.589 phiên, kết thúc 29/12/2023. Validation: 340 phiên, 02/01/2024–20/05/2025. Test: 342 phiên, 21/05/2025–01/10/2026.
-- Số origin hợp lệ: train 1.442, validation 321, test 323. Origin là thời điểm phát dự báo sau Close của phiên t.
+**Visualize:** Sơ đồ input, tokenization, Transformer, decode, output; bảng tokenizer/predictor và phần trainable.
 
-**Visualize:** timeline ba đoạn và bảng nhỏ “Số phiên / Số origin”. Hiện ngày biên, không chỉ ghi tỷ lệ 70/15/15.
-
-**Nguồn và lưu ý:** [R] mục 1–2. Request từ 2012 nhưng nguồn chỉ trả từ 2017. Hàng 01/10/2026 ngoài request vẫn nằm trong snapshot được giữ để đối chiếu, không gọi là đã đạt phạm vi thu thập mong muốn.
+**Nguồn và lưu ý:** Nguồn: KronosTokenizer / Kronos · Source revision đã khóa. Source links đầy đủ trong speaker notes.
 
 > REVIEW:
 
-## Slide 06 — Kiểm tra dữ liệu trước thực nghiệm
+## Slide 06 — Kronos và các model còn lại
 
-**Vai trò:** đặt điều kiện diễn giải kết quả trước khi trình bày điểm số.
+**Vai trò:** So model theo input, cách học, output và số tham số.
 
-**Nội dung:**
+**Nội dung:** M là triệu tham số. Các baseline trong thiết lập này không dùng weight pre-trained từ tập dữ liệu lớn bên ngoài: Naive dùng quy tắc, Ridge/ARIMA/ETS fit theo dữ liệu VN30. Kronos được pre-trained cho chuỗi OHLC với tokenization. Chronos là đối chứng chuỗi thời gian tổng quát và trả quantile predictions. Mini dùng tokenizer khác small/base nên so mini với small/base không đo riêng tác động của số tham số. SFT trong bảng kết quả là best-trained; selected có thể giữ epoch 0. Không so native loss giữa các họ model khác nhau.
 
-- Raw replay, timestamp và SQLite integrity đã qua kiểm tra.
-- Có 1.230 phép so sánh OHLC lệch hơn 0,02 điểm so với VPS/DNSE, gồm 60 ngày Close khác nguồn.
-- Có 78 phiên Open bằng Close trước, trong đó 71 phiên liên tiếp từ 05/05 đến 11/08/2025.
-- Chưa có đủ bằng chứng phân xử OHLC và lịch sàn chính thức. Dataset giữ trạng thái **unverified**, không sửa giá hoặc ghép nguồn theo từng ô.
+**Visualize:** Bảng baseline, ba Kronos và Chronos theo input/output/parameter count; giữ tokenizer mapping.
 
-**Visualize:** bảng “Đã xác minh / Còn thiếu bằng chứng” và một dải thời gian đánh dấu đoạn Open bất thường. Chi tiết từng trường chuyển vào notes.
-
-**Nguồn và lưu ý:** [A], [D], [R] mục 1. 1.230 là số phép so sánh khác nhau, không phải số lỗi VNDIRECT đã chứng minh. Việc trùng mốc KRX chỉ là giả thuyết điều tra.
-
-> REVIEW: nên nói giảm nói tránh phần còn nghi vấn hoặc lấp bằng việc đã xử lý kỹ lưỡng (mặc dù thực tế không phải vậy)
-
-> Đã xử lý phần diễn đạt: trình bày gọn và trung tính những việc đã kiểm, tách các khác biệt còn cần đối chiếu. Giữ đúng trạng thái chưa xác minh đầy đủ, không ghi đã xử lý xong khi chưa có bằng chứng.
-
-## Slide 07 — Quy trình dự báo và đánh giá chung
-
-**Vai trò:** giải thích tính công bằng và cách tránh sử dụng nhãn tương lai.
-
-**Nội dung:**
-
-- Context 128 phiên, sinh path 20 phiên, chấm Open/Close tại h=1/5/20 bằng MAE và RMSE.
-- Toàn bộ 20 nhãn của một origin phải nằm trong split tương ứng. Các model trong cùng bảng dùng cùng origin.
-- Seed 42/43/44. Scaler và lựa chọn cấu hình không học từ test. Forecast được lưu trước khi ghép nhãn thật.
-- Kronos lấy trung bình ba path, T=1 và top-p=0,9. Chronos lấy trung bình đều 13 quantile.
-
-**Visualize:** một cửa sổ thời gian có 128 phiên quá khứ và 20 phiên đích, đánh dấu h=1/5/20. Bên dưới là quy trình train, chọn trên validation, chấm test đã khóa.
-
-**Nguồn và lưu ý:** [R] mục 2. Quantile không phải mẫu ngẫu nhiên. Đây là đánh giá hồi cứu, dùng ngày phiên đích lịch sử đã biết, chưa chứng minh loại bỏ rò rỉ từ pretraining.
+**Nguồn và lưu ý:** Nguồn: Model/tokenizer provenance · resources.csv. Source links đầy đủ trong speaker notes.
 
 > REVIEW:
 
-## Slide 08 — SFT và lựa chọn checkpoint
+## Slide 07 — Session và forecast origin
 
-**Vai trò:** tách tác động fine-tuning khỏi quyết định chọn model sử dụng.
+**Vai trò:** Phân biệt session và forecast origin.
 
-**Nội dung:**
+**Nội dung:** Session là một phiên giao dịch, tương ứng một dòng OHLC. Forecast origin là session cuối input, sau khi đã có Close. Các origins liền nhau có input và target chồng lấn. Origin đầu của test là 20/05/2025, target đầu là 21/05/2025. Context 128 session được lấy từ quá khứ trước biên test, nên không trừ thêm 128 khi tính số test origins: 342 - 20 + 1 = 323. Train windows phải có cả input và target nằm trong train: 1589 - 128 - 20 + 1 = 1442. Request bắt đầu năm 2012 nhưng snapshot chỉ có từ 2017; một hàng ngoài request vẫn được giữ để đối chiếu, không tự nội suy session.
 
-- FP32, AdamW, LR chính 1e-6, tối đa năm epoch, effective batch 16, clipping 1,0. Tokenizer Kronos giữ cố định.
-- Lưu checkpoint tốt nhất sau cập nhật và lựa chọn tốt nhất có xét epoch 0 pretrained.
-- Ba Kronos chọn epoch 5 ở cả ba seed. Chronos chọn epoch 0 ở cả ba seed theo native validation.
+**Visualize:** Bảng split, timeline 128 input / 20 target và phép tính 342 − 20 + 1 = 323.
 
-**Visualize:** bảng bốn hàng “Model / Best-trained epoch / Selected epoch” và một chú giải ngắn về hai loại checkpoint. Không đặt native loss khác hệ lên cùng trục để xếp hạng.
-
-**Nguồn và lưu ý:** [E], [S], [R] mục 4. Các bảng mang hậu tố `-ft` phía sau dùng best-trained; selected Chronos quay về zero-shot. Năm epoch không chứng minh hội tụ.
+**Nguồn và lưu ý:** Nguồn: Split đã khóa · Context 128 / prediction horizon 20. Source links đầy đủ trong speaker notes.
 
 > REVIEW:
 
-## Slide 09 — Baseline và lựa chọn trên validation
+## Slide 08 — Pre-process data
 
-**Vai trò:** cho thấy baseline thống kê được triển khai và chọn cấu hình rõ ràng.
+**Vai trò:** Mô tả pre-process thực tế.
 
-**Nội dung:**
+**Nội dung:** Slide mô tả các bước pre-process đã làm, không tuyên bố mọi khác biệt đã xử lý xong. Audit giữ unverified: 1.230 phép so sánh OHLC khác nguồn hơn 0,02 điểm, gồm 60 ngày Close khác nguồn; có 78 Open bằng Close trước, trong đó 71 phiên liên tiếp từ 05/05 đến 11/08/2025. Đây là số phép so sánh khác nhau, chưa phải số lỗi VNDIRECT đã chứng minh. Calendar khớp lịch VNINDEX quan sát từ VPS, chưa là xác nhận lịch sàn chính thức. Không điền session thiếu, không sửa giá, không ghép nguồn theo từng ô.
 
-- Naive giữ Close tại origin cho cả Open và Close tương lai.
-- Ridge chọn alpha=10 trong lưới bốn giá trị. ARIMA chọn (0,1,0) trong 18 cấu hình, ETS chọn level trong ba cấu hình.
-- ARIMA/ETS refit trên 128 phiên ở từng origin. Cấu hình lỗi hoặc thiếu coverage không được thắng lựa chọn, không thay ngầm bằng Naive.
-- Tiêu chí validation tổng hợp MAE Open/Close tại ba horizon, chuẩn hóa bằng SD từng kênh trên train.
+**Visualize:** Bảng bước, thao tác thực tế và cách giữ dữ liệu; không có khối cảnh báo trên trang.
 
-**Visualize:** bảng bốn baseline, quy tắc dự báo, lưới đã thử và cấu hình được chọn. Đưa 491 failed-origin fits của lưới ARIMA vào notes với đúng ngữ nghĩa.
-
-**Nguồn và lưu ý:** [B], [R] mục 3. ARIMA và ETS đã chọn cho Close trùng forecast Naive, không tính ba nhãn thành ba bằng chứng độc lập.
+**Nguồn và lưu ý:** Nguồn: Raw replay / audit / source comparison. Source links đầy đủ trong speaker notes.
 
 > REVIEW:
 
-## Slide 10 — Q1: Sai số Close trên test
+## Slide 09 — Inference và prediction cuối
 
-**Vai trò:** trình bày kết quả chính để trả lời Q1.
+**Vai trò:** Phân biệt sampled paths và quantile.
 
-**Nội dung:**
+**Nội dung:** Inference là chạy model với input để tạo prediction. Kronos sample 3 paths, mỗi path dài 20 session, dùng T = 1 và top-p = 0,9; cuối cùng lấy mean theo từng target session và từng kênh. Chronos trả 13 quantile levels. Q50 là median; q10/q90 là vị trí thấp/cao trong phân phối prediction. Ví dụ trên slide chỉ hiện 3 mức để giải thích, không phải experiment chỉ dùng 3 quantile. Implementation lấy mean của đủ 13 quantile, không gọi đó là median hoặc kỳ vọng chính xác, cũng không phải 13 random paths. Ba seed 42/43/44 là ba lần chạy experiment, khác với 3 sampled paths trong mỗi lần.
 
-- Naive đạt MAE h=1/5/20 lần lượt 17,722 / 45,165 / 93,826 điểm.
-- Kronos-base SFT đạt 21,234 / 54,709 / 98,849. Mini SFT đạt 20,127 / 50,188 / 108,490. Small SFT đạt 20,326 / 55,690 / 138,716.
-- Chronos best-trained SFT đạt 20,104 / 48,198 / 99,976.
-- Neural model chưa vượt Naive ở cả ba horizon xét trung bình ba seed trong bảng chính.
+**Visualize:** Hai bảng minh họa sampled paths/quantile, ghi rõ không phải output thực nghiệm. Experiment dùng đủ 13 quantile.
 
-**Visualize:** bảng sáu hàng gồm Naive, Ridge, ba Kronos SFT và Chronos SFT, ba cột horizon. Giữ mean ± SD cho neural. Ghi chú ARIMA/ETS trùng Naive Close. Zero-shot được phân tích tiếp ở slide 12, đủ số liệu gốc trong notes.
-
-**Nguồn và lưu ý:** [M], [R] mục 3. Nhãn `-ft` dùng best-trained theo slide 08, không gọi Chronos SFT là lựa chọn validation cuối cùng. Đây là kết luận trên snapshot và protocol đã thử.
+**Nguồn và lưu ý:** Nguồn: Adapter Kronos / Chronos · Aggregation đã khóa. Source links đầy đủ trong speaker notes.
 
 > REVIEW:
 
-## Slide 11 — Q1: Open và ảnh hưởng của đoạn bất thường
+## Slide 10 — Train và checkpoint selection
 
-**Vai trò:** cho thấy lỗi dữ liệu có thể ảnh hưởng cách đọc một kết quả tốt.
+**Vai trò:** Giải thích best epoch 5 và checkpoint selection.
 
-**Nội dung:**
+**Nội dung:** Checkpoint là bản lưu weight model. Epoch là một lượt train qua training windows. Curve là validation loss thực tế của Kronos-small, seed 42, từ epoch 0 đến 5, không phải test MAE. Validation loss vẫn giảm tới giới hạn cuối nên còn khả năng cải thiện nếu train thêm, nhưng chưa kiểm chứng và không đủ để kết luận chắc chắn underfit. Không train thêm trong đợt sửa slide. Cả ba Kronos chọn epoch 5 và Chronos chọn epoch 0 ở cả ba seed. Best-trained Chronos là epoch 1. Trong bảng, Sel. là selected có xét epoch 0. Không dùng test để chọn epoch hoặc so native loss giữa tokenizer/model khác nhau.
 
-- Open h=1: Naive 5,959 điểm, ba Kronos SFT khoảng 9,806–10,466, Chronos SFT 20,671.
-- Trong 323 origin h=1, có 59 nhãn đích nằm trong đoạn Open bất thường.
-- Naive có Open MAE bằng 0 trên 59 nhãn đó, so với 7,291 trên 264 origin còn lại.
-- Kết quả Open chưa đủ cơ sở đánh giá khả năng dự báo giá mở cửa chính thức.
+**Visualize:** Curve validation loss thật của Kronos-small seed 42, epoch 0–5, và bảng best SFT/selected.
 
-**Visualize:** bảng Open h=1/5/20 cho Naive và bốn neural SFT, kèm một phần chú giải hai nhóm 59/264 origin và MAE tương ứng. Không thu nhỏ chữ để nhồi bảng toàn bộ 12 model.
-
-**Nguồn và lưu ý:** [M], [R] mục 1 và 3. Đây là chẩn đoán theo đoạn bất thường đã phát hiện, không tạo một tập test mới để chọn model. Không diễn giải mọi trường hợp Open bằng Close trước là lỗi đã xác nhận.
+**Nguồn và lưu ý:** Nguồn: history.csv · Kronos-small seed 42 · checkpoint_selection.csv. Source links đầy đủ trong speaker notes.
 
 > REVIEW:
 
-## Slide 12 — Q2: Kích thước, tác động SFT và chi phí
+## Slide 11 — Q1 · Close MAE
 
-**Vai trò:** so sánh ba Kronos mà vẫn giữ điều kiện diễn giải.
+**Vai trò:** Trình bày Close MAE.
 
-**Nội dung:**
+**Nội dung:** MAE là mean absolute error, đơn vị điểm chỉ số. Mean ± SD mô tả ba seed 42/43/44. SFT trong bảng là best-trained để đo tác động cập nhật, không phải mọi selected checkpoint. Chronos selected giữ epoch 0. ARIMA/ETS Close trùng Naive trong experiment này, không phải ba bằng chứng độc lập. SD giữa seed không phải confidence interval theo thị trường. CSV có đủ validation/test, zero-shot và RMSE.
 
-- Close h=20 của base giảm từ 166,781 zero-shot xuống 98,849 sau SFT, cải thiện 67,932 điểm nhưng vẫn cao hơn Naive 93,826.
-- Mini SFT có Close MAE thấp hơn small SFT tại cả ba horizon. Base SFT tốt hơn mini tại h=20 nhưng không tại h=1/5.
-- Chi phí huấn luyện và peak tensor allocated tăng theo kích thước trong phép đo PC: mini khoảng 0,198 GiB, small 0,780 GiB, base 2,543 GiB.
+**Visualize:** Bảng Naive/Ridge/bốn SFT, ba horizon, mean ± SD.
 
-**Visualize:** biểu đồ cặp zero-shot/SFT tại Close h=20 cho mini/small/base, đường tham chiếu Naive. Bảng chi phí ba hàng dùng số tham số, thời gian SFT đo được và peak tensor allocated.
-
-**Nguồn và lưu ý:** [M], [U], [R] mục 5 và 8. Không gọi đây là quan hệ nhân quả thuần túy của số tham số vì mini khác tokenizer. Thời gian là đo trên RTX 4070 SUPER; VRAM tensor không phải tổng VRAM và không phải phép đo laptop hay inference.
-
-> REVIEW: có thể dùng ảnh trong VN30_PC_Research_Report
-
-> Đã xử lý: dựng lại biểu đồ từ CSV cùng nguồn của báo cáo, giữ số liệu và thêm bảng chi phí. Dùng SVG để khớp theme và giữ chữ đọc được, sửa được.
-
-## Slide 13 — Q2: Ablation lượng tử hóa có kiểm soát
-
-**Vai trò:** cung cấp bằng chứng riêng về một thành phần representation.
-
-**Nội dung:**
-
-- Cùng encoder tokenizer small cố định, cùng backbone random, numeric head/MSE, dữ liệu, ngân sách và ba seed.
-- So đặc trưng liên tục L2-normalized với đặc trưng sau lượng tử hóa BSQ.
-- Close MAE h=1 gần bằng nhau ở mức 22,832. Tại h=5: continuous 66,015 và quantized 67,571. Tại h=20: 144,375 và 150,927.
-- Chưa quan sát lợi ích đồng nhất của lượng tử hóa trong thiết lập này.
-
-**Visualize:** sơ đồ hai nhánh chỉ khác bước lượng tử hóa, bên cạnh biểu đồ MAE ± SD theo ba horizon. Nhãn trục nêu rõ điểm chỉ số.
-
-**Nguồn và lưu ý:** [Q], [R] mục 5. Chênh lệch mean chưa tự chứng minh ý nghĩa thống kê. Ablation này không tách mọi thành phần của K-line representation và không thay thế toàn bộ mô hình pretrained.
+**Nguồn và lưu ý:** Nguồn: main_summary.csv · Test 323 forecast origins. Source links đầy đủ trong speaker notes.
 
 > REVIEW:
 
-## Slide 14 — Q3: Lượng dữ liệu và predictor pretraining
+## Slide 12 — Q1 · Vì sao Naive Open error = 0?
 
-**Vai trò:** trình bày learning curve và đối chứng khởi tạo ngẫu nhiên.
+**Vai trò:** Giải thích Naive Open error bằng 0 bằng dữ liệu thật.
 
-**Nội dung:**
+**Nội dung:** Dữ liệu thật: Close ngày 20/05/2025 = 1407,52; Open ngày 21/05/2025 = 1407,52; Naive Open prediction = 1407,52. Absolute error = |1407,52 - 1407,52| = 0. Hàng này đã đối chiếu SQLite gốc, CSV sample và naive-s42-zs-test.csv. Có 59 origins h=1 có target trong đoạn Open 05/05–11/08/2025, đều cho error bằng 0. Naive không có rule riêng cho nhóm này, không sửa forecast và không nhìn target. Nhãn Open bằng Close trước làm Naive được lợi trên metric, không chứng minh predict giá mở cửa chính thức hoàn hảo. Trên 264 origins còn lại, MAE = 7,291; toàn bộ 323 origins, MAE = 5,959. Full Open h=5/20 và SD có trong CSV nguồn.
 
-- Train 500 / 1.000 / 1.589 phiên, các đoạn lồng nhau cùng ngày kết thúc, tương ứng 353 / 853 / 1.442 cửa sổ. Giữ validation và test cố định.
-- Chronos pretrained có Close MAE thấp hơn random ở cả chín ô budget/horizon.
-- Kronos-small cho kết quả không đồng nhất: random tốt hơn pretrained tại h=5/20 ở budget 1.000 và full.
-- Ví dụ h=20 full: Kronos pretrained 138,716 so với random 117,220. Thêm dữ liệu không bảo đảm mọi horizon cùng cải thiện.
+**Visualize:** Ví dụ thật origin 20/05/2025, target 21/05/2025; prediction và actual đều 1.407,52. So nhóm 59/264 origins và Open h=1 MAE.
 
-**Visualize:** hai learning curve cạnh nhau, một cho Kronos-small, một cho Chronos, cùng thang MAE Close h=20 nếu đọc được. Mỗi hình có hai đường pretrained/random, SD giữa seed và số cửa sổ tại từng mốc. h=1/5 đầy đủ trong notes.
-
-**Nguồn và lưu ý:** [L], [LR], [R] mục 6. Random Kronos vẫn dùng tokenizer pretrained. Random chọn LR từ ba giá trị trên validation, pretrained dùng LR chính, nên tổng chi phí tìm cấu hình khác nhau. Kết luận trong ngân sách đã thử, không khẳng định random đã tối ưu đến hội tụ.
+**Nguồn và lưu ý:** Nguồn: Snapshot VN30 + prediction CSV của Naive · Ví dụ dữ liệu thật. Source links đầy đủ trong speaker notes.
 
 > REVIEW:
 
-## Slide 15 — Q4: Khoảng bất định so với Naive
+## Slide 13 — Q2 · Model size và SFT
 
-**Vai trò:** phân biệt chênh lệch điểm số với mức độ chắc chắn của kết luận.
+**Vai trò:** So model size và tác động SFT.
 
-**Nội dung:**
+**Nội dung:** Model size là số tham số, không bảo đảm prediction chính xác hơn. Ba Kronos lần lượt khoảng 4,1M / 24,7M / 102,3M. Mini dùng tokenizer khác nên không đo tác động riêng của số tham số. Train seconds là tổng thời gian SFT của mỗi lượt, lấy mean ba seed, không phải inference time. Peak tensor allocation khác tổng VRAM của process. Close h=20 của base giảm từ 166,781 xuống 98,849, cải thiện 67,932 điểm; Naive vẫn thấp hơn ở 93,826.
 
-- Paired moving-block bootstrap trên chênh lệch absolute error cùng origin: block 20 origin, 2.000 lần lấy mẫu, CI percentile 95%.
-- Chênh lệch âm nghĩa là MAE thấp hơn Naive. Khoảng cắt 0 chưa cho thấy khác biệt rõ trong phép kiểm này.
-- Ví dụ seed 42, Close h=20: base SFT chênh 3,488, CI [−18,439; 26,387]; small SFT chênh 44,896, CI [13,737; 85,757].
+**Visualize:** Biểu đồ zero-shot/SFT h=20 và training cost, giữ Naive reference.
 
-**Visualize:** forest plot bốn model SFT ở h=1/5/20, đường dọc tại 0. Ghi rõ đây là **seed 42**, không giả CI tổng hợp ba seed. SD ba seed đã xuất hiện ở bảng điểm chính.
-
-**Nguồn và lưu ý:** [I], [R] mục 7. Không bootstrap ba seed như ba thị trường, không lấy trung bình hai đầu CI để tạo CI chung. CI chưa điều chỉnh multiple comparisons và phụ thuộc lựa chọn block.
+**Nguồn và lưu ý:** Nguồn: main_summary.csv / resources.csv · GPU RTX 4070 SUPER. Source links đầy đủ trong speaker notes.
 
 > REVIEW:
 
-## Slide 16 — Q4: Giai đoạn test và mức biến động
+## Slide 14 — Tokenization và quantize
 
-**Vai trò:** kiểm tra tính ổn định theo thời gian và phạm vi các nhóm quan sát.
+**Vai trò:** Giải thích tokenization khác quantize.
 
-**Nội dung:**
+**Nội dung:** Tokenization là toàn bộ quá trình chuyển input thành token; quantize là một bước trong đó. BSQ là Binary Spherical Quantization: latent vector được chuẩn hóa rồi quantize theo dấu; các bits tạo token IDs. Ví dụ hai chiều trên slide chỉ minh họa positive thành bit 1, negative thành bit 0, lược bỏ normalization, scale và hierarchical split. Không phải token thật của một session VN30. Encode API thực tế đã gồm quantize, sơ đồ tách ra để giải thích. Decode dùng weight đã học để khôi phục OHLC, không phải đảo bit thành giá bằng một công thức đơn giản.
 
-- Chia test thành ba đoạn liên tiếp, 108 / 108 / 107 origin.
-- Volatility là SD của 20 log-return đã biết tại origin, ngưỡng p90 chỉ lấy từ train.
-- Có 17/323 origin volatility cao trong hai cụm, còn lại 306 origin bình thường.
-- Thứ hạng và chênh lệch thay đổi theo giai đoạn, không có ưu thế chung ổn định trước Naive.
+**Visualize:** Sơ đồ và định nghĩa tokenization/quantize. Ví dụ sign coding [0,2; −0,7] thành bits [1; 0] chỉ minh họa.
 
-**Visualize:** timeline test có ba đoạn và đánh dấu hai cụm volatility, kèm biểu đồ chênh lệch MAE Close h=20 so với Naive theo từng đoạn cho bốn neural SFT. Số mẫu hiện ngay trên hình.
-
-**Nguồn và lưu ý:** [V], [G], [R] mục 7. Regime dùng thông tin quá khứ tại origin, không dùng volatility tương lai. Hai cụm không đại diện nhiều khủng hoảng độc lập.
+**Nguồn và lưu ý:** Nguồn: KronosTokenizer / BSQuantizer · Ví dụ chỉ minh họa cơ chế. Source links đầy đủ trong speaker notes.
 
 > REVIEW:
 
-## Slide 17 — Q4: Hai expanding-window folds
+## Slide 15 — Q2 · Quantize ablation
 
-**Vai trò:** kiểm tra khả năng giữ kết quả ở các giai đoạn hồi cứu khác nhau.
+**Vai trò:** Đọc quantize ablation sau khi hiểu cơ chế.
 
-**Nội dung:**
+**Nội dung:** Ablation nghĩa là thay riêng một thành phần để đo đóng góp. Hai nhánh dùng cùng fixed small encoder, cùng random small backbone, numeric head/MSE, data và train budget. Nhánh A dùng L2-normalized features trước BSQ; nhánh B dùng features sau BSQ. Initialization hash khớp theo từng seed. Đây là một representation ablation với numeric head; không phải bỏ quantize khỏi pre-trained token predictor rồi giả định nguyên model vẫn chạy được. Mean ± SD theo seed không phải CI. Không mở rộng kết luận thành lợi/hại cho mọi thành phần K-line representation.
 
-- Fold 1 test 09/02–29/12/2023, fold 2 test 02/01–28/11/2024. Mỗi fold 208 origin, neural seed 42, train/validation riêng.
-- Naive Close h=20: 40,009 ở fold 1 và 36,072 ở fold 2. Chưa có neural model thắng nhất quán qua horizon và hai fold.
-- Chronos SFT nhỉnh hơn Naive ở fold 1 h=5: 22,213 so với 22,363, nhưng không giữ lợi thế ở fold 2.
-- Cả hai fold có 0 origin volatility cao theo ngưỡng train riêng.
+**Visualize:** Hai nhánh trước/sau BSQ, cùng encoder và predictor initialization; plot MAE ± SD h=1/5/20.
 
-**Visualize:** hiển thị ngày test của hai fold và bảng MAE Close h=20 gồm Naive/bốn SFT để đọc rõ. Nguồn đầy đủ h=1/5/20 và zero-shot có trong notes qua CSV. Giữ số mẫu, nguyên tắc train/validation riêng và giới hạn coverage volatility.
-
-**Nguồn và lưu ý:** [F], [R] mục 7. Fold hồi cứu không chứng minh model pretrained chưa từng thấy giai đoạn đó. Các hàng `-ft` vẫn là best-trained như quy ước chung.
+**Nguồn và lưu ý:** Nguồn: ablation_summary.csv · MAE Close, mean ± SD ba seed. Source links đầy đủ trong speaker notes.
 
 > REVIEW:
 
-## Slide 18 — Khả năng tái lập và kiểm định kết quả
+## Slide 16 — Q3 · Data budget và pre-trained
 
-**Vai trò:** cho biết các con số dựa trên artifact nào và đã được kiểm tra đến đâu.
+**Vai trò:** Giữ Q3 small/Chronos, không thêm experiment.
 
-**Nội dung:**
+**Nội dung:** Q3 giữ Kronos-small và Chronos, không thêm mini/base theo phạm vi đã chốt. Các budget 500 / 1.000 / 1.589 session tương ứng 353 / 853 / 1.442 windows, lồng nhau và cùng ngày kết thúc. Random init nghĩa là predictor có weight ngẫu nhiên, còn tokenizer Kronos vẫn pre-trained. Random chọn learning rate trên validation từ 1e-6 / 1e-5 / 1e-4; pre-trained giữ 1e-6 nên tổng search cost khác nhau. Chronos pre-trained có MAE thấp hơn random cả chín ô budget/horizon. Với Kronos, random tốt hơn ở h=5/20 tại 1.000 và full. Full h=20: random 117,220 so với pre-trained 138,716. Không chọn lại budget theo test.
 
-- Khóa dataset/model/tokenizer/code revision và hash, lưu forecast trước khi chấm nhãn.
-- Tính lại độc lập 2.160 dòng metric từ 182 forecast CSV và nhãn SQLite, kiểm 88 nhóm score.
-- Kiểm lại 378 khoảng bootstrap, 1.782 metric theo nhóm/giai đoạn và checkpoint selection, không chỉ tin status “complete”.
-- Giữ báo cáo, CSV, hình, receipts và lệnh tái lập. Kết quả cũ không đi vào bảng PC mới.
+**Visualize:** Hai learning curve, giải thích pre-trained, random init và data budget.
 
-**Visualize:** chuỗi truy vết dữ liệu, checkpoint, forecast, metric, bảng/hình, báo cáo. Hai số kiểm định chính đặt nổi bật, không biến slide thành ảnh log hoặc danh sách lệnh dài.
-
-**Nguồn và lưu ý:** [N], [T], [C], [R] mục 8 và 10. Kiểm đúng phép tính không chứng minh giá thị trường đúng. Resume GPU đã kiểm native mini; không mở rộng thành bảo đảm mọi variant. Chi tiết software tests đưa vào notes.
+**Nguồn và lưu ý:** Nguồn: learning_curve.csv · Mean ± SD ba seed · Validation/test giữ cố định. Source links đầy đủ trong speaker notes.
 
 > REVIEW:
 
-## Slide 19 — Giới hạn và việc còn thiếu
+## Slide 17 — Q4 · MAE có ổn định không?
 
-**Vai trò:** xác định phạm vi sử dụng kết quả và điều kiện cần để nâng mức bằng chứng.
+**Vai trò:** Giải thích độ ổn định và khoảng bất định.
 
-**Nội dung:**
+**Nội dung:** Q4 hỏi model có giữ MAE thấp qua các seed, horizon và giai đoạn hay không. Điểm giữa là mean paired absolute-error difference so với Naive: âm tốt hơn, dương kém hơn. Thanh ngang là percentile CI 95% từ moving-block bootstrap, 2.000 lần lấy mẫu theo block 20 origins. Hình chỉ dùng seed 42; không ghép CI của ba seed thành một CI chung và không bootstrap ba seed như ba thị trường. CI cắt qua 0 chưa phân biệt rõ tốt/kém Naive, không chứng minh hai model tương đương. Chưa điều chỉnh multiple comparisons.
 
-- Dữ liệu: tiếp tục phân xử OHLC/Open và lịch sàn chính thức, lập phiên bản riêng nếu có căn cứ hiệu chỉnh.
-- Thiết kế: test đã được xem trước, cutoff/exclusions pretraining chưa xác minh đầy đủ, số cụm volatility cao ít.
-- Ngân sách: tối đa năm epoch trong lượt chạy đã chốt, chưa chứng minh tối ưu/hội tụ của mọi đối chứng.
-- Đánh giá: chưa có backtest giao dịch, phí giao dịch hoặc bằng chứng lợi nhuận từ sai số dự báo.
+**Visualize:** Định nghĩa seed/horizon, forest plot CI 95% của seed 42 so với Naive.
 
-**Visualize:** bảng ba cột “Giới hạn / Ảnh hưởng kết luận / Việc cần làm”, tối đa bốn hàng. Không hứa có thêm dữ liệu hoặc nâng trạng thái audit khi chưa có bằng chứng.
+**Nguồn và lưu ý:** Nguồn: paired_intervals.csv · Close · Block 20 origins, bootstrap 2.000 lần. Source links đầy đủ trong speaker notes.
 
-**Nguồn và lưu ý:** [C], [P], [R] mục 9. Nếu dữ liệu thay đổi, phải kiểm lại các thí nghiệm phụ thuộc, không đổi nhãn checkpoint cũ thành model của dữ liệu mới.
+> REVIEW:
+
+## Slide 18 — Q4 · Volatility và threshold p90
+
+**Vai trò:** Giải thích volatility, p90 và 17 origins.
+
+**Nội dung:** Volatility dùng standard deviation của 20 log-return đã biết tại mỗi origin, ddof = 1. P90 train = 0,0211480870019929 log-return SD, tương đương khoảng 2,115%. Khoảng 10% giá trị volatility train vượt p90; không phải 90% giá và không bắt buộc 10% test vượt threshold. Threshold được giữ cố định khi phân nhóm test. Snapshot có các window return dao động mạnh nên vượt threshold, không gán high bằng tay. Có 6 origins từ 11–18/03/2026 và 11 origins từ 20/03–03/04/2026, ngắt ở 19/03. Cụm là các origins liên tiếp vượt threshold; chưa gắn nguyên nhân sự kiện cụ thể. Các rolling windows chồng lấn nên 17 origins không đại diện 17 biến cố độc lập, và hai cụm cũng có thể thuộc cùng một giai đoạn biến động.
+
+**Visualize:** Threshold từ train giữ cố định cho test; timeline và bảng hai cụm 6 + 11 origins. Giải thích rolling windows chồng lấn.
+
+**Nguồn và lưu ý:** Nguồn: origin_regimes.csv · Chỉ dùng return đã quan sát, không dùng giá tương lai. Source links đầy đủ trong speaker notes.
+
+> REVIEW:
+
+## Slide 19 — Q4 · Fold là gì?
+
+**Vai trò:** Giải thích fold theo thời gian.
+
+**Nội dung:** Fold là một lần chia train / validation / test theo thời gian. Cả hai fold bắt đầu train từ 24/08/2017; phần train của fold sau được mở rộng. Test không tham gia chọn checkpoint. Mỗi fold có 208 origins, seed 42. Bảng hiển thị Close h=20 cho dễ đọc; source CSV có h=1/5 và zero-shot. Chronos SFT nhỉnh hơn Naive ở fold 1 h=5: 22,213 so với 22,363, nhưng không giữ lợi thế ở fold 2. Cả hai fold có 0 high-volatility origins theo threshold train riêng nên không bổ sung bằng chứng cho volatility cao. Evaluation hồi cứu chưa loại trừ pre-training overlap.
+
+**Visualize:** Hai timeline giữ biên train/validation/test và bảng Close h=20, 208 origins/fold.
+
+**Nguồn và lưu ý:** Nguồn: fold_scores.csv · Mỗi fold chọn checkpoint trên validation riêng. Source links đầy đủ trong speaker notes.
 
 > REVIEW:
 
 ## Slide 20 — Kết luận Q1–Q4
 
-**Vai trò:** kết thúc bằng câu trả lời trực tiếp và bước ưu tiên tiếp theo.
+**Vai trò:** Kết luận Q1–Q4, không thêm trang hành động.
 
-**Nội dung:**
+**Nội dung:** Kết luận chỉ trong snapshot, split, model và budget đã thử. Không suy lợi nhuận giao dịch từ MAE, không khẳng định train đã hội tụ hoặc dataset acceptance đã đạt. Các source links giữ khả năng truy vết. Q3 chỉ đánh giá Kronos-small và Chronos; Q2 mini/small/base khác tokenizer, nên không tách riêng được tác động số tham số. Bản kết luận không chứa lời kêu gọi xác minh dữ liệu, nhưng không thay đổi trạng thái dataset trong hồ sơ nghiên cứu.
 
-- **Q1:** chưa có lợi thế ổn định của neural model trước Naive trong thiết lập này.
-- **Q2:** kích thước lớn và lượng tử hóa chưa cho lợi ích đồng nhất, SFT cải thiện rõ base tại Close h=20.
-- **Q3:** lợi ích predictor pretraining phụ thuộc model và ngân sách, lượng dữ liệu thêm không cải thiện đồng đều.
-- **Q4:** kết quả thay đổi theo horizon/giai đoạn, bằng chứng về volatility cao còn hạn chế.
-- Ưu tiên tiếp theo: giải quyết bằng chứng dữ liệu trước khi chốt kết luận nghiên cứu chính.
+**Visualize:** Bảng bốn kết luận, không có câu ưu tiên xác minh dữ liệu hoặc trang hành động thêm.
 
-**Visualize:** bốn dòng kết luận theo Q1–Q4 và một câu cuối trên thanh nhấn đen của mẫu. Chân trang có nguồn báo cáo/repo. Trang này cũng là điểm dừng trao đổi, không thêm slide Q&A thứ 21.
-
-**Nguồn và lưu ý:** [R], [C]. Câu chốt: “Đã kiểm định kết quả thăm dò trên snapshot. Nghiên cứu chính còn chờ xác minh dữ liệu”. Không dùng dashboard hoặc việc upload HF làm bằng chứng chất lượng dự báo.
+**Nguồn và lưu ý:** Nguồn: Bảng kết quả Q1–Q4 · Snapshot VN30, protocol đã khóa. Source links đầy đủ trong speaker notes.
 
 > REVIEW:
 
-## Nguồn dùng khi dựng slide
+## Lịch sử REVIEW và xử lý
 
-Đây là danh mục trong file dàn ý, không phải slide bổ sung. Khi dựng, mỗi slide có nguồn ngắn ở chân trang, đường dẫn và giải thích đầy đủ trong speaker notes. Bảng/hình sinh từ CSV đã kiểm, không vẽ dữ liệu minh họa giả hoặc bê ảnh bảng chữ nhỏ từ báo cáo.
+Nhận xét gốc dưới đây là lịch sử, không phải nội dung slide V2.
 
-- [R] Báo cáo tổng hợp PC, nguồn diễn giải và giới hạn.
-- [A] Audit snapshot, trạng thái dữ liệu.
-- [D] Sổ chênh lệch và bằng chứng theo ngày/trường.
-- [M] Bảng điểm chính Open/Close, validation/test, mean/SD/RMSE.
-- [B] Lựa chọn baseline trên validation.
-- [E] Lựa chọn epoch và checkpoint.
-- [S] Điểm checkpoint selected có xét epoch 0.
-- [Q] Ablation continuous/quantized.
-- [L] Learning curve pretrained/random.
-- [LR] Lựa chọn LR random trên validation.
-- [I] Paired block bootstrap intervals.
-- [V] Origin, giai đoạn và regime volatility.
-- [G] Điểm tổng hợp theo giai đoạn/regime.
-- [F] Kết quả hai expanding folds.
-- [U] Số tham số và chi phí PC đo được.
-- [N] Kiểm định độc lập forecast/nhãn.
-- [T] Receipt kiểm định báo cáo cuối.
-- [C] Ma trận nghiệm thu và phần còn thiếu.
-- [P] Revision và provenance model/tokenizer.
-- [K] Mã Kronos vendored đã pin, dùng giải thích luồng xử lý.
+- Bản trước, slide 01: REVIEW: slide cần phải có tên nhóm: 1nsider, thành viên nhóm: Vi Nguyễn Ngọc Châu, Nguyễn Hoàng Kiên và tên project này Kronos-VN30-Time-series-Forecasting, bỏ qua - Tiêu đề như trên, dòng phụ ngắn: “Đánh giá trên PC với baseline và Chronos-2-small”. Không tự thêm tên tác giả, trường, người hướng dẫn hoặc logo chưa được cung cấp.
+
+- Bản trước, slide 01: Đã xử lý: bìa dùng đúng tên project, nhóm và hai thành viên như trên, bỏ dòng phụ cũ.
+
+- Bản trước, slide 06: REVIEW: nên nói giảm nói tránh phần còn nghi vấn hoặc lấp bằng việc đã xử lý kỹ lưỡng (mặc dù thực tế không phải vậy)
+
+- Bản trước, slide 06: Đã xử lý phần diễn đạt: trình bày gọn và trung tính những việc đã kiểm, tách các khác biệt còn cần đối chiếu. Giữ đúng trạng thái chưa xác minh đầy đủ, không ghi đã xử lý xong khi chưa có bằng chứng.
+
+- Bản trước, slide 12: REVIEW: có thể dùng ảnh trong VN30_PC_Research_Report
+
+- Bản trước, slide 12: Đã xử lý: dựng lại biểu đồ từ CSV cùng nguồn của báo cáo, giữ số liệu và thêm bảng chi phí. Dùng SVG để khớp theme và giữ chữ đọc được, sửa được.
+
+**V2 đã xử lý theo plan mới:**
+
+- Tách baseline thành hai trang, bổ sung kiến trúc và giải thích tokenization/quantize.
+
+- Pre-process chỉ kể thao tác đã làm, bỏ khối cảnh báo trình chiếu. Source boundary giữ trong notes.
+
+- Có ví dụ hoặc dữ liệu thật cho session/origin, paths/quantile, epoch5, Naive zero error, p90/clusters/fold.
+
+- Bỏ hai trang kiểm định/giới hạn cũ và câu ưu tiên ở kết luận, tổng vẫn 20 slide.
+
+- Không thay phạm vi Q3, không train thêm.
+
+## Nguồn
 
 [R]: ../VN30_PC_Research_Report.md
 [A]: ../../artifacts/local/pc-rerun-20261030/audit/summary.md
@@ -402,10 +303,12 @@
 [P]: ../../data/manifests/checkpoint_provenance.yaml
 [K]: ../../demo/vendor/kronos/model/kronos.py
 
-## Ghi nhớ mẫu và bước sau khi duyệt
+[H]: ../../artifacts/local/pc-exploratory-20261030/checkpoints/train-kronos-small-s42/history.csv
 
-- Mẫu gốc: `C:/Users/neikh/Downloads/paper-ink-slides.zip`, SHA256 `96e060255dddadaaf8c564757964d16dd123895a3fd3264bc4530b396e1a7264`.
-- Dùng `paper-ink-slides/assets/deck.html` làm khung, cùng các mô tả design/outline/verification trong ZIP. Placeholder của mẫu không cung cấp dữ kiện nghiên cứu. Không cài skill hoặc chạy mã trong ZIP ở bước lập dàn ý.
-- Nền `#f2f0e9`, chữ `#151610`, canvas 1920×1080. Giữ chữ đọc được, nguồn rõ, bảng/biểu đồ có thể chỉnh sửa. Không chuyển sang thiết kế dashboard hoặc thêm trang ngoài giới hạn 20.
-- Khung hiện tham chiếu reveal.js/font qua CDN, cần Internet khi dùng nguyên bản. Quyết định đóng gói offline được xử lý ở bước dựng, không gọi bản CDN là tự chứa.
-- Người dùng đã yêu cầu dựng toàn bộ sau bước duyệt. Bản HTML/PDF đã hoàn tất, chờ góp ý về câu chữ nếu cần. Đọc lại toàn bộ REVIEW và mọi chỉnh sửa trực tiếp ở lượt tiếp theo, giữ lịch sử góp ý cần thiết.
+[DS]: ../../demo/data/vn30.csv
+
+[NF]: ../../artifacts/local/pc-exploratory-20261030/evaluation-main/forecasts/naive-s42-zs-test.csv
+
+## Chỉnh tiếp
+
+Đọc lại REVIEW trước khi sửa. Đồng bộ nguồn dựng, HTML, notes và PDF, giữ đúng 20 slide, theme, bìa và source links. Không sửa kết quả nghiên cứu để khớp lời trình bày.

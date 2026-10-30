@@ -6,12 +6,14 @@
   "data_revision": "10180073ec60ff7cdb1f67009398f1b1ae9b8563",
   "evidence_scope": "exploratory_only",
   "dataset_accepted": false,
-  "output_sha256": "a48c2ef6d4498bc1aaacbba1542423e8360aa212dcda8886f71f7af7e1f24997",
+  "output_sha256": "f36995136ebafcfdad2221c56734cd6263711db755914d027778603d707d83ed",
   "authoring_sha256": {
-    "build_deck.py": "23302a7f216cbf998a0cf360af99c5bf9f8a004e08d6ab2339a5da03cca4fc8a",
-    "slide-outline.md": "a8e6b6c0d9c62cd68b28dc771713058a124a84142dc8b01217e0e620a314bdc1"
+    "build_deck.py": "e6cee90e4a20837758335a4bf4acc2bf327183d715ec36d3c757c0d4838bd77e",
+    "slide-outline.md": "90f277208bfdaa799521e63ac03f6a0fd2de599a7a6b6e22390ae549181405c6"
   },
   "input_sha256": {
+    "artifacts/local/pc-exploratory-20261030/checkpoints/train-kronos-small-s42/history.csv": "0a7ce1aade043148975ce4e528fcd6030e5523c88041b2e9de00c375ecea41f7",
+    "artifacts/local/pc-exploratory-20261030/evaluation-main/forecasts/naive-s42-zs-test.csv": "b3e0cc47ad4d150c61962bf508a137bdcf3a3536863844c890e7a29a6bcbc536",
     "artifacts/local/pc-exploratory-20261030/final-report/ablation_summary.csv": "ca84020f0431940c341f1b792e7abd9712d83618e4b95808efeecc416253cbec",
     "artifacts/local/pc-exploratory-20261030/final-report/baseline_selection.csv": "2449fd23b1fa0eda643614d929fdfebc62b71cdff0e43dcc0ca6d159cbc10261",
     "artifacts/local/pc-exploratory-20261030/final-report/checkpoint_selection.csv": "8f3b9e0541c2dd47e23699a639994750a67fcfb889e283f7f69cf6ab876fca96",
@@ -23,11 +25,13 @@
     "artifacts/local/pc-exploratory-20261030/final-report/origin_regimes.csv": "c6cda782f8762f806cf6cff08631a930b620487b318086f9eb4c009f10f4f0bc",
     "artifacts/local/pc-exploratory-20261030/final-report/paired_intervals.csv": "9675b95a8be72bde1e6334d1335ad58a7fecea7b61d52a94d50d61aa52211cda",
     "artifacts/local/pc-exploratory-20261030/final-report/random_lr_selection.csv": "8e7377d3a274c624b464ee4f485fe09a0e609edc4ab0b16c0eb9d172be3a57c9",
-    "artifacts/local/pc-exploratory-20261030/final-report/regime_period_summary.csv": "4ed3717bb213be98c1191aa2c0591217bec1284fff8e64c7e793d96276338097",
     "artifacts/local/pc-exploratory-20261030/final-report/resources.csv": "e79dac0ac7cf34a53b45706036b7f8d04aa8934cde9fff1ed66b6e5cc5a25106",
-    "artifacts/local/pc-exploratory-20261030/final-report/selected_scores.csv": "58cf8eb407f4952e8f9850fe71487f6137cfeca31ec0b62d7287870cf897157f",
-    "artifacts/local/pc-exploratory-20261030/final-report/verification.json": "58e2ff8f6bf1976e40ea67bc75d77cb8959b54b900aaaf4b3452829da391bf69",
-    "docs/VN30_PC_Research_Report.md": "f85e7a23acaa6bf071e5b4c3dd0c1fd7f13ac52742d4a203743606bb709ddddf"
+    "demo/data/vn30.csv": "5a50aa699969e28508553b96037fd4047f60a1d7fee5a488846fad1cb087bd28",
+    "demo/vendor/kronos/model/kronos.py": "0a5f90282e2039c2de0771473419715c845def154896dbd0f5747837e6241032",
+    "demo/vendor/kronos/model/module.py": "a4df669998fa8115ac219b06687abaff2fac0fce9da762007dd142038949eee5",
+    "docs/VN30_PC_Research_Report.md": "f85e7a23acaa6bf071e5b4c3dd0c1fd7f13ac52742d4a203743606bb709ddddf",
+    "src/statistical_baselines.py": "eb47dbb106f1cbadad2ba5784a7214c201d1e17465a602ca0a27aff20b69f71b",
+    "src/vn30_forecast.py": "39eb8b00ad7d7d2039a8376564d3e847bfd221b1672584acdfa2c61dc544d46b"
   },
   "vendor_sha256": {
     "bevietnampro-OFL.txt": "adba7f9c81d62e8b3c6c2ebfd24b1e86b162fcba89995497ec0bf32108ca95e5",

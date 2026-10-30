@@ -131,7 +131,7 @@ def learning_chart(model, title):
     parts = [svg_start(w, h, title + ": MAE Close sau 20 phiên"), svg_text(left, 32, title, 31, weight=600)]
     for tick in (0, 50, 100, 150, 200):
         parts += [line(left, yy(tick), w - right, yy(tick)), svg_text(left - 12, yy(tick) + 8, str(tick), 24, "end", "#65665e")]
-    for j, (init, label, color, dash) in enumerate((("pretrained", "Đã pretrain", "#151610", ""), ("random", "Khởi tạo ngẫu nhiên", "#83847a", "9 6"))):
+    for j, (init, label, color, dash) in enumerate((("pretrained", "Pre-trained", "#151610", ""), ("random", "Random init", "#83847a", "9 6"))):
         xlegend = left + j * 270
         parts += [line(xlegend, 58, xlegend + 38, 58, color, 4, dash), svg_text(xlegend + 48, 67, label, 23)]
         values = sorted([r for r in rows if r["initialization"] == init], key=lambda r: int(r["train_rows"]))
@@ -170,7 +170,7 @@ def forest():
 def volatility_chart():
     rows = [r for r in read_csv("origin_regimes.csv") if r["group"] == "evaluation-main/scores/seed-42/test"]
     assert len(rows) == 323
-    parts = [svg_start(1698, 170, "Biến động 20 phiên đã quan sát tại 323 mốc test")]
+    parts = [svg_start(1698, 170, "Volatility từ 20 log-return đã biết tại 323 forecast origins")]
     x = lambda i: 15 + i / (len(rows) - 1) * 1668
     y = lambda v: 132 - v / .045 * 90
     threshold = float(rows[0]["train_p90"])
@@ -182,8 +182,8 @@ def volatility_chart():
     parts.append(f'<polyline points="{points}" fill="none" stroke="#151610" stroke-width="2.5"/>')
     for n, indices in enumerate((range(0,108),range(108,216),range(216,323)),1):
         a,b=indices.start,indices.stop-1
-        parts += [line(x(a), 146, x(b), 146, "#c8c7bd", 2),svg_text((x(a)+x(b))/2, 168, f"Đoạn {n} · {len(indices)} mốc", 23, "middle")]
-    parts += [svg_text(20, 20, "Vùng tô: 17 mốc biến động cao trong 2 cụm", 24),svg_text(1680, 20, "Nét đứt: ngưỡng p90 từ train", 24, "end")]
+        parts += [line(x(a), 146, x(b), 146, "#c8c7bd", 2),svg_text((x(a)+x(b))/2, 168, f"Đoạn {n} · {len(indices)} origins", 23, "middle")]
+    parts += [svg_text(20, 20, "Vùng tô: 17 forecast origins vượt threshold", 24),svg_text(1680, 20, "Nét đứt: train volatility p90", 24, "end")]
     return ''.join(parts) + '</svg>'
 
 
@@ -192,12 +192,12 @@ slides = []
 
 def add(identifier, title, section, body, takeaway, source, notes, files=()):
     idx = len(slides) + 1
-    full_files = ["docs/VN30_PC_Research_Report.md"] + ["artifacts/local/pc-exploratory-20261030/final-report/" + f for f in files]
+    full_files = ["docs/VN30_PC_Research_Report.md"] + [f[5:] if f.startswith("repo:") else "artifacts/local/pc-exploratory-20261030/final-report/" + f for f in files]
     links = ''.join(f'<li><a href="{GITHUB + esc(f)}">{esc(f)}</a></li>' for f in full_files)
     for f in full_files:
         assert (ROOT / f).is_file(), f
         inputs.add(ROOT / f)
-    notes_html = f'<p>{notes}</p><p>Phạm vi: kết quả thăm dò trên snapshot VNDIRECT, dataset chưa được chấp nhận cho nghiên cứu chính.</p><ul>{links}</ul>'
+    notes_html = f'<p>{notes}</p><p>Source boundary: snapshot VNDIRECT. Dataset acceptance vẫn chưa đạt; kết quả mô tả prediction so với các label của snapshot. Evaluation hồi cứu, chưa xác minh đầy đủ pre-training exclusions.</p><ul>{links}</ul>'
     html_body = body + (statement(takeaway) if takeaway else '')
     slides.append(f'''<section id="{identifier}" aria-label="{esc(title)}">
 <div class="frame content-slide">
@@ -208,200 +208,270 @@ def add(identifier, title, section, body, takeaway, source, notes, files=()):
 </div><aside class="notes">{notes_html}</aside></section>''')
 
 
-# 01. User-supplied names and project identity take precedence over the outline default.
+# Content revision 2: approved 20-slide structure, unchanged experiment results.
+resources = read_csv('resources.csv')
+selection = read_csv('checkpoint_selection.csv')
+history_path = ROOT / 'artifacts/local/pc-exploratory-20261030/checkpoints/train-kronos-small-s42/history.csv'
+inputs.add(history_path)
+with history_path.open(encoding='utf-8', newline='') as stream:
+    loss_history = list(csv.DictReader(stream))
+initial_loss = float(next(r for r in selection if r['model']=='kronos-small' and r['seed']=='42')['initial_validation_loss'])
+validation_losses = [initial_loss] + [float(r['validation_loss']) for r in loss_history]
+assert len(validation_losses)==6 and validation_losses.index(min(validation_losses))==5
+
+
+def validation_chart():
+    w,h,left,right,top,bottom = 960,300,110,40,55,60
+    x=lambda i:left+i/5*(w-left-right)
+    y=lambda v:top+(2.18-v)/.24*(h-top-bottom)
+    parts=[svg_start(w,h,'Kronos-small seed 42, validation loss thực tế từ epoch 0 đến 5'),
+           svg_text(left,30,'Kronos-small · seed 42 · validation loss',26,weight=600)]
+    for tick in (1.95,2.00,2.05,2.10,2.15):
+        parts += [line(left,y(tick),w-right,y(tick)),svg_text(left-14,y(tick)+8,num(tick,2),24,'end','#65665e')]
+    points=' '.join(f'{x(i):.2f},{y(v):.2f}' for i,v in enumerate(validation_losses))
+    parts.append(f'<polyline points="{points}" fill="none" stroke="#151610" stroke-width="4"/>')
+    for i,v in enumerate(validation_losses):
+        parts += [f'<circle cx="{x(i):.2f}" cy="{y(v):.2f}" r="6" fill="#151610"/>',
+                  svg_text(x(i),h-20,str(i),25,'middle')]
+    parts += [svg_text(x(0)+12,y(validation_losses[0])-14,num(validation_losses[0]),24),
+              svg_text(x(5),y(validation_losses[-1])-15,num(validation_losses[-1]),24,'end')]
+    return ''.join(parts)+'</svg>'
+
+
+sample_path = ROOT/'demo/data/vn30.csv'
+forecast_path = ROOT/'artifacts/local/pc-exploratory-20261030/evaluation-main/forecasts/naive-s42-zs-test.csv'
+inputs.update((sample_path,forecast_path))
+with sample_path.open(encoding='utf-8',newline='') as stream:
+    sample={r['date']:r for r in csv.DictReader(stream)}
+with forecast_path.open(encoding='utf-8',newline='') as stream:
+    naive_rows=[r for r in csv.DictReader(stream) if r['horizon']=='1']
+example=next(r for r in naive_rows if r['target_date']=='2025-05-21')
+origin_close=float(sample[example['origin_date']]['close'])
+actual_open=float(sample[example['target_date']]['open'])
+naive_open=float(example['pred_open'])
+assert origin_close==actual_open==naive_open==1407.52
+anomalous=[r for r in naive_rows if '2025-05-05'<=r['target_date']<='2025-08-11']
+assert len(anomalous)==59 and all(float(r['pred_open'])==float(sample[r['target_date']]['open']) for r in anomalous)
+
 slides.append('''<section id="mo-dau" aria-label="Kronos-VN30-Time-series-Forecasting"><div class="frame title-slide">
 <p class="eyebrow">1NSIDER</p><div class="heading"><span class="section-number" data-section></span>
 <h1 class="title">Kronos-VN30-<br>Time-series-Forecasting</h1></div>
 <div class="body hero"><div class="statement cover-team">Nhóm <strong>1nsider</strong></div>
 <div class="members"><p>Vi Nguyễn Ngọc Châu</p><p>Nguyễn Hoàng Kiên</p></div></div>
 <footer class="chrome-foot"><span data-page></span></footer><div class="bottom-rule" aria-hidden="true"></div></div>
-<aside class="notes"><p>Nhóm 1nsider. Thành viên: Vi Nguyễn Ngọc Châu, Nguyễn Hoàng Kiên. Tên project theo góp ý của nhóm. Đề tài đánh giá Kronos mini/small/base, Chronos và baseline trên VN30. Giải thích phạm vi thăm dò ở phần mở đầu nội dung.</p></aside></section>''')
+<aside class="notes"><p>Nhóm 1nsider. Thành viên: Vi Nguyễn Ngọc Châu, Nguyễn Hoàng Kiên. Project Kronos-VN30-Time-series-Forecasting. Nghiên cứu so sánh Kronos mini/small/base, Chronos-2-small và bốn baseline trên cùng snapshot VN30.</p></aside></section>''')
 
-add('cau-hoi', 'Bốn câu hỏi nghiên cứu', 'MỤC TIÊU',
-    table(['Câu hỏi', 'Điều cần kiểm tra', 'Bằng chứng'], [
-        ['<strong>Q1</strong>', 'Model học sâu có tốt hơn cách dự báo đơn giản?', 'Naive, Ridge, ARIMA, ETS'],
-        ['<strong>Q2</strong>', 'Model lớn và mã hóa rời rạc có giúp ích?', 'Ba Kronos và đối chứng lượng tử hóa'],
-        ['<strong>Q3</strong>', 'Dữ liệu và kiến thức học sẵn đóng góp thế nào?', '500 / 1.000 / toàn bộ phiên train'],
-        ['<strong>Q4</strong>', 'Kết quả giữ được qua các lần chạy và thời kỳ?', 'Seed, horizon, biến động và hai fold'],
-    ], [10, 53, 37]),
-    'Đánh giá trên bản dữ liệu cố định, trong phạm vi <strong>thăm dò</strong>.',
-    'Nguồn: Báo cáo PC, mục 3–7 · Ma trận nghiệm thu',
-    'Baseline là phương pháp làm mốc so sánh. Horizon là số phiên phía trước. Seed điều khiển tính ngẫu nhiên của một lần chạy. Chưa có đủ bằng chứng chấp nhận nhãn OHLC cho kết luận nghiên cứu chính.', ['completion_matrix.csv'])
+add('cau-hoi','Bốn câu hỏi nghiên cứu','MỤC TIÊU',
+    table(['Câu hỏi','Điều cần kiểm tra','Experiment'],[
+        ['<strong>Q1</strong>','Pre-trained model có MAE thấp hơn baseline?','Naive / Ridge / ARIMA / ETS'],
+        ['<strong>Q2</strong>','Model lớn hơn và quantize có giúp MAE giảm?','Model size và quantize ablation'],
+        ['<strong>Q3</strong>','Data budget và pre-training giúp đến đâu?','Learning curve, pre-trained / random'],
+        ['<strong>Q4</strong>','MAE có ổn định qua lần chạy và giai đoạn khác?','Seed / horizon / volatility / fold'],
+    ],[10,52,38]),
+    'MAE là error tuyệt đối trung bình. <strong>MAE thấp hơn nghĩa là prediction sát label hơn.</strong>',
+    'Nguồn: Báo cáo thực nghiệm · Bảng kết quả Q1–Q4',
+    'Baseline là phương pháp làm chuẩn so sánh. Q2 kiểm tra hai việc: so các hệ thống mini/small/base và thay riêng bước quantize trong ablation. Q4 kiểm tra MAE khi đổi seed, prediction horizon và giai đoạn test. Một model tốt ở một giai đoạn chưa chắc tiếp tục tốt ở giai đoạn khác.',['main_summary.csv'])
 
-add('cach-kronos-du-bao', 'Cách Kronos dự báo chuỗi giá', 'PHƯƠNG PHÁP',
-    flow([('Chuỗi giá', '128 phiên OHLC'), ('Mã hóa', 'Đặc trưng của nến'), ('Rời rạc hóa', 'Chuyển thành token'), ('Dự báo', 'Sinh token tiếp theo'), ('Giải mã', '20 phiên giá')])
-    + table(['Chế độ', 'Cách sử dụng model'], [
-        ['<strong>Zero-shot</strong>', 'Dùng trọng số đã học sẵn, chưa huấn luyện thêm với VN30.'],
-        ['<strong>SFT</strong>', 'Huấn luyện bổ sung phần dự báo trên VN30, giữ bộ mã hóa cố định.'],
-    ], [23,77]) + brief('OHLC: giá mở cửa, cao nhất, thấp nhất và đóng cửa. Volume/amount thiếu nên được điền 0.'),
-    '', 'Nguồn: Báo cáo PC, mục 2 và 5 · Mã Kronos đã pin',
-    'Tokenizer gồm encoder, lượng tử hóa và decoder. Predictor dự báo các token. Sơ đồ lược bỏ bước chuẩn hóa/khôi phục thang giá để dễ theo dõi. Volume/amount bằng 0 chỉ là cách adapter xử lý thiếu dữ liệu, không phải khối lượng giao dịch thực.')
+add('baseline-naive-ridge','Baseline · Naive và Ridge','NỀN TẢNG',
+    brief('Baseline là phương pháp dùng làm chuẩn để kiểm tra model phức tạp có thực sự tốt hơn không.')
+    + table(['Model','Cách predict','Ví dụ minh họa'],[
+        ['<strong>Naive</strong>','Không train. Dùng Close cuối input cho mọi target session.','Close gần nhất = 102<br>Prediction = <strong>102</strong>'],
+        ['<strong>Ridge</strong>','Fit quan hệ tuyến tính giữa input quá khứ và target. Regularization hạn chế weight quá lớn.','Minh họa 2 features:<br>0,3 × 100 + 0,7 × 102 = <strong>101,4</strong>'],
+    ],[16,44,40]),
+    'Weight của Ridge được fit từ train. Ví dụ 0,3 / 0,7 chỉ để giải thích, không phải weight đã fit.',
+    'Nguồn: Adapter Ridge / Naive · baseline_selection.csv',
+    'Naive không train và không nhìn target Open tương lai. Ridge thực tế dùng 128 × 4 OHLC features; scaler input và target chỉ fit trên train, output gồm 20 × 4 giá trị. Công thức Ridge: prediction = bias + tổng weight_i × feature_i. Alpha điều khiển regularization, tức hạn chế weight quá lớn; alpha = 10 được chọn trên validation từ 1/10/100/1000. Ví dụ giá 100/102 và weight 0,3/0,7 trên slide chỉ minh họa, không phải weight đã fit.',['baseline_selection.csv','repo:src/vn30_forecast.py'])
 
-resources = read_csv('resources.csv')
-add('cac-model', 'Bốn model được đánh giá', 'PHƯƠNG PHÁP',
-    table(['Model', 'Tham số', 'Bộ mã hóa / vai trò'], [
-        ['Kronos-mini', '4,1 triệu', 'Tokenizer-2k'], ['Kronos-small', '24,7 triệu', 'Tokenizer-base'],
-        ['Kronos-base', '102,3 triệu', 'Tokenizer-base'], ['Chronos-2-small', '27,9 triệu', 'Đối chứng chuỗi thời gian tổng quát'],
-    ], [31,22,47]) + brief('Cả bốn chạy zero-shot và SFT. Checkpoint và điểm số đều từ lượt chạy mới trên PC.'),
-    'Mini khác tokenizer, nên so kích thước chưa tách riêng tác động của số tham số.',
-    'Nguồn: Provenance model/tokenizer · resources.csv',
-    'Chronos-2-small đã xuất hiện trong báo cáo VN30 cũ, vẫn giữ như đối chứng. Trọng tâm là ba Kronos. Không lấy checkpoint môi trường cũ để bổ sung kết quả PC.', ['resources.csv'])
+add('baseline-arima-ets','Baseline · ARIMA và ETS','NỀN TẢNG',
+    table(['Model','Thông tin dùng để predict','Cấu hình trong experiment'],[
+        ['<strong>ARIMA</strong>','Lag của chuỗi, differencing (chênh lệch giữa phiên) và error quá khứ.','ARIMA(0,1,0)<br>Close tương lai giữ bằng Close cuối.'],
+        ['<strong>ETS</strong>','Exponential smoothing: cập nhật level từ quan sát mới; có thể thêm trend.','Chỉ level, không trend / seasonal.<br>Close fit được trùng Naive trong kết quả này.'],
+    ],[17,46,37])
+    + brief('ARIMA/ETS fit lại từng kênh trên 128 session tại mỗi forecast origin. Cấu hình chọn bằng validation, không chọn bằng test.'),
+    'ARIMA/ETS và Naive trùng Close prediction trong experiment này. Open prediction có thể khác.',
+    'Nguồn: statistical_baselines.py · baseline_selection.csv',
+    'ARIMA là AutoRegressive Integrated Moving Average. AR dùng lag của chuỗi, I là differencing, MA dùng error quá khứ. Trong cấu hình (0,1,0) không drift, prediction bằng giá trị cuối của kênh. ETS ở đây dùng exponential smoothing, thử level, additive trend và damped trend, không seasonal. Cấu hình level được chọn cho Close prediction trùng Naive trong experiment này. ARIMA/ETS fit Open riêng với Close; Naive dùng Close cho cả hai nên Open error không trùng. Lỗi convergence được ghi, không có fallback thay bằng Naive.',['baseline_selection.csv','repo:src/statistical_baselines.py'])
 
-add('du-lieu', 'Dữ liệu VN30 và cách chia tập', 'DỮ LIỆU',
-    '<p class="lead"><strong>2.271 phiên</strong> · VNDIRECT · 24/08/2017–01/10/2026</p>'
-    + '<div class="split-strip"><div style="flex:70">Train 70%</div><div style="flex:15">Validation 15%</div><div style="flex:15">Test 15%</div></div>'
-    + table(['Tập', 'Khoảng thời gian', 'Số phiên', 'Mốc dự báo'], [
-        ['Train', '24/08/2017–29/12/2023', '1.589', '1.442'], ['Validation', '02/01/2024–20/05/2025', '340', '321'], ['Test', '21/05/2025–01/10/2026', '342', '323'],
-    ], [18,44,16,22], 'dense') + brief('Mốc dự báo là thời điểm sau khi có giá đóng cửa của phiên t. Đơn vị giá: điểm chỉ số.'),
-    '', 'Nguồn: Báo cáo PC, mục 1–2 · Ranh giới split đã khóa',
-    'Toàn bộ nhãn 20 phiên phải nằm trong split. Context có thể dùng quá khứ trước biên. Request bắt đầu năm 2012 nhưng nguồn chỉ trả từ 2017. Một hàng 01/10/2026 ngoài request được giữ trong snapshot để đối chiếu; không gọi là dữ liệu đã thu thập đủ theo request.')
+add('cach-kronos-du-bao','Kiến trúc Kronos','KIẾN TRÚC',
+    flow([('Input','128 session OHLC'),('Tokenization','Encode + quantize'),('Predictor','Causal Transformer'),('Decode','Token thành OHLC'),('Output','20 target session')])
+    + table(['Thành phần','Vai trò','Khi SFT'],[
+        ['<strong>Tokenizer</strong>','Encoder tạo features, quantize thành token, decoder khôi phục OHLC.','Giữ nguyên weight'],
+        ['<strong>Predictor</strong>','Dùng token quá khứ để predict token tiếp theo, lặp cho các session đích.','Cập nhật weight'],
+    ],[23,55,22],'dense')
+    + brief('OHLC: Open, High, Low, Close. Snapshot thiếu volume/amount, adapter điền 0.'),
+    '', 'Nguồn: KronosTokenizer / Kronos · Source revision đã khóa',
+    'KronosTokenizer gồm encoder/decoder Transformer và Binary Spherical Quantization (BSQ). API encode thực tế gồm embed, encoder, quant_embed và quantizer rồi trả token IDs. Sơ đồ tách encode features và quantize để giải thích rõ vai trò. Predictor có hierarchical token embedding, temporal embedding, causal Transformer, s1 head và conditional s2 head. S2 phụ thuộc s1 trong cùng bước. Causal nghĩa là chỉ nhìn token quá khứ để predict token tiếp theo. Decode chuyển token về OHLC rồi khôi phục thang giá. Khi SFT, tokenizer giữ nguyên weight, predictor được cập nhật weight. Volume/amount thiếu được điền 0, không phải khối lượng giao dịch thực.',['repo:demo/vendor/kronos/model/kronos.py'])
 
-add('kiem-tra-du-lieu', 'Kiểm tra dữ liệu trước thực nghiệm', 'DỮ LIỆU',
-    table(['Phần đã kiểm tra', 'Kết quả và phạm vi'], [
-        ['Khôi phục và tính toàn vẹn', 'Raw replay, thời gian và SQLite đã qua kiểm tra.'],
-        ['Đối chiếu VPS / DNSE', '1.230 phép so sánh OHLC khác trên 0,02 điểm, gồm 60 ngày Close khác nguồn.'],
-        ['Đặc điểm giá mở cửa', '78 phiên Open bằng Close trước, có một đoạn 71 phiên liên tiếp.'],
-    ], [35,65]) + brief('Giữ nguyên giá gốc, lưu bằng chứng theo ngày và trường. Cách dựng nến của nguồn và lịch sàn còn cần đối chiếu.'),
-    'Dữ liệu thị trường <strong>chưa được xác minh đầy đủ</strong>. Kết quả giữ phạm vi thăm dò.',
-    'Nguồn: Audit snapshot · data_adjudication.csv',
-    'Diễn đạt trung tính theo góp ý, nhưng không thay trạng thái unverified bằng tuyên bố đã xử lý xong. 1.230 là số phép so sánh khác nguồn, không phải 1.230 lỗi đã chứng minh của VNDIRECT. Đoạn Open bằng Close trước: 05/05–11/08/2025. KRX trùng mốc bắt đầu chỉ là giả thuyết điều tra.', ['data_adjudication.csv'])
+add('cac-model','Kronos và các model còn lại','SO SÁNH',
+    table(['Model / tham số','Cách xử lý input','Output'],[
+        ['Naive / Ridge / ARIMA / ETS','Quy tắc hoặc fit trực tiếp trên dữ liệu VN30.','Numeric prediction'],
+        ['Kronos-mini · 4,1M','Pre-trained Transformer, Tokenizer-2k.','Predict token, decode OHLC'],
+        ['Kronos-small · 24,7M','Pre-trained Transformer, Tokenizer-base.','Predict token, decode OHLC'],
+        ['Kronos-base · 102,3M','Pre-trained Transformer, Tokenizer-base.','Predict token, decode OHLC'],
+        ['Chronos-2-small · 27,9M','Pre-trained cho chuỗi thời gian tổng quát.','Numeric quantile predictions'],
+    ],[33,41,26],'dense')
+    + brief('Cả ba Kronos và Chronos có zero-shot (dùng weight pre-trained) và SFT (train thêm trên VN30). Mini khác tokenizer nên không tách riêng được tác động số tham số.'),
+    '', 'Nguồn: Model/tokenizer provenance · resources.csv',
+    'M là triệu tham số. Các baseline trong thiết lập này không dùng weight pre-trained từ tập dữ liệu lớn bên ngoài: Naive dùng quy tắc, Ridge/ARIMA/ETS fit theo dữ liệu VN30. Kronos được pre-trained cho chuỗi OHLC với tokenization. Chronos là đối chứng chuỗi thời gian tổng quát và trả quantile predictions. Mini dùng tokenizer khác small/base nên so mini với small/base không đo riêng tác động của số tham số. SFT trong bảng kết quả là best-trained; selected có thể giữ epoch 0. Không so native loss giữa các họ model khác nhau.',['resources.csv'])
 
-add('quy-trinh', 'Quy trình dự báo chung', 'THIẾT KẾ',
-    '<div class="window-strip"><div class="context"><b>128 phiên đã biết</b><span>Thông tin đưa vào model</span></div><div class="future"><b>20 phiên cần dự báo</b><span>Chấm tại phiên 1, 5 và 20</span></div></div>'
-    + table(['Nguyên tắc', 'Cách thực hiện'], [
-        ['Cùng điều kiện', 'Các model dùng chung mốc dự báo, split và ba seed 42 / 43 / 44.'],
-        ['Không học từ test', 'Chọn cấu hình bằng validation. Lưu dự báo rồi mới ghép giá thật để chấm.'],
-        ['Sai số', 'MAE: trung bình độ lệch tuyệt đối. RMSE bổ sung góc nhìn về lỗi lớn.'],
-    ], [27,73], 'dense') + brief('Kronos: trung bình 3 chuỗi sinh ra. Chronos: trung bình 13 mức quantile, không phải 13 mẫu ngẫu nhiên.'),
-    '', 'Nguồn: Báo cáo PC, mục 2 · Protocol đánh giá đã khóa',
-    'Tất cả 20 nhãn nằm trong split đích. T=1, top-p=0,9, FP32. Context không chứa giá tương lai; ngày phiên đích là ngày lịch sử đã biết. Đây là đánh giá hồi cứu. MAE/RMSE có đơn vị điểm chỉ số. Chưa chứng minh loại bỏ dữ liệu trùng trong quá trình pretraining.')
+add('du-lieu','Session và forecast origin','DATASET',
+    '<p class="lead"><strong>2.271 session</strong> · VN30 · 24/08/2017–01/10/2026</p>'
+    + table(['Split','Thời gian','Session','Forecast origins'],[
+        ['Train','24/08/2017–29/12/2023','1.589','1.442'],
+        ['Validation','02/01/2024–20/05/2025','340','321'],
+        ['Test','21/05/2025–01/10/2026','342','323'],
+    ],[17,43,16,24],'dense')
+    + '<div class="window-strip small-window"><div class="context"><b>128 input session</b><span>Forecast origin = thời điểm chốt input</span></div><div class="future"><b>20 target session</b><span>Chỉ giữ origin đủ 20 target trong split</span></div></div>',
+    'Session là một phiên giao dịch. Test có <strong>342 − 20 + 1 = 323</strong> lần inference đủ target.',
+    'Nguồn: Split đã khóa · Context 128 / prediction horizon 20',
+    'Session là một phiên giao dịch, tương ứng một dòng OHLC. Forecast origin là session cuối input, sau khi đã có Close. Các origins liền nhau có input và target chồng lấn. Origin đầu của test là 20/05/2025, target đầu là 21/05/2025. Context 128 session được lấy từ quá khứ trước biên test, nên không trừ thêm 128 khi tính số test origins: 342 - 20 + 1 = 323. Train windows phải có cả input và target nằm trong train: 1589 - 128 - 20 + 1 = 1442. Request bắt đầu năm 2012 nhưng snapshot chỉ có từ 2017; một hàng ngoài request vẫn được giữ để đối chiếu, không tự nội suy session.')
 
-read_csv('checkpoint_selection.csv')
-add('chon-checkpoint', 'Huấn luyện thêm và chọn checkpoint', 'SFT',
-    brief('Tối đa 5 vòng học (epoch), FP32, AdamW, learning rate 1e-6, effective batch 16.')
-    + table(['Model', 'Tốt nhất sau SFT', 'Được chọn, có xét bản gốc'], [
-        ['Kronos-mini', 'Epoch 5', '<strong>Epoch 5</strong>'], ['Kronos-small', 'Epoch 5', '<strong>Epoch 5</strong>'], ['Kronos-base', 'Epoch 5', '<strong>Epoch 5</strong>'], ['Chronos-2-small', 'Epoch 1', '<strong>Epoch 0 · bản gốc</strong>'],
-    ], [31,28,41], 'dense'),
-    'Với Chronos, huấn luyện thêm chưa cải thiện tiêu chí validation ở cả ba seed.',
-    'Nguồn: checkpoint_selection.csv · selected_scores.csv',
-    'Checkpoint là bản lưu trọng số model. Epoch 0 là trước cập nhật. Best-trained chọn trong các epoch đã cập nhật; selected được chọn cả epoch 0. Bảng điểm mang SFT phía sau sử dụng best-trained để đo tác động cập nhật. Ba Kronos giữ tokenizer cố định, clipping 1,0, weight decay 0,01. Không so native loss khác hệ giữa các model.', ['checkpoint_selection.csv','selected_scores.csv'])
+add('kiem-tra-du-lieu','Pre-process data','DATASET',
+    table(['Bước','Thao tác thực tế','Cách giữ dữ liệu'],[
+        ['Khôi phục','Kiểm hash, SQLite integrity và raw replay.','Giữ snapshot gốc.'],
+        ['Timestamp / session','Kiểm timestamp, duplicate, missing session và ngày ngoài request.','Đối chiếu lịch nguồn, không tự điền phiên.'],
+        ['OHLC','Kiểm giá hữu hạn, quan hệ O/H/L/C và Open bằng Close trước.','Lưu các trường hợp cần phân tích.'],
+        ['Cross-source check','So từng trường với VPS/DNSE, lưu chênh lệch theo ngày.','Không ghép hoặc sửa giá theo từng ô.'],
+    ],[22,48,30],'dense'),
+    '', 'Nguồn: Raw replay / audit / source comparison',
+    'Slide mô tả các bước pre-process đã làm, không tuyên bố mọi khác biệt đã xử lý xong. Audit giữ unverified: 1.230 phép so sánh OHLC khác nguồn hơn 0,02 điểm, gồm 60 ngày Close khác nguồn; có 78 Open bằng Close trước, trong đó 71 phiên liên tiếp từ 05/05 đến 11/08/2025. Đây là số phép so sánh khác nhau, chưa phải số lỗi VNDIRECT đã chứng minh. Calendar khớp lịch VNINDEX quan sát từ VPS, chưa là xác nhận lịch sàn chính thức. Không điền session thiếu, không sửa giá, không ghép nguồn theo từng ô.',['data_adjudication.csv'])
 
-read_csv('baseline_selection.csv')
-add('baseline', 'Các cách dự báo làm mốc so sánh', 'BASELINE',
-    table(['Phương pháp', 'Ý tưởng', 'Cấu hình chọn từ validation'], [
-        ['<strong>Naive</strong>', 'Giữ Close gần nhất cho mọi phiên đích.', 'Không có tham số cần chọn'],
-        ['Ridge', 'Học quan hệ tuyến tính có regularization.', 'Alpha = 10, từ 4 ứng viên'],
-        ['ARIMA', 'Mô hình thống kê theo diễn biến quá khứ.', '(0,1,0), từ 18 ứng viên'],
-        ['ETS', 'San bằng theo mức / xu hướng.', 'Chỉ mức, từ 3 ứng viên'],
-    ], [18,44,38], 'dense') + brief('ARIMA/ETS fit lại trên 128 phiên tại mỗi mốc. Lỗi hội tụ và thiếu mốc được ghi, không thay ngầm bằng Naive.'),
-    'Close của ARIMA/ETS được chọn trùng Naive, nên không phải ba bằng chứng độc lập.',
-    'Nguồn: baseline_selection.csv · Báo cáo PC, mục 3',
-    'Tiêu chí chọn là trung bình MAE Open/Close tại ba horizon, chuẩn hóa bằng SD train. ARIMA có 12/18 cấu hình đủ coverage, 491 failed-origin fits trong lưới, không phải 491 origin test bị loại. Ridge scaler chỉ fit train.', ['baseline_selection.csv'])
+add('quy-trinh','Inference và prediction cuối','INFERENCE',
+    brief('<strong>Ví dụ minh họa</strong> tại hai target session. Số trong hai bảng không phải output thực nghiệm.')
+    + '<div class="two-col aligned"><div><h3>Kronos · sample 3 paths</h3>'
+    + table(['Path','t+1','t+2'],[['A','100','102'],['B','102','100'],['C','101','101'],['<strong>Mean</strong>','<strong>101</strong>','<strong>101</strong>']],[46,27,27],'extra-dense scores',highlight=(3,))
+    + brief('Cùng input, sample 3 paths dài 20 session. Lấy mean tại từng target session.')
+    + '</div><div><h3>Chronos · quantile output</h3>'
+    + table(['Quantile minh họa','t+1','t+2'],[['q10 · mức thấp','98','99'],['q50 · median','101','102'],['q90 · mức cao','104','105']],[54,23,23],'extra-dense scores')
+    + brief('Trong experiment, lấy mean của đủ <strong>13 quantile</strong> tại từng target session.')
+    + '</div></div>',
+    'Sampled paths và quantile là hai loại output khác nhau. Ba paths không phải ba model hay ba training seed.',
+    'Nguồn: Adapter Kronos / Chronos · Aggregation đã khóa',
+    'Inference là chạy model với input để tạo prediction. Kronos sample 3 paths, mỗi path dài 20 session, dùng T = 1 và top-p = 0,9; cuối cùng lấy mean theo từng target session và từng kênh. Chronos trả 13 quantile levels. Q50 là median; q10/q90 là vị trí thấp/cao trong phân phối prediction. Ví dụ trên slide chỉ hiện 3 mức để giải thích, không phải experiment chỉ dùng 3 quantile. Implementation lấy mean của đủ 13 quantile, không gọi đó là median hoặc kỳ vọng chính xác, cũng không phải 13 random paths. Ba seed 42/43/44 là ba lần chạy experiment, khác với 3 sampled paths trong mỗi lần.',['repo:src/vn30_forecast.py'])
 
-add('q1-close', 'Q1 · Sai số giá đóng cửa', 'KẾT QUẢ',
-    brief('MAE, đơn vị điểm chỉ số. <strong>Thấp hơn là tốt hơn.</strong> Giá trị ± là độ lệch chuẩn giữa ba seed.') + score_table('close',True),
-    'Trong bảng chính, cả bốn neural model chưa vượt Naive ở trung bình ba seed.',
-    'Nguồn: main_summary.csv · Test 323 mốc · ARIMA/ETS Close trùng Naive',
-    'Bảng hiển thị best-trained SFT, không phải mọi checkpoint selected. Chronos selected giữ bản gốc. Seed SD không phải khoảng tin cậy theo thị trường. Bảng nguồn có đủ zero-shot, validation và RMSE.', ['main_summary.csv'])
+epoch_rows=[['Kronos mini / small / base','5','5'],['Chronos-2-small','1','0']]
+add('chon-checkpoint','Train và checkpoint selection','TRAIN',
+    '<div class="two-col chart-cost"><div>'+validation_chart()+'</div><div>'
+    + table(['Model','SFT','Sel.¹'],epoch_rows,[58,20,22],'dense')
+    + brief('¹ Selected được xét cả epoch 0, tức weight pre-trained trước khi train thêm.')
+    + '</div></div>'
+    + brief('Epoch = một lượt train qua training windows. Budget: 5 epoch, AdamW, LR 1e-6, batch 16.'),
+    'Best epoch 5 là tốt nhất <strong>đã thử</strong>. Chưa khẳng định train đã hội tụ.',
+    'Nguồn: history.csv · Kronos-small seed 42 · checkpoint_selection.csv',
+    'Checkpoint là bản lưu weight model. Epoch là một lượt train qua training windows. Curve là validation loss thực tế của Kronos-small, seed 42, từ epoch 0 đến 5, không phải test MAE. Validation loss vẫn giảm tới giới hạn cuối nên còn khả năng cải thiện nếu train thêm, nhưng chưa kiểm chứng và không đủ để kết luận chắc chắn underfit. Không train thêm trong đợt sửa slide. Cả ba Kronos chọn epoch 5 và Chronos chọn epoch 0 ở cả ba seed. Best-trained Chronos là epoch 1. Trong bảng, Sel. là selected có xét epoch 0. Không dùng test để chọn epoch hoặc so native loss giữa tokenizer/model khác nhau.',['checkpoint_selection.csv','repo:artifacts/local/pc-exploratory-20261030/checkpoints/train-kronos-small-s42/history.csv'])
 
-add('q1-open', 'Q1 · Sai số giá mở cửa', 'KẾT QUẢ',
-    score_table('open') + '<div class="diagnosis"><p><strong>59 mốc</strong> có nhãn trong đoạn Open bất thường<br><span>Naive MAE = 0,000</span></p><p><strong>264 mốc còn lại</strong><br><span>Naive MAE = 7,291</span></p></div>',
-    'Open MAE thấp cần đọc cùng đặc điểm nhãn, chưa xác nhận dự báo giá mở cửa chính thức.',
-    'Nguồn: main_summary.csv · Chẩn đoán Open trong báo cáo PC',
-    'MAE bảng là trung bình ba seed, ± là SD. 59 mốc là số origin h=1 có nhãn trong đoạn bất thường, không phải toàn bộ 78 trường hợp trên cả dữ liệu. Chẩn đoán không được dùng để chọn lại model trên test. Không kết luận mọi Open bằng Close trước là sai.', ['main_summary.csv'])
+add('q1-close','Q1 · Close MAE','KẾT QUẢ',
+    brief('Đơn vị: điểm chỉ số. <strong>Thấp hơn là tốt hơn.</strong> Mean ± SD từ seed 42 / 43 / 44.')
+    + score_table('close',True),
+    'Trong bảng chính, neural model chưa có MAE thấp hơn Naive khi lấy mean ba seed.',
+    'Nguồn: main_summary.csv · Test 323 forecast origins',
+    'MAE là mean absolute error, đơn vị điểm chỉ số. Mean ± SD mô tả ba seed 42/43/44. SFT trong bảng là best-trained để đo tác động cập nhật, không phải mọi selected checkpoint. Chronos selected giữ epoch 0. ARIMA/ETS Close trùng Naive trong experiment này, không phải ba bằng chứng độc lập. SD giữa seed không phải confidence interval theo thị trường. CSV có đủ validation/test, zero-shot và RMSE.',['main_summary.csv'])
 
-zero = [float(main_score('kronos-'+v,'close',20)['mae']) for v in ('mini','small','base')]
-ft = [float(main_score('kronos-'+v+'-ft','close',20)['mae']) for v in ('mini','small','base')]
-costs = [next(r for r in resources if r['model']=='kronos-'+v) for v in ('mini','small','base')]
-chart12 = grouped_bars(['Mini','Small','Base'], [('Zero-shot',zero,None,'#aaa99f'),('SFT',ft,None,'#151610')], 200, width=1000, reference=float(main_score('naive','close',20)['mae']))
-add('q2-kich-thuoc', 'Q2 · Kích thước và tác động SFT', 'KẾT QUẢ',
-    '<div class="two-col chart-cost"><div>'+chart12+'</div><div>' + table(['Model','SFT (giây)','GiB¹'],[[r['model'].replace('kronos-','').title(),num(r['train_seconds_mean'],1),num(r['peak_allocated_GiB'])] for r in costs],[30,38,32],'dense') + brief('¹ Bộ nhớ tensor đỉnh khi huấn luyện, không phải tổng VRAM.') + '</div></div>' + brief('Mini SFT tốt hơn small SFT ở cả ba horizon. Base SFT tốt hơn mini tại h=20, chưa tốt hơn tại h=1/5.'),
-    f'Base: MAE Close sau 20 phiên giảm <strong>{num(zero[2]-ft[2])} điểm</strong>, vẫn cao hơn Naive.',
-    'Nguồn: main_summary.csv / resources.csv · RTX 4070 SUPER',
-    'Dựng lại đồ thị từ CSV cùng nguồn của báo cáo PC theo góp ý có thể dùng ảnh báo cáo. Biểu đồ/vector giữ chỉnh sửa được và khớp màu mẫu. SFT seconds là trung bình tổng lượt train, không phải thời gian inference. Mini khác tokenizer nên không suy tác động nhân quả riêng của số tham số.', ['main_summary.csv','resources.csv'])
+open_one=[num(main_score(m,'open',1)['mae']) for m in ['naive','kronos-mini-ft','kronos-small-ft','kronos-base-ft','chronos2-ft']]
+add('q1-open','Q1 · Vì sao Naive Open error = 0?','KẾT QUẢ',
+    brief('Naive: Open prediction[t+1] = Close[t]. Ngày 20/05/2025: Close = <strong>1.407,52</strong>.')
+    + table(['Origin','Target','Naive predict','Actual Open','Abs. error'],[
+        ['20/05/2025','21/05/2025',num(naive_open,2),num(actual_open,2),'<strong>0,00</strong>']
+    ],[20,20,22,22,16],'dense scores')
+    + '<div class="diagnosis"><p><strong>59 origins trong đoạn Open đặc biệt</strong><br><span>Naive Open MAE = 0,000</span></p><p><strong>264 origins còn lại</strong><br><span>Naive Open MAE = 7,291</span></p></div>'
+    + table(['Open h=1 MAE','Naive','Mini SFT','Small SFT','Base SFT','Chronos SFT'],[['Mean']+open_one],[17,14,17,17,17,18],'extra-dense scores'),
+    'Trong snapshot: Open[t+1] = Close[t] nên error = 0. <strong>Naive không có rule riêng cho 59 origins.</strong>',
+    'Nguồn: Snapshot VN30 + prediction CSV của Naive · Ví dụ dữ liệu thật',
+    'Dữ liệu thật: Close ngày 20/05/2025 = 1407,52; Open ngày 21/05/2025 = 1407,52; Naive Open prediction = 1407,52. Absolute error = |1407,52 - 1407,52| = 0. Hàng này đã đối chiếu SQLite gốc, CSV sample và naive-s42-zs-test.csv. Có 59 origins h=1 có target trong đoạn Open 05/05–11/08/2025, đều cho error bằng 0. Naive không có rule riêng cho nhóm này, không sửa forecast và không nhìn target. Nhãn Open bằng Close trước làm Naive được lợi trên metric, không chứng minh predict giá mở cửa chính thức hoàn hảo. Trên 264 origins còn lại, MAE = 7,291; toàn bộ 323 origins, MAE = 5,959. Full Open h=5/20 và SD có trong CSV nguồn.',['main_summary.csv','repo:demo/data/vn30.csv','repo:artifacts/local/pc-exploratory-20261030/evaluation-main/forecasts/naive-s42-zs-test.csv'])
 
-ablation = read_csv('ablation_summary.csv')
-values=[]
-for model,label,color in [('representation-continuous','Liên tục','#aaa99f'),('representation-quantized','Lượng tử hóa','#151610')]:
-    rows=[next(r for r in ablation if r['model']==model and r['split']=='test' and r['target']=='close' and int(r['horizon'])==h) for h in (1,5,20)]
-    values.append((label,[float(r['mae']) for r in rows],[float(r['mae_sd']) for r in rows],color))
-add('q2-luong-tu-hoa', 'Q2 · Kiểm tra riêng bước lượng tử hóa', 'KẾT QUẢ',
-    brief('Giữ cùng bộ mã hóa, model dự báo khởi tạo ngẫu nhiên, dữ liệu và ngân sách. Chỉ thay biểu diễn liên tục bằng mã rời rạc.')
-    + grouped_bars(['Sau 1 phiên','Sau 5 phiên','Sau 20 phiên'],values,200,width=1698,height=390),
-    'Trong đối chứng này, lượng tử hóa chưa làm sai số Close giảm đồng nhất.',
-    'Nguồn: ablation_summary.csv · Mean ± SD ba seed · MAE Close',
-    'Ablation nghĩa là thay riêng một thành phần trong điều kiện giữ các phần khác giống nhau. Continuous là vector L2-normalized trước BSQ; quantized là sau BSQ. Cùng random backbone small và numeric head/MSE. Không kết luận cho toàn bộ K-line representation. Mean chênh lệch nhỏ không tự chứng minh ý nghĩa thống kê.', ['ablation_summary.csv'])
+zero=[float(main_score('kronos-'+v,'close',20)['mae']) for v in ('mini','small','base')]
+ft=[float(main_score('kronos-'+v+'-ft','close',20)['mae']) for v in ('mini','small','base')]
+costs=[next(r for r in resources if r['model']=='kronos-'+v) for v in ('mini','small','base')]
+chart13=grouped_bars(['Mini','Small','Base'],[('Zero-shot',zero,None,'#aaa99f'),('SFT',ft,None,'#151610')],200,width=1000,reference=float(main_score('naive','close',20)['mae']))
+add('q2-kich-thuoc','Q2 · Model size và SFT','KẾT QUẢ',
+    '<div class="two-col chart-cost"><div>'+chart13+'</div><div>'
+    + table(['Model','Train (giây)','GiB¹'],[[r['model'].replace('kronos-','').title(),num(r['train_seconds_mean'],1),num(r['peak_allocated_GiB'])] for r in costs],[30,38,32],'dense')
+    + brief('¹ Peak tensor memory khi train, không phải tổng VRAM hoặc inference cost.')
+    + '</div></div>'
+    + brief('Close h=20. Mini SFT tốt hơn small SFT tại cả ba horizon. Base SFT tốt hơn mini tại h=20, chưa tốt hơn tại h=1/5.'),
+    f'Base: SFT giảm Close h=20 MAE <strong>{num(zero[2]-ft[2])} điểm</strong>, vẫn cao hơn Naive.',
+    'Nguồn: main_summary.csv / resources.csv · GPU RTX 4070 SUPER',
+    'Model size là số tham số, không bảo đảm prediction chính xác hơn. Ba Kronos lần lượt khoảng 4,1M / 24,7M / 102,3M. Mini dùng tokenizer khác nên không đo tác động riêng của số tham số. Train seconds là tổng thời gian SFT của mỗi lượt, lấy mean ba seed, không phải inference time. Peak tensor allocation khác tổng VRAM của process. Close h=20 của base giảm từ 166,781 xuống 98,849, cải thiện 67,932 điểm; Naive vẫn thấp hơn ở 93,826.',['main_summary.csv','resources.csv'])
 
-add('q3-du-lieu', 'Q3 · Dữ liệu và kiến thức học sẵn', 'KẾT QUẢ',
+add('tokenization-quantize','Tokenization và quantize','GIẢI THÍCH',
+    flow([('OHLC','Numeric input'),('Encode','Continuous features'),('Quantize','Features thành mã hữu hạn'),('Token IDs','Input cho predictor')])
+    + table(['Khái niệm','Ý nghĩa'],[
+        ['<strong>Tokenization</strong>','Toàn bộ quá trình chuyển input thành token mà predictor xử lý.'],
+        ['<strong>Quantize</strong>','Một bước trong tokenization: chuyển continuous features thành discrete codes (mã hữu hạn).'],
+    ],[24,76],'dense')
+    + '<div class="formula">Ví dụ minh họa theo dấu: [0,2; −0,7] → bits [1; 0]</div>',
+    '',
+    'Nguồn: KronosTokenizer / BSQuantizer · Ví dụ chỉ minh họa cơ chế',
+    'Tokenization là toàn bộ quá trình chuyển input thành token; quantize là một bước trong đó. BSQ là Binary Spherical Quantization: latent vector được chuẩn hóa rồi quantize theo dấu; các bits tạo token IDs. Ví dụ hai chiều trên slide chỉ minh họa positive thành bit 1, negative thành bit 0, lược bỏ normalization, scale và hierarchical split. Không phải token thật của một session VN30. Encode API thực tế đã gồm quantize, sơ đồ tách ra để giải thích. Decode dùng weight đã học để khôi phục OHLC, không phải đảo bit thành giá bằng một công thức đơn giản.',['repo:demo/vendor/kronos/model/kronos.py','repo:demo/vendor/kronos/model/module.py'])
+
+ablation=read_csv('ablation_summary.csv')
+bar_values=[]
+for model,label,color in [('representation-continuous','Trước quantize','#aaa99f'),('representation-quantized','Sau quantize','#151610')]:
+    rr=[next(r for r in ablation if r['model']==model and r['split']=='test' and r['target']=='close' and int(r['horizon'])==h) for h in (1,5,20)]
+    bar_values.append((label,[float(r['mae']) for r in rr],[float(r['mae_sd']) for r in rr],color))
+add('q2-luong-tu-hoa','Q2 · Quantize ablation','KẾT QUẢ',
+    '<div class="ablation-branches"><p><strong>A</strong> Encoder cố định · continuous features · predictor</p><p><strong>B</strong> Cùng encoder · <b>quantize</b> · cùng predictor initialization</p></div>'
+    + grouped_bars(['h=1','h=5','h=20'],bar_values,200,width=1698,height=320),
+    'Giữ data, initialization và train budget giống nhau. Quantize chưa giúp Close MAE giảm đồng nhất.',
+    'Nguồn: ablation_summary.csv · MAE Close, mean ± SD ba seed',
+    'Ablation nghĩa là thay riêng một thành phần để đo đóng góp. Hai nhánh dùng cùng fixed small encoder, cùng random small backbone, numeric head/MSE, data và train budget. Nhánh A dùng L2-normalized features trước BSQ; nhánh B dùng features sau BSQ. Initialization hash khớp theo từng seed. Đây là một representation ablation với numeric head; không phải bỏ quantize khỏi pre-trained token predictor rồi giả định nguyên model vẫn chạy được. Mean ± SD theo seed không phải CI. Không mở rộng kết luận thành lợi/hại cho mọi thành phần K-line representation.',['ablation_summary.csv'])
+
+add('q3-du-lieu','Q3 · Data budget và pre-trained','KẾT QUẢ',
     '<div class="two-col">'+learning_chart('kronos-small-ft','Kronos-small')+learning_chart('chronos2-ft','Chronos-2-small')+'</div>'
-    + brief('Trục ngang: 500 / 1.000 / 1.589 phiên train, tương ứng 353 / 853 / 1.442 cửa sổ. Trục dọc: MAE Close sau 20 phiên, mean ± SD ba seed.'),
-    'Trong ngân sách đã thử, pretraining giúp Chronos rõ hơn. Với Kronos-small, lợi ích tùy trường hợp.',
-    'Nguồn: learning_curve.csv / random_lr_selection.csv · Validation/test cố định',
-    'Pretraining là học từ dữ liệu trước khi đến bài VN30. Random là predictor cùng kiến trúc khởi tạo ngẫu nhiên; tokenizer Kronos vẫn pretrained. Chronos pretrained thấp MAE hơn random cả chín ô budget/horizon. Kronos random thấp hơn pretrained tại h=5/20 ở 1.000 và full; full h=20:117,220 so với138,716. Random chọn LR trong1e-6/1e-5/1e-4, pretrained giữ1e-6, nên tổng chi phí tìm cấu hình khác nhau.', ['learning_curve.csv','random_lr_selection.csv'])
+    + brief('Pre-trained: train tiếp từ weight có sẵn. Random init: predictor bắt đầu từ weight ngẫu nhiên. Trục ngang: session train, trục dọc: Close h=20 MAE.'),
+    'Trong budget đã thử, pre-training giúp Chronos rõ hơn. Với Kronos-small, lợi ích tùy trường hợp.',
+    'Nguồn: learning_curve.csv · Mean ± SD ba seed · Validation/test giữ cố định',
+    'Q3 giữ Kronos-small và Chronos, không thêm mini/base theo phạm vi đã chốt. Các budget 500 / 1.000 / 1.589 session tương ứng 353 / 853 / 1.442 windows, lồng nhau và cùng ngày kết thúc. Random init nghĩa là predictor có weight ngẫu nhiên, còn tokenizer Kronos vẫn pre-trained. Random chọn learning rate trên validation từ 1e-6 / 1e-5 / 1e-4; pre-trained giữ 1e-6 nên tổng search cost khác nhau. Chronos pre-trained có MAE thấp hơn random cả chín ô budget/horizon. Với Kronos, random tốt hơn ở h=5/20 tại 1.000 và full. Full h=20: random 117,220 so với pre-trained 138,716. Không chọn lại budget theo test.',['learning_curve.csv','random_lr_selection.csv'])
 
-add('q4-khoang-bat-dinh', 'Q4 · Khoảng bất định của chênh lệch', 'KẾT QUẢ',
-    brief('Điểm giữa: chênh lệch MAE với Naive. Thanh ngang: khoảng tin cậy 95%. Chênh lệch âm nghĩa là tốt hơn Naive.') + forest(),
-    'Khoảng cắt qua 0 cho thấy chưa phân biệt rõ hơn hay kém Naive trong phép kiểm này.',
-    'Nguồn: paired_intervals.csv · Close, seed 42 · Block 20 mốc, 2.000 lần lấy mẫu',
-    'Paired moving-block bootstrap lấy lại mẫu theo khối20 origin, cùng origin giữa hai forecast. Đây là CI seed42, không ghép CI từ ba seed. Khoảng percentile95%, chưa điều chỉnh nhiều phép so sánh. Base h20 CI[-18,439;26,387], small[13,737;85,757]. Các mốc chồng lấn không độc lập.', ['paired_intervals.csv'])
+add('q4-khoang-bat-dinh','Q4 · MAE có ổn định không?','KẾT QUẢ',
+    brief('<strong>Seed</strong>: đổi trạng thái ngẫu nhiên của lần chạy. <strong>Horizon h</strong>: số session cần predict phía trước. Điểm dưới đây là chênh lệch MAE với Naive, seed 42.')
+    + forest(),
+    'Thanh ngang: CI 95%. Cắt qua 0: chênh lệch MAE với Naive chưa rõ.',
+    'Nguồn: paired_intervals.csv · Close · Block 20 origins, bootstrap 2.000 lần',
+    'Q4 hỏi model có giữ MAE thấp qua các seed, horizon và giai đoạn hay không. Điểm giữa là mean paired absolute-error difference so với Naive: âm tốt hơn, dương kém hơn. Thanh ngang là percentile CI 95% từ moving-block bootstrap, 2.000 lần lấy mẫu theo block 20 origins. Hình chỉ dùng seed 42; không ghép CI của ba seed thành một CI chung và không bootstrap ba seed như ba thị trường. CI cắt qua 0 chưa phân biệt rõ tốt/kém Naive, không chứng minh hai model tương đương. Chưa điều chỉnh multiple comparisons.',['paired_intervals.csv'])
 
-regimes=read_csv('regime_period_summary.csv')
-rows16=[]
-for model,label in [('kronos-mini-ft','Kronos-mini SFT'),('kronos-small-ft','Kronos-small SFT'),('kronos-base-ft','Kronos-base SFT'),('chronos2-ft','Chronos-2-small SFT')]:
-    diffs=[]
-    for period in ('period-1','period-2','period-3'):
-        get=lambda m:float(next(r for r in regimes if r['model']==m and r['target']=='close' and r['horizon']=='20' and r['grouping']=='period' and r['label']==period)['mae'])
-        delta=get(model)-get('naive')
-        diffs.append(('+' if delta>0 else '')+num(delta))
-    rows16.append([label]+diffs)
-add('q4-thoi-gian', 'Q4 · Kết quả theo thời gian', 'KẾT QUẢ',
-    volatility_chart() + table(['Chênh lệch MAE với Naive','Đoạn 1','Đoạn 2','Đoạn 3'],rows16,[37,21,21,21],'extra-dense scores')
-    + brief('Close sau 20 phiên, trung bình ba seed. Số âm là tốt hơn Naive. Có 306 mốc biến động thường và 17 mốc biến động cao.'),
-    '', 'Nguồn: origin_regimes.csv / regime_period_summary.csv',
-    'Ngưỡng p90 chỉ lấy từ train. Biến động là SD20 log-return đã quan sát tại origin, ddof1. Hai cụm cao không đại diện nhiều biến cố thị trường độc lập. Bảng chênh lệch lấy mean MAE của nhóm trừ mean Naive cùng nhóm, không tạo một kiểm định mới.', ['origin_regimes.csv','regime_period_summary.csv'])
+regimes=[r for r in read_csv('origin_regimes.csv') if r['group']=='evaluation-main/scores/seed-42/test']
+high=[r for r in regimes if r['regime']=='high']
+clusters={}
+for r in high: clusters.setdefault(r['high_cluster'],[]).append(r['origin_date'])
+assert [(len(v),v[0],v[-1]) for v in clusters.values()]==[(6,'2026-03-11','2026-03-18'),(11,'2026-03-20','2026-04-03')]
+threshold=float(regimes[0]['train_p90'])
+add('q4-thoi-gian','Q4 · Volatility và threshold p90','KẾT QUẢ',
+    brief('<strong>Volatility</strong> = độ dao động của 20 log-return trước origin. <strong>p90</strong> là threshold mà khoảng 90% volatility train nằm dưới. Giữ threshold này cố định khi phân nhóm test.')
+    + volatility_chart()
+    + table(['Nhóm test','Forecast origins','Ngày origin'],[
+        ['Volatility cao · cụm 1','6','11–18/03/2026'],
+        ['Volatility cao · cụm 2','11','20/03–03/04/2026'],
+        ['Còn lại','306','Không vượt threshold'],
+    ],[42,23,35],'extra-dense')
+    + brief(f'Train p90 ≈ {num(threshold*100,3)}% log-return SD. Có 17/323 test origins vượt threshold, không bắt buộc là 10% test. Window chồng lấn nên không đếm mỗi origin như một biến cố.'),
+    '',
+    'Nguồn: origin_regimes.csv · Chỉ dùng return đã quan sát, không dùng giá tương lai',
+    'Volatility dùng standard deviation của 20 log-return đã biết tại mỗi origin, ddof = 1. P90 train = 0,0211480870019929 log-return SD, tương đương khoảng 2,115%. Khoảng 10% giá trị volatility train vượt p90; không phải 90% giá và không bắt buộc 10% test vượt threshold. Threshold được giữ cố định khi phân nhóm test. Snapshot có các window return dao động mạnh nên vượt threshold, không gán high bằng tay. Có 6 origins từ 11–18/03/2026 và 11 origins từ 20/03–03/04/2026, ngắt ở 19/03. Cụm là các origins liên tiếp vượt threshold; chưa gắn nguyên nhân sự kiện cụ thể. Các rolling windows chồng lấn nên 17 origins không đại diện 17 biến cố độc lập, và hai cụm cũng có thể thuộc cùng một giai đoạn biến động.',['origin_regimes.csv'])
 
 folds=read_csv('fold_scores.csv')
-rows17=[]
+fold_rows=[]
 for model,label in [('naive','Naive'),('kronos-mini-ft','Kronos-mini SFT'),('kronos-small-ft','Kronos-small SFT'),('kronos-base-ft','Kronos-base SFT'),('chronos2-ft','Chronos-2-small SFT')]:
     vals=[num(next(r for r in folds if r['fold']==f and r['model']==model and r['split']=='test' and r['target']=='close' and r['horizon']=='20')['mae']) for f in ('fold1','fold2')]
-    rows17.append([label]+vals)
-add('q4-folds', 'Q4 · Hai giai đoạn kiểm tra bổ sung', 'KẾT QUẢ',
-    '<div class="fold-dates"><p><strong>Fold 1</strong> · Test 09/02–29/12/2023</p><p><strong>Fold 2</strong> · Test 02/01–28/11/2024</p></div>'
-    + table(['MAE Close sau 20 phiên','Fold 1','Fold 2'],rows17,[48,26,26],'dense scores',highlight=(0,))
-    + brief('208 mốc/fold, seed 42. Chọn model bằng dữ liệu trước test. Hai fold không có mốc biến động cao.'),
-    'Chưa có lợi thế nhất quán trước Naive qua các horizon và hai fold.',
-    'Nguồn: fold_scores.csv · Expanding-window evaluation',
-    'Expanding-window là mở rộng dữ liệu quá khứ để kiểm tra ở một đoạn thời gian tiếp theo. Hình chính giữ h20 để đọc rõ; CSV có h1/h5 và zero-shot. Chronos SFT fold1 h5=22,213 so với Naive22,363, không giữ lợi thế fold2. Folds hồi cứu không chứng minh sạch pretraining. Bảng dùng best-trained.', ['fold_scores.csv'])
+    fold_rows.append([label]+vals)
+add('q4-folds','Q4 · Fold là gì?','KẾT QUẢ',
+    brief('Fold = một lần chia train / validation / test theo thời gian. Fold sau mở rộng train.')
+    + '<div class="fold-timelines"><div><b>Fold 1</b><span>Train ≤ 11/03/2022</span><span>Validation<br>14/03/2022–08/02/2023</span><span>Test<br>09/02–29/12/2023</span></div><div><b>Fold 2</b><span>Train ≤ 08/02/2023</span><span>Validation<br>09/02–29/12/2023</span><span>Test<br>02/01–28/11/2024</span></div></div>'
+    + table(['Close h=20 MAE','Fold 1','Fold 2'],fold_rows,[48,26,26],'extra-dense scores',highlight=(0,))
+    + brief('208 origins/fold, seed 42. Không có lợi thế nhất quán trước Naive qua hai fold và các horizon.'),
+    '', 'Nguồn: fold_scores.csv · Mỗi fold chọn checkpoint trên validation riêng',
+    'Fold là một lần chia train / validation / test theo thời gian. Cả hai fold bắt đầu train từ 24/08/2017; phần train của fold sau được mở rộng. Test không tham gia chọn checkpoint. Mỗi fold có 208 origins, seed 42. Bảng hiển thị Close h=20 cho dễ đọc; source CSV có h=1/5 và zero-shot. Chronos SFT nhỉnh hơn Naive ở fold 1 h=5: 22,213 so với 22,363, nhưng không giữ lợi thế ở fold 2. Cả hai fold có 0 high-volatility origins theo threshold train riêng nên không bổ sung bằng chứng cho volatility cao. Evaluation hồi cứu chưa loại trừ pre-training overlap.',['fold_scores.csv'])
 
-add('kiem-dinh', 'Kiểm định và khả năng tái lập', 'BẰNG CHỨNG',
-    '<div class="evidence-numbers"><div><strong>2.160</strong><span>dòng sai số tính lại từ dự báo và nhãn</span></div><div><strong>378</strong><span>khoảng bootstrap kiểm tra độc lập</span></div></div>'
-    + flow([('Dữ liệu', 'Hash / nguồn'),('Checkpoint','Trọng số / cấu hình'),('Dự báo','182 file CSV'),('Sai số','88 nhóm chấm'),('Báo cáo','Bảng / hình')])
-    + brief('Kiểm thêm 1.782 metric theo nhóm và giai đoạn. Giữ revision, lựa chọn checkpoint và hướng dẫn chạy lại.'),
-    'Kiểm đúng phép tính giúp tái lập kết quả, nhưng không thay cho xác minh giá thị trường.',
-    'Nguồn: Numerical validation / final verification / completion matrix',
-    '85 output receipts và90 cặp training/selection được kiểm hash, không phải90 mẫu nghiên cứu độc lập. Software suite64 tests, skipped1. Native GPU interrupted/resume mới kiểm mini, không mở rộng cho mọi variant hoặc forced-OOM. Forecast được lưu trước khi ghép nhãn.', ['verification.json','completion_matrix.csv'])
-
-add('gioi-han', 'Giới hạn và việc còn cần làm', 'THẢO LUẬN',
-    table(['Giới hạn','Ảnh hưởng','Việc cần làm'],[
-        ['Giá OHLC và lịch sàn','Kết luận chỉ theo snapshot đang dùng.','Bổ sung nguồn và phân xử từng sai khác.'],
-        ['Đánh giá hồi cứu','Chưa loại trừ việc model từng thấy dữ liệu.','Xác minh cutoff và kiểm thêm giai đoạn mới.'],
-        ['Ngân sách / số giai đoạn','Năm epoch và ít cụm biến động cao.','Đối chứng thêm khi có dữ liệu đủ căn cứ.'],
-        ['Chưa backtest giao dịch','Sai số giá chưa cho biết lợi nhuận.','Đánh giá riêng phí và quy tắc giao dịch.'],
-    ],[26,36,38],'dense'),
-    'Nếu sửa dữ liệu, cần phiên bản mới và kiểm lại các thí nghiệm phụ thuộc.',
-    'Nguồn: Báo cáo PC, mục 9 · completion_matrix.csv',
-    'Không hứa đã có dữ liệu hiệu chỉnh hoặc chạy đến hội tụ. Chưa có Directional Accuracy/backtest/transaction costs trong phạm vi đã chốt. Không đổi nhãn checkpoint gốc thành model của phiên bản dữ liệu mới.', ['completion_matrix.csv'])
-
-add('ket-luan', 'Kết luận Q1–Q4', 'KẾT LUẬN',
-    table(['Câu hỏi','Kết quả trong thiết lập đã thử'],[
-        ['<strong>Q1</strong>','Neural model chưa vượt Naive một cách ổn định.'],
-        ['<strong>Q2</strong>','Kích thước và lượng tử hóa chưa có lợi ích đồng nhất. SFT giúp base rõ ở h=20.'],
-        ['<strong>Q3</strong>','Lợi ích học sẵn phụ thuộc model. Thêm dữ liệu chưa giúp mọi horizon.'],
-        ['<strong>Q4</strong>','Kết quả thay đổi theo giai đoạn. Bằng chứng về biến động cao còn ít.'],
+add('ket-luan','Kết luận Q1–Q4','KẾT LUẬN',
+    table(['Câu hỏi','Kết quả trong experiment'],[
+        ['<strong>Q1</strong>','Neural model chưa có lợi thế ổn định trước Naive.'],
+        ['<strong>Q2</strong>','Model lớn hơn và quantize chưa giúp đồng đều. SFT cải thiện base rõ tại h=20.'],
+        ['<strong>Q3</strong>','Lợi ích pre-trained phụ thuộc model. Thêm data chưa làm mọi horizon tốt hơn.'],
+        ['<strong>Q4</strong>','MAE thay đổi theo horizon và giai đoạn. Số đợt volatility cao còn ít.'],
     ],[10,90]),
-    'Ưu tiên tiếp theo: <strong>xác minh dữ liệu</strong> trước khi chốt nghiên cứu chính.',
-    'Nguồn: Báo cáo PC · Kết quả thăm dò, chưa chấp nhận dữ liệu nghiên cứu chính',
-    'Các khoảng trống thí nghiệm đã có kết quả PC thăm dò và được kiểm định số học. Giữ giới hạn snapshot, hồi cứu, tokenizer khác nhau và ngân sách thử nghiệm. Đây cũng là trang trao đổi cuối, không có slide21.', ['completion_matrix.csv'])
+    '', 'Nguồn: Bảng kết quả Q1–Q4 · Snapshot VN30, protocol đã khóa',
+    'Kết luận chỉ trong snapshot, split, model và budget đã thử. Không suy lợi nhuận giao dịch từ MAE, không khẳng định train đã hội tụ hoặc dataset acceptance đã đạt. Các source links giữ khả năng truy vết. Q3 chỉ đánh giá Kronos-small và Chronos; Q2 mini/small/base khác tokenizer, nên không tách riêng được tác động số tham số. Bản kết luận không chứa lời kêu gọi xác minh dữ liệu, nhưng không thay đổi trạng thái dataset trong hồ sơ nghiên cứu.',['completion_matrix.csv'])
+
 
 assert len(slides)==20
 
@@ -419,6 +489,9 @@ extra_css = '''
 .scores td:not(:first-child),.scores th:not(:first-child) {font-family:var(--font-mono);text-align:right;white-space:nowrap;}
 .scores .sd {font-size:23px;color:var(--text-muted);}
 .two-col {display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center;}
+.two-col.aligned {align-items:start;gap:50px;}
+.two-col.aligned h3 {font-size:31px;margin-bottom:20px;}
+.two-col.aligned .brief {font-size:27px;margin-top:18px;}
 .chart-cost {grid-template-columns:1.65fr 1fr;}
 .data-chart {display:block;width:100%;height:auto;overflow:visible;font-family:var(--font-body);}
 .flow {display:flex;width:100%;gap:30px;align-items:stretch;padding:25px 0;}
@@ -432,6 +505,17 @@ extra_css = '''
 .window-strip {display:flex;gap:5px;min-height:140px;}
 .window-strip>div {padding:22px 34px;display:flex;flex-direction:column;gap:12px;justify-content:center;}
 .window-strip b {font-size:38px;}.window-strip span {font-size:27px;}
+.small-window {min-height:100px;}
+.small-window b {font-size:31px;}.small-window span {font-size:26px;}
+.formula {font-family:var(--font-mono);font-size:33px;line-height:1.5;padding:22px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+.ablation-branches {font-size:28px;line-height:1.6;border-top:1px solid var(--line);padding-top:16px;}
+.fold-timelines {display:flex;flex-direction:column;gap:10px;}
+.fold-timelines>div {display:grid;grid-template-columns:100px 1fr 1.35fr 1.15fr;gap:5px;align-items:stretch;}
+.fold-timelines b {font-size:25px;align-self:center;}
+.fold-timelines span {font-size:24px;line-height:1.4;padding:10px 14px;background:var(--bg-alt);}
+.fold-timelines span:nth-child(2) {background:var(--text);color:var(--bg);}
+.fold-timelines span:last-child {border:1px dashed var(--text-muted);}
+#q4-folds .body {gap:20px;}
 .context {flex:3;background:var(--text);color:var(--bg);}.future {flex:2;background:var(--bg-alt);border:1px dashed var(--text-muted);}
 .diagnosis {display:grid;grid-template-columns:1fr 1fr;gap:40px;border-top:1px solid var(--line);padding-top:16px;line-height:1.45;font-size:27px;}
 .diagnosis span {font-family:var(--font-mono);color:var(--text-muted);font-size:25px;}

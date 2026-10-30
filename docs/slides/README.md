@@ -6,18 +6,20 @@ Bài trình bày **20 slide** theo mẫu Paper & Ink, nhóm **1nsider**: Vi Nguy
 
 - Mở **vn30-paper-ink.html** bằng Chrome hoặc Edge. File đã nhúng thư viện, font và biểu đồ, dùng được offline, không cần cài Python/Node hay chạy server.
 - Cuộn chuột/trackpad để đọc. **Tab** chuyển slide tiếp theo, **Shift+Tab** quay lại. **F** bật toàn màn hình, **S** mở ghi chú cho người thuyết trình.
-- Có thể mở thẳng một trang, ví dụ thêm `#/q1-close` để tới slide 10 hoặc `#/ket-luan` để tới kết luận. Bỏ hash để mở lại từ đầu.
+- Có thể mở thẳng một trang, ví dụ thêm `#/q1-close` để tới slide 11 hoặc `#/ket-luan` để tới kết luận. Bỏ hash để mở lại từ đầu.
 - **vn30-paper-ink.pdf** là bản tĩnh 20 trang, tỷ lệ 16:9, tiện gửi và xem trên máy khác. Ghi chú thuyết trình chỉ nằm trong HTML.
 
 HTML giữ nền giấy có hạt nhẹ và bóng của mẫu. PDF bỏ hiệu ứng hạt/bóng để chữ, bảng và biểu đồ sắc nét, dung lượng nhỏ. Nội dung và số liệu của hai bản giống nhau.
 
 ## Nội dung và góp ý
 
-Nguồn là báo cáo PC và CSV đã kiểm định, không có kết quả từ checkpoint cũ. Bìa đã dùng tên project và thành viên theo góp ý trong `slide-outline.md`. Giới hạn dữ liệu được diễn đạt gọn, giữ đúng phạm vi thăm dò. Dashboard là phần riêng.
+Nguồn là báo cáo thực nghiệm và CSV đã kiểm định. Bìa giữ đúng project và thành viên trong dàn ý. Bản V2 giải thích baseline, kiến trúc Kronos, forecast origin, sampling/quantile, epoch, quantize, p90 và fold trước khi đọc kết quả. Source boundary giữ trong notes. Dashboard là phần riêng.
+
+Thuật ngữ thống nhất: **pre-trained, encode, decode, weight, train, inference, predict, tokenizer, quantize**. Tokenization là toàn bộ quá trình tạo token, quantize là một bước trong đó. Ví dụ giải thích có nhãn minh họa; ví dụ Open ngày 21/05/2025 là dữ liệu thật đã đối chiếu prediction CSV.
 
 Bạn có thể ghi số slide và cụm từ muốn giải thích hoặc sửa trong `slide-outline.md`. Các REVIEW gốc được giữ cùng ghi nhận đã xử lý. Khi chỉnh, cần cập nhật nguồn dựng và xuất lại hai bản để tránh lệch nội dung.
 
-## Dựng lại trên PC phát triển
+## Dựng lại
 
 `build_deck.py` chỉ đọc CSV/Markdown đã có, không train hoặc chạy inference. Bảng là HTML, biểu đồ dữ liệu là SVG sửa được, font/thư viện đã khóa trong `vendor/`. `build_manifest.json` ghi hash nguồn và HTML.
 

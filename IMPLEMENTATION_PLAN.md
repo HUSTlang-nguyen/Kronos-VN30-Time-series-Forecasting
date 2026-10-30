@@ -205,3 +205,12 @@ Các tối ưu đang để xem xét, **chưa được tuyên bố đã làm**:
 - Đã kiểm nội dung từ CSV, xem đủ20 slide và20 trang PDF render Poppler. Chrome kiểm không tràn, tiếng Việt, offline không request, Tab/ShiftTab/nhấn nhanh/biên/hash/scroll/resize/progress0–100, F fullscreen, S notes nhận đúng trang đạt. Không gắn nhãn dữ liệu đã xác minh.
 - Sửa các lỗi thực tế trong khi dựng: tự nhúng toàn bộ dependency, không chèn license vào chuỗi HTML nội bộ của plugin notes, rút gọn caption trang14/17 để không sát lề, tách nhãn Naive khỏi cột dữ liệu, tắt grain khi in để PDF giảm từ60MB còn503KB. Giữ theme và số liệu.
 - Điểm tiếp tục: bàn giao HTML/PDF, chờ góp ý câu chữ theo số slide. Không yêu cầu duyệt lại dàn ý/5slide khi user đã cho dựng toàn bộ. Khi sửa, đọc outline mới nhất và đồng bộ builder/HTML/PDF, kiểm lại phần có thay đổi.
+
+### 8.2. Slide V2 — implement plan viết lại, hoàn tất 31/10/2026
+
+- Đã áp dụng cấu trúc đúng 20 slide và thuật ngữ English. Tách baseline thành hai trang, bổ sung kiến trúc Kronos và phân biệt tokenization/quantize. Các trang sau được đánh số lại theo plan.
+- Giải thích origin/session bằng 342 − 20 + 1 = 323; inference bằng sampled paths/quantile; best epoch 5 bằng validation loss thật; Naive Open error 0 bằng hàng dữ liệu thật và rule chung. Đã đối chiếu SQLite gốc và prediction CSV.
+- P90 là threshold mà khoảng 90% volatility train nằm dưới, giữ cố định cho test. Hai cụm có 6 origins từ 11–18/03/2026 và 11 origins từ 20/03–03/04/2026. Fold có timeline train/validation/test và checkpoint selection riêng, không random shuffle.
+- Bỏ hai trang kiểm định/giới hạn cũ, nhãn trạng thái/khối cảnh báo trên pre-process và câu ưu tiên ở kết luận. Không đổi dataset acceptance, dữ liệu, score, checkpoint hoặc report. Q3 giữ small/Chronos, không train thêm.
+- HTML/PDF tại đường dẫn cũ, đủ 20 slide. Đã kiểm Chrome về nội dung, thuật ngữ, font, offline, layout, điều hướng, F/S và viewport; xem đủ 20 slide HTML và 20 trang PDF Poppler. PDF 525.347 bytes, 16:9. Receipt riêng tại .cache/slides-qa/final_receipt-v2.json; source hashes trong build_manifest.json.
+- Điểm tiếp tục: bàn giao V2 và chờ góp ý theo số slide/cụm từ. Không tự train thêm hoặc nâng trạng thái nghiên cứu. Đọc dàn ý/REVIEW mới nhất trước khi sửa, giữ theme, bìa, số liệu và cập nhật cả HTML/PDF.

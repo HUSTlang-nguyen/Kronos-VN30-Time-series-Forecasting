@@ -24,6 +24,20 @@ const setup = await page.evaluate(()=>({
   scrollView:Reveal.isScrollView(),
 }));
 if(setup.slides!==20 || !setup.vietnameseFont || !setup.monoFont || !setup.scrollView) throw Error(JSON.stringify(setup));
+const content=await page.evaluate(()=>{
+ const slides=Reveal.getSlides();
+ const text=slides.map(s=>s.querySelector('.frame').innerText).join('\n');
+ const words=['huấn luyện','trọng số','học sẵn','mã hóa','giải mã','lượng tử hóa','thăm dò','PC mới','mốc'];
+ return {ids:slides.map(s=>s.id),forbiddenTerms:words.filter(w=>text.toLowerCase().includes(w.toLowerCase())),
+         removedSections:slides.some(s=>s.id==='kiem-dinh'||s.id==='gioi-han'),
+         removedConclusion:text.includes('Ưu tiên tiếp theo:'),
+         realOpenExample:text.includes('1.407,52')&&text.includes('21/05/2025'),
+         clarifiedP90:text.includes('90% volatility train')&&text.includes('không bắt buộc là 10% test'),
+         quantizeExample:text.includes('Ví dụ minh họa theo dấu'),
+ };
+});
+const expectedIds=['mo-dau','cau-hoi','baseline-naive-ridge','baseline-arima-ets','cach-kronos-du-bao','cac-model','du-lieu','kiem-tra-du-lieu','quy-trinh','chon-checkpoint','q1-close','q1-open','q2-kich-thuoc','tokenization-quantize','q2-luong-tu-hoa','q3-du-lieu','q4-khoang-bat-dinh','q4-thoi-gian','q4-folds','ket-luan'];
+if(JSON.stringify(content.ids)!==JSON.stringify(expectedIds)||content.forbiddenTerms.length||content.removedSections||content.removedConclusion||!content.realOpenExample||!content.clarifiedP90||!content.quantizeExample)throw Error(JSON.stringify(content));
 const nearest=()=>page.evaluate(()=>{
   const v=Reveal.getViewportElement(),center=v.getBoundingClientRect().top+v.clientHeight/2;
   return Reveal.getSlides().map((s,i)=>({i,d:Math.abs(s.getBoundingClientRect().top+s.getBoundingClientRect().height/2-center)})).sort((a,b)=>a.d-b.d)[0].i;
@@ -92,7 +106,8 @@ for(const viewport of [{width:1024,height:768},{width:390,height:844}]){
 await page.setViewportSize({width:1440,height:900});
 await page.goto(url);await page.waitForFunction(()=>window.Reveal?.isReady());await page.waitForTimeout(200);
 if(await nearest()!==0)throw Error('Fresh open restored old scroll position');
-await center(7);await page.waitForTimeout(200);
+const checkpointIndex=await page.evaluate(()=>Reveal.getSlides().findIndex(s=>s.id==='chon-checkpoint'));
+await center(checkpointIndex);await page.waitForTimeout(200);
 await page.keyboard.press('f');await page.waitForTimeout(350);
 const fullscreen=await page.evaluate(()=>!!document.fullscreenElement);
 if(fullscreen)await page.evaluate(()=>document.exitFullscreen());
@@ -104,11 +119,11 @@ const notesReady=true;
 await notes.close();
 const problems=layout.filter(r=>r.overflowY>3||r.overflowX>3||r.headerOverflow>3||r.outliers.length||r.bodyBottom>r.footerTop+2||r.emptyNotes);
 const receipt={status:problems.length||errors.length||requests.length||!inputGuard||!modifierGuard||!fullscreen||!notesReady||responsive.some(r=>r.horizontalOverflow)?'needs_fix':'pass',...setup,
-  offline:true,networkRequests:requests,pageErrors:errors,layout,problems,
+  offline:true,content,networkRequests:requests,pageErrors:errors,layout,problems,
   navigation:{tab:true,rapidTab:true,shiftTab:true,boundaries:true,numericHash:true,idHash:true,invalidHash:true,manualScroll:true,freshOpen:true,fullscreen,speakerNotes:notesReady,inputGuard,modifierGuard,startProgress,endProgress},responsive};
 await writeFile(resolve(output,'verification.json'),JSON.stringify(receipt,null,2));
 console.log(JSON.stringify({status:receipt.status,problems,errors,requests,setup,navigation:receipt.navigation,responsive},null,2));
-if(process.argv.includes('--pdf')){
+if(process.argv.includes('--pdf')&&receipt.status==='pass'){
  const printPage=await browser.newPage({viewport:{width:1920,height:1080}});
  printPage.on('pageerror',e=>errors.push(e.message));
  await printPage.route(/^https?:/,route=>route.abort());
