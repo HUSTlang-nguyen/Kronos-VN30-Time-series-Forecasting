@@ -1,0 +1,37 @@
+{
+  "status": "pass",
+  "anonymous_download": true,
+  "models": [
+    {
+      "model": "kronos-mini",
+      "repo": "neikhn/kronos-mini-vn30-sft",
+      "revision": "61d1824286f98bffa4cb63a88142d90b007b3328",
+      "public": true,
+      "download_hashes": "pass",
+      "local_cache": "cache/hub-public/models--neikhn--kronos-mini-vn30-sft/snapshots/61d1824286f98bffa4cb63a88142d90b007b3328",
+      "offline_inference": "pass",
+      "forecast_rows": 20
+    },
+    {
+      "model": "kronos-small",
+      "repo": "neikhn/kronos-small-vn30-sft",
+      "revision": "d7093271e98c939dcd30a0fec1cc87906d110844",
+      "public": true,
+      "download_hashes": "pass",
+      "local_cache": "cache/hub-public/models--neikhn--kronos-small-vn30-sft/snapshots/d7093271e98c939dcd30a0fec1cc87906d110844",
+      "offline_inference": "pass",
+      "forecast_rows": 20
+    },
+    {
+      "model": "kronos-base",
+      "repo": "neikhn/kronos-base-vn30-sft",
+      "revision": "cb4301198abc5cbfa9ecb0ff2064e7c7ac410a2a",
+      "public": true,
+      "download_hashes": "pass",
+      "local_cache": "cache/hub-public/models--neikhn--kronos-base-vn30-sft/snapshots/cb4301198abc5cbfa9ecb0ff2064e7c7ac410a2a",
+      "offline_inference": "pass",
+      "forecast_rows": 20
+    }
+  ],
+  "offline_inference": "pass"
+}

@@ -3,6 +3,13 @@ __pycache__/
 *.py[cod]
 .venv/
 .venv-data/
+.venv-demo/
+demo/frontend/node_modules/
+demo/frontend/dist/
+demo/frontend/*.tsbuildinfo
+demo/models/
+demo/cache/
+demo/bundle/
 venv/
 .python-version
 .pytest_cache/

@@ -1,5 +1,7 @@
 # VN30 Forecasting
 
+**Dashboard inference local:** xem [VN30 Inference Studio](demo/README.md). Chạy bằng `Start-Dashboard.cmd` từ gói ZIP đã build; có ba Kronos SFT, dữ liệu lịch sử mẫu, dark/light và VI/EN toggle. Demo được tách khỏi báo cáo nghiên cứu và không dùng hosted inference trả phí.
+
 Thử nghiệm dự báo VN30 bằng **Kronos mini/small/base**, **Chronos-2-small**, Naive, Ridge, ARIMA và ETS. Kết quả cũ chỉ gồm các model đã được ghi trong báo cáo lịch sử; có runner không đồng nghĩa mọi thí nghiệm mới đã chạy xong.
 
 **Báo cáo mới trên PC:** [Nghiên cứu VN30: Kronos mini/small/base và Chronos-2-small](docs/VN30_PC_Research_Report.md). Đã chạy đủ hàng đợi thăm dò gồm ba seed, baseline thống kê, learning curve/random controls, ablation và hai expanding folds. Metric đã được tính lại trực tiếp từ forecast/SQLite; bootstrap và regime/period được kiểm độc lập. **Dataset vẫn unverified, nên nghiên cứu chính chưa đạt điều kiện hoàn thiện.** Báo cáo ghi rõ kết quả và giới hạn, không chuyển checkpoint cũ vào lượt mới.

@@ -1,0 +1,34 @@
+{
+  "status": "pass",
+  "test": "functional_current_pc_not_laptop_benchmark",
+  "laptop_benchmark": "skipped_at_user_request",
+  "origin": "2026-09-03",
+  "jobs": [
+    {
+      "model": "kronos-mini",
+      "device": "NVIDIA GeForce RTX 4070 SUPER",
+      "rows": 20,
+      "repeated_max_difference": 0.0,
+      "checkpoint_sha256": "73ef7c4b64a6c1c8cf1ab7d34c4d8c1fcb4975f765c5af13e77d2cbfc10fcb76"
+    },
+    {
+      "model": "kronos-small",
+      "device": "NVIDIA GeForce RTX 4070 SUPER",
+      "rows": 20,
+      "repeated_max_difference": 0.0,
+      "checkpoint_sha256": "d990a13a77f17547fc3286e334948764cd4c58ba32f48fd626739273e54d5f6f"
+    },
+    {
+      "model": "kronos-base",
+      "device": "NVIDIA GeForce RTX 4070 SUPER",
+      "rows": 20,
+      "repeated_max_difference": 0.0,
+      "checkpoint_sha256": "258025259026c5c4803948590938466e81530133fd7aa741447f73c3384f79b4"
+    },
+    {
+      "model": "kronos-mini",
+      "device": "cpu",
+      "rows": 20
+    }
+  ]
+}

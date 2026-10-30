@@ -12,7 +12,7 @@
 
 ## 2. Khả thi trên laptop RTX 3050
 
-ASUS công bố biến thể G513QC có RTX 3050 Laptop **4GB GDDR6**. Mini/small có cơ sở tốt để chạy demo; base cần benchmark trên laptop thực tế vì còn CUDA/runtime, màn hình và bộ nhớ dùng bởi ứng dụng khác. Chưa kiểm được RAM/driver/cấu hình cụ thể của laptop người dùng.
+ASUS công bố biến thể G513QC có RTX 3050 Laptop **4GB GDDR6**. Người dùng đã yêu cầu **bỏ benchmark laptop**, tiến hành hoàn thiện demo và chỉ kiểm chức năng trên PC hiện tại. Không cần log laptop để bàn giao; không tuyên bố đã đo RTX 3050. Chưa kiểm RAM/driver/cấu hình thực tế của laptop.
 
 Ba predictor FP32 hiện khoảng **500 MiB** weights; hai tokenizer khoảng **30 MiB** nữa. Dung lượng weights không bằng peak VRAM hoặc thời gian inference. Lượt benchmark training base trên PC ghi peak tensor allocated khoảng 2,54 GiB, không phải phép đo inference trên RTX 3050.
 
@@ -20,8 +20,8 @@ Ba predictor FP32 hiện khoảng **500 MiB** weights; hai tokenizer khoảng **
 - Giữ context 128, path 20, FP32, mean ba path, temperature 1, top-p 0,9 và seed 42. Chưa thêm thanh chỉnh sampling/precision.
 - Tự phát hiện CUDA bằng PyTorch thực tế. Khi CUDA không có hoặc OOM, chuyển toàn bộ job sang CPU một lần, hiển thị thiết bị thực tế; không trả forecast một phần hoặc âm thầm đổi số path/model.
 - Môi trường demo riêng, wheel PyTorch tương thích driver laptop; không ép dùng CUDA wheel của PC nghiên cứu và không sửa driver tự động.
-- Benchmark ghi cold load, warm latency, CPU RSS, CUDA allocated/reserved và độ hữu hạn của output. Kiểm GPU thực tế bằng công cụ driver nếu có; không gọi allocated là tổng VRAM.
-- Trước khi có log RTX 3050, chỉ xác nhận khả thi về thiết kế; không ghi “đã chạy trên RTX 3050” hoặc cam kết số giây. Kiểm trên RTX 4070 không thay cho kiểm laptop.
+- Chỉ chạy functional checks trên PC: đủ 20 output hữu hạn, lặp seed, model switching, CPU fallback và UI. Không thực hiện chiến dịch benchmark laptop.
+- Không ghi “đã chạy trên RTX 3050” hoặc cam kết số giây. Kiểm trên RTX 4070 không thay cho phép đo laptop đã được người dùng bỏ qua.
 
 ## 3. Giao diện và luồng sử dụng
 
@@ -55,14 +55,14 @@ Mỗi gói gồm `model.safetensors`, config, model card, inference specificatio
 
 Kiểm export/import local và hash trước; giữ HF repo/revision do upload trả về vào registry. Chỉ upload weights đã chọn, không đưa toàn bộ ba seed, optimizer, raw dữ liệu hoặc môi trường lên Hub. Token chỉ dùng qua đăng nhập cục bộ, không vào Git/browser bundle.
 
-Trước xuất bản, bàn giao danh sách file, model cards, tên repo và visibility để người dùng chốt; chưa có username/token/visibility được cung cấp. Không thực hiện đăng ký hay dịch vụ trả phí. Lưu model trên Hub không tự tạo API inference cho Kronos.
+Người dùng đã chốt namespace **neikhn**, **public**, cả ba mini/small/base. Danh sách payload/model cards đã chuẩn bị, không cần hỏi lại quyền xuất bản các model này. Công cụ đăng nhập cũ gặp lỗi whoami 400; đã chuyển sang HF CLI mới trong môi trường riêng và đăng nhập browser thành công. Không lưu token/OAuth vào repo/log. Không thực hiện đăng ký hay dịch vụ trả phí. Lưu model trên Hub không tự tạo API inference cho Kronos.
 
 ## 6. Thứ tự triển khai và nghiệm thu
 
 1. **Chuẩn bị:** decode preset bằng CLI; chốt frontend lock, demo dependencies, registry và export ba selected checkpoint. Kiểm GPU/CPU trên PC, không chạy lại training.
 2. **Luồng inference local:** slicing dữ liệu, job API, model switching và cache; đối chiếu output trực tiếp với lời gọi Kronos cùng cấu hình/thiết bị.
 3. **Giao diện:** xây một trang, bốn tổ hợp theme/language, chart, bảng, CSV và trạng thái load/lỗi/thiết bị.
-4. **Kiểm thử/đóng gói:** script PowerShell khởi động một lệnh, frontend build sẵn, hướng dẫn cài môi trường/download model và script benchmark laptop xuất JSON. Trên laptop, kiểm cả ba model, đổi model nhiều lần, chạy lại sau khi đã cache và CPU fallback. Chưa có laptop log thì đánh dấu phần này pending.
+4. **Kiểm thử/đóng gói:** script PowerShell khởi động một lệnh, frontend build sẵn, hướng dẫn cài môi trường/download model; kiểm native GPU/CPU, model switching, cache và giao diện trên PC hiện tại. Bỏ benchmark laptop theo chỉ dẫn mới nhất; không để đây là việc pending bắt buộc.
 5. **Xuất bản model:** review gói cụ thể, chốt namespace/visibility rồi upload Hub; thử tải sạch bằng revision mới và chạy offline từ cache. Dashboard vẫn local, không deploy Space.
 
 Kiểm thử trọng tâm:
@@ -83,3 +83,14 @@ Kiểm thử trọng tâm:
 - [Kronos-base hiện không được Inference Provider triển khai](https://huggingface.co/NeoQuasar/Kronos-base).
 
 Dashboard là công việc phụ mới, không reset hoặc gia hạn ngân sách 24 giờ của pipeline nghiên cứu.
+
+## Trạng thái triển khai
+
+- Đã decode/init đúng preset qua CLI, lưu components/theme/font chính thức và khóa pnpm dependencies.
+- Đã xuất ba selected checkpoint, hai tokenizer, vendored code MIT và 470 phiên mẫu/323 origin; weights giữ local, không đưa vào Git.
+- Backend đã chạy inference thật mini/small/base trên RTX 4070 SUPER, đủ 20 phiên; lặp seed sai khác 0 trên cùng PC; CPU mini đạt. Sáu unit/integration tests API/slicing/hash/queue/OOM/CSV đạt.
+- Frontend build cuối đạt; Chrome E2E đã qua bốn theme/language, inference thật small/mini, actual toggle, CSV, persistence và mobile không tràn ngang. Đã xem ảnh desktop/mobile cuối; nhãn origin không bị cắt. Badge thử nghiệm có cả trên mobile.
+- **Đã xuất bản:** `neikhn/kronos-mini-vn30-sft` revision `61d1824286f98bffa4cb63a88142d90b007b3328`; small revision `d7093271e98c939dcd30a0fec1cc87906d110844`; base revision `cb4301198abc5cbfa9ecb0ff2064e7c7ac410a2a`. Registry khóa cả ba; tải sạch không đăng nhập và xác minh hash config/weights đạt, chạy offline từ cache mới cả ba đạt (`demo/checks/hub_models.json`). Chuẩn bị lại export giữ repo/revision cũ khi weights không đổi.
+- **ZIP đã đóng và thử:** `demo/bundle/VN30-Inference-Studio.zip`, 518.705.873 bytes, SHA256 `075023c229fe6c9c353c763f66376797cf2dec166bd143145625cc7f30d21295`. Có frontend build, ba predictor, hai tokenizer, license và bộ cài/chạy; không venv/node_modules/credentials/raw/optimizer. Kiểm đủ 66 member hashes, giải nén sang thư mục riêng, chạy API/frontend/mini inference/CSV khi tắt mạng đạt (`demo/checks/portable.json`).
+- PowerShell syntax và nhận diện server đang chạy đạt. Preview local 127.0.0.1:8000; sau reboot chạy `Start-Dashboard.cmd`. Sáu test cuối sau khi registry public đạt; ca thiếu weights được thiết lập rõ là unpublished để không vô tình tải mạng.
+- **Nghiệm thu dashboard v1: hoàn thành trên PC.** Benchmark laptop được bỏ theo yêu cầu, không phải việc pending. Nghiên cứu vẫn giữ audit unverified; không chuyển kết quả demo vào báo cáo hoặc gia hạn ngân sách nghiên cứu.

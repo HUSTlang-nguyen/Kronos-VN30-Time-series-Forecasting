@@ -179,3 +179,12 @@ Các tối ưu đang để xem xét, **chưa được tuyên bố đã làm**:
 - Supervisor cục bộ tiếp tục kể cả khi agent tạm dừng, kiểm process thật, giữ GPU tuần tự, checkpoint/report tự động, commit/push artifact theo mốc. Không đổi precision/LR/seed/mẫu để vượt lỗi; không tự nhận dữ liệu accepted.
 - Kiểm thử: **58 tests đạt, skipped=1** (native GPU opt-in đã chạy riêng trước đó); có kiểm thử tiến trình dùng một lần lỗi rồi resume giữ checkpoint. Supervisor kiểm nhận diện worker chính xác và bảo toàn lock của process sống.
 - Agent được người dùng yêu cầu tạm dừng theo dõi 3 giờ sau bàn giao, có hẹn kiểm tra lại sau cửa sổ đó. Dữ liệu, kết luận chính và các đầu ra chưa đủ vẫn giữ trạng thái chưa hoàn thành.
+
+## 7. Dashboard phụ — hoàn tất 30/10/2026
+
+- Kế hoạch riêng: DASHBOARD_PLAN.md. Không thuộc tiêu chí chấp nhận dữ liệu hay ngân sách nghiên cứu 24 giờ.
+- Đã triển khai frontend đúng preset shadcn b3DpibPrn6, dark/VI mặc định và hai toggle, sample VN30/chọn lịch sử; FastAPI inference thật mini/small/base SFT, một model/job, CPU fallback, bảng/CSV/đối chiếu actual riêng.
+- Ba model đã public ở neikhn/kronos-{mini,small,base}-vn30-sft; registry lưu revision/hash. Tải lại ẩn danh và chạy offline cả ba đạt.
+- Sáu tests, native GPU ba model/CPU mini, Chrome E2E bốn tổ hợp theme-language/mobile và portable ZIP offline đạt. Receipts: demo/checks/. Người dùng bỏ benchmark laptop; không để đó thành việc bắt buộc còn thiếu.
+- Gói bàn giao local: demo/bundle/VN30-Inference-Studio.zip, 518.705.873 bytes; SHA256 075023c229fe6c9c353c763f66376797cf2dec166bd143145625cc7f30d21295. ZIP/weights/env/cache được Git bỏ qua; code/docs/receipts/screenshot được lưu nhánh hiện tại, model weights trên HF.
+- Điểm tiếp tục: dashboard v1 đã xong, không chạy lại training hoặc publish lại model trùng. Dùng Start-Dashboard.cmd để mở; hướng dẫn ở demo/README.md. Nghiên cứu chính vẫn chưa hoàn thiện vì nguồn dữ liệu unverified.

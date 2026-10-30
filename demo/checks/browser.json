@@ -1,0 +1,22 @@
+{
+  "status": "pass",
+  "browser": "Chrome",
+  "themes": [
+    "dark",
+    "light"
+  ],
+  "languages": [
+    "vi",
+    "en"
+  ],
+  "real_models": [
+    "kronos-small",
+    "kronos-mini"
+  ],
+  "forecast_rows": 20,
+  "reference_toggle": true,
+  "csv_download": true,
+  "preferences_persist": true,
+  "mobile_no_horizontal_overflow": true,
+  "page_errors": []
+}
