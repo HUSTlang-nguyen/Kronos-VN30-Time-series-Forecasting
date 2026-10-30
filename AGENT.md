@@ -17,6 +17,8 @@ Các quyết định đã được người dùng chốt:
 
 ## Hiện trạng quan trọng
 
+**Yêu cầu dashboard mới — mới lập kế hoạch, chưa build:** xem `DASHBOARD_PLAN.md`. Người dùng chốt **HF chỉ lưu ba model SFT; dashboard inference chạy local**, dữ liệu VN30 mẫu/chọn mốc lịch sử, không upload CSV/live data v1. Dark mặc định + light toggle; VI mặc định + EN toggle; shadcn preset `b3DpibPrn6`. Không đưa dashboard vào báo cáo nghiên cứu. Laptop đích ROG Strix G513QC RTX 3050 (ASUS spec 4GB); chưa kiểm RAM/driver hoặc benchmark thực tế trên laptop. Dùng một model/job GPU tại một thời điểm, CPU fallback rõ ràng, không hứa tốc độ trước benchmark. Không tạo Space/mua PRO/dùng hosted inference. Chưa có username/visibility HF; chuẩn bị gói để review trước khi xuất bản.
+
 **Cập nhật sau lệnh `proceed`:** đang hoàn thiện báo cáo mới `docs/VN30_PC_Research_Report.md` bằng postprocessor riêng, không sửa frozen src/scripts. Đã kiểm độc lập **378 CI bootstrap, 1.782 metric regime/period**, ba baseline validation locks, 18 lựa chọn random LR, 12 selected checkpoint có xét epoch 0. Báo cáo và bảng nằm ở `artifacts/local/pc-exploratory-20261030/final-report/`; đọc `verification.json`, `completion_matrix.csv` và `report_sources.json` thay vì các trạng thái lịch sử bên dưới. Dataset vẫn unverified; không đánh dấu nghiên cứu chính hoàn thiện.
 
 Phát hiện cần giữ: Chronos selected epoch 0 cả ba seed; Kronos-small random thắng pretrained ở Close h=5/20 tại budget 1.000/full trong ngân sách đã thử; lượng tử hóa không cải thiện đồng nhất; hai fold đều không có origin volatility cao theo train p90, test chính chỉ 17 origin cao trong hai cụm. Test h=1 có 59 nhãn trong đoạn Open bất thường khiến Naive Open error bằng 0; không coi đó là chứng minh dự báo Open chính thức tốt.

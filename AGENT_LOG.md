@@ -214,6 +214,16 @@ Hướng dẫn chạy: `docs/PC_Rerun.md`.
 
 ## Rủi ro còn lại sau báo cáo PC
 
+### 19 — Kế hoạch dashboard phụ và thay đổi hướng hosting
+
+- Báo cáo PC/bảng/kiểm định đã commit/push `4de2cae`. Người dùng yêu cầu lập plan dashboard nhỏ; không đưa dashboard vào báo cáo. Chưa có lệnh triển khai dashboard ở mốc này.
+- Đã kiểm official HF docs: upload model không tự có serverless inference; Kronos-base không có Inference Provider phục vụ. Storage không có quota chung 50GB/repo. Docs hiện ghi Docker/Gradio Spaces cần paid plan để tạo dù CPU Basic không tính phí giờ. Không giữ giả định cũ miễn phí toàn bộ.
+- Người dùng chọn **HF chỉ lưu model, dashboard inference local**, không hosted infer nếu mất phí; dữ liệu chỉ VN30 mẫu/chọn mốc lịch sử. Thêm yêu cầu dark/default + light toggle, Vietnamese/default + English toggle, shadcn `--preset b3DpibPrn6`.
+- Laptop G513QC RTX 3050: ASUS spec nêu 4GB GDDR6; chưa có RAM/driver/laptop benchmark thực tế. Ba predictor FP32 ~500MiB + hai tokenizer ~30MiB, không đồng nhất weights với peak VRAM. Sẽ load một predictor/job GPU, benchmark từng model, CPU fallback rõ nếu thiếu VRAM; không hứa số giây. Peak training base 2,54GiB trên 4070 chỉ là tham khảo, không phải proof RTX 3050.
+- Môi trường dev hiện có Node24, pnpm và Docker; npm chưa nằm PATH. Dùng pnpm/CLI chính thức để inspect/init đúng preset khi thực hiện. V1 local đóng gói frontend build để laptop không cần Node/Docker lúc chạy.
+- Đã lưu kế hoạch `DASHBOARD_PLAN.md`: React/Vite/shadcn, FastAPI serving build, origin historical test, inference API/job queue, registry/pinned code/tokenizers, ba selected seed42/epoch5; model cards/provenance có nhãn thăm dò. Không sửa frozen src/scripts hoặc artifact nghiên cứu. Chưa upload model hoặc đăng ký dịch vụ.
+- Điểm tiếp tục dashboard: triển khai chỉ sau khi user chốt plan; trước tiên decode preset, export/verify local và dựng inference path; HF namespace/visibility chốt sau khi gói review được. Nghiên cứu còn unverified riêng, không đưa UI demo vào báo cáo hoặc reset clock nghiên cứu.
+
 - Chưa giải quyết đầy đủ bằng chứng giá O/H/L/Close giữa các nhà cung cấp; calendar mới khớp lịch quan sát VNINDEX VPS, chưa có lịch sàn chính thức.
 - Hàng đợi thăm dò đã xong và số liệu đã kiểm; bằng chứng chính Q1–Q4 còn bị giới hạn bởi dữ liệu và pretraining provenance.
 - Đồng hồ 24 giờ và stage caps gốc vẫn giữ nguyên; chưa cấp thêm ngân sách.
