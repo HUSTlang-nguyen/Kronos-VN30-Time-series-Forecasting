@@ -1,12 +1,18 @@
 # VN30 Forecasting
 
-Thử nghiệm dự báo VN30 bằng **Kronos-small**, **Chronos-2-small** và các baseline như Naive, ARIMA, ETS. Repo tập trung vào chạy model và đánh giá dự báo; không còn quy trình viết bài báo hoặc các gate nghiên cứu.
+**Dashboard inference local:** xem [VN30 Inference Studio](demo/README.md). Chạy bằng `Start-Dashboard.cmd` từ gói ZIP đã build; có ba Kronos SFT, dữ liệu lịch sử mẫu, dark/light và VI/EN toggle. Demo được tách khỏi báo cáo nghiên cứu và không dùng hosted inference trả phí.
+
+Thử nghiệm dự báo VN30 bằng **Kronos mini/small/base**, **Chronos-2-small**, Naive, Ridge, ARIMA và ETS. Kết quả cũ chỉ gồm các model đã được ghi trong báo cáo lịch sử; có runner không đồng nghĩa mọi thí nghiệm mới đã chạy xong.
+
+**Báo cáo mới trên PC:** [Nghiên cứu VN30: Kronos mini/small/base và Chronos-2-small](docs/VN30_PC_Research_Report.md). Đã chạy đủ hàng đợi thăm dò gồm ba seed, baseline thống kê, learning curve/random controls, ablation và hai expanding folds. Metric đã được tính lại trực tiếp từ forecast/SQLite; bootstrap và regime/period được kiểm độc lập. **Dataset vẫn unverified, nên nghiên cứu chính chưa đạt điều kiện hoàn thiện.** Báo cáo ghi rõ kết quả và giới hạn, không chuyển checkpoint cũ vào lượt mới.
+
+[Quy trình tái chạy PC](docs/PC_Rerun.md) và [ma trận nghiệm thu](artifacts/local/pc-exploratory-20261030/final-report/completion_matrix.csv) phân biệt phần đã kiểm định với phần còn thiếu. Giữ đồng hồ 24 giờ gốc; không chạy lại job hoàn tất hoặc reset deadline.
 
 Repo có loader cho snapshot VN30 cố định, runner dự báo và đánh giá Open/Close trên cùng các phiên. Context là 128 phiên, path dự báo 20 phiên; score tại h=1/5/20. Dữ liệu VNDIRECT là một snapshot lịch sử, vì vậy kết quả chỉ áp dụng cho snapshot này.
 
 Các bước triển khai và điều kiện hoàn thành nằm trong [checklist end-to-end](docs/VN30_TSFMs_Kronos_End_to_End_Tasks.md).
 
-[Báo cáo kết quả Q1–Q4](docs/VN30_Experimental_Results_Q1_Q4.md) tổng hợp bằng chứng về zero-shot, K-line representation, fine-tuning với dữ liệu hiện có và độ ổn định theo horizon/volatility.
+[Báo cáo lịch sử 27/10](docs/VN30_Experimental_Results_Q1_Q4.md) được giữ để đối chiếu; số liệu trong đó không được đưa vào bảng kết quả PC mới.
 
 ## Cài môi trường CUDA
 
@@ -19,7 +25,7 @@ uv run --no-sync python -c "import torch; print(torch.__version__, torch.version
 uv run --no-sync python scripts/smoke_models.py --model all --device cuda:0
 ```
 
-Smoke dùng dữ liệu giả, chỉ kiểm tra model chạy được. Có thể chọn `--model kronos` hoặc `--model chronos2`; dùng `--device cpu` khi cần. Kết quả sinh trong `artifacts/`, không commit. Weights được tải và cache khi chạy lần đầu.
+Smoke dùng dữ liệu giả, chỉ kiểm tra model chạy được. Có thể chọn `--model kronos` hoặc `--model chronos2`; dùng `--device cpu` khi cần. `scripts/smoke_pc_models.py` kiểm tra đủ ba bản Kronos và Chronos trên GPU. Weights pretrained được tải và cache khi chạy lần đầu; artifact kiểm thử được ghi rõ khác với kết quả VN30.
 
 Kiểm tra hash checkpoint nếu cần:
 
@@ -77,6 +83,8 @@ Sau khi cập nhật dữ liệu, kiểm tra nội dung rồi chạy `dvc add <�
 
 ## Chạy dự báo VN30
 
+Các ví dụ snapshot bên dưới phục vụ tương thích quy trình lịch sử; không thay thế cổng kiểm toán của lượt nghiên cứu PC. Với lượt mới, dùng hướng dẫn trong `docs/PC_Rerun.md`; kết quả trên snapshot chưa xác minh phải giữ scope thăm dò.
+
 Sau khi tải SQLite và cài môi trường CUDA, chạy từng model trên cùng `split.json` (Windows PowerShell hoặc shell):
 
 ```sh
@@ -117,7 +125,7 @@ Xem [checklist](docs/VN30_TSFMs_Kronos_End_to_End_Tasks.md) để đối chiếu
 
 ## Fine-tune trên VN30
 
-`scripts/finetune_vn30.py` cập nhật toàn bộ trọng số Chronos-2-small hoặc Kronos-small; tokenizer Kronos được giữ cố định. Dùng nguyên split đã khóa, 1.442 cửa sổ train/321 validation, context 128 và 20 nhãn tương lai. Chuẩn hóa chỉ bằng context, mọi cửa sổ train được dùng một lần mỗi epoch. Checkpoint tốt nhất được chọn bằng validation loss trong các epoch đã huấn luyện; có ghi loss pretrained để biết fine-tune có làm validation kém đi hay không. Test không được dùng để cập nhật trọng số hoặc chọn checkpoint.
+`scripts/finetune_vn30.py` hỗ trợ Chronos-2-small và Kronos mini/small/base; tokenizer Kronos được giữ cố định. Với snapshot gốc, có 1.442 cửa sổ train/321 validation, context 128 và 20 nhãn tương lai. Chuẩn hóa chỉ bằng context, mọi cửa sổ train được dùng một lần mỗi epoch. Giữ cả checkpoint tốt nhất sau cập nhật và lựa chọn validation có xét epoch 0 pretrained. Test không được dùng để cập nhật trọng số hoặc chọn checkpoint. Xem báo cáo PC để phân biệt điểm best-trained với selected; Chronos selected ở epoch 0 trong cả ba seed của lượt mới.
 
 Mặc định: FP32/CUDA, 5 epoch, learning rate `1e-6`, batch 8 cửa sổ và accumulation 2, AdamW/weight decay `0.01`, seed 42. Chronos tối ưu quantile loss gốc; Kronos tối ưu token cross-entropy trên 20 phiên đích với teacher forcing. `history.csv` ghi train/validation loss; `training.json` giữ epoch chọn, cấu hình, hash tham số trước/sau và SHA256 checkpoint. Runner kiểm hash/checkpoint/split trước khi dự báo.
 
@@ -198,7 +206,7 @@ data/manifests/   Phiên bản checkpoint và receipts snapshot
 data/raw/         Phản hồi gốc, quản lý bằng DVC
 data/share/       SQLite/ZIP, pointers và checksum
 data/processed/   Dữ liệu xử lý, không commit
-artifacts/        Kết quả chạy model, không commit
+artifacts/        Kết quả, receipts và đồ thị theo phiên bản; weights dùng Git LFS
 ```
 
 Collaborator làm trên branch riêng, mở PR vào `main`; ghi model, phiên bản dữ liệu và lệnh chạy để người khác lặp lại. CI kiểm tra cú pháp, CLI dữ liệu, dependencies và Docker; không chạy GPU hoặc truy cập Drive riêng.

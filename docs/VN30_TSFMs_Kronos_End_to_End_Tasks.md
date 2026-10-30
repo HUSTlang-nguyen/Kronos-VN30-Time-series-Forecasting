@@ -1,5 +1,7 @@
 # VN30 — checklist thử nghiệm dự báo
 
+**Ghi chú 30/10/2026:** T001–T015 bên dưới mô tả lượt chạy lịch sử ở môi trường cũ. Không dùng các dấu hoàn thành đó cho lượt PC mới. Xem [quy trình làm lại mini/small/base](PC_Rerun.md); kiểm toán mới chưa chấp nhận dữ liệu cho huấn luyện chính.
+
 Mục tiêu: chạy Kronos-small, Chronos-2-small và baseline **trực tiếp trên snapshot VN30 hiện có**, cùng thời điểm dự báo và cùng phiên đích. Đánh giá Close và thêm Open phiên kế tiếp. Đây là checklist thử nghiệm model, không dùng để viết bài báo.
 
 **Trạng thái:** `[x]` đã có và kiểm tra được; `[ ]` chưa hoàn thành. Đánh dấu xong sau khi có code, lệnh chạy và kết quả kiểm tra tương ứng. Đường dẫn file trong các task chưa hoàn thành là đầu ra dự kiến, không phải file đã tồn tại.
@@ -47,13 +49,13 @@ Mục tiêu: chạy Kronos-small, Chronos-2-small và baseline **trực tiếp t
 
 ## Trình tự và cách đối chiếu
 
-T001–T015 đã có bản chạy end-to-end trên snapshot cố định. Thứ tự để tái chạy zero-shot: T004 → T005 → (T006, T007, T008) → T009 → T010 → T011 → T012 → T013. Fine-tune và đối chiếu: T014 → T015. Lệnh cụ thể ở [README](../README.md#fine-tune-trên-vn30); kết quả local nằm trong `artifacts/local/` và không được Git theo dõi.
+T001–T015 đã có bản chạy end-to-end lịch sử trên snapshot cố định. Thứ tự để tái chạy zero-shot: T004 → T005 → (T006, T007, T008) → T009 → T010 → T011 → T012 → T013. Fine-tune và đối chiếu: T014 → T015. Lệnh cụ thể ở [README](../README.md#fine-tune-trên-vn30); kết quả lưu trong `artifacts/local/` được Git theo dõi, weights dùng Git LFS.
 
 **Kết quả tham chiếu h=1 trên 323 origin test (MAE, điểm chỉ số):** Naive Open 5,96 / Close 17,72; Kronos Open 10,64 / Close 19,75; Chronos-2 Open 21,04 / Close 19,99; Ridge Open 22,02 / Close 28,80. Đây là phép thử trên snapshot VNDIRECT cũ; không suy ra lợi nhuận giao dịch hay kết quả trên phiên mới.
 
 ## Kết quả đủ ba tập (23/10/2026)
 
-MAE dưới đây tính bằng điểm VN30; càng thấp càng tốt. Cả bốn model dùng cùng origin trong mỗi tập. Bảng được lấy từ `artifacts/local/vn30-full-splits-20261023/comparison/scores_all_splits.csv` trên snapshot SHA256 nêu đầu tài liệu. Các CSV chi tiết và đồ thị là output local, không commit vào Git.
+MAE dưới đây tính bằng điểm VN30; càng thấp càng tốt. Cả bốn model dùng cùng origin trong mỗi tập. Bảng lịch sử được lấy từ `artifacts/local/vn30-full-splits-20261023/comparison/scores_all_splits.csv` trên snapshot SHA256 nêu đầu tài liệu. Các CSV chi tiết và đồ thị hiện được lưu theo phiên bản trong Git.
 
 | Tập | Model | Open h1 | Close h1 | Open h5 | Close h5 | Open h20 | Close h20 |
 |---|---|---:|---:|---:|---:|---:|---:|

@@ -1,0 +1,9 @@
+{
+  "status": "pass",
+  "learning_rate": 0.0001,
+  "validation_loss": 2.0042626590372246,
+  "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/lr-trials/kronos-small-s43-n1000-random/0.0001",
+  "training_sha256": "30870223b68faac28de04b4fe2307f79e69cb09ae33c847dfbf5e0f8eacca8a7",
+  "test_used": false,
+  "reused_winning_trial": true
+}

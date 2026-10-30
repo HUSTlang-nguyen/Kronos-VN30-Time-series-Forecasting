@@ -1,0 +1,15 @@
+{
+  "status": "pass",
+  "zip_sha256": "075023c229fe6c9c353c763f66376797cf2dec166bd143145625cc7f30d21295",
+  "zip_bytes": 518705873,
+  "zip_members": 66,
+  "member_hashes": "pass",
+  "extracted_runtime": true,
+  "network_disabled": true,
+  "static_frontend": "pass",
+  "health": "pass",
+  "forecast_model": "kronos-mini",
+  "forecast_rows": 20,
+  "csv": "pass",
+  "laptop_benchmark": "omitted_at_user_request"
+}

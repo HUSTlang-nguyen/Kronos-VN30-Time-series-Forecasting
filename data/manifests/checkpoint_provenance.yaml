@@ -10,6 +10,20 @@ common_provenance_boundary:
     so the exact revision's verified public availability is used conservatively.
 
 models:
+  kronos_mini:
+    repository: NeoQuasar/Kronos-mini
+    repository_revision: f4e68697d9d5aed55cef5c96aabc3376bcad9f81
+    weights_file: model.safetensors
+    weights_sha256: a7d5f37e2e9fbd9891f7d7d4f72574512dd1f704fee14223e0a8cd0fbf54197c
+    weights_size_bytes: 16440776
+    documented_training_cutoff: unknown_for_exact_revision
+  kronos_base:
+    repository: NeoQuasar/Kronos-base
+    repository_revision: 2b554741eca47781b64468546e77fef3e85130e6
+    weights_file: model.safetensors
+    weights_sha256: abff193acab6db1a0368e9773e75799d11403b6d054ee6d5f0a11aeabc5f4b83
+    weights_size_bytes: 409264008
+    documented_training_cutoff: unknown_for_exact_revision
   chronos_2_small:
     repository: autogluon/chronos-2-small
     repository_revision: ddec01313e50b6bc58ebaa92ede81bc24a3d9f9a
@@ -41,6 +55,12 @@ models:
       - https://arxiv.org/html/2508.02739v1
 
 tokenizers:
+  kronos_tokenizer_2k:
+    repository: NeoQuasar/Kronos-Tokenizer-2k
+    repository_revision: 26966d0035065a0cae0ebad7af8ece35bc1fb51c
+    weights_file: model.safetensors
+    weights_sha256: b97ec46b3b72160509e289183eaf7bdf5f0dac5bb9b49522f6d46638a99a8717
+    weights_size_bytes: 15842376
   kronos_tokenizer_base:
     repository: NeoQuasar/Kronos-Tokenizer-base
     repository_revision: 0e0117387f39004a9016484a186a908917e22426

@@ -54,11 +54,7 @@ def main() -> int:
     parser.add_argument("--output", type=Path, default=OUTPUT)
     args = parser.parse_args()
     manifest = yaml.safe_load(MANIFEST.read_text(encoding="utf-8"))
-    components = {
-        "chronos_2_small": manifest["models"]["chronos_2_small"],
-        "kronos_small": manifest["models"]["kronos_small"],
-        "kronos_tokenizer_base": manifest["tokenizers"]["kronos_tokenizer_base"],
-    }
+    components = {**manifest["models"], **manifest["tokenizers"]}
     results = [verify_component(name, component) for name, component in components.items()]
     payload = {
         "schema_version": 1,

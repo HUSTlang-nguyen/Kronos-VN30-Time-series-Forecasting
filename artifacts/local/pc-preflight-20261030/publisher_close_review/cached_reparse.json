@@ -1,0 +1,242 @@
+{
+  "classification": "cached_reparse_partial_evidence_not_dataset_acceptance",
+  "parent_review": "artifacts/local/pc-preflight-20261030/publisher_close_review/review.json",
+  "cached_reports": 14,
+  "counts": {
+    "unverified_close_semantics": 7,
+    "corroborates_original": 7
+  },
+  "cases": [
+    {
+      "date": "2021-02-26",
+      "original_close": 1173.6,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 1175.06
+        }
+      ],
+      "url": "https://pinetree.vn/post/20210226/ban-tin-thi-truong-ngay-26-02-2021/",
+      "evidence_path": "data/raw/source_evidence/pinetree-close-review/20210226.html",
+      "evidence_sha256": "f8e79fa220869c3f20f206e3417bf906c22243b0666a2e39c02f6714dc27857d",
+      "status": "unverified_close_semantics",
+      "candidate_value": 1173.6
+    },
+    {
+      "date": "2021-03-05",
+      "original_close": 1173.83,
+      "reference_values": [
+        {
+          "provider": "vps",
+          "reference": 1174.16
+        }
+      ],
+      "url": "https://pinetree.vn/post/20210305/ban-tin-thi-truong-ngay-05-03-2021/",
+      "evidence_path": "data/raw/source_evidence/pinetree-close-review/20210305.html",
+      "evidence_sha256": "af7fdc364dd1e5caf875b30b69eb490a282e806262237a923a731f36eb57cbcc",
+      "status": "unverified_close_semantics",
+      "candidate_value": 1174.16
+    },
+    {
+      "date": "2021-03-24",
+      "original_close": 1165.61,
+      "reference_values": [
+        {
+          "provider": "vps",
+          "reference": 1167.49
+        }
+      ],
+      "url": "https://pinetree.vn/post/20210324/ban-tin-thi-truong-ngay-24-03-2021/",
+      "evidence_path": "data/raw/source_evidence/pinetree-close-review/20210324.html",
+      "evidence_sha256": "d0dc758dc94f3d68428543b325be18a92a04ddd1807da03356d6cfb1a28dbc7d",
+      "status": "unverified_close_semantics",
+      "candidate_value": 1167.49
+    },
+    {
+      "date": "2021-03-26",
+      "original_close": 1167.19,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 1153.13
+        }
+      ],
+      "url": "https://pinetree.vn/post/20210326/ban-tin-thi-truong-ngay-26-03-2021/",
+      "evidence_path": "data/raw/source_evidence/pinetree-close-review/20210326.html",
+      "evidence_sha256": "dadc0c87f9049593bd579bcea76b358766bb1f52f21a66b0a2f1ce5d6cc97ea4",
+      "status": "unverified_close_semantics",
+      "candidate_value": 1167.19
+    },
+    {
+      "date": "2021-07-09",
+      "original_close": 1494.43,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 1499.96
+        }
+      ],
+      "url": "https://pinetree.vn/post/20210709/ban-tin-thi-truong-ngay-09-07-2021/",
+      "evidence_path": "data/raw/source_evidence/pinetree-close-review/20210709.html",
+      "evidence_sha256": "2e247f93c2787fe49281480212b16baef4750065a0636897035687667b5a58dd",
+      "status": "unverified_close_semantics",
+      "candidate_value": 1494.43
+    },
+    {
+      "date": "2022-08-02",
+      "original_close": 1265.97,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 1260.44
+        }
+      ],
+      "url": "https://pinetree.vn/post/20220802/ban-tin-thi-truong-ngay-02-08-2022/",
+      "evidence_path": "data/raw/source_evidence/pinetree-close-review/20220802.html",
+      "evidence_sha256": "bafc7eafb37e218d02f7b647d1d3564c4b9b6a3d813a088e0a600fa3c5054073",
+      "status": "corroborates_original",
+      "value": 1265.97,
+      "publisher": "Pinetree",
+      "market_date": "2022-08-02",
+      "evidence_locator": "TTCK VIỆT NAM / VN30 and session-close commentary"
+    },
+    {
+      "date": "2022-10-26",
+      "original_close": 990.41,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 988.69
+        }
+      ],
+      "url": "https://pinetree.vn/post/20221026/ban-tin-thi-truong-ngay-26-10-2022/",
+      "evidence_path": "data/raw/source_evidence/pinetree-close-review/20221026.html",
+      "evidence_sha256": "9be09a35dbc0b8694e010d64689e5f30af195c9394e29cc639aea75e367d0826",
+      "status": "corroborates_original",
+      "value": 990.41,
+      "publisher": "Pinetree",
+      "market_date": "2022-10-26",
+      "evidence_locator": "TTCK VIỆT NAM / VN30 and session-close commentary"
+    },
+    {
+      "date": "2022-10-27",
+      "original_close": 1028.5,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 1023.35
+        }
+      ],
+      "url": "https://pinetree.vn/post/20221027/ban-tin-thi-truong-ngay-27-10-2022/",
+      "evidence_path": "data/raw/source_evidence/pinetree-close-review/20221027.html",
+      "evidence_sha256": "366857ea806f7e3fc7be9dce42ac6587e359b3f30fff7860c8a9e0eb49439086",
+      "status": "corroborates_original",
+      "value": 1028.5,
+      "publisher": "Pinetree",
+      "market_date": "2022-10-27",
+      "evidence_locator": "TTCK VIỆT NAM / VN30 and session-close commentary"
+    },
+    {
+      "date": "2022-10-28",
+      "original_close": 1029.49,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 1029.83
+        }
+      ],
+      "url": "https://pinetree.vn/post/20221028/ban-tin-thi-truong-ngay-28-10-2022/",
+      "evidence_path": "data/raw/source_evidence/pinetree-close-review/20221028.html",
+      "evidence_sha256": "7ba9e0614629b9f8d247a78457dda28d0df5f7a2be007b067500f7ff6691dff5",
+      "status": "corroborates_original",
+      "value": 1029.49,
+      "publisher": "Pinetree",
+      "market_date": "2022-10-28",
+      "evidence_locator": "TTCK VIỆT NAM / VN30 and session-close commentary"
+    },
+    {
+      "date": "2022-10-31",
+      "original_close": 1026.84,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 1018.44
+        }
+      ],
+      "url": "https://pinetree.vn/post/20221031/ban-tin-thi-truong-ngay-31-10-2022/",
+      "evidence_path": "data/raw/source_evidence/pinetree-close-review/20221031.html",
+      "evidence_sha256": "1c853e681e8efbdbfd70d58e0a0525703971f8ff1e0b99421d3064f2ffcffb72",
+      "status": "corroborates_original",
+      "value": 1026.84,
+      "publisher": "Pinetree",
+      "market_date": "2022-10-31",
+      "evidence_locator": "TTCK VIỆT NAM / VN30 and session-close commentary"
+    },
+    {
+      "date": "2022-11-07",
+      "original_close": 972.85,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 969.96
+        }
+      ],
+      "url": "https://pinetree.vn/post/20221107/ban-tin-thi-truong-ngay-07-11-2022/",
+      "evidence_path": "data/raw/source_evidence/pinetree-close-review/20221107.html",
+      "evidence_sha256": "74a9cfff6853057bd7d1e0a8c63394df2af8ab5e2e775ba617c81895d18186da",
+      "status": "corroborates_original",
+      "value": 972.85,
+      "publisher": "Pinetree",
+      "market_date": "2022-11-07",
+      "evidence_locator": "TTCK VIỆT NAM / VN30 and session-close commentary"
+    },
+    {
+      "date": "2022-11-08",
+      "original_close": 980.09,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 975.18
+        }
+      ],
+      "url": "https://pinetree.vn/post/20221108/ban-tin-thi-truong-ngay-08-11-2022/",
+      "evidence_path": "data/raw/source_evidence/pinetree-close-review/20221108.html",
+      "evidence_sha256": "ae7cf20efc124a23f5d900fdb4292cde7a8b15ec39cfbfbe0386cd9d482bbae5",
+      "status": "unverified_close_semantics",
+      "candidate_value": 980.09
+    },
+    {
+      "date": "2022-11-09",
+      "original_close": 979.68,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 974.17
+        }
+      ],
+      "url": "https://pinetree.vn/post/20221109/ban-tin-thi-truong-ngay-09-11-2022/",
+      "evidence_path": "data/raw/source_evidence/pinetree-close-review/20221109.html",
+      "evidence_sha256": "b69d3606ca00310725560bf7e6bb0ea7d52f03653097a2bb5620e576cb19a0cc",
+      "status": "corroborates_original",
+      "value": 979.68,
+      "publisher": "Pinetree",
+      "market_date": "2022-11-09",
+      "evidence_locator": "TTCK VIỆT NAM / VN30 and session-close commentary"
+    },
+    {
+      "date": "2022-11-10",
+      "original_close": 936.8,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 933.55
+        }
+      ],
+      "url": "https://pinetree.vn/post/20221110/ban-tin-thi-truong-ngay-10-11-2022/",
+      "evidence_path": "data/raw/source_evidence/pinetree-close-review/20221110.html",
+      "evidence_sha256": "9469061a7530b0e260a121cb2d4bbb7332167f9e29a3acc3cc50793ca66c2c79",
+      "status": "unverified_close_semantics",
+      "candidate_value": 936.8
+    }
+  ]
+}

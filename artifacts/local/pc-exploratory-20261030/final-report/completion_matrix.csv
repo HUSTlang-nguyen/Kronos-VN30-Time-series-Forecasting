@@ -1,0 +1,16 @@
+requirement,status,evidence_or_limitation
+Environment/CUDA/model/tokenizer hashes,verified,benchmarks/; checkpoint provenance; numerical_validation
+Raw replay/timestamp/SQLite integrity,verified,audit/audit.json
+Market OHLC adjudication,unverified,data_adjudication.csv; evidence_review.md
+Official exchange calendar,unverified,calendar_crosscheck/audit; observed VNINDEX dates only
+Main 4 models x 3 seeds x ZS/SFT,verified_exploratory,main_summary.csv; 48 neural forecasts
+Naive/Ridge/ARIMA/ETS validation-only selection,verified_exploratory,baseline_selection.csv; original tuning receipts
+Best-trained and selected including epoch 0,verified_exploratory,checkpoint_selection.csv; selected_scores.csv
+"Q2 paired fixed-encoder ablation, 3 seeds",verified_exploratory,ablation_summary.csv; result.json
+"Q3 nested budgets and random LR trials, 3 seeds",verified_exploratory,learning_curve.csv; random_lr_selection.csv
+Q4 periods/volatility/2 folds/paired bootstrap,verified_exploratory_limited_regime_coverage,fold_scores.csv; origin_regimes.csv; paired_intervals.csv
+Independent forecast/SQLite MAE and RMSE,verified,review/numerical_validation.json; recomputed_metrics.csv
+Native interrupted/resumed GPU equivalence,verified_mini_only,pc-preflight-20261030/native_resume_smoke.json
+Resume equivalence all variants / forced OOM,not_fully_tested,Do not generalize mini proof
+Exact checkpoint pretraining exclusions,unverified,checkpoint_provenance.yaml; retrospective evaluation
+Research acceptance gate,not_achieved,Primary run remains blocked; no candidate promotion

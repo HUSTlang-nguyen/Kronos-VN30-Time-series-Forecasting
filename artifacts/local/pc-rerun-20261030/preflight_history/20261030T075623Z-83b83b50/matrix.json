@@ -1,0 +1,4754 @@
+[
+  {
+    "id": "recover",
+    "kind": "recover",
+    "stage": "setup",
+    "dependencies": []
+  },
+  {
+    "id": "independent",
+    "kind": "fetch",
+    "stage": "setup",
+    "dependencies": []
+  },
+  {
+    "id": "audit",
+    "kind": "audit",
+    "stage": "setup",
+    "dependencies": [
+      "recover",
+      "independent"
+    ]
+  },
+  {
+    "id": "prepare",
+    "kind": "prepare",
+    "stage": "setup",
+    "dependencies": [
+      "audit"
+    ]
+  },
+  {
+    "id": "weights",
+    "kind": "weights",
+    "stage": "setup",
+    "dependencies": []
+  },
+  {
+    "id": "bootstrap",
+    "kind": "bootstrap",
+    "stage": "setup",
+    "dependencies": []
+  },
+  {
+    "id": "protocol",
+    "kind": "protocol",
+    "stage": "setup",
+    "dependencies": [
+      "prepare",
+      "weights",
+      "bootstrap"
+    ]
+  },
+  {
+    "id": "benchmark-kronos-mini",
+    "kind": "benchmark",
+    "stage": "setup",
+    "dependencies": [
+      "protocol"
+    ],
+    "model": "kronos-mini"
+  },
+  {
+    "id": "benchmark-kronos-small",
+    "kind": "benchmark",
+    "stage": "setup",
+    "dependencies": [
+      "protocol"
+    ],
+    "model": "kronos-small"
+  },
+  {
+    "id": "benchmark-kronos-base",
+    "kind": "benchmark",
+    "stage": "setup",
+    "dependencies": [
+      "protocol"
+    ],
+    "model": "kronos-base"
+  },
+  {
+    "id": "benchmark-chronos2",
+    "kind": "benchmark",
+    "stage": "setup",
+    "dependencies": [
+      "protocol"
+    ],
+    "model": "chronos2"
+  },
+  {
+    "id": "estimate",
+    "kind": "estimate",
+    "stage": "setup",
+    "dependencies": [
+      "benchmark-kronos-mini",
+      "benchmark-kronos-small",
+      "benchmark-kronos-base",
+      "benchmark-chronos2"
+    ]
+  },
+  {
+    "id": "tune-ridge",
+    "kind": "tune",
+    "stage": "main",
+    "dependencies": [
+      "prepare"
+    ],
+    "model": "ridge"
+  },
+  {
+    "id": "tune-arima",
+    "kind": "tune",
+    "stage": "main",
+    "dependencies": [
+      "prepare"
+    ],
+    "model": "arima"
+  },
+  {
+    "id": "tune-ets",
+    "kind": "tune",
+    "stage": "main",
+    "dependencies": [
+      "prepare"
+    ],
+    "model": "ets"
+  },
+  {
+    "id": "baseline-naive-validation",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "prepare"
+    ],
+    "model": "naive",
+    "split": "validation",
+    "seed": 42,
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "baseline-ridge-validation",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "tune-ridge"
+    ],
+    "model": "ridge",
+    "split": "validation",
+    "seed": 42,
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "baseline-arima-validation",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "tune-arima"
+    ],
+    "model": "arima",
+    "split": "validation",
+    "seed": 42,
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "baseline-ets-validation",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "tune-ets"
+    ],
+    "model": "ets",
+    "split": "validation",
+    "seed": 42,
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "baseline-naive-test",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "prepare"
+    ],
+    "model": "naive",
+    "split": "test",
+    "seed": 42,
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "baseline-ridge-test",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "tune-ridge"
+    ],
+    "model": "ridge",
+    "split": "test",
+    "seed": 42,
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "baseline-arima-test",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "tune-arima"
+    ],
+    "model": "arima",
+    "split": "test",
+    "seed": 42,
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "baseline-ets-test",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "tune-ets"
+    ],
+    "model": "ets",
+    "split": "test",
+    "seed": 42,
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "main-kronos-mini-s42",
+    "kind": "train",
+    "stage": "main",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-mini",
+    "seed": 42,
+    "budget": null,
+    "initialization": "pretrained",
+    "fold": "primary"
+  },
+  {
+    "id": "main-kronos-mini-s42-zs-validation",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-mini",
+    "seed": 42,
+    "split": "validation",
+    "checkpoint": null,
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "main-kronos-mini-s42-ft-validation",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "main-kronos-mini-s42"
+    ],
+    "model": "kronos-mini-ft",
+    "seed": 42,
+    "split": "validation",
+    "checkpoint": "main-kronos-mini-s42",
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "main-kronos-mini-s42-zs-test",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-mini",
+    "seed": 42,
+    "split": "test",
+    "checkpoint": null,
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "main-kronos-mini-s42-ft-test",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "main-kronos-mini-s42"
+    ],
+    "model": "kronos-mini-ft",
+    "seed": 42,
+    "split": "test",
+    "checkpoint": "main-kronos-mini-s42",
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "main-kronos-mini-s42-score",
+    "kind": "score",
+    "stage": "main",
+    "dependencies": [
+      "main-kronos-mini-s42-zs-validation",
+      "main-kronos-mini-s42-ft-validation",
+      "main-kronos-mini-s42-zs-test",
+      "main-kronos-mini-s42-ft-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "forecasts": [
+      "main-kronos-mini-s42-zs-validation",
+      "main-kronos-mini-s42-ft-validation",
+      "main-kronos-mini-s42-zs-test",
+      "main-kronos-mini-s42-ft-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "group": "main-kronos-mini-s42"
+  },
+  {
+    "id": "main-kronos-small-s42",
+    "kind": "train",
+    "stage": "main",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-small",
+    "seed": 42,
+    "budget": null,
+    "initialization": "pretrained",
+    "fold": "primary"
+  },
+  {
+    "id": "main-kronos-small-s42-zs-validation",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-small",
+    "seed": 42,
+    "split": "validation",
+    "checkpoint": null,
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "main-kronos-small-s42-ft-validation",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "main-kronos-small-s42"
+    ],
+    "model": "kronos-small-ft",
+    "seed": 42,
+    "split": "validation",
+    "checkpoint": "main-kronos-small-s42",
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "main-kronos-small-s42-zs-test",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-small",
+    "seed": 42,
+    "split": "test",
+    "checkpoint": null,
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "main-kronos-small-s42-ft-test",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "main-kronos-small-s42"
+    ],
+    "model": "kronos-small-ft",
+    "seed": 42,
+    "split": "test",
+    "checkpoint": "main-kronos-small-s42",
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "main-kronos-small-s42-score",
+    "kind": "score",
+    "stage": "main",
+    "dependencies": [
+      "main-kronos-small-s42-zs-validation",
+      "main-kronos-small-s42-ft-validation",
+      "main-kronos-small-s42-zs-test",
+      "main-kronos-small-s42-ft-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "forecasts": [
+      "main-kronos-small-s42-zs-validation",
+      "main-kronos-small-s42-ft-validation",
+      "main-kronos-small-s42-zs-test",
+      "main-kronos-small-s42-ft-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "group": "main-kronos-small-s42"
+  },
+  {
+    "id": "main-kronos-base-s42",
+    "kind": "train",
+    "stage": "main",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-base",
+    "seed": 42,
+    "budget": null,
+    "initialization": "pretrained",
+    "fold": "primary"
+  },
+  {
+    "id": "main-kronos-base-s42-zs-validation",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-base",
+    "seed": 42,
+    "split": "validation",
+    "checkpoint": null,
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "main-kronos-base-s42-ft-validation",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "main-kronos-base-s42"
+    ],
+    "model": "kronos-base-ft",
+    "seed": 42,
+    "split": "validation",
+    "checkpoint": "main-kronos-base-s42",
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "main-kronos-base-s42-zs-test",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-base",
+    "seed": 42,
+    "split": "test",
+    "checkpoint": null,
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "main-kronos-base-s42-ft-test",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "main-kronos-base-s42"
+    ],
+    "model": "kronos-base-ft",
+    "seed": 42,
+    "split": "test",
+    "checkpoint": "main-kronos-base-s42",
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "main-kronos-base-s42-score",
+    "kind": "score",
+    "stage": "main",
+    "dependencies": [
+      "main-kronos-base-s42-zs-validation",
+      "main-kronos-base-s42-ft-validation",
+      "main-kronos-base-s42-zs-test",
+      "main-kronos-base-s42-ft-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "forecasts": [
+      "main-kronos-base-s42-zs-validation",
+      "main-kronos-base-s42-ft-validation",
+      "main-kronos-base-s42-zs-test",
+      "main-kronos-base-s42-ft-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "group": "main-kronos-base-s42"
+  },
+  {
+    "id": "main-chronos2-s42",
+    "kind": "train",
+    "stage": "main",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "chronos2",
+    "seed": 42,
+    "budget": null,
+    "initialization": "pretrained",
+    "fold": "primary"
+  },
+  {
+    "id": "main-chronos2-s42-zs-validation",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "chronos2",
+    "seed": 42,
+    "split": "validation",
+    "checkpoint": null,
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "main-chronos2-s42-ft-validation",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "main-chronos2-s42"
+    ],
+    "model": "chronos2-ft",
+    "seed": 42,
+    "split": "validation",
+    "checkpoint": "main-chronos2-s42",
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "main-chronos2-s42-zs-test",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "chronos2",
+    "seed": 42,
+    "split": "test",
+    "checkpoint": null,
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "main-chronos2-s42-ft-test",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "main-chronos2-s42"
+    ],
+    "model": "chronos2-ft",
+    "seed": 42,
+    "split": "test",
+    "checkpoint": "main-chronos2-s42",
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "main-chronos2-s42-score",
+    "kind": "score",
+    "stage": "main",
+    "dependencies": [
+      "main-chronos2-s42-zs-validation",
+      "main-chronos2-s42-ft-validation",
+      "main-chronos2-s42-zs-test",
+      "main-chronos2-s42-ft-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "forecasts": [
+      "main-chronos2-s42-zs-validation",
+      "main-chronos2-s42-ft-validation",
+      "main-chronos2-s42-zs-test",
+      "main-chronos2-s42-ft-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "group": "main-chronos2-s42"
+  },
+  {
+    "id": "main-kronos-mini-s43",
+    "kind": "train",
+    "stage": "main",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-mini",
+    "seed": 43,
+    "budget": null,
+    "initialization": "pretrained",
+    "fold": "primary"
+  },
+  {
+    "id": "main-kronos-mini-s43-zs-validation",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-mini",
+    "seed": 43,
+    "split": "validation",
+    "checkpoint": null,
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "main-kronos-mini-s43-ft-validation",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "main-kronos-mini-s43"
+    ],
+    "model": "kronos-mini-ft",
+    "seed": 43,
+    "split": "validation",
+    "checkpoint": "main-kronos-mini-s43",
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "main-kronos-mini-s43-zs-test",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-mini",
+    "seed": 43,
+    "split": "test",
+    "checkpoint": null,
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "main-kronos-mini-s43-ft-test",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "main-kronos-mini-s43"
+    ],
+    "model": "kronos-mini-ft",
+    "seed": 43,
+    "split": "test",
+    "checkpoint": "main-kronos-mini-s43",
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "main-kronos-mini-s43-score",
+    "kind": "score",
+    "stage": "main",
+    "dependencies": [
+      "main-kronos-mini-s43-zs-validation",
+      "main-kronos-mini-s43-ft-validation",
+      "main-kronos-mini-s43-zs-test",
+      "main-kronos-mini-s43-ft-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "forecasts": [
+      "main-kronos-mini-s43-zs-validation",
+      "main-kronos-mini-s43-ft-validation",
+      "main-kronos-mini-s43-zs-test",
+      "main-kronos-mini-s43-ft-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "group": "main-kronos-mini-s43"
+  },
+  {
+    "id": "main-kronos-small-s43",
+    "kind": "train",
+    "stage": "main",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-small",
+    "seed": 43,
+    "budget": null,
+    "initialization": "pretrained",
+    "fold": "primary"
+  },
+  {
+    "id": "main-kronos-small-s43-zs-validation",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-small",
+    "seed": 43,
+    "split": "validation",
+    "checkpoint": null,
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "main-kronos-small-s43-ft-validation",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "main-kronos-small-s43"
+    ],
+    "model": "kronos-small-ft",
+    "seed": 43,
+    "split": "validation",
+    "checkpoint": "main-kronos-small-s43",
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "main-kronos-small-s43-zs-test",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-small",
+    "seed": 43,
+    "split": "test",
+    "checkpoint": null,
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "main-kronos-small-s43-ft-test",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "main-kronos-small-s43"
+    ],
+    "model": "kronos-small-ft",
+    "seed": 43,
+    "split": "test",
+    "checkpoint": "main-kronos-small-s43",
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "main-kronos-small-s43-score",
+    "kind": "score",
+    "stage": "main",
+    "dependencies": [
+      "main-kronos-small-s43-zs-validation",
+      "main-kronos-small-s43-ft-validation",
+      "main-kronos-small-s43-zs-test",
+      "main-kronos-small-s43-ft-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "forecasts": [
+      "main-kronos-small-s43-zs-validation",
+      "main-kronos-small-s43-ft-validation",
+      "main-kronos-small-s43-zs-test",
+      "main-kronos-small-s43-ft-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "group": "main-kronos-small-s43"
+  },
+  {
+    "id": "main-kronos-base-s43",
+    "kind": "train",
+    "stage": "main",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-base",
+    "seed": 43,
+    "budget": null,
+    "initialization": "pretrained",
+    "fold": "primary"
+  },
+  {
+    "id": "main-kronos-base-s43-zs-validation",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-base",
+    "seed": 43,
+    "split": "validation",
+    "checkpoint": null,
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "main-kronos-base-s43-ft-validation",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "main-kronos-base-s43"
+    ],
+    "model": "kronos-base-ft",
+    "seed": 43,
+    "split": "validation",
+    "checkpoint": "main-kronos-base-s43",
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "main-kronos-base-s43-zs-test",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-base",
+    "seed": 43,
+    "split": "test",
+    "checkpoint": null,
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "main-kronos-base-s43-ft-test",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "main-kronos-base-s43"
+    ],
+    "model": "kronos-base-ft",
+    "seed": 43,
+    "split": "test",
+    "checkpoint": "main-kronos-base-s43",
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "main-kronos-base-s43-score",
+    "kind": "score",
+    "stage": "main",
+    "dependencies": [
+      "main-kronos-base-s43-zs-validation",
+      "main-kronos-base-s43-ft-validation",
+      "main-kronos-base-s43-zs-test",
+      "main-kronos-base-s43-ft-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "forecasts": [
+      "main-kronos-base-s43-zs-validation",
+      "main-kronos-base-s43-ft-validation",
+      "main-kronos-base-s43-zs-test",
+      "main-kronos-base-s43-ft-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "group": "main-kronos-base-s43"
+  },
+  {
+    "id": "main-chronos2-s43",
+    "kind": "train",
+    "stage": "main",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "chronos2",
+    "seed": 43,
+    "budget": null,
+    "initialization": "pretrained",
+    "fold": "primary"
+  },
+  {
+    "id": "main-chronos2-s43-zs-validation",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "chronos2",
+    "seed": 43,
+    "split": "validation",
+    "checkpoint": null,
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "main-chronos2-s43-ft-validation",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "main-chronos2-s43"
+    ],
+    "model": "chronos2-ft",
+    "seed": 43,
+    "split": "validation",
+    "checkpoint": "main-chronos2-s43",
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "main-chronos2-s43-zs-test",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "chronos2",
+    "seed": 43,
+    "split": "test",
+    "checkpoint": null,
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "main-chronos2-s43-ft-test",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "main-chronos2-s43"
+    ],
+    "model": "chronos2-ft",
+    "seed": 43,
+    "split": "test",
+    "checkpoint": "main-chronos2-s43",
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "main-chronos2-s43-score",
+    "kind": "score",
+    "stage": "main",
+    "dependencies": [
+      "main-chronos2-s43-zs-validation",
+      "main-chronos2-s43-ft-validation",
+      "main-chronos2-s43-zs-test",
+      "main-chronos2-s43-ft-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "forecasts": [
+      "main-chronos2-s43-zs-validation",
+      "main-chronos2-s43-ft-validation",
+      "main-chronos2-s43-zs-test",
+      "main-chronos2-s43-ft-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "group": "main-chronos2-s43"
+  },
+  {
+    "id": "main-kronos-mini-s44",
+    "kind": "train",
+    "stage": "main",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-mini",
+    "seed": 44,
+    "budget": null,
+    "initialization": "pretrained",
+    "fold": "primary"
+  },
+  {
+    "id": "main-kronos-mini-s44-zs-validation",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-mini",
+    "seed": 44,
+    "split": "validation",
+    "checkpoint": null,
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "main-kronos-mini-s44-ft-validation",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "main-kronos-mini-s44"
+    ],
+    "model": "kronos-mini-ft",
+    "seed": 44,
+    "split": "validation",
+    "checkpoint": "main-kronos-mini-s44",
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "main-kronos-mini-s44-zs-test",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-mini",
+    "seed": 44,
+    "split": "test",
+    "checkpoint": null,
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "main-kronos-mini-s44-ft-test",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "main-kronos-mini-s44"
+    ],
+    "model": "kronos-mini-ft",
+    "seed": 44,
+    "split": "test",
+    "checkpoint": "main-kronos-mini-s44",
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "main-kronos-mini-s44-score",
+    "kind": "score",
+    "stage": "main",
+    "dependencies": [
+      "main-kronos-mini-s44-zs-validation",
+      "main-kronos-mini-s44-ft-validation",
+      "main-kronos-mini-s44-zs-test",
+      "main-kronos-mini-s44-ft-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "forecasts": [
+      "main-kronos-mini-s44-zs-validation",
+      "main-kronos-mini-s44-ft-validation",
+      "main-kronos-mini-s44-zs-test",
+      "main-kronos-mini-s44-ft-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "group": "main-kronos-mini-s44"
+  },
+  {
+    "id": "main-kronos-small-s44",
+    "kind": "train",
+    "stage": "main",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-small",
+    "seed": 44,
+    "budget": null,
+    "initialization": "pretrained",
+    "fold": "primary"
+  },
+  {
+    "id": "main-kronos-small-s44-zs-validation",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-small",
+    "seed": 44,
+    "split": "validation",
+    "checkpoint": null,
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "main-kronos-small-s44-ft-validation",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "main-kronos-small-s44"
+    ],
+    "model": "kronos-small-ft",
+    "seed": 44,
+    "split": "validation",
+    "checkpoint": "main-kronos-small-s44",
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "main-kronos-small-s44-zs-test",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-small",
+    "seed": 44,
+    "split": "test",
+    "checkpoint": null,
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "main-kronos-small-s44-ft-test",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "main-kronos-small-s44"
+    ],
+    "model": "kronos-small-ft",
+    "seed": 44,
+    "split": "test",
+    "checkpoint": "main-kronos-small-s44",
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "main-kronos-small-s44-score",
+    "kind": "score",
+    "stage": "main",
+    "dependencies": [
+      "main-kronos-small-s44-zs-validation",
+      "main-kronos-small-s44-ft-validation",
+      "main-kronos-small-s44-zs-test",
+      "main-kronos-small-s44-ft-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "forecasts": [
+      "main-kronos-small-s44-zs-validation",
+      "main-kronos-small-s44-ft-validation",
+      "main-kronos-small-s44-zs-test",
+      "main-kronos-small-s44-ft-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "group": "main-kronos-small-s44"
+  },
+  {
+    "id": "main-kronos-base-s44",
+    "kind": "train",
+    "stage": "main",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-base",
+    "seed": 44,
+    "budget": null,
+    "initialization": "pretrained",
+    "fold": "primary"
+  },
+  {
+    "id": "main-kronos-base-s44-zs-validation",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-base",
+    "seed": 44,
+    "split": "validation",
+    "checkpoint": null,
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "main-kronos-base-s44-ft-validation",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "main-kronos-base-s44"
+    ],
+    "model": "kronos-base-ft",
+    "seed": 44,
+    "split": "validation",
+    "checkpoint": "main-kronos-base-s44",
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "main-kronos-base-s44-zs-test",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-base",
+    "seed": 44,
+    "split": "test",
+    "checkpoint": null,
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "main-kronos-base-s44-ft-test",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "main-kronos-base-s44"
+    ],
+    "model": "kronos-base-ft",
+    "seed": 44,
+    "split": "test",
+    "checkpoint": "main-kronos-base-s44",
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "main-kronos-base-s44-score",
+    "kind": "score",
+    "stage": "main",
+    "dependencies": [
+      "main-kronos-base-s44-zs-validation",
+      "main-kronos-base-s44-ft-validation",
+      "main-kronos-base-s44-zs-test",
+      "main-kronos-base-s44-ft-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "forecasts": [
+      "main-kronos-base-s44-zs-validation",
+      "main-kronos-base-s44-ft-validation",
+      "main-kronos-base-s44-zs-test",
+      "main-kronos-base-s44-ft-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "group": "main-kronos-base-s44"
+  },
+  {
+    "id": "main-chronos2-s44",
+    "kind": "train",
+    "stage": "main",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "chronos2",
+    "seed": 44,
+    "budget": null,
+    "initialization": "pretrained",
+    "fold": "primary"
+  },
+  {
+    "id": "main-chronos2-s44-zs-validation",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "chronos2",
+    "seed": 44,
+    "split": "validation",
+    "checkpoint": null,
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "main-chronos2-s44-ft-validation",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "main-chronos2-s44"
+    ],
+    "model": "chronos2-ft",
+    "seed": 44,
+    "split": "validation",
+    "checkpoint": "main-chronos2-s44",
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "main-chronos2-s44-zs-test",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "chronos2",
+    "seed": 44,
+    "split": "test",
+    "checkpoint": null,
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "main-chronos2-s44-ft-test",
+    "kind": "forecast",
+    "stage": "main",
+    "dependencies": [
+      "main-chronos2-s44"
+    ],
+    "model": "chronos2-ft",
+    "seed": 44,
+    "split": "test",
+    "checkpoint": "main-chronos2-s44",
+    "fold": "primary",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "main-chronos2-s44-score",
+    "kind": "score",
+    "stage": "main",
+    "dependencies": [
+      "main-chronos2-s44-zs-validation",
+      "main-chronos2-s44-ft-validation",
+      "main-chronos2-s44-zs-test",
+      "main-chronos2-s44-ft-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "forecasts": [
+      "main-chronos2-s44-zs-validation",
+      "main-chronos2-s44-ft-validation",
+      "main-chronos2-s44-zs-test",
+      "main-chronos2-s44-ft-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "group": "main-chronos2-s44"
+  },
+  {
+    "id": "learning-kronos-small-500-pretrained-s42",
+    "kind": "train",
+    "stage": "learning",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-small",
+    "seed": 42,
+    "budget": 500,
+    "initialization": "pretrained",
+    "fold": "primary"
+  },
+  {
+    "id": "learning-kronos-small-500-pretrained-s42-validation",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-kronos-small-500-pretrained-s42"
+    ],
+    "model": "kronos-small-ft",
+    "seed": 42,
+    "split": "validation",
+    "checkpoint": "learning-kronos-small-500-pretrained-s42",
+    "fold": "primary",
+    "budget": 500,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "learning-kronos-small-500-pretrained-s42-test",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-kronos-small-500-pretrained-s42"
+    ],
+    "model": "kronos-small-ft",
+    "seed": 42,
+    "split": "test",
+    "checkpoint": "learning-kronos-small-500-pretrained-s42",
+    "fold": "primary",
+    "budget": 500,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "learning-kronos-small-500-pretrained-s42-score",
+    "kind": "score",
+    "stage": "learning",
+    "dependencies": [
+      "learning-kronos-small-500-pretrained-s42-validation",
+      "learning-kronos-small-500-pretrained-s42-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "forecasts": [
+      "learning-kronos-small-500-pretrained-s42-validation",
+      "learning-kronos-small-500-pretrained-s42-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "group": "learning-kronos-small-500-pretrained-s42"
+  },
+  {
+    "id": "learning-kronos-small-500-random-s42-lr",
+    "kind": "tune_lr",
+    "stage": "learning",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-small",
+    "seed": 42,
+    "budget": 500
+  },
+  {
+    "id": "learning-kronos-small-500-random-s42",
+    "kind": "train",
+    "stage": "learning",
+    "dependencies": [
+      "learning-kronos-small-500-random-s42-lr"
+    ],
+    "model": "kronos-small",
+    "seed": 42,
+    "budget": 500,
+    "initialization": "random",
+    "fold": "primary"
+  },
+  {
+    "id": "learning-kronos-small-500-random-s42-validation",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-kronos-small-500-random-s42"
+    ],
+    "model": "kronos-small-ft",
+    "seed": 42,
+    "split": "validation",
+    "checkpoint": "learning-kronos-small-500-random-s42",
+    "fold": "primary",
+    "budget": 500,
+    "initialization": "random"
+  },
+  {
+    "id": "learning-kronos-small-500-random-s42-test",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-kronos-small-500-random-s42"
+    ],
+    "model": "kronos-small-ft",
+    "seed": 42,
+    "split": "test",
+    "checkpoint": "learning-kronos-small-500-random-s42",
+    "fold": "primary",
+    "budget": 500,
+    "initialization": "random"
+  },
+  {
+    "id": "learning-kronos-small-500-random-s42-score",
+    "kind": "score",
+    "stage": "learning",
+    "dependencies": [
+      "learning-kronos-small-500-random-s42-validation",
+      "learning-kronos-small-500-random-s42-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "forecasts": [
+      "learning-kronos-small-500-random-s42-validation",
+      "learning-kronos-small-500-random-s42-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "group": "learning-kronos-small-500-random-s42"
+  },
+  {
+    "id": "learning-kronos-small-500-pretrained-s43",
+    "kind": "train",
+    "stage": "learning",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-small",
+    "seed": 43,
+    "budget": 500,
+    "initialization": "pretrained",
+    "fold": "primary"
+  },
+  {
+    "id": "learning-kronos-small-500-pretrained-s43-validation",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-kronos-small-500-pretrained-s43"
+    ],
+    "model": "kronos-small-ft",
+    "seed": 43,
+    "split": "validation",
+    "checkpoint": "learning-kronos-small-500-pretrained-s43",
+    "fold": "primary",
+    "budget": 500,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "learning-kronos-small-500-pretrained-s43-test",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-kronos-small-500-pretrained-s43"
+    ],
+    "model": "kronos-small-ft",
+    "seed": 43,
+    "split": "test",
+    "checkpoint": "learning-kronos-small-500-pretrained-s43",
+    "fold": "primary",
+    "budget": 500,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "learning-kronos-small-500-pretrained-s43-score",
+    "kind": "score",
+    "stage": "learning",
+    "dependencies": [
+      "learning-kronos-small-500-pretrained-s43-validation",
+      "learning-kronos-small-500-pretrained-s43-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "forecasts": [
+      "learning-kronos-small-500-pretrained-s43-validation",
+      "learning-kronos-small-500-pretrained-s43-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "group": "learning-kronos-small-500-pretrained-s43"
+  },
+  {
+    "id": "learning-kronos-small-500-random-s43-lr",
+    "kind": "tune_lr",
+    "stage": "learning",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-small",
+    "seed": 43,
+    "budget": 500
+  },
+  {
+    "id": "learning-kronos-small-500-random-s43",
+    "kind": "train",
+    "stage": "learning",
+    "dependencies": [
+      "learning-kronos-small-500-random-s43-lr"
+    ],
+    "model": "kronos-small",
+    "seed": 43,
+    "budget": 500,
+    "initialization": "random",
+    "fold": "primary"
+  },
+  {
+    "id": "learning-kronos-small-500-random-s43-validation",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-kronos-small-500-random-s43"
+    ],
+    "model": "kronos-small-ft",
+    "seed": 43,
+    "split": "validation",
+    "checkpoint": "learning-kronos-small-500-random-s43",
+    "fold": "primary",
+    "budget": 500,
+    "initialization": "random"
+  },
+  {
+    "id": "learning-kronos-small-500-random-s43-test",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-kronos-small-500-random-s43"
+    ],
+    "model": "kronos-small-ft",
+    "seed": 43,
+    "split": "test",
+    "checkpoint": "learning-kronos-small-500-random-s43",
+    "fold": "primary",
+    "budget": 500,
+    "initialization": "random"
+  },
+  {
+    "id": "learning-kronos-small-500-random-s43-score",
+    "kind": "score",
+    "stage": "learning",
+    "dependencies": [
+      "learning-kronos-small-500-random-s43-validation",
+      "learning-kronos-small-500-random-s43-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "forecasts": [
+      "learning-kronos-small-500-random-s43-validation",
+      "learning-kronos-small-500-random-s43-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "group": "learning-kronos-small-500-random-s43"
+  },
+  {
+    "id": "learning-kronos-small-500-pretrained-s44",
+    "kind": "train",
+    "stage": "learning",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-small",
+    "seed": 44,
+    "budget": 500,
+    "initialization": "pretrained",
+    "fold": "primary"
+  },
+  {
+    "id": "learning-kronos-small-500-pretrained-s44-validation",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-kronos-small-500-pretrained-s44"
+    ],
+    "model": "kronos-small-ft",
+    "seed": 44,
+    "split": "validation",
+    "checkpoint": "learning-kronos-small-500-pretrained-s44",
+    "fold": "primary",
+    "budget": 500,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "learning-kronos-small-500-pretrained-s44-test",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-kronos-small-500-pretrained-s44"
+    ],
+    "model": "kronos-small-ft",
+    "seed": 44,
+    "split": "test",
+    "checkpoint": "learning-kronos-small-500-pretrained-s44",
+    "fold": "primary",
+    "budget": 500,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "learning-kronos-small-500-pretrained-s44-score",
+    "kind": "score",
+    "stage": "learning",
+    "dependencies": [
+      "learning-kronos-small-500-pretrained-s44-validation",
+      "learning-kronos-small-500-pretrained-s44-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "forecasts": [
+      "learning-kronos-small-500-pretrained-s44-validation",
+      "learning-kronos-small-500-pretrained-s44-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "group": "learning-kronos-small-500-pretrained-s44"
+  },
+  {
+    "id": "learning-kronos-small-500-random-s44-lr",
+    "kind": "tune_lr",
+    "stage": "learning",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-small",
+    "seed": 44,
+    "budget": 500
+  },
+  {
+    "id": "learning-kronos-small-500-random-s44",
+    "kind": "train",
+    "stage": "learning",
+    "dependencies": [
+      "learning-kronos-small-500-random-s44-lr"
+    ],
+    "model": "kronos-small",
+    "seed": 44,
+    "budget": 500,
+    "initialization": "random",
+    "fold": "primary"
+  },
+  {
+    "id": "learning-kronos-small-500-random-s44-validation",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-kronos-small-500-random-s44"
+    ],
+    "model": "kronos-small-ft",
+    "seed": 44,
+    "split": "validation",
+    "checkpoint": "learning-kronos-small-500-random-s44",
+    "fold": "primary",
+    "budget": 500,
+    "initialization": "random"
+  },
+  {
+    "id": "learning-kronos-small-500-random-s44-test",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-kronos-small-500-random-s44"
+    ],
+    "model": "kronos-small-ft",
+    "seed": 44,
+    "split": "test",
+    "checkpoint": "learning-kronos-small-500-random-s44",
+    "fold": "primary",
+    "budget": 500,
+    "initialization": "random"
+  },
+  {
+    "id": "learning-kronos-small-500-random-s44-score",
+    "kind": "score",
+    "stage": "learning",
+    "dependencies": [
+      "learning-kronos-small-500-random-s44-validation",
+      "learning-kronos-small-500-random-s44-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "forecasts": [
+      "learning-kronos-small-500-random-s44-validation",
+      "learning-kronos-small-500-random-s44-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "group": "learning-kronos-small-500-random-s44"
+  },
+  {
+    "id": "learning-kronos-small-1000-pretrained-s42",
+    "kind": "train",
+    "stage": "learning",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-small",
+    "seed": 42,
+    "budget": 1000,
+    "initialization": "pretrained",
+    "fold": "primary"
+  },
+  {
+    "id": "learning-kronos-small-1000-pretrained-s42-validation",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-kronos-small-1000-pretrained-s42"
+    ],
+    "model": "kronos-small-ft",
+    "seed": 42,
+    "split": "validation",
+    "checkpoint": "learning-kronos-small-1000-pretrained-s42",
+    "fold": "primary",
+    "budget": 1000,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "learning-kronos-small-1000-pretrained-s42-test",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-kronos-small-1000-pretrained-s42"
+    ],
+    "model": "kronos-small-ft",
+    "seed": 42,
+    "split": "test",
+    "checkpoint": "learning-kronos-small-1000-pretrained-s42",
+    "fold": "primary",
+    "budget": 1000,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "learning-kronos-small-1000-pretrained-s42-score",
+    "kind": "score",
+    "stage": "learning",
+    "dependencies": [
+      "learning-kronos-small-1000-pretrained-s42-validation",
+      "learning-kronos-small-1000-pretrained-s42-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "forecasts": [
+      "learning-kronos-small-1000-pretrained-s42-validation",
+      "learning-kronos-small-1000-pretrained-s42-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "group": "learning-kronos-small-1000-pretrained-s42"
+  },
+  {
+    "id": "learning-kronos-small-1000-random-s42-lr",
+    "kind": "tune_lr",
+    "stage": "learning",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-small",
+    "seed": 42,
+    "budget": 1000
+  },
+  {
+    "id": "learning-kronos-small-1000-random-s42",
+    "kind": "train",
+    "stage": "learning",
+    "dependencies": [
+      "learning-kronos-small-1000-random-s42-lr"
+    ],
+    "model": "kronos-small",
+    "seed": 42,
+    "budget": 1000,
+    "initialization": "random",
+    "fold": "primary"
+  },
+  {
+    "id": "learning-kronos-small-1000-random-s42-validation",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-kronos-small-1000-random-s42"
+    ],
+    "model": "kronos-small-ft",
+    "seed": 42,
+    "split": "validation",
+    "checkpoint": "learning-kronos-small-1000-random-s42",
+    "fold": "primary",
+    "budget": 1000,
+    "initialization": "random"
+  },
+  {
+    "id": "learning-kronos-small-1000-random-s42-test",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-kronos-small-1000-random-s42"
+    ],
+    "model": "kronos-small-ft",
+    "seed": 42,
+    "split": "test",
+    "checkpoint": "learning-kronos-small-1000-random-s42",
+    "fold": "primary",
+    "budget": 1000,
+    "initialization": "random"
+  },
+  {
+    "id": "learning-kronos-small-1000-random-s42-score",
+    "kind": "score",
+    "stage": "learning",
+    "dependencies": [
+      "learning-kronos-small-1000-random-s42-validation",
+      "learning-kronos-small-1000-random-s42-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "forecasts": [
+      "learning-kronos-small-1000-random-s42-validation",
+      "learning-kronos-small-1000-random-s42-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "group": "learning-kronos-small-1000-random-s42"
+  },
+  {
+    "id": "learning-kronos-small-1000-pretrained-s43",
+    "kind": "train",
+    "stage": "learning",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-small",
+    "seed": 43,
+    "budget": 1000,
+    "initialization": "pretrained",
+    "fold": "primary"
+  },
+  {
+    "id": "learning-kronos-small-1000-pretrained-s43-validation",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-kronos-small-1000-pretrained-s43"
+    ],
+    "model": "kronos-small-ft",
+    "seed": 43,
+    "split": "validation",
+    "checkpoint": "learning-kronos-small-1000-pretrained-s43",
+    "fold": "primary",
+    "budget": 1000,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "learning-kronos-small-1000-pretrained-s43-test",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-kronos-small-1000-pretrained-s43"
+    ],
+    "model": "kronos-small-ft",
+    "seed": 43,
+    "split": "test",
+    "checkpoint": "learning-kronos-small-1000-pretrained-s43",
+    "fold": "primary",
+    "budget": 1000,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "learning-kronos-small-1000-pretrained-s43-score",
+    "kind": "score",
+    "stage": "learning",
+    "dependencies": [
+      "learning-kronos-small-1000-pretrained-s43-validation",
+      "learning-kronos-small-1000-pretrained-s43-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "forecasts": [
+      "learning-kronos-small-1000-pretrained-s43-validation",
+      "learning-kronos-small-1000-pretrained-s43-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "group": "learning-kronos-small-1000-pretrained-s43"
+  },
+  {
+    "id": "learning-kronos-small-1000-random-s43-lr",
+    "kind": "tune_lr",
+    "stage": "learning",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-small",
+    "seed": 43,
+    "budget": 1000
+  },
+  {
+    "id": "learning-kronos-small-1000-random-s43",
+    "kind": "train",
+    "stage": "learning",
+    "dependencies": [
+      "learning-kronos-small-1000-random-s43-lr"
+    ],
+    "model": "kronos-small",
+    "seed": 43,
+    "budget": 1000,
+    "initialization": "random",
+    "fold": "primary"
+  },
+  {
+    "id": "learning-kronos-small-1000-random-s43-validation",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-kronos-small-1000-random-s43"
+    ],
+    "model": "kronos-small-ft",
+    "seed": 43,
+    "split": "validation",
+    "checkpoint": "learning-kronos-small-1000-random-s43",
+    "fold": "primary",
+    "budget": 1000,
+    "initialization": "random"
+  },
+  {
+    "id": "learning-kronos-small-1000-random-s43-test",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-kronos-small-1000-random-s43"
+    ],
+    "model": "kronos-small-ft",
+    "seed": 43,
+    "split": "test",
+    "checkpoint": "learning-kronos-small-1000-random-s43",
+    "fold": "primary",
+    "budget": 1000,
+    "initialization": "random"
+  },
+  {
+    "id": "learning-kronos-small-1000-random-s43-score",
+    "kind": "score",
+    "stage": "learning",
+    "dependencies": [
+      "learning-kronos-small-1000-random-s43-validation",
+      "learning-kronos-small-1000-random-s43-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "forecasts": [
+      "learning-kronos-small-1000-random-s43-validation",
+      "learning-kronos-small-1000-random-s43-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "group": "learning-kronos-small-1000-random-s43"
+  },
+  {
+    "id": "learning-kronos-small-1000-pretrained-s44",
+    "kind": "train",
+    "stage": "learning",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-small",
+    "seed": 44,
+    "budget": 1000,
+    "initialization": "pretrained",
+    "fold": "primary"
+  },
+  {
+    "id": "learning-kronos-small-1000-pretrained-s44-validation",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-kronos-small-1000-pretrained-s44"
+    ],
+    "model": "kronos-small-ft",
+    "seed": 44,
+    "split": "validation",
+    "checkpoint": "learning-kronos-small-1000-pretrained-s44",
+    "fold": "primary",
+    "budget": 1000,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "learning-kronos-small-1000-pretrained-s44-test",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-kronos-small-1000-pretrained-s44"
+    ],
+    "model": "kronos-small-ft",
+    "seed": 44,
+    "split": "test",
+    "checkpoint": "learning-kronos-small-1000-pretrained-s44",
+    "fold": "primary",
+    "budget": 1000,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "learning-kronos-small-1000-pretrained-s44-score",
+    "kind": "score",
+    "stage": "learning",
+    "dependencies": [
+      "learning-kronos-small-1000-pretrained-s44-validation",
+      "learning-kronos-small-1000-pretrained-s44-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "forecasts": [
+      "learning-kronos-small-1000-pretrained-s44-validation",
+      "learning-kronos-small-1000-pretrained-s44-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "group": "learning-kronos-small-1000-pretrained-s44"
+  },
+  {
+    "id": "learning-kronos-small-1000-random-s44-lr",
+    "kind": "tune_lr",
+    "stage": "learning",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-small",
+    "seed": 44,
+    "budget": 1000
+  },
+  {
+    "id": "learning-kronos-small-1000-random-s44",
+    "kind": "train",
+    "stage": "learning",
+    "dependencies": [
+      "learning-kronos-small-1000-random-s44-lr"
+    ],
+    "model": "kronos-small",
+    "seed": 44,
+    "budget": 1000,
+    "initialization": "random",
+    "fold": "primary"
+  },
+  {
+    "id": "learning-kronos-small-1000-random-s44-validation",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-kronos-small-1000-random-s44"
+    ],
+    "model": "kronos-small-ft",
+    "seed": 44,
+    "split": "validation",
+    "checkpoint": "learning-kronos-small-1000-random-s44",
+    "fold": "primary",
+    "budget": 1000,
+    "initialization": "random"
+  },
+  {
+    "id": "learning-kronos-small-1000-random-s44-test",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-kronos-small-1000-random-s44"
+    ],
+    "model": "kronos-small-ft",
+    "seed": 44,
+    "split": "test",
+    "checkpoint": "learning-kronos-small-1000-random-s44",
+    "fold": "primary",
+    "budget": 1000,
+    "initialization": "random"
+  },
+  {
+    "id": "learning-kronos-small-1000-random-s44-score",
+    "kind": "score",
+    "stage": "learning",
+    "dependencies": [
+      "learning-kronos-small-1000-random-s44-validation",
+      "learning-kronos-small-1000-random-s44-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "forecasts": [
+      "learning-kronos-small-1000-random-s44-validation",
+      "learning-kronos-small-1000-random-s44-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "group": "learning-kronos-small-1000-random-s44"
+  },
+  {
+    "id": "learning-kronos-small-full-random-s42-lr",
+    "kind": "tune_lr",
+    "stage": "learning",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-small",
+    "seed": 42,
+    "budget": null
+  },
+  {
+    "id": "learning-kronos-small-full-random-s42",
+    "kind": "train",
+    "stage": "learning",
+    "dependencies": [
+      "learning-kronos-small-full-random-s42-lr"
+    ],
+    "model": "kronos-small",
+    "seed": 42,
+    "budget": null,
+    "initialization": "random",
+    "fold": "primary"
+  },
+  {
+    "id": "learning-kronos-small-full-random-s42-validation",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-kronos-small-full-random-s42"
+    ],
+    "model": "kronos-small-ft",
+    "seed": 42,
+    "split": "validation",
+    "checkpoint": "learning-kronos-small-full-random-s42",
+    "fold": "primary",
+    "budget": null,
+    "initialization": "random"
+  },
+  {
+    "id": "learning-kronos-small-full-random-s42-test",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-kronos-small-full-random-s42"
+    ],
+    "model": "kronos-small-ft",
+    "seed": 42,
+    "split": "test",
+    "checkpoint": "learning-kronos-small-full-random-s42",
+    "fold": "primary",
+    "budget": null,
+    "initialization": "random"
+  },
+  {
+    "id": "learning-kronos-small-full-random-s42-score",
+    "kind": "score",
+    "stage": "learning",
+    "dependencies": [
+      "learning-kronos-small-full-random-s42-validation",
+      "learning-kronos-small-full-random-s42-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "forecasts": [
+      "learning-kronos-small-full-random-s42-validation",
+      "learning-kronos-small-full-random-s42-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "group": "learning-kronos-small-full-random-s42"
+  },
+  {
+    "id": "learning-kronos-small-full-random-s43-lr",
+    "kind": "tune_lr",
+    "stage": "learning",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-small",
+    "seed": 43,
+    "budget": null
+  },
+  {
+    "id": "learning-kronos-small-full-random-s43",
+    "kind": "train",
+    "stage": "learning",
+    "dependencies": [
+      "learning-kronos-small-full-random-s43-lr"
+    ],
+    "model": "kronos-small",
+    "seed": 43,
+    "budget": null,
+    "initialization": "random",
+    "fold": "primary"
+  },
+  {
+    "id": "learning-kronos-small-full-random-s43-validation",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-kronos-small-full-random-s43"
+    ],
+    "model": "kronos-small-ft",
+    "seed": 43,
+    "split": "validation",
+    "checkpoint": "learning-kronos-small-full-random-s43",
+    "fold": "primary",
+    "budget": null,
+    "initialization": "random"
+  },
+  {
+    "id": "learning-kronos-small-full-random-s43-test",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-kronos-small-full-random-s43"
+    ],
+    "model": "kronos-small-ft",
+    "seed": 43,
+    "split": "test",
+    "checkpoint": "learning-kronos-small-full-random-s43",
+    "fold": "primary",
+    "budget": null,
+    "initialization": "random"
+  },
+  {
+    "id": "learning-kronos-small-full-random-s43-score",
+    "kind": "score",
+    "stage": "learning",
+    "dependencies": [
+      "learning-kronos-small-full-random-s43-validation",
+      "learning-kronos-small-full-random-s43-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "forecasts": [
+      "learning-kronos-small-full-random-s43-validation",
+      "learning-kronos-small-full-random-s43-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "group": "learning-kronos-small-full-random-s43"
+  },
+  {
+    "id": "learning-kronos-small-full-random-s44-lr",
+    "kind": "tune_lr",
+    "stage": "learning",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-small",
+    "seed": 44,
+    "budget": null
+  },
+  {
+    "id": "learning-kronos-small-full-random-s44",
+    "kind": "train",
+    "stage": "learning",
+    "dependencies": [
+      "learning-kronos-small-full-random-s44-lr"
+    ],
+    "model": "kronos-small",
+    "seed": 44,
+    "budget": null,
+    "initialization": "random",
+    "fold": "primary"
+  },
+  {
+    "id": "learning-kronos-small-full-random-s44-validation",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-kronos-small-full-random-s44"
+    ],
+    "model": "kronos-small-ft",
+    "seed": 44,
+    "split": "validation",
+    "checkpoint": "learning-kronos-small-full-random-s44",
+    "fold": "primary",
+    "budget": null,
+    "initialization": "random"
+  },
+  {
+    "id": "learning-kronos-small-full-random-s44-test",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-kronos-small-full-random-s44"
+    ],
+    "model": "kronos-small-ft",
+    "seed": 44,
+    "split": "test",
+    "checkpoint": "learning-kronos-small-full-random-s44",
+    "fold": "primary",
+    "budget": null,
+    "initialization": "random"
+  },
+  {
+    "id": "learning-kronos-small-full-random-s44-score",
+    "kind": "score",
+    "stage": "learning",
+    "dependencies": [
+      "learning-kronos-small-full-random-s44-validation",
+      "learning-kronos-small-full-random-s44-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "forecasts": [
+      "learning-kronos-small-full-random-s44-validation",
+      "learning-kronos-small-full-random-s44-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "group": "learning-kronos-small-full-random-s44"
+  },
+  {
+    "id": "learning-chronos2-500-pretrained-s42",
+    "kind": "train",
+    "stage": "learning",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "chronos2",
+    "seed": 42,
+    "budget": 500,
+    "initialization": "pretrained",
+    "fold": "primary"
+  },
+  {
+    "id": "learning-chronos2-500-pretrained-s42-validation",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-chronos2-500-pretrained-s42"
+    ],
+    "model": "chronos2-ft",
+    "seed": 42,
+    "split": "validation",
+    "checkpoint": "learning-chronos2-500-pretrained-s42",
+    "fold": "primary",
+    "budget": 500,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "learning-chronos2-500-pretrained-s42-test",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-chronos2-500-pretrained-s42"
+    ],
+    "model": "chronos2-ft",
+    "seed": 42,
+    "split": "test",
+    "checkpoint": "learning-chronos2-500-pretrained-s42",
+    "fold": "primary",
+    "budget": 500,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "learning-chronos2-500-pretrained-s42-score",
+    "kind": "score",
+    "stage": "learning",
+    "dependencies": [
+      "learning-chronos2-500-pretrained-s42-validation",
+      "learning-chronos2-500-pretrained-s42-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "forecasts": [
+      "learning-chronos2-500-pretrained-s42-validation",
+      "learning-chronos2-500-pretrained-s42-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "group": "learning-chronos2-500-pretrained-s42"
+  },
+  {
+    "id": "learning-chronos2-500-random-s42-lr",
+    "kind": "tune_lr",
+    "stage": "learning",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "chronos2",
+    "seed": 42,
+    "budget": 500
+  },
+  {
+    "id": "learning-chronos2-500-random-s42",
+    "kind": "train",
+    "stage": "learning",
+    "dependencies": [
+      "learning-chronos2-500-random-s42-lr"
+    ],
+    "model": "chronos2",
+    "seed": 42,
+    "budget": 500,
+    "initialization": "random",
+    "fold": "primary"
+  },
+  {
+    "id": "learning-chronos2-500-random-s42-validation",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-chronos2-500-random-s42"
+    ],
+    "model": "chronos2-ft",
+    "seed": 42,
+    "split": "validation",
+    "checkpoint": "learning-chronos2-500-random-s42",
+    "fold": "primary",
+    "budget": 500,
+    "initialization": "random"
+  },
+  {
+    "id": "learning-chronos2-500-random-s42-test",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-chronos2-500-random-s42"
+    ],
+    "model": "chronos2-ft",
+    "seed": 42,
+    "split": "test",
+    "checkpoint": "learning-chronos2-500-random-s42",
+    "fold": "primary",
+    "budget": 500,
+    "initialization": "random"
+  },
+  {
+    "id": "learning-chronos2-500-random-s42-score",
+    "kind": "score",
+    "stage": "learning",
+    "dependencies": [
+      "learning-chronos2-500-random-s42-validation",
+      "learning-chronos2-500-random-s42-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "forecasts": [
+      "learning-chronos2-500-random-s42-validation",
+      "learning-chronos2-500-random-s42-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "group": "learning-chronos2-500-random-s42"
+  },
+  {
+    "id": "learning-chronos2-500-pretrained-s43",
+    "kind": "train",
+    "stage": "learning",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "chronos2",
+    "seed": 43,
+    "budget": 500,
+    "initialization": "pretrained",
+    "fold": "primary"
+  },
+  {
+    "id": "learning-chronos2-500-pretrained-s43-validation",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-chronos2-500-pretrained-s43"
+    ],
+    "model": "chronos2-ft",
+    "seed": 43,
+    "split": "validation",
+    "checkpoint": "learning-chronos2-500-pretrained-s43",
+    "fold": "primary",
+    "budget": 500,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "learning-chronos2-500-pretrained-s43-test",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-chronos2-500-pretrained-s43"
+    ],
+    "model": "chronos2-ft",
+    "seed": 43,
+    "split": "test",
+    "checkpoint": "learning-chronos2-500-pretrained-s43",
+    "fold": "primary",
+    "budget": 500,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "learning-chronos2-500-pretrained-s43-score",
+    "kind": "score",
+    "stage": "learning",
+    "dependencies": [
+      "learning-chronos2-500-pretrained-s43-validation",
+      "learning-chronos2-500-pretrained-s43-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "forecasts": [
+      "learning-chronos2-500-pretrained-s43-validation",
+      "learning-chronos2-500-pretrained-s43-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "group": "learning-chronos2-500-pretrained-s43"
+  },
+  {
+    "id": "learning-chronos2-500-random-s43-lr",
+    "kind": "tune_lr",
+    "stage": "learning",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "chronos2",
+    "seed": 43,
+    "budget": 500
+  },
+  {
+    "id": "learning-chronos2-500-random-s43",
+    "kind": "train",
+    "stage": "learning",
+    "dependencies": [
+      "learning-chronos2-500-random-s43-lr"
+    ],
+    "model": "chronos2",
+    "seed": 43,
+    "budget": 500,
+    "initialization": "random",
+    "fold": "primary"
+  },
+  {
+    "id": "learning-chronos2-500-random-s43-validation",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-chronos2-500-random-s43"
+    ],
+    "model": "chronos2-ft",
+    "seed": 43,
+    "split": "validation",
+    "checkpoint": "learning-chronos2-500-random-s43",
+    "fold": "primary",
+    "budget": 500,
+    "initialization": "random"
+  },
+  {
+    "id": "learning-chronos2-500-random-s43-test",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-chronos2-500-random-s43"
+    ],
+    "model": "chronos2-ft",
+    "seed": 43,
+    "split": "test",
+    "checkpoint": "learning-chronos2-500-random-s43",
+    "fold": "primary",
+    "budget": 500,
+    "initialization": "random"
+  },
+  {
+    "id": "learning-chronos2-500-random-s43-score",
+    "kind": "score",
+    "stage": "learning",
+    "dependencies": [
+      "learning-chronos2-500-random-s43-validation",
+      "learning-chronos2-500-random-s43-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "forecasts": [
+      "learning-chronos2-500-random-s43-validation",
+      "learning-chronos2-500-random-s43-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "group": "learning-chronos2-500-random-s43"
+  },
+  {
+    "id": "learning-chronos2-500-pretrained-s44",
+    "kind": "train",
+    "stage": "learning",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "chronos2",
+    "seed": 44,
+    "budget": 500,
+    "initialization": "pretrained",
+    "fold": "primary"
+  },
+  {
+    "id": "learning-chronos2-500-pretrained-s44-validation",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-chronos2-500-pretrained-s44"
+    ],
+    "model": "chronos2-ft",
+    "seed": 44,
+    "split": "validation",
+    "checkpoint": "learning-chronos2-500-pretrained-s44",
+    "fold": "primary",
+    "budget": 500,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "learning-chronos2-500-pretrained-s44-test",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-chronos2-500-pretrained-s44"
+    ],
+    "model": "chronos2-ft",
+    "seed": 44,
+    "split": "test",
+    "checkpoint": "learning-chronos2-500-pretrained-s44",
+    "fold": "primary",
+    "budget": 500,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "learning-chronos2-500-pretrained-s44-score",
+    "kind": "score",
+    "stage": "learning",
+    "dependencies": [
+      "learning-chronos2-500-pretrained-s44-validation",
+      "learning-chronos2-500-pretrained-s44-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "forecasts": [
+      "learning-chronos2-500-pretrained-s44-validation",
+      "learning-chronos2-500-pretrained-s44-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "group": "learning-chronos2-500-pretrained-s44"
+  },
+  {
+    "id": "learning-chronos2-500-random-s44-lr",
+    "kind": "tune_lr",
+    "stage": "learning",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "chronos2",
+    "seed": 44,
+    "budget": 500
+  },
+  {
+    "id": "learning-chronos2-500-random-s44",
+    "kind": "train",
+    "stage": "learning",
+    "dependencies": [
+      "learning-chronos2-500-random-s44-lr"
+    ],
+    "model": "chronos2",
+    "seed": 44,
+    "budget": 500,
+    "initialization": "random",
+    "fold": "primary"
+  },
+  {
+    "id": "learning-chronos2-500-random-s44-validation",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-chronos2-500-random-s44"
+    ],
+    "model": "chronos2-ft",
+    "seed": 44,
+    "split": "validation",
+    "checkpoint": "learning-chronos2-500-random-s44",
+    "fold": "primary",
+    "budget": 500,
+    "initialization": "random"
+  },
+  {
+    "id": "learning-chronos2-500-random-s44-test",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-chronos2-500-random-s44"
+    ],
+    "model": "chronos2-ft",
+    "seed": 44,
+    "split": "test",
+    "checkpoint": "learning-chronos2-500-random-s44",
+    "fold": "primary",
+    "budget": 500,
+    "initialization": "random"
+  },
+  {
+    "id": "learning-chronos2-500-random-s44-score",
+    "kind": "score",
+    "stage": "learning",
+    "dependencies": [
+      "learning-chronos2-500-random-s44-validation",
+      "learning-chronos2-500-random-s44-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "forecasts": [
+      "learning-chronos2-500-random-s44-validation",
+      "learning-chronos2-500-random-s44-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "group": "learning-chronos2-500-random-s44"
+  },
+  {
+    "id": "learning-chronos2-1000-pretrained-s42",
+    "kind": "train",
+    "stage": "learning",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "chronos2",
+    "seed": 42,
+    "budget": 1000,
+    "initialization": "pretrained",
+    "fold": "primary"
+  },
+  {
+    "id": "learning-chronos2-1000-pretrained-s42-validation",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-chronos2-1000-pretrained-s42"
+    ],
+    "model": "chronos2-ft",
+    "seed": 42,
+    "split": "validation",
+    "checkpoint": "learning-chronos2-1000-pretrained-s42",
+    "fold": "primary",
+    "budget": 1000,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "learning-chronos2-1000-pretrained-s42-test",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-chronos2-1000-pretrained-s42"
+    ],
+    "model": "chronos2-ft",
+    "seed": 42,
+    "split": "test",
+    "checkpoint": "learning-chronos2-1000-pretrained-s42",
+    "fold": "primary",
+    "budget": 1000,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "learning-chronos2-1000-pretrained-s42-score",
+    "kind": "score",
+    "stage": "learning",
+    "dependencies": [
+      "learning-chronos2-1000-pretrained-s42-validation",
+      "learning-chronos2-1000-pretrained-s42-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "forecasts": [
+      "learning-chronos2-1000-pretrained-s42-validation",
+      "learning-chronos2-1000-pretrained-s42-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "group": "learning-chronos2-1000-pretrained-s42"
+  },
+  {
+    "id": "learning-chronos2-1000-random-s42-lr",
+    "kind": "tune_lr",
+    "stage": "learning",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "chronos2",
+    "seed": 42,
+    "budget": 1000
+  },
+  {
+    "id": "learning-chronos2-1000-random-s42",
+    "kind": "train",
+    "stage": "learning",
+    "dependencies": [
+      "learning-chronos2-1000-random-s42-lr"
+    ],
+    "model": "chronos2",
+    "seed": 42,
+    "budget": 1000,
+    "initialization": "random",
+    "fold": "primary"
+  },
+  {
+    "id": "learning-chronos2-1000-random-s42-validation",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-chronos2-1000-random-s42"
+    ],
+    "model": "chronos2-ft",
+    "seed": 42,
+    "split": "validation",
+    "checkpoint": "learning-chronos2-1000-random-s42",
+    "fold": "primary",
+    "budget": 1000,
+    "initialization": "random"
+  },
+  {
+    "id": "learning-chronos2-1000-random-s42-test",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-chronos2-1000-random-s42"
+    ],
+    "model": "chronos2-ft",
+    "seed": 42,
+    "split": "test",
+    "checkpoint": "learning-chronos2-1000-random-s42",
+    "fold": "primary",
+    "budget": 1000,
+    "initialization": "random"
+  },
+  {
+    "id": "learning-chronos2-1000-random-s42-score",
+    "kind": "score",
+    "stage": "learning",
+    "dependencies": [
+      "learning-chronos2-1000-random-s42-validation",
+      "learning-chronos2-1000-random-s42-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "forecasts": [
+      "learning-chronos2-1000-random-s42-validation",
+      "learning-chronos2-1000-random-s42-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "group": "learning-chronos2-1000-random-s42"
+  },
+  {
+    "id": "learning-chronos2-1000-pretrained-s43",
+    "kind": "train",
+    "stage": "learning",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "chronos2",
+    "seed": 43,
+    "budget": 1000,
+    "initialization": "pretrained",
+    "fold": "primary"
+  },
+  {
+    "id": "learning-chronos2-1000-pretrained-s43-validation",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-chronos2-1000-pretrained-s43"
+    ],
+    "model": "chronos2-ft",
+    "seed": 43,
+    "split": "validation",
+    "checkpoint": "learning-chronos2-1000-pretrained-s43",
+    "fold": "primary",
+    "budget": 1000,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "learning-chronos2-1000-pretrained-s43-test",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-chronos2-1000-pretrained-s43"
+    ],
+    "model": "chronos2-ft",
+    "seed": 43,
+    "split": "test",
+    "checkpoint": "learning-chronos2-1000-pretrained-s43",
+    "fold": "primary",
+    "budget": 1000,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "learning-chronos2-1000-pretrained-s43-score",
+    "kind": "score",
+    "stage": "learning",
+    "dependencies": [
+      "learning-chronos2-1000-pretrained-s43-validation",
+      "learning-chronos2-1000-pretrained-s43-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "forecasts": [
+      "learning-chronos2-1000-pretrained-s43-validation",
+      "learning-chronos2-1000-pretrained-s43-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "group": "learning-chronos2-1000-pretrained-s43"
+  },
+  {
+    "id": "learning-chronos2-1000-random-s43-lr",
+    "kind": "tune_lr",
+    "stage": "learning",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "chronos2",
+    "seed": 43,
+    "budget": 1000
+  },
+  {
+    "id": "learning-chronos2-1000-random-s43",
+    "kind": "train",
+    "stage": "learning",
+    "dependencies": [
+      "learning-chronos2-1000-random-s43-lr"
+    ],
+    "model": "chronos2",
+    "seed": 43,
+    "budget": 1000,
+    "initialization": "random",
+    "fold": "primary"
+  },
+  {
+    "id": "learning-chronos2-1000-random-s43-validation",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-chronos2-1000-random-s43"
+    ],
+    "model": "chronos2-ft",
+    "seed": 43,
+    "split": "validation",
+    "checkpoint": "learning-chronos2-1000-random-s43",
+    "fold": "primary",
+    "budget": 1000,
+    "initialization": "random"
+  },
+  {
+    "id": "learning-chronos2-1000-random-s43-test",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-chronos2-1000-random-s43"
+    ],
+    "model": "chronos2-ft",
+    "seed": 43,
+    "split": "test",
+    "checkpoint": "learning-chronos2-1000-random-s43",
+    "fold": "primary",
+    "budget": 1000,
+    "initialization": "random"
+  },
+  {
+    "id": "learning-chronos2-1000-random-s43-score",
+    "kind": "score",
+    "stage": "learning",
+    "dependencies": [
+      "learning-chronos2-1000-random-s43-validation",
+      "learning-chronos2-1000-random-s43-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "forecasts": [
+      "learning-chronos2-1000-random-s43-validation",
+      "learning-chronos2-1000-random-s43-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "group": "learning-chronos2-1000-random-s43"
+  },
+  {
+    "id": "learning-chronos2-1000-pretrained-s44",
+    "kind": "train",
+    "stage": "learning",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "chronos2",
+    "seed": 44,
+    "budget": 1000,
+    "initialization": "pretrained",
+    "fold": "primary"
+  },
+  {
+    "id": "learning-chronos2-1000-pretrained-s44-validation",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-chronos2-1000-pretrained-s44"
+    ],
+    "model": "chronos2-ft",
+    "seed": 44,
+    "split": "validation",
+    "checkpoint": "learning-chronos2-1000-pretrained-s44",
+    "fold": "primary",
+    "budget": 1000,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "learning-chronos2-1000-pretrained-s44-test",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-chronos2-1000-pretrained-s44"
+    ],
+    "model": "chronos2-ft",
+    "seed": 44,
+    "split": "test",
+    "checkpoint": "learning-chronos2-1000-pretrained-s44",
+    "fold": "primary",
+    "budget": 1000,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "learning-chronos2-1000-pretrained-s44-score",
+    "kind": "score",
+    "stage": "learning",
+    "dependencies": [
+      "learning-chronos2-1000-pretrained-s44-validation",
+      "learning-chronos2-1000-pretrained-s44-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "forecasts": [
+      "learning-chronos2-1000-pretrained-s44-validation",
+      "learning-chronos2-1000-pretrained-s44-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "group": "learning-chronos2-1000-pretrained-s44"
+  },
+  {
+    "id": "learning-chronos2-1000-random-s44-lr",
+    "kind": "tune_lr",
+    "stage": "learning",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "chronos2",
+    "seed": 44,
+    "budget": 1000
+  },
+  {
+    "id": "learning-chronos2-1000-random-s44",
+    "kind": "train",
+    "stage": "learning",
+    "dependencies": [
+      "learning-chronos2-1000-random-s44-lr"
+    ],
+    "model": "chronos2",
+    "seed": 44,
+    "budget": 1000,
+    "initialization": "random",
+    "fold": "primary"
+  },
+  {
+    "id": "learning-chronos2-1000-random-s44-validation",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-chronos2-1000-random-s44"
+    ],
+    "model": "chronos2-ft",
+    "seed": 44,
+    "split": "validation",
+    "checkpoint": "learning-chronos2-1000-random-s44",
+    "fold": "primary",
+    "budget": 1000,
+    "initialization": "random"
+  },
+  {
+    "id": "learning-chronos2-1000-random-s44-test",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-chronos2-1000-random-s44"
+    ],
+    "model": "chronos2-ft",
+    "seed": 44,
+    "split": "test",
+    "checkpoint": "learning-chronos2-1000-random-s44",
+    "fold": "primary",
+    "budget": 1000,
+    "initialization": "random"
+  },
+  {
+    "id": "learning-chronos2-1000-random-s44-score",
+    "kind": "score",
+    "stage": "learning",
+    "dependencies": [
+      "learning-chronos2-1000-random-s44-validation",
+      "learning-chronos2-1000-random-s44-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "forecasts": [
+      "learning-chronos2-1000-random-s44-validation",
+      "learning-chronos2-1000-random-s44-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "group": "learning-chronos2-1000-random-s44"
+  },
+  {
+    "id": "learning-chronos2-full-random-s42-lr",
+    "kind": "tune_lr",
+    "stage": "learning",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "chronos2",
+    "seed": 42,
+    "budget": null
+  },
+  {
+    "id": "learning-chronos2-full-random-s42",
+    "kind": "train",
+    "stage": "learning",
+    "dependencies": [
+      "learning-chronos2-full-random-s42-lr"
+    ],
+    "model": "chronos2",
+    "seed": 42,
+    "budget": null,
+    "initialization": "random",
+    "fold": "primary"
+  },
+  {
+    "id": "learning-chronos2-full-random-s42-validation",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-chronos2-full-random-s42"
+    ],
+    "model": "chronos2-ft",
+    "seed": 42,
+    "split": "validation",
+    "checkpoint": "learning-chronos2-full-random-s42",
+    "fold": "primary",
+    "budget": null,
+    "initialization": "random"
+  },
+  {
+    "id": "learning-chronos2-full-random-s42-test",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-chronos2-full-random-s42"
+    ],
+    "model": "chronos2-ft",
+    "seed": 42,
+    "split": "test",
+    "checkpoint": "learning-chronos2-full-random-s42",
+    "fold": "primary",
+    "budget": null,
+    "initialization": "random"
+  },
+  {
+    "id": "learning-chronos2-full-random-s42-score",
+    "kind": "score",
+    "stage": "learning",
+    "dependencies": [
+      "learning-chronos2-full-random-s42-validation",
+      "learning-chronos2-full-random-s42-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "forecasts": [
+      "learning-chronos2-full-random-s42-validation",
+      "learning-chronos2-full-random-s42-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "group": "learning-chronos2-full-random-s42"
+  },
+  {
+    "id": "learning-chronos2-full-random-s43-lr",
+    "kind": "tune_lr",
+    "stage": "learning",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "chronos2",
+    "seed": 43,
+    "budget": null
+  },
+  {
+    "id": "learning-chronos2-full-random-s43",
+    "kind": "train",
+    "stage": "learning",
+    "dependencies": [
+      "learning-chronos2-full-random-s43-lr"
+    ],
+    "model": "chronos2",
+    "seed": 43,
+    "budget": null,
+    "initialization": "random",
+    "fold": "primary"
+  },
+  {
+    "id": "learning-chronos2-full-random-s43-validation",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-chronos2-full-random-s43"
+    ],
+    "model": "chronos2-ft",
+    "seed": 43,
+    "split": "validation",
+    "checkpoint": "learning-chronos2-full-random-s43",
+    "fold": "primary",
+    "budget": null,
+    "initialization": "random"
+  },
+  {
+    "id": "learning-chronos2-full-random-s43-test",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-chronos2-full-random-s43"
+    ],
+    "model": "chronos2-ft",
+    "seed": 43,
+    "split": "test",
+    "checkpoint": "learning-chronos2-full-random-s43",
+    "fold": "primary",
+    "budget": null,
+    "initialization": "random"
+  },
+  {
+    "id": "learning-chronos2-full-random-s43-score",
+    "kind": "score",
+    "stage": "learning",
+    "dependencies": [
+      "learning-chronos2-full-random-s43-validation",
+      "learning-chronos2-full-random-s43-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "forecasts": [
+      "learning-chronos2-full-random-s43-validation",
+      "learning-chronos2-full-random-s43-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "group": "learning-chronos2-full-random-s43"
+  },
+  {
+    "id": "learning-chronos2-full-random-s44-lr",
+    "kind": "tune_lr",
+    "stage": "learning",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "chronos2",
+    "seed": 44,
+    "budget": null
+  },
+  {
+    "id": "learning-chronos2-full-random-s44",
+    "kind": "train",
+    "stage": "learning",
+    "dependencies": [
+      "learning-chronos2-full-random-s44-lr"
+    ],
+    "model": "chronos2",
+    "seed": 44,
+    "budget": null,
+    "initialization": "random",
+    "fold": "primary"
+  },
+  {
+    "id": "learning-chronos2-full-random-s44-validation",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-chronos2-full-random-s44"
+    ],
+    "model": "chronos2-ft",
+    "seed": 44,
+    "split": "validation",
+    "checkpoint": "learning-chronos2-full-random-s44",
+    "fold": "primary",
+    "budget": null,
+    "initialization": "random"
+  },
+  {
+    "id": "learning-chronos2-full-random-s44-test",
+    "kind": "forecast",
+    "stage": "learning",
+    "dependencies": [
+      "learning-chronos2-full-random-s44"
+    ],
+    "model": "chronos2-ft",
+    "seed": 44,
+    "split": "test",
+    "checkpoint": "learning-chronos2-full-random-s44",
+    "fold": "primary",
+    "budget": null,
+    "initialization": "random"
+  },
+  {
+    "id": "learning-chronos2-full-random-s44-score",
+    "kind": "score",
+    "stage": "learning",
+    "dependencies": [
+      "learning-chronos2-full-random-s44-validation",
+      "learning-chronos2-full-random-s44-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "forecasts": [
+      "learning-chronos2-full-random-s44-validation",
+      "learning-chronos2-full-random-s44-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ],
+    "group": "learning-chronos2-full-random-s44"
+  },
+  {
+    "id": "representation-s42",
+    "kind": "ablation",
+    "stage": "ablation",
+    "dependencies": [
+      "estimate"
+    ],
+    "seed": 42
+  },
+  {
+    "id": "representation-s43",
+    "kind": "ablation",
+    "stage": "ablation",
+    "dependencies": [
+      "estimate"
+    ],
+    "seed": 43
+  },
+  {
+    "id": "representation-s44",
+    "kind": "ablation",
+    "stage": "ablation",
+    "dependencies": [
+      "estimate"
+    ],
+    "seed": 44
+  },
+  {
+    "id": "fold1-naive-validation",
+    "kind": "forecast",
+    "stage": "folds",
+    "dependencies": [
+      "prepare"
+    ],
+    "model": "naive",
+    "seed": 42,
+    "split": "validation",
+    "fold": "fold1",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "fold1-naive-test",
+    "kind": "forecast",
+    "stage": "folds",
+    "dependencies": [
+      "prepare"
+    ],
+    "model": "naive",
+    "seed": 42,
+    "split": "test",
+    "fold": "fold1",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "fold1-kronos-mini",
+    "kind": "train",
+    "stage": "folds",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-mini",
+    "seed": 42,
+    "budget": null,
+    "initialization": "pretrained",
+    "fold": "fold1"
+  },
+  {
+    "id": "fold1-kronos-mini-zs-validation",
+    "kind": "forecast",
+    "stage": "folds",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-mini",
+    "seed": 42,
+    "split": "validation",
+    "checkpoint": null,
+    "fold": "fold1",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "fold1-kronos-mini-ft-validation",
+    "kind": "forecast",
+    "stage": "folds",
+    "dependencies": [
+      "fold1-kronos-mini"
+    ],
+    "model": "kronos-mini-ft",
+    "seed": 42,
+    "split": "validation",
+    "checkpoint": "fold1-kronos-mini",
+    "fold": "fold1",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "fold1-kronos-mini-zs-test",
+    "kind": "forecast",
+    "stage": "folds",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-mini",
+    "seed": 42,
+    "split": "test",
+    "checkpoint": null,
+    "fold": "fold1",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "fold1-kronos-mini-ft-test",
+    "kind": "forecast",
+    "stage": "folds",
+    "dependencies": [
+      "fold1-kronos-mini"
+    ],
+    "model": "kronos-mini-ft",
+    "seed": 42,
+    "split": "test",
+    "checkpoint": "fold1-kronos-mini",
+    "fold": "fold1",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "fold1-kronos-mini-score",
+    "kind": "score",
+    "stage": "folds",
+    "dependencies": [
+      "fold1-kronos-mini-zs-validation",
+      "fold1-kronos-mini-ft-validation",
+      "fold1-kronos-mini-zs-test",
+      "fold1-kronos-mini-ft-test",
+      "fold1-naive-validation",
+      "fold1-naive-test"
+    ],
+    "forecasts": [
+      "fold1-kronos-mini-zs-validation",
+      "fold1-kronos-mini-ft-validation",
+      "fold1-kronos-mini-zs-test",
+      "fold1-kronos-mini-ft-test",
+      "fold1-naive-validation",
+      "fold1-naive-test"
+    ],
+    "group": "fold1-kronos-mini"
+  },
+  {
+    "id": "fold1-kronos-small",
+    "kind": "train",
+    "stage": "folds",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-small",
+    "seed": 42,
+    "budget": null,
+    "initialization": "pretrained",
+    "fold": "fold1"
+  },
+  {
+    "id": "fold1-kronos-small-zs-validation",
+    "kind": "forecast",
+    "stage": "folds",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-small",
+    "seed": 42,
+    "split": "validation",
+    "checkpoint": null,
+    "fold": "fold1",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "fold1-kronos-small-ft-validation",
+    "kind": "forecast",
+    "stage": "folds",
+    "dependencies": [
+      "fold1-kronos-small"
+    ],
+    "model": "kronos-small-ft",
+    "seed": 42,
+    "split": "validation",
+    "checkpoint": "fold1-kronos-small",
+    "fold": "fold1",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "fold1-kronos-small-zs-test",
+    "kind": "forecast",
+    "stage": "folds",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-small",
+    "seed": 42,
+    "split": "test",
+    "checkpoint": null,
+    "fold": "fold1",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "fold1-kronos-small-ft-test",
+    "kind": "forecast",
+    "stage": "folds",
+    "dependencies": [
+      "fold1-kronos-small"
+    ],
+    "model": "kronos-small-ft",
+    "seed": 42,
+    "split": "test",
+    "checkpoint": "fold1-kronos-small",
+    "fold": "fold1",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "fold1-kronos-small-score",
+    "kind": "score",
+    "stage": "folds",
+    "dependencies": [
+      "fold1-kronos-small-zs-validation",
+      "fold1-kronos-small-ft-validation",
+      "fold1-kronos-small-zs-test",
+      "fold1-kronos-small-ft-test",
+      "fold1-naive-validation",
+      "fold1-naive-test"
+    ],
+    "forecasts": [
+      "fold1-kronos-small-zs-validation",
+      "fold1-kronos-small-ft-validation",
+      "fold1-kronos-small-zs-test",
+      "fold1-kronos-small-ft-test",
+      "fold1-naive-validation",
+      "fold1-naive-test"
+    ],
+    "group": "fold1-kronos-small"
+  },
+  {
+    "id": "fold1-kronos-base",
+    "kind": "train",
+    "stage": "folds",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-base",
+    "seed": 42,
+    "budget": null,
+    "initialization": "pretrained",
+    "fold": "fold1"
+  },
+  {
+    "id": "fold1-kronos-base-zs-validation",
+    "kind": "forecast",
+    "stage": "folds",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-base",
+    "seed": 42,
+    "split": "validation",
+    "checkpoint": null,
+    "fold": "fold1",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "fold1-kronos-base-ft-validation",
+    "kind": "forecast",
+    "stage": "folds",
+    "dependencies": [
+      "fold1-kronos-base"
+    ],
+    "model": "kronos-base-ft",
+    "seed": 42,
+    "split": "validation",
+    "checkpoint": "fold1-kronos-base",
+    "fold": "fold1",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "fold1-kronos-base-zs-test",
+    "kind": "forecast",
+    "stage": "folds",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-base",
+    "seed": 42,
+    "split": "test",
+    "checkpoint": null,
+    "fold": "fold1",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "fold1-kronos-base-ft-test",
+    "kind": "forecast",
+    "stage": "folds",
+    "dependencies": [
+      "fold1-kronos-base"
+    ],
+    "model": "kronos-base-ft",
+    "seed": 42,
+    "split": "test",
+    "checkpoint": "fold1-kronos-base",
+    "fold": "fold1",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "fold1-kronos-base-score",
+    "kind": "score",
+    "stage": "folds",
+    "dependencies": [
+      "fold1-kronos-base-zs-validation",
+      "fold1-kronos-base-ft-validation",
+      "fold1-kronos-base-zs-test",
+      "fold1-kronos-base-ft-test",
+      "fold1-naive-validation",
+      "fold1-naive-test"
+    ],
+    "forecasts": [
+      "fold1-kronos-base-zs-validation",
+      "fold1-kronos-base-ft-validation",
+      "fold1-kronos-base-zs-test",
+      "fold1-kronos-base-ft-test",
+      "fold1-naive-validation",
+      "fold1-naive-test"
+    ],
+    "group": "fold1-kronos-base"
+  },
+  {
+    "id": "fold1-chronos2",
+    "kind": "train",
+    "stage": "folds",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "chronos2",
+    "seed": 42,
+    "budget": null,
+    "initialization": "pretrained",
+    "fold": "fold1"
+  },
+  {
+    "id": "fold1-chronos2-zs-validation",
+    "kind": "forecast",
+    "stage": "folds",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "chronos2",
+    "seed": 42,
+    "split": "validation",
+    "checkpoint": null,
+    "fold": "fold1",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "fold1-chronos2-ft-validation",
+    "kind": "forecast",
+    "stage": "folds",
+    "dependencies": [
+      "fold1-chronos2"
+    ],
+    "model": "chronos2-ft",
+    "seed": 42,
+    "split": "validation",
+    "checkpoint": "fold1-chronos2",
+    "fold": "fold1",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "fold1-chronos2-zs-test",
+    "kind": "forecast",
+    "stage": "folds",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "chronos2",
+    "seed": 42,
+    "split": "test",
+    "checkpoint": null,
+    "fold": "fold1",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "fold1-chronos2-ft-test",
+    "kind": "forecast",
+    "stage": "folds",
+    "dependencies": [
+      "fold1-chronos2"
+    ],
+    "model": "chronos2-ft",
+    "seed": 42,
+    "split": "test",
+    "checkpoint": "fold1-chronos2",
+    "fold": "fold1",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "fold1-chronos2-score",
+    "kind": "score",
+    "stage": "folds",
+    "dependencies": [
+      "fold1-chronos2-zs-validation",
+      "fold1-chronos2-ft-validation",
+      "fold1-chronos2-zs-test",
+      "fold1-chronos2-ft-test",
+      "fold1-naive-validation",
+      "fold1-naive-test"
+    ],
+    "forecasts": [
+      "fold1-chronos2-zs-validation",
+      "fold1-chronos2-ft-validation",
+      "fold1-chronos2-zs-test",
+      "fold1-chronos2-ft-test",
+      "fold1-naive-validation",
+      "fold1-naive-test"
+    ],
+    "group": "fold1-chronos2"
+  },
+  {
+    "id": "fold2-naive-validation",
+    "kind": "forecast",
+    "stage": "folds",
+    "dependencies": [
+      "prepare"
+    ],
+    "model": "naive",
+    "seed": 42,
+    "split": "validation",
+    "fold": "fold2",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "fold2-naive-test",
+    "kind": "forecast",
+    "stage": "folds",
+    "dependencies": [
+      "prepare"
+    ],
+    "model": "naive",
+    "seed": 42,
+    "split": "test",
+    "fold": "fold2",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "fold2-kronos-mini",
+    "kind": "train",
+    "stage": "folds",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-mini",
+    "seed": 42,
+    "budget": null,
+    "initialization": "pretrained",
+    "fold": "fold2"
+  },
+  {
+    "id": "fold2-kronos-mini-zs-validation",
+    "kind": "forecast",
+    "stage": "folds",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-mini",
+    "seed": 42,
+    "split": "validation",
+    "checkpoint": null,
+    "fold": "fold2",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "fold2-kronos-mini-ft-validation",
+    "kind": "forecast",
+    "stage": "folds",
+    "dependencies": [
+      "fold2-kronos-mini"
+    ],
+    "model": "kronos-mini-ft",
+    "seed": 42,
+    "split": "validation",
+    "checkpoint": "fold2-kronos-mini",
+    "fold": "fold2",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "fold2-kronos-mini-zs-test",
+    "kind": "forecast",
+    "stage": "folds",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-mini",
+    "seed": 42,
+    "split": "test",
+    "checkpoint": null,
+    "fold": "fold2",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "fold2-kronos-mini-ft-test",
+    "kind": "forecast",
+    "stage": "folds",
+    "dependencies": [
+      "fold2-kronos-mini"
+    ],
+    "model": "kronos-mini-ft",
+    "seed": 42,
+    "split": "test",
+    "checkpoint": "fold2-kronos-mini",
+    "fold": "fold2",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "fold2-kronos-mini-score",
+    "kind": "score",
+    "stage": "folds",
+    "dependencies": [
+      "fold2-kronos-mini-zs-validation",
+      "fold2-kronos-mini-ft-validation",
+      "fold2-kronos-mini-zs-test",
+      "fold2-kronos-mini-ft-test",
+      "fold2-naive-validation",
+      "fold2-naive-test"
+    ],
+    "forecasts": [
+      "fold2-kronos-mini-zs-validation",
+      "fold2-kronos-mini-ft-validation",
+      "fold2-kronos-mini-zs-test",
+      "fold2-kronos-mini-ft-test",
+      "fold2-naive-validation",
+      "fold2-naive-test"
+    ],
+    "group": "fold2-kronos-mini"
+  },
+  {
+    "id": "fold2-kronos-small",
+    "kind": "train",
+    "stage": "folds",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-small",
+    "seed": 42,
+    "budget": null,
+    "initialization": "pretrained",
+    "fold": "fold2"
+  },
+  {
+    "id": "fold2-kronos-small-zs-validation",
+    "kind": "forecast",
+    "stage": "folds",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-small",
+    "seed": 42,
+    "split": "validation",
+    "checkpoint": null,
+    "fold": "fold2",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "fold2-kronos-small-ft-validation",
+    "kind": "forecast",
+    "stage": "folds",
+    "dependencies": [
+      "fold2-kronos-small"
+    ],
+    "model": "kronos-small-ft",
+    "seed": 42,
+    "split": "validation",
+    "checkpoint": "fold2-kronos-small",
+    "fold": "fold2",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "fold2-kronos-small-zs-test",
+    "kind": "forecast",
+    "stage": "folds",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-small",
+    "seed": 42,
+    "split": "test",
+    "checkpoint": null,
+    "fold": "fold2",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "fold2-kronos-small-ft-test",
+    "kind": "forecast",
+    "stage": "folds",
+    "dependencies": [
+      "fold2-kronos-small"
+    ],
+    "model": "kronos-small-ft",
+    "seed": 42,
+    "split": "test",
+    "checkpoint": "fold2-kronos-small",
+    "fold": "fold2",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "fold2-kronos-small-score",
+    "kind": "score",
+    "stage": "folds",
+    "dependencies": [
+      "fold2-kronos-small-zs-validation",
+      "fold2-kronos-small-ft-validation",
+      "fold2-kronos-small-zs-test",
+      "fold2-kronos-small-ft-test",
+      "fold2-naive-validation",
+      "fold2-naive-test"
+    ],
+    "forecasts": [
+      "fold2-kronos-small-zs-validation",
+      "fold2-kronos-small-ft-validation",
+      "fold2-kronos-small-zs-test",
+      "fold2-kronos-small-ft-test",
+      "fold2-naive-validation",
+      "fold2-naive-test"
+    ],
+    "group": "fold2-kronos-small"
+  },
+  {
+    "id": "fold2-kronos-base",
+    "kind": "train",
+    "stage": "folds",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-base",
+    "seed": 42,
+    "budget": null,
+    "initialization": "pretrained",
+    "fold": "fold2"
+  },
+  {
+    "id": "fold2-kronos-base-zs-validation",
+    "kind": "forecast",
+    "stage": "folds",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-base",
+    "seed": 42,
+    "split": "validation",
+    "checkpoint": null,
+    "fold": "fold2",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "fold2-kronos-base-ft-validation",
+    "kind": "forecast",
+    "stage": "folds",
+    "dependencies": [
+      "fold2-kronos-base"
+    ],
+    "model": "kronos-base-ft",
+    "seed": 42,
+    "split": "validation",
+    "checkpoint": "fold2-kronos-base",
+    "fold": "fold2",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "fold2-kronos-base-zs-test",
+    "kind": "forecast",
+    "stage": "folds",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "kronos-base",
+    "seed": 42,
+    "split": "test",
+    "checkpoint": null,
+    "fold": "fold2",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "fold2-kronos-base-ft-test",
+    "kind": "forecast",
+    "stage": "folds",
+    "dependencies": [
+      "fold2-kronos-base"
+    ],
+    "model": "kronos-base-ft",
+    "seed": 42,
+    "split": "test",
+    "checkpoint": "fold2-kronos-base",
+    "fold": "fold2",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "fold2-kronos-base-score",
+    "kind": "score",
+    "stage": "folds",
+    "dependencies": [
+      "fold2-kronos-base-zs-validation",
+      "fold2-kronos-base-ft-validation",
+      "fold2-kronos-base-zs-test",
+      "fold2-kronos-base-ft-test",
+      "fold2-naive-validation",
+      "fold2-naive-test"
+    ],
+    "forecasts": [
+      "fold2-kronos-base-zs-validation",
+      "fold2-kronos-base-ft-validation",
+      "fold2-kronos-base-zs-test",
+      "fold2-kronos-base-ft-test",
+      "fold2-naive-validation",
+      "fold2-naive-test"
+    ],
+    "group": "fold2-kronos-base"
+  },
+  {
+    "id": "fold2-chronos2",
+    "kind": "train",
+    "stage": "folds",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "chronos2",
+    "seed": 42,
+    "budget": null,
+    "initialization": "pretrained",
+    "fold": "fold2"
+  },
+  {
+    "id": "fold2-chronos2-zs-validation",
+    "kind": "forecast",
+    "stage": "folds",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "chronos2",
+    "seed": 42,
+    "split": "validation",
+    "checkpoint": null,
+    "fold": "fold2",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "fold2-chronos2-ft-validation",
+    "kind": "forecast",
+    "stage": "folds",
+    "dependencies": [
+      "fold2-chronos2"
+    ],
+    "model": "chronos2-ft",
+    "seed": 42,
+    "split": "validation",
+    "checkpoint": "fold2-chronos2",
+    "fold": "fold2",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "fold2-chronos2-zs-test",
+    "kind": "forecast",
+    "stage": "folds",
+    "dependencies": [
+      "estimate"
+    ],
+    "model": "chronos2",
+    "seed": 42,
+    "split": "test",
+    "checkpoint": null,
+    "fold": "fold2",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "fold2-chronos2-ft-test",
+    "kind": "forecast",
+    "stage": "folds",
+    "dependencies": [
+      "fold2-chronos2"
+    ],
+    "model": "chronos2-ft",
+    "seed": 42,
+    "split": "test",
+    "checkpoint": "fold2-chronos2",
+    "fold": "fold2",
+    "budget": null,
+    "initialization": "pretrained"
+  },
+  {
+    "id": "fold2-chronos2-score",
+    "kind": "score",
+    "stage": "folds",
+    "dependencies": [
+      "fold2-chronos2-zs-validation",
+      "fold2-chronos2-ft-validation",
+      "fold2-chronos2-zs-test",
+      "fold2-chronos2-ft-test",
+      "fold2-naive-validation",
+      "fold2-naive-test"
+    ],
+    "forecasts": [
+      "fold2-chronos2-zs-validation",
+      "fold2-chronos2-ft-validation",
+      "fold2-chronos2-zs-test",
+      "fold2-chronos2-ft-test",
+      "fold2-naive-validation",
+      "fold2-naive-test"
+    ],
+    "group": "fold2-chronos2"
+  }
+]

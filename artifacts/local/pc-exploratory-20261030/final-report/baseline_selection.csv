@@ -1,0 +1,4 @@
+model,grid_candidates,eligible_candidates,failed_origin_fits,selected_config,validation_loss
+ridge,4,4,0,"{""alpha"": 10.0}",0.12207454822193277
+arima,18,12,491,"{""order"": [0, 1, 0]}",0.10346961178575101
+ets,3,3,0,"{""trend"": null, ""damped_trend"": false}",0.10364218988615681

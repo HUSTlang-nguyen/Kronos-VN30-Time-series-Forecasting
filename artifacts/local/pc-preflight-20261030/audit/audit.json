@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "status": "unverified",
+  "dataset_sha256": "fee0bd8c240a9d2be4ef5c9d287eede6c5506b0358c25545e72de99709da4fd2",
+  "rows": 2271,
+  "first_date": "2017-08-24",
+  "last_date": "2026-10-01",
+  "raw_replay": "pass",
+  "timestamp_timezone_replay": "pass",
+  "quality_flag_replay": "pass",
+  "provider": "vndirect",
+  "symbol": "VN30",
+  "units": "index_points",
+  "request": {
+    "symbol": [
+      "VN30"
+    ],
+    "resolution": [
+      "D"
+    ],
+    "from": [
+      "1328486400"
+    ],
+    "to": [
+      "1790812799"
+    ]
+  },
+  "observed_history_starts_later_than_requested": true,
+  "outside_request_rows": 1,
+  "invalid_or_duplicate_flags": 0,
+  "open_equals_previous_close_sessions": 78,
+  "open_equal_runs": [
+    {
+      "first_date": "2021-07-05",
+      "last_date": "2021-07-05",
+      "sessions": 1
+    },
+    {
+      "first_date": "2021-10-20",
+      "last_date": "2021-10-20",
+      "sessions": 1
+    },
+    {
+      "first_date": "2022-06-23",
+      "last_date": "2022-06-23",
+      "sessions": 1
+    },
+    {
+      "first_date": "2022-12-29",
+      "last_date": "2022-12-29",
+      "sessions": 1
+    },
+    {
+      "first_date": "2024-11-11",
+      "last_date": "2024-11-11",
+      "sessions": 1
+    },
+    {
+      "first_date": "2025-03-03",
+      "last_date": "2025-03-03",
+      "sessions": 1
+    },
+    {
+      "first_date": "2025-05-05",
+      "last_date": "2025-08-11",
+      "sessions": 71
+    },
+    {
+      "first_date": "2026-07-17",
+      "last_date": "2026-07-17",
+      "sessions": 1
+    }
+  ],
+  "calendar": {
+    "status": "unverified",
+    "missing_weekdays_are_not_assumed_errors": true
+  },
+  "independent_sources": [
+    {
+      "provider": "vps",
+      "symbol": "VN30",
+      "url": "https://histdatafeed.vps.com.vn/tradingview/history?symbol=VN30&resolution=D&from=1503532800&to=1790899199",
+      "retrieved_at_utc": "2026-10-30T02:17:32.911703+00:00",
+      "raw_sha256": "d18cec08ab72d73156e62b665136b72deabd877a86c6fbfd7457b5bbb5c5659c",
+      "csv_sha256": "a9416b064ce3dd6b48d435b5f8e05e1d1e3cd606da977e76adece3fed48172c8",
+      "timezone": "Asia/Ho_Chi_Minh",
+      "path": "artifacts/local/pc-preflight-20261030/independent/vps.csv",
+      "overlap": 2270,
+      "metadata_sha256": "7fd666e6d43f0162c94f1f546ae5fed269ec2b0fa3a0223495dda3d2de0dc8f3"
+    },
+    {
+      "provider": "dnse",
+      "symbol": "VN30",
+      "url": "https://api.dnse.com.vn/chart-api/v2/ohlcs/index?symbol=VN30&resolution=1D&from=1503532800&to=1790899199",
+      "retrieved_at_utc": "2026-10-30T02:17:33.553863+00:00",
+      "raw_sha256": "f8162d7198dd849b3f6d228685a4537c0dd52953743341a732676354c8ab8a3f",
+      "csv_sha256": "1b28f3d693a7004d4ad95787cf7685d6a922c53d1a4e3af1508fe462c1a192ff",
+      "timezone": "Asia/Ho_Chi_Minh",
+      "path": "artifacts/local/pc-preflight-20261030/independent/dnse.csv",
+      "overlap": 1565,
+      "metadata_sha256": "74bdd21c972f46b87252f03b34ad02106936236005f93de0774244657daaa463"
+    }
+  ],
+  "unresolved_field_comparisons": 1230,
+  "required_dates_without_reference": [],
+  "price_edits": [],
+  "limitations": [
+    "Provider Open is not automatically official exchange Open.",
+    "Byte integrity is not market-data correctness.",
+    "No missing session is imputed."
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "provider": "dnse",
+  "symbol": "VN30",
+  "url": "https://api.dnse.com.vn/chart-api/v2/ohlcs/index?symbol=VN30&resolution=1D&from=1503532800&to=1790899199",
+  "retrieved_at_utc": "2026-10-30T07:09:28.724012+00:00",
+  "raw_sha256": "f8162d7198dd849b3f6d228685a4537c0dd52953743341a732676354c8ab8a3f",
+  "csv_sha256": "1b28f3d693a7004d4ad95787cf7685d6a922c53d1a4e3af1508fe462c1a192ff",
+  "timezone": "Asia/Ho_Chi_Minh"
+}

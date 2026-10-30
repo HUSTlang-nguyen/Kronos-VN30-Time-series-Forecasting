@@ -1,0 +1,245 @@
+{
+  "evidence_scope": "exploratory_only",
+  "jobs": {
+    "kronos-mini-s42-zs-validation": {
+      "status": "complete",
+      "started_unix": 1793349437.8980281,
+      "ended_unix": 1793349489.1288652
+    },
+    "kronos-mini-s42-ft-validation": {
+      "status": "complete",
+      "started_unix": 1793349489.1308653,
+      "ended_unix": 1793349541.2001526
+    },
+    "kronos-mini-s42-zs-test": {
+      "status": "complete",
+      "started_unix": 1793349541.2021503,
+      "ended_unix": 1793349592.7548454
+    },
+    "kronos-mini-s42-ft-test": {
+      "status": "complete",
+      "started_unix": 1793349592.7573495,
+      "ended_unix": 1793349643.4063501
+    },
+    "kronos-small-s42-zs-validation": {
+      "status": "complete",
+      "started_unix": 1793349643.4073508,
+      "ended_unix": 1793349722.9057264
+    },
+    "kronos-small-s42-ft-validation": {
+      "status": "complete",
+      "started_unix": 1793349722.9077268,
+      "ended_unix": 1793349801.3806818
+    },
+    "kronos-small-s42-zs-test": {
+      "status": "complete",
+      "started_unix": 1793349801.3816807,
+      "ended_unix": 1793349878.8420918
+    },
+    "kronos-small-s42-ft-test": {
+      "status": "complete",
+      "started_unix": 1793349878.8442738,
+      "ended_unix": 1793349958.1330981
+    },
+    "kronos-base-s42-zs-validation": {
+      "status": "complete",
+      "started_unix": 1793349958.1351023,
+      "ended_unix": 1793350064.159179
+    },
+    "kronos-base-s42-ft-validation": {
+      "status": "complete",
+      "started_unix": 1793350064.1611788,
+      "ended_unix": 1793350170.7930768
+    },
+    "kronos-base-s42-zs-test": {
+      "status": "complete",
+      "started_unix": 1793350170.7945833,
+      "ended_unix": 1793350278.1358314
+    },
+    "kronos-base-s42-ft-test": {
+      "status": "complete",
+      "started_unix": 1793350278.1378314,
+      "ended_unix": 1793350386.3064687
+    },
+    "chronos2-s42-zs-validation": {
+      "status": "complete",
+      "started_unix": 1793350386.3086634,
+      "ended_unix": 1793350399.8873425
+    },
+    "chronos2-s42-ft-validation": {
+      "status": "complete",
+      "started_unix": 1793350399.8893425,
+      "ended_unix": 1793350407.3895564
+    },
+    "chronos2-s42-zs-test": {
+      "status": "complete",
+      "started_unix": 1793350407.3915565,
+      "ended_unix": 1793350414.7326148
+    },
+    "chronos2-s42-ft-test": {
+      "status": "complete",
+      "started_unix": 1793350414.7341185,
+      "ended_unix": 1793350422.273219
+    },
+    "kronos-mini-s43-zs-validation": {
+      "status": "complete",
+      "started_unix": 1793350422.274218,
+      "ended_unix": 1793350470.982188
+    },
+    "kronos-mini-s43-ft-validation": {
+      "status": "complete",
+      "started_unix": 1793350470.9841874,
+      "ended_unix": 1793350520.8660607
+    },
+    "kronos-mini-s43-zs-test": {
+      "status": "complete",
+      "started_unix": 1793350520.8675644,
+      "ended_unix": 1793350571.3733754
+    },
+    "kronos-mini-s43-ft-test": {
+      "status": "complete",
+      "started_unix": 1793350571.3753746,
+      "ended_unix": 1793350618.5160549
+    },
+    "kronos-small-s43-zs-validation": {
+      "status": "complete",
+      "started_unix": 1793350618.5180562,
+      "ended_unix": 1793350689.7114878
+    },
+    "kronos-small-s43-ft-validation": {
+      "status": "complete",
+      "started_unix": 1793350689.7144904,
+      "ended_unix": 1793350748.157872
+    },
+    "kronos-small-s43-zs-test": {
+      "status": "complete",
+      "started_unix": 1793350748.1598732,
+      "ended_unix": 1793350814.0574436
+    },
+    "kronos-small-s43-ft-test": {
+      "status": "complete",
+      "started_unix": 1793350814.0584443,
+      "ended_unix": 1793350885.4579413
+    },
+    "kronos-base-s43-zs-validation": {
+      "status": "complete",
+      "started_unix": 1793350885.460941,
+      "ended_unix": 1793350976.0866504
+    },
+    "kronos-base-s43-ft-validation": {
+      "status": "complete",
+      "started_unix": 1793350976.0886502,
+      "ended_unix": 1793351065.8150866
+    },
+    "kronos-base-s43-zs-test": {
+      "status": "complete",
+      "started_unix": 1793351065.8170877,
+      "ended_unix": 1793351150.6242704
+    },
+    "kronos-base-s43-ft-test": {
+      "status": "complete",
+      "started_unix": 1793351150.6262708,
+      "ended_unix": 1793351237.362846
+    },
+    "chronos2-s43-zs-validation": {
+      "status": "complete",
+      "started_unix": 1793351237.3648467,
+      "ended_unix": 1793351244.283663
+    },
+    "chronos2-s43-ft-validation": {
+      "status": "complete",
+      "started_unix": 1793351244.285665,
+      "ended_unix": 1793351251.2877214
+    },
+    "chronos2-s43-zs-test": {
+      "status": "complete",
+      "started_unix": 1793351251.2897227,
+      "ended_unix": 1793351257.7020524
+    },
+    "chronos2-s43-ft-test": {
+      "status": "complete",
+      "started_unix": 1793351257.7040567,
+      "ended_unix": 1793351264.9893794
+    },
+    "kronos-mini-s44-zs-validation": {
+      "status": "complete",
+      "started_unix": 1793351264.9903793,
+      "ended_unix": 1793351308.3517907
+    },
+    "kronos-mini-s44-ft-validation": {
+      "status": "complete",
+      "started_unix": 1793351308.3543017,
+      "ended_unix": 1793351351.1247802
+    },
+    "kronos-mini-s44-zs-test": {
+      "status": "complete",
+      "started_unix": 1793351351.1267798,
+      "ended_unix": 1793351395.2227337
+    },
+    "kronos-mini-s44-ft-test": {
+      "status": "complete",
+      "started_unix": 1793351395.223734,
+      "ended_unix": 1793351437.717742
+    },
+    "kronos-small-s44-zs-validation": {
+      "status": "complete",
+      "started_unix": 1793351437.7207417,
+      "ended_unix": 1793351508.49617
+    },
+    "kronos-small-s44-ft-validation": {
+      "status": "complete",
+      "started_unix": 1793351508.49817,
+      "ended_unix": 1793351578.6782846
+    },
+    "kronos-small-s44-zs-test": {
+      "status": "complete",
+      "started_unix": 1793351578.6802855,
+      "ended_unix": 1793351650.3238294
+    },
+    "kronos-small-s44-ft-test": {
+      "status": "complete",
+      "started_unix": 1793351650.3258324,
+      "ended_unix": 1793351720.9463155
+    },
+    "kronos-base-s44-zs-validation": {
+      "status": "complete",
+      "started_unix": 1793351720.9483168,
+      "ended_unix": 1793351814.3390045
+    },
+    "kronos-base-s44-ft-validation": {
+      "status": "complete",
+      "started_unix": 1793351814.3410048,
+      "ended_unix": 1793351912.129985
+    },
+    "kronos-base-s44-zs-test": {
+      "status": "complete",
+      "started_unix": 1793351912.1324918,
+      "ended_unix": 1793352005.9208174
+    },
+    "kronos-base-s44-ft-test": {
+      "status": "complete",
+      "started_unix": 1793352005.9228258,
+      "ended_unix": 1793352101.0042686
+    },
+    "chronos2-s44-zs-validation": {
+      "status": "complete",
+      "started_unix": 1793352101.0062704,
+      "ended_unix": 1793352107.7323287
+    },
+    "chronos2-s44-ft-validation": {
+      "status": "complete",
+      "started_unix": 1793352107.7348375,
+      "ended_unix": 1793352114.6399524
+    },
+    "chronos2-s44-zs-test": {
+      "status": "complete",
+      "started_unix": 1793352114.6419518,
+      "ended_unix": 1793352121.4340498
+    },
+    "chronos2-s44-ft-test": {
+      "status": "complete",
+      "started_unix": 1793352121.4360552,
+      "ended_unix": 1793352128.4499753
+    }
+  }
+}

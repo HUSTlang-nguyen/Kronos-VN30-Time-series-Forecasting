@@ -1,0 +1,19 @@
+{
+  "status": "pass",
+  "evidence_scope": "exploratory_only",
+  "dataset_accepted": false,
+  "dataset_sha256": "fee0bd8c240a9d2be4ef5c9d287eede6c5506b0358c25545e72de99709da4fd2",
+  "bootstrap_intervals": 378,
+  "regime_period_metric_rows": 1782,
+  "random_lr_selections": 18,
+  "baseline_grids_checked": 3,
+  "paired_ablation_seeds": 3,
+  "selected_main_checkpoints": 12,
+  "research_complete": false,
+  "unfinished": [
+    "market_data_adjudication",
+    "official_open_definition",
+    "official_exchange_calendar",
+    "research_acceptance_gate"
+  ]
+}

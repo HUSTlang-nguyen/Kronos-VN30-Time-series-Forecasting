@@ -1,0 +1,9 @@
+{
+  "provider": "vps",
+  "symbol": "VN30",
+  "url": "https://histdatafeed.vps.com.vn/tradingview/history?symbol=VN30&resolution=D&from=1503532800&to=1790899199",
+  "retrieved_at_utc": "2026-10-30T02:17:32.911703+00:00",
+  "raw_sha256": "d18cec08ab72d73156e62b665136b72deabd877a86c6fbfd7457b5bbb5c5659c",
+  "csv_sha256": "a9416b064ce3dd6b48d435b5f8e05e1d1e3cd606da977e76adece3fed48172c8",
+  "timezone": "Asia/Ho_Chi_Minh"
+}

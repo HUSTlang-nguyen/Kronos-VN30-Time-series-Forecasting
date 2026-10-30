@@ -1,0 +1,38 @@
+{
+  "evidence_scope": "exploratory_only",
+  "source_forecasts": {
+    "artifacts/local/pc-exploratory-20261030/followups/folds/fold1/forecasts/naive-validation.csv": "3be93b46162748eaff097e12ba96d31e444eefc4afd0edd3a286cd8eed7e6b9a",
+    "artifacts/local/pc-exploratory-20261030/followups/folds/fold1/forecasts/naive-validation.json": "eec0d30c34f06e324369e4ccaa1722d108de1ff3aaa7bbdd5c0d3dee155f85e0",
+    "artifacts/local/pc-exploratory-20261030/followups/folds/fold1/forecasts/kronos-mini-validation.csv": "a1fbebc40f7cac3ddf7137cada86eab3353f299144138c9f7a7de098020efe31",
+    "artifacts/local/pc-exploratory-20261030/followups/folds/fold1/forecasts/kronos-mini-validation.json": "db0cb3f5eb826e901e6cbaeda9860bb6acc9c907dd58f868cbb943a1d27f7a66",
+    "artifacts/local/pc-exploratory-20261030/followups/folds/fold1/forecasts/kronos-mini-ft-validation.csv": "6681f60cbe5ecfe30e213b32d49da695246e0e8ce323ac32e6e38ab88c288112",
+    "artifacts/local/pc-exploratory-20261030/followups/folds/fold1/forecasts/kronos-mini-ft-validation.json": "e220ac7f1fe7b565d12caaebe6b5bd2e1bcd03bab24033ad7e401b2893e4242a",
+    "artifacts/local/pc-exploratory-20261030/followups/folds/fold1/forecasts/kronos-small-validation.csv": "e32a2df8f48c05987dec8677dd3985799c2cefa8e51964f4d21c6ec706bef09b",
+    "artifacts/local/pc-exploratory-20261030/followups/folds/fold1/forecasts/kronos-small-validation.json": "841b7f8c64e8521304374366e3cf596f544dee502ce178c6436147b50bae9c51",
+    "artifacts/local/pc-exploratory-20261030/followups/folds/fold1/forecasts/kronos-small-ft-validation.csv": "2ba5fdadbdd41345d8d2bca93d56d2368d3a9b97926cc1c96887574c3bc1f661",
+    "artifacts/local/pc-exploratory-20261030/followups/folds/fold1/forecasts/kronos-small-ft-validation.json": "295a554d066f92e7cb32a51a434d90a89480192eeb4530df4abd003ff185278a",
+    "artifacts/local/pc-exploratory-20261030/followups/folds/fold1/forecasts/kronos-base-validation.csv": "063b6272c7278a7e3a5e55af0e1d1f91ab05b61ad91272907483791c9eba1bed",
+    "artifacts/local/pc-exploratory-20261030/followups/folds/fold1/forecasts/kronos-base-validation.json": "8221998fab972e5934f719d51163aeff61c3954c0824a2c632408ff38d523ff4",
+    "artifacts/local/pc-exploratory-20261030/followups/folds/fold1/forecasts/kronos-base-ft-validation.csv": "a56a8a79e094822b82517ec8d3fed187f25ac16172d24bf6ca352d3d5653a41d",
+    "artifacts/local/pc-exploratory-20261030/followups/folds/fold1/forecasts/kronos-base-ft-validation.json": "c7b59bd4931dcf48b8fef2dc4be426bf0b9dcc790d3063ee7b1ab1f6114d4643",
+    "artifacts/local/pc-exploratory-20261030/followups/folds/fold1/forecasts/chronos2-validation.csv": "c3996f2f26142ac25491d39d93c8df1334d3631efae6a5c655e81ef3c5bbbf8f",
+    "artifacts/local/pc-exploratory-20261030/followups/folds/fold1/forecasts/chronos2-validation.json": "9942521071b993406cafd8e42680369ca56bed187fd1e4290bfab89f12dc5b98",
+    "artifacts/local/pc-exploratory-20261030/followups/folds/fold1/forecasts/chronos2-ft-validation.csv": "51d799ac2921573ef876d1878412cddc08daf7c4e973c4381f7b090928be5116",
+    "artifacts/local/pc-exploratory-20261030/followups/folds/fold1/forecasts/chronos2-ft-validation.json": "1d61f8548c7ce875b2a12febffb1d19f486b7dd7db14e8e358c1d2065403e2c4"
+  },
+  "independent_recomputation": "pass",
+  "outputs": {
+    "close_error.png": "9f3c3f8699c8ba1d06be6ef4968aa7368ef0ce2ee9b8d30242c1dd08f8818590",
+    "close_forecast.png": "a549a006766591eebd75a5538a629c57d6487ad3ae95d512eb95e086edded8fc",
+    "details.csv": "b1fbe13ce902c9da7eec379c01eac716b613d2b86bc97986d079baa19a548ae9",
+    "gap_forecast.png": "36e3aaabbb7644b9d3358df734ed3d28f5c18a7c7fdb09f87362e98b01fbdc1d",
+    "manifest.json": "71c412b5f051027be69f6e24e8bb50cee9340ca98af4c8c9ee79864edb8a9994",
+    "open_diagnostic.csv": "dda56a6356b962423a7db989d16bd30e7425c4fe626e290462cee778ff31dc5e",
+    "open_forecast.png": "4f358666d80576e4760676199dd188a5ce964ecbe09b0c2872bdf6e3f6419aa2",
+    "open_pattern_diagnostic.csv": "606e0476a6742d2ac33afe8def844f7456989d58239c5dc8f1d33d472a24a8bc",
+    "outside_request_diagnostic.csv": "82756ef16f933d278542485f01309e467bcb210977e2d2145084085f09422057",
+    "scores.csv": "80dc28e3e140bbfd7ae0d244725e810da2b5ab3279b53b983289d64aaf753968",
+    "summary.md": "60165ca7cec8c8d3c318837535bcc4b0fe8bddcfcd7d304b0b2e469ab1326926",
+    "volatility_diagnostic.csv": "e84d9e33bcab69dec34e39fe9c6ee49b92c71156b4db440d02787cfc223b111a"
+  }
+}

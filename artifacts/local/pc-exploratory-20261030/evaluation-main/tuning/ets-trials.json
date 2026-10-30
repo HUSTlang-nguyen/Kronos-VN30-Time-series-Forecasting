@@ -1,0 +1,32 @@
+[
+  {
+    "config": {
+      "trend": null,
+      "damped_trend": false
+    },
+    "validation_loss": 0.10364218988615681,
+    "expected_origins": 321,
+    "successful_origins": 321,
+    "failures": []
+  },
+  {
+    "config": {
+      "trend": "add",
+      "damped_trend": false
+    },
+    "validation_loss": 0.11731809628374583,
+    "expected_origins": 321,
+    "successful_origins": 321,
+    "failures": []
+  },
+  {
+    "config": {
+      "trend": "add",
+      "damped_trend": true
+    },
+    "validation_loss": 0.10717261745390369,
+    "expected_origins": 321,
+    "successful_origins": 321,
+    "failures": []
+  }
+]

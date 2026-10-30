@@ -1,0 +1,38 @@
+[
+  {
+    "config": {
+      "alpha": 1.0
+    },
+    "validation_loss": 0.12640112672307371,
+    "expected_origins": 321,
+    "successful_origins": 321,
+    "failures": []
+  },
+  {
+    "config": {
+      "alpha": 10.0
+    },
+    "validation_loss": 0.12207454822193277,
+    "expected_origins": 321,
+    "successful_origins": 321,
+    "failures": []
+  },
+  {
+    "config": {
+      "alpha": 100.0
+    },
+    "validation_loss": 0.12408396918978636,
+    "expected_origins": 321,
+    "successful_origins": 321,
+    "failures": []
+  },
+  {
+    "config": {
+      "alpha": 1000.0
+    },
+    "validation_loss": 0.13998690648816445,
+    "expected_origins": 321,
+    "successful_origins": 321,
+    "failures": []
+  }
+]

@@ -10,3 +10,14 @@ data/share/*.sha256 -text
 # Preserve artifact bytes for checkpoint hashes and experiment receipts.
 artifacts/** -text whitespace=cr-at-eol
 artifacts/**/*.safetensors filter=lfs diff=lfs merge=lfs -text
+artifacts/local/pc-rerun-*/**/*-best.pt filter=lfs diff=lfs merge=lfs -text
+# Generated report hashes must survive Windows/Linux checkout.
+docs/VN30_PC_Research_Report.md -text whitespace=cr-at-eol
+experiments/verify_completed_candidate.py text eol=lf
+experiments/finalize_pc_report.py text eol=lf
+# Demo data hashes and pinned vendor source survive Windows/Linux checkouts.
+demo/data/** -text whitespace=cr-at-eol
+demo/registry.json -text whitespace=cr-at-eol
+demo/vendor/kronos/** text eol=lf whitespace=-blank-at-eof,-blank-at-eol
+# Preserve upstream license text verbatim, including its final blank line.
+demo/licenses/** whitespace=-blank-at-eof

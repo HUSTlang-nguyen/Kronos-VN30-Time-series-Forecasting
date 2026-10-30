@@ -1,0 +1,60 @@
+{
+  "evidence_scope": "exploratory_only",
+  "jobs": {
+    "naive-validation": {
+      "status": "complete",
+      "started_unix": 1793349435.3869607,
+      "ended_unix": 1793349436.5951517
+    },
+    "naive-test": {
+      "status": "complete",
+      "started_unix": 1793349436.5971527,
+      "ended_unix": 1793349437.6954932
+    },
+    "tune-ridge": {
+      "status": "complete",
+      "started_unix": 1793349437.6974936,
+      "ended_unix": 1793349440.0797727
+    },
+    "ridge-validation": {
+      "status": "complete",
+      "started_unix": 1793349440.08728,
+      "ended_unix": 1793349441.7479079
+    },
+    "ridge-test": {
+      "status": "complete",
+      "started_unix": 1793349441.7499082,
+      "ended_unix": 1793349443.4314647
+    },
+    "tune-ets": {
+      "status": "complete",
+      "started_unix": 1793349443.4334679,
+      "ended_unix": 1793349491.1666243
+    },
+    "ets-validation": {
+      "status": "complete",
+      "started_unix": 1793349491.1754327,
+      "ended_unix": 1793349496.4921231
+    },
+    "ets-test": {
+      "status": "complete",
+      "started_unix": 1793349496.4943676,
+      "ended_unix": 1793349501.69251
+    },
+    "tune-arima": {
+      "status": "complete",
+      "started_unix": 1793349501.6945136,
+      "ended_unix": 1793350569.859363
+    },
+    "arima-validation": {
+      "status": "complete",
+      "started_unix": 1793350569.868153,
+      "ended_unix": 1793350577.2743692
+    },
+    "arima-test": {
+      "status": "complete",
+      "started_unix": 1793350577.2763681,
+      "ended_unix": 1793350584.7528074
+    }
+  }
+}

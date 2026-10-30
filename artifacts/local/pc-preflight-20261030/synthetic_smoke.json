@@ -1,0 +1,54 @@
+{
+  "classification": "synthetic_smoke_not_research_results",
+  "gpu": "NVIDIA GeForce RTX 4070 SUPER",
+  "checks": {
+    "kronos-mini": {
+      "revision": "f4e68697d9d5aed55cef5c96aabc3376bcad9f81",
+      "shape": [
+        20,
+        4
+      ],
+      "replay_identical": true,
+      "native_loss": 1.106589674949646,
+      "gradients_finite": true,
+      "causal_logit_max_delta": 0.0,
+      "tokenizer_prefix_invariant": true
+    },
+    "kronos-small": {
+      "revision": "901c26c1332695a2a8f243eb2f37243a37bea320",
+      "shape": [
+        20,
+        4
+      ],
+      "replay_identical": true,
+      "native_loss": 2.4528143405914307,
+      "gradients_finite": true,
+      "causal_logit_max_delta": 0.0,
+      "tokenizer_prefix_invariant": true
+    },
+    "kronos-base": {
+      "revision": "2b554741eca47781b64468546e77fef3e85130e6",
+      "shape": [
+        20,
+        4
+      ],
+      "replay_identical": true,
+      "native_loss": 1.754504680633545,
+      "gradients_finite": true,
+      "causal_logit_max_delta": 0.0,
+      "tokenizer_prefix_invariant": true
+    },
+    "chronos2": {
+      "revision": "ddec01313e50b6bc58ebaa92ede81bc24a3d9f9a",
+      "shape": [
+        20,
+        4
+      ],
+      "replay_identical": true,
+      "native_loss": 0.23374144732952118,
+      "gradients_finite": true,
+      "causal_logit_max_delta": null,
+      "tokenizer_prefix_invariant": null
+    }
+  }
+}

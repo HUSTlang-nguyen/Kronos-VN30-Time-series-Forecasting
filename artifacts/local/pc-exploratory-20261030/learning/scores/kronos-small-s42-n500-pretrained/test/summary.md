@@ -1,0 +1,29 @@
+**THĂM DÒ — dataset unverified; chưa phải kết luận Q3 chính.**
+
+# VN30 snapshot experiment
+
+Dataset SHA256: `fee0bd8c240a9d2be4ef5c9d287eede6c5506b0358c25545e72de99709da4fd2`.
+
+Open is VNDIRECT provider data; its construction on some sessions is uncertain. The actual future trading calendar is supplied to Kronos. VN30 is an index, so these metrics do not imply tradable profit.
+
+| Model | Target | h | N | MAE | RMSE | MAE vs naive |
+|---|---|---:|---:|---:|---:|---:|
+| naive | open | 1 | 323 | 5.95926 | 9.20026 | 0.00000 |
+| naive | close | 1 | 323 | 17.72232 | 24.52345 | 0.00000 |
+| naive | open | 5 | 323 | 40.84591 | 51.06532 | 0.00000 |
+| naive | close | 5 | 323 | 45.16461 | 55.73607 | 0.00000 |
+| naive | open | 20 | 323 | 91.95071 | 113.74891 | 0.00000 |
+| naive | close | 20 | 323 | 93.82563 | 115.25833 | 0.00000 |
+| naive | gap | 1 | 323 | 0.00310 | 0.00483 | 0.00000 |
+| naive | intraday | 1 | 323 | 0.00895 | 0.01231 | 0.00000 |
+| kronos-small-ft | open | 1 | 323 | 10.07043 | 13.74252 | 4.11117 |
+| kronos-small-ft | close | 1 | 323 | 19.72037 | 27.10827 | 1.99804 |
+| kronos-small-ft | open | 5 | 323 | 49.27709 | 61.41498 | 8.43117 |
+| kronos-small-ft | close | 5 | 323 | 50.79956 | 63.98123 | 5.63495 |
+| kronos-small-ft | open | 20 | 323 | 149.11921 | 186.33129 | 57.16850 |
+| kronos-small-ft | close | 20 | 323 | 151.73575 | 188.82714 | 57.91011 |
+| kronos-small-ft | gap | 1 | 323 | 0.00543 | 0.00740 | 0.00233 |
+| kronos-small-ft | intraday | 1 | 323 | 0.00940 | 0.01292 | 0.00046 |
+
+Diagnostic high-volatility threshold: absolute Close return >= 0.022047 (90th percentile of this test set; descriptive only).
+See `manifest.json`, `details.csv`, `open_diagnostic.csv`, `open_pattern_diagnostic.csv`, `outside_request_diagnostic.csv`, `volatility_diagnostic.csv` and the plots for exact inputs and diagnostics.

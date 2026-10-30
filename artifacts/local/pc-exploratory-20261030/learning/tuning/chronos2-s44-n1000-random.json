@@ -1,0 +1,9 @@
+{
+  "status": "pass",
+  "learning_rate": 0.0001,
+  "validation_loss": 3.165424301616871,
+  "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/lr-trials/chronos2-s44-n1000-random/0.0001",
+  "training_sha256": "021a0d24e280fc2008a293fd6481fc5e089e6ba3286147469932f139408955ec",
+  "test_used": false,
+  "reused_winning_trial": true
+}

@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "models": {
+    "kronos-mini": {
+      "id": "kronos-mini",
+      "label": "Kronos Mini",
+      "variant": "mini",
+      "parameters": 4108032,
+      "epoch": 5,
+      "training_seed": 42,
+      "evidence_scope": "exploratory_only",
+      "base_repository": "NeoQuasar/Kronos-mini",
+      "base_revision": "f4e68697d9d5aed55cef5c96aabc3376bcad9f81",
+      "dataset_sha256": "fee0bd8c240a9d2be4ef5c9d287eede6c5506b0358c25545e72de99709da4fd2",
+      "local_path": "models/kronos-mini",
+      "files": {
+        "config.json": "93397b7f6f42678412225b521ed769cd318d8da3ef77633e210183c16afc00a8",
+        "model.safetensors": "73ef7c4b64a6c1c8cf1ab7d34c4d8c1fcb4975f765c5af13e77d2cbfc10fcb76"
+      },
+      "hub_repo": "neikhn/kronos-mini-vn30-sft",
+      "hub_revision": "61d1824286f98bffa4cb63a88142d90b007b3328",
+      "tokenizer": {
+        "repository": "NeoQuasar/Kronos-Tokenizer-2k",
+        "revision": "26966d0035065a0cae0ebad7af8ece35bc1fb51c",
+        "local_path": "models/tokenizers/kronos_tokenizer_2k",
+        "files": {
+          "config.json": "0b30a443affb03e05a876a083857de9164f899feb7b4d261da02c485c9a3e3b6",
+          "model.safetensors": "b97ec46b3b72160509e289183eaf7bdf5f0dac5bb9b49522f6d46638a99a8717"
+        }
+      },
+      "inference": {
+        "context": 128,
+        "horizon": 20,
+        "sample_count": 3,
+        "temperature": 1.0,
+        "top_p": 0.9,
+        "seed": 42,
+        "precision": "float32",
+        "point_functional": "sample_mean"
+      }
+    },
+    "kronos-small": {
+      "id": "kronos-small",
+      "label": "Kronos Small",
+      "variant": "small",
+      "parameters": 24741376,
+      "epoch": 5,
+      "training_seed": 42,
+      "evidence_scope": "exploratory_only",
+      "base_repository": "NeoQuasar/Kronos-small",
+      "base_revision": "901c26c1332695a2a8f243eb2f37243a37bea320",
+      "dataset_sha256": "fee0bd8c240a9d2be4ef5c9d287eede6c5506b0358c25545e72de99709da4fd2",
+      "local_path": "models/kronos-small",
+      "files": {
+        "config.json": "9f2eaded8ae01947aa7e1967e3a2a618b35f895fd4daf7f0bcfd728dab57a040",
+        "model.safetensors": "d990a13a77f17547fc3286e334948764cd4c58ba32f48fd626739273e54d5f6f"
+      },
+      "hub_repo": "neikhn/kronos-small-vn30-sft",
+      "hub_revision": "d7093271e98c939dcd30a0fec1cc87906d110844",
+      "tokenizer": {
+        "repository": "NeoQuasar/Kronos-Tokenizer-base",
+        "revision": "0e0117387f39004a9016484a186a908917e22426",
+        "local_path": "models/tokenizers/kronos_tokenizer_base",
+        "files": {
+          "config.json": "2366e7ccfec76cbc19cf3c4c1b9c5d901be336ca1e83f2d2292c9bff381b77a2",
+          "model.safetensors": "59d85f6af76a2c3b8240ea06cb21db4213b4eeca053f246b23e29cf832fc6bee"
+        }
+      },
+      "inference": {
+        "context": 128,
+        "horizon": 20,
+        "sample_count": 3,
+        "temperature": 1.0,
+        "top_p": 0.9,
+        "seed": 42,
+        "precision": "float32",
+        "point_functional": "sample_mean"
+      }
+    },
+    "kronos-base": {
+      "id": "kronos-base",
+      "label": "Kronos Base",
+      "variant": "base",
+      "parameters": 102310592,
+      "epoch": 5,
+      "training_seed": 42,
+      "evidence_scope": "exploratory_only",
+      "base_repository": "NeoQuasar/Kronos-base",
+      "base_revision": "2b554741eca47781b64468546e77fef3e85130e6",
+      "dataset_sha256": "fee0bd8c240a9d2be4ef5c9d287eede6c5506b0358c25545e72de99709da4fd2",
+      "local_path": "models/kronos-base",
+      "files": {
+        "config.json": "82144343e2801d0cecad60001b3b30acc24bda04c8a7af4cbcfe054fb5d410af",
+        "model.safetensors": "258025259026c5c4803948590938466e81530133fd7aa741447f73c3384f79b4"
+      },
+      "hub_repo": "neikhn/kronos-base-vn30-sft",
+      "hub_revision": "cb4301198abc5cbfa9ecb0ff2064e7c7ac410a2a",
+      "tokenizer": {
+        "repository": "NeoQuasar/Kronos-Tokenizer-base",
+        "revision": "0e0117387f39004a9016484a186a908917e22426",
+        "local_path": "models/tokenizers/kronos_tokenizer_base",
+        "files": {
+          "config.json": "2366e7ccfec76cbc19cf3c4c1b9c5d901be336ca1e83f2d2292c9bff381b77a2",
+          "model.safetensors": "59d85f6af76a2c3b8240ea06cb21db4213b4eeca053f246b23e29cf832fc6bee"
+        }
+      },
+      "inference": {
+        "context": 128,
+        "horizon": 20,
+        "sample_count": 3,
+        "temperature": 1.0,
+        "top_p": 0.9,
+        "seed": 42,
+        "precision": "float32",
+        "point_functional": "sample_mean"
+      }
+    }
+  }
+}

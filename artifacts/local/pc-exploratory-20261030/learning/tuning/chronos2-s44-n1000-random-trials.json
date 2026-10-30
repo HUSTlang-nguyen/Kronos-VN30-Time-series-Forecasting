@@ -1,0 +1,26 @@
+{
+  "test_used": false,
+  "trials": [
+    {
+      "status": "pass",
+      "learning_rate": 1e-06,
+      "validation_loss": 7.615059426269056,
+      "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/lr-trials/chronos2-s44-n1000-random/1e-06",
+      "training_sha256": "313a603aea89dd1da97f37e9f8d3bfb9ece2e15f1e7e6ed1df7b592b22892f97"
+    },
+    {
+      "status": "pass",
+      "learning_rate": 1e-05,
+      "validation_loss": 4.7310285753921555,
+      "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/lr-trials/chronos2-s44-n1000-random/1e-05",
+      "training_sha256": "409adff06a4c10b6492e36ac033b24e92b1dcae33fd112c58eed44bf48e27d2c"
+    },
+    {
+      "status": "pass",
+      "learning_rate": 0.0001,
+      "validation_loss": 3.165424301616871,
+      "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/lr-trials/chronos2-s44-n1000-random/0.0001",
+      "training_sha256": "021a0d24e280fc2008a293fd6481fc5e089e6ba3286147469932f139408955ec"
+    }
+  ]
+}

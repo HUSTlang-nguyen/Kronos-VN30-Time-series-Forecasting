@@ -1,0 +1,23 @@
+{
+  "evidence_scope": "exploratory_only",
+  "source_forecasts": {
+    "artifacts/local/pc-exploratory-20261030/evaluation-main/forecasts/naive-s42-zs-validation.csv": "4e62eec09e873d9d5d97bbdfbc4f7a407dafef6becb0cdc0c1469a37ccdb5a8d",
+    "artifacts/local/pc-exploratory-20261030/evaluation-main/forecasts/naive-s42-zs-validation.json": "d8696a8dfa9d3bd0694af4398d2f1ed46e71d75b06d72bf54877274542299bc1",
+    "artifacts/local/pc-exploratory-20261030/learning/forecasts/kronos-small-s42-n1000-pretrained-validation.csv": "0837fec089b93f9f9df85a99ca88dd742536a34808d96284a817f518aa26428c",
+    "artifacts/local/pc-exploratory-20261030/learning/forecasts/kronos-small-s42-n1000-pretrained-validation.json": "6f38c917df371ad89690cfd3459fcfcb487374d5cf7b820ecf41c154358142a0"
+  },
+  "outputs": {
+    "close_error.png": "332a7c23df300662bcfe15f5e8d98e4e1a5c7a5e6dca7a86257a1f635520f5d1",
+    "close_forecast.png": "b8303032f4ffc90fc577f085805bd4545476c3dee2a90e904048bf666f55b1ef",
+    "details.csv": "9de92ea08ea79996aa923b6b0b4344734f5b68a0e66104b54cb38cc88d662245",
+    "gap_forecast.png": "779fcbb435d39df8826bbd1b41958bffcc5e127dd189399684b8fb4715c6105e",
+    "manifest.json": "c599bd1a4b440d4d6d3b72e0599394d37769f069683415f202573cdb014d6c85",
+    "open_diagnostic.csv": "5a81666fd350c267faa6370a7c934fc433a96fd5db133db673efe1e9dd0f0f03",
+    "open_forecast.png": "e37c1453fe5e90eda1773235f0ca200e9ccb82a5e1d74dd62a614635e9915c97",
+    "open_pattern_diagnostic.csv": "fcad6d546d6e0e1955d347f9700170a1538019f2bfd93b383df919182a553ac7",
+    "outside_request_diagnostic.csv": "e0d67aae2b7f4bd09ed1384add04843d71a88e5a21254b8da5bc3926d5f05942",
+    "scores.csv": "5332f4b1b8a34805e96bcb39540e2d14f1e3f347d55786c101957260e0afc8a9",
+    "summary.md": "a302fc4871105a0d3c031d0b341033dc20e971e9ffb30dd7ad1c433b2f7c45ba",
+    "volatility_diagnostic.csv": "a49b75e0bcefaf95d5fdc5fa1973da105696fdfd5d390edb90957f74d2591d4f"
+  }
+}

@@ -3,6 +3,13 @@ __pycache__/
 *.py[cod]
 .venv/
 .venv-data/
+.venv-demo/
+demo/frontend/node_modules/
+demo/frontend/dist/
+demo/frontend/*.tsbuildinfo
+demo/models/
+demo/cache/
+demo/bundle/
 venv/
 .python-version
 .pytest_cache/
@@ -15,6 +22,20 @@ venv/
 .vendor/
 .cache/
 *.log
+# Optimizer/RNG resume snapshots stay local; published weights use Git LFS.
+artifacts/local/pc-rerun-*/**/last.pt
+artifacts/local/pc-rerun-*/**/*-last.pt
+artifacts/local/pc-rerun-*/**/*.tmp
+artifacts/local/pc-rerun-*/**/*.progress.json
+artifacts/local/pc-exploratory-*/**/last.pt
+artifacts/local/pc-exploratory-*/**/*-last.pt
+artifacts/local/pc-exploratory-*/**/*-best.pt
+artifacts/local/pc-exploratory-*/**/*.tmp
+artifacts/local/pc-exploratory-*/**/*.progress.json
+artifacts/local/pc-exploratory-*/supervision/*.lock
+# Exploratory weights stay on this PC; publish code, losses and hash receipts.
+artifacts/local/pc-exploratory-*/**/best/
+artifacts/local/pc-exploratory-*/**/selected/
 
 # DVC manages data bytes; Git keeps pointers and receipts.
 data/raw/

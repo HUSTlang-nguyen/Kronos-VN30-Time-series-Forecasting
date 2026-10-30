@@ -1,0 +1,17 @@
+{
+  "dataset_sha256": "fee0bd8c240a9d2be4ef5c9d287eede6c5506b0358c25545e72de99709da4fd2",
+  "split": "validation",
+  "origins": 321,
+  "models": [
+    "naive",
+    "representation-continuous",
+    "representation-quantized"
+  ],
+  "source_forecasts": [
+    "C:\\Users\\neikh\\Documents\\GitHub\\Kronos-VN30-Time-series-Forecasting\\artifacts\\local\\pc-exploratory-20261030\\followups\\ablation\\representation-s44\\naive-validation.csv",
+    "C:\\Users\\neikh\\Documents\\GitHub\\Kronos-VN30-Time-series-Forecasting\\artifacts\\local\\pc-exploratory-20261030\\followups\\ablation\\representation-s44\\continuous-validation.csv",
+    "C:\\Users\\neikh\\Documents\\GitHub\\Kronos-VN30-Time-series-Forecasting\\artifacts\\local\\pc-exploratory-20261030\\followups\\ablation\\representation-s44\\quantized-validation.csv"
+  ],
+  "open_label": "VNDIRECT provider Open, construction uncertain",
+  "tradability": "VN30 index; no trading PnL inferred"
+}

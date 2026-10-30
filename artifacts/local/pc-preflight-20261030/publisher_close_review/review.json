@@ -1,0 +1,831 @@
+{
+  "classification": "partial_publisher_evidence_not_dataset_acceptance",
+  "source_crosscheck_sha256": "4866cf65845908c8ce57e490676d26b96caa2f5dc837b1aab039ec1c5f45ba2b",
+  "expected_disputed_dates": 60,
+  "cases": [
+    {
+      "date": "2020-04-09",
+      "original_close": 697.85,
+      "reference_values": [
+        {
+          "provider": "vps",
+          "reference": 700.32
+        }
+      ],
+      "url": "https://pinetree.vn/post/20200409/ban-tin-thi-truong-ngay-09-04-2020/",
+      "status": "unavailable",
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    },
+    {
+      "date": "2020-05-18",
+      "original_close": 787.27,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 770.92
+        }
+      ],
+      "url": "https://pinetree.vn/post/20200518/ban-tin-thi-truong-ngay-18-05-2020/",
+      "status": "unavailable",
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    },
+    {
+      "date": "2020-05-20",
+      "original_close": 803.32,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 801.88
+        }
+      ],
+      "url": "https://pinetree.vn/post/20200520/ban-tin-thi-truong-ngay-20-05-2020/",
+      "status": "unavailable",
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    },
+    {
+      "date": "2020-05-21",
+      "original_close": 815.55,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 805.42
+        }
+      ],
+      "url": "https://pinetree.vn/post/20200521/ban-tin-thi-truong-ngay-21-05-2020/",
+      "status": "unavailable",
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    },
+    {
+      "date": "2020-05-25",
+      "original_close": 807.25,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 807.01
+        }
+      ],
+      "url": "https://pinetree.vn/post/20200525/ban-tin-thi-truong-ngay-25-05-2020/",
+      "status": "unavailable",
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    },
+    {
+      "date": "2020-05-26",
+      "original_close": 815.01,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 811.32
+        }
+      ],
+      "url": "https://pinetree.vn/post/20200526/ban-tin-thi-truong-ngay-26-05-2020/",
+      "status": "unavailable",
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    },
+    {
+      "date": "2020-05-28",
+      "original_close": 804.06,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 804.71
+        }
+      ],
+      "url": "https://pinetree.vn/post/20200528/ban-tin-thi-truong-ngay-28-05-2020/",
+      "status": "unavailable",
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    },
+    {
+      "date": "2020-06-01",
+      "original_close": 821.47,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 813.66
+        }
+      ],
+      "url": "https://pinetree.vn/post/20200601/ban-tin-thi-truong-ngay-01-06-2020/",
+      "status": "unavailable",
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    },
+    {
+      "date": "2020-06-02",
+      "original_close": 818.7,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 823.66
+        }
+      ],
+      "url": "https://pinetree.vn/post/20200602/ban-tin-thi-truong-ngay-02-06-2020/",
+      "status": "unavailable",
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    },
+    {
+      "date": "2020-06-03",
+      "original_close": 824.29,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 824.11
+        }
+      ],
+      "url": "https://pinetree.vn/post/20200603/ban-tin-thi-truong-ngay-03-06-2020/",
+      "status": "unavailable",
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    },
+    {
+      "date": "2020-06-04",
+      "original_close": 823.77,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 824.29
+        }
+      ],
+      "url": "https://pinetree.vn/post/20200604/ban-tin-thi-truong-ngay-04-06-2020/",
+      "status": "unavailable",
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    },
+    {
+      "date": "2020-06-05",
+      "original_close": 826.47,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 825.52
+        }
+      ],
+      "url": "https://pinetree.vn/post/20200605/ban-tin-thi-truong-ngay-05-06-2020/",
+      "status": "unavailable",
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    },
+    {
+      "date": "2020-06-08",
+      "original_close": 838.52,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 839.99
+        }
+      ],
+      "url": "https://pinetree.vn/post/20200608/ban-tin-thi-truong-ngay-08-06-2020/",
+      "status": "unavailable",
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    },
+    {
+      "date": "2020-06-10",
+      "original_close": 839.11,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 839.5
+        }
+      ],
+      "url": "https://pinetree.vn/post/20200610/ban-tin-thi-truong-ngay-10-06-2020/",
+      "status": "unavailable",
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    },
+    {
+      "date": "2020-06-11",
+      "original_close": 806.87,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 812.39
+        }
+      ],
+      "url": "https://pinetree.vn/post/20200611/ban-tin-thi-truong-ngay-11-06-2020/",
+      "status": "unavailable",
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    },
+    {
+      "date": "2020-06-12",
+      "original_close": 807.76,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 803.66
+        }
+      ],
+      "url": "https://pinetree.vn/post/20200612/ban-tin-thi-truong-ngay-12-06-2020/",
+      "status": "unavailable",
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    },
+    {
+      "date": "2020-06-15",
+      "original_close": 778.71,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 781.11
+        }
+      ],
+      "url": "https://pinetree.vn/post/20200615/ban-tin-thi-truong-ngay-15-06-2020/",
+      "status": "unavailable",
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    },
+    {
+      "date": "2020-06-16",
+      "original_close": 798.82,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 798.88
+        }
+      ],
+      "url": "https://pinetree.vn/post/20200616/ban-tin-thi-truong-ngay-16-06-2020/",
+      "status": "unavailable",
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    },
+    {
+      "date": "2020-06-17",
+      "original_close": 796.43,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 797.54
+        }
+      ],
+      "url": "https://pinetree.vn/post/20200617/ban-tin-thi-truong-ngay-17-06-2020/",
+      "status": "unavailable",
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    },
+    {
+      "date": "2020-06-18",
+      "original_close": 797.08,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 799.53
+        }
+      ],
+      "url": "https://pinetree.vn/post/20200618/ban-tin-thi-truong-ngay-18-06-2020/",
+      "status": "unavailable",
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    },
+    {
+      "date": "2020-07-03",
+      "original_close": 789.87,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 789.45
+        }
+      ],
+      "url": "https://pinetree.vn/post/20200703/ban-tin-thi-truong-ngay-03-07-2020/",
+      "status": "unavailable",
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    },
+    {
+      "date": "2020-07-09",
+      "original_close": 817.08,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 814.69
+        }
+      ],
+      "url": "https://pinetree.vn/post/20200709/ban-tin-thi-truong-ngay-09-07-2020/",
+      "status": "unavailable",
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    },
+    {
+      "date": "2020-07-13",
+      "original_close": 806.17,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 811.32
+        }
+      ],
+      "url": "https://pinetree.vn/post/20200713/ban-tin-thi-truong-ngay-13-07-2020/",
+      "status": "unavailable",
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    },
+    {
+      "date": "2020-07-14",
+      "original_close": 805.37,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 800.57
+        }
+      ],
+      "url": "https://pinetree.vn/post/20200714/ban-tin-thi-truong-ngay-14-07-2020/",
+      "status": "unavailable",
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    },
+    {
+      "date": "2020-07-15",
+      "original_close": 810.16,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 812.62
+        }
+      ],
+      "url": "https://pinetree.vn/post/20200715/ban-tin-thi-truong-ngay-15-07-2020/",
+      "status": "unavailable",
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    },
+    {
+      "date": "2020-07-29",
+      "original_close": 735.16,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 731.14
+        }
+      ],
+      "url": "https://pinetree.vn/post/20200729/ban-tin-thi-truong-ngay-29-07-2020/",
+      "status": "unavailable",
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    },
+    {
+      "date": "2020-08-19",
+      "original_close": 789.41,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 791.2
+        }
+      ],
+      "url": "https://pinetree.vn/post/20200819/ban-tin-thi-truong-ngay-19-08-2020/",
+      "status": "unavailable",
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    },
+    {
+      "date": "2020-09-11",
+      "original_close": 825.56,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 825.18
+        }
+      ],
+      "url": "https://pinetree.vn/post/20200911/ban-tin-thi-truong-ngay-11-09-2020/",
+      "status": "unavailable",
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    },
+    {
+      "date": "2020-09-17",
+      "original_close": 831.84,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 836.04
+        }
+      ],
+      "url": "https://pinetree.vn/post/20200917/ban-tin-thi-truong-ngay-17-09-2020/",
+      "status": "unavailable",
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    },
+    {
+      "date": "2020-09-21",
+      "original_close": 851.54,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 849.88
+        }
+      ],
+      "url": "https://pinetree.vn/post/20200921/ban-tin-thi-truong-ngay-21-09-2020/",
+      "status": "unavailable",
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    },
+    {
+      "date": "2020-09-22",
+      "original_close": 852.72,
+      "reference_values": [
+        {
+          "provider": "vps",
+          "reference": 853.68
+        }
+      ],
+      "url": "https://pinetree.vn/post/20200922/ban-tin-thi-truong-ngay-22-09-2020/",
+      "status": "unavailable",
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    },
+    {
+      "date": "2020-10-08",
+      "original_close": 869.82,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 868.6
+        }
+      ],
+      "url": "https://pinetree.vn/post/20201008/ban-tin-thi-truong-ngay-08-10-2020/",
+      "status": "unavailable",
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    },
+    {
+      "date": "2020-10-19",
+      "original_close": 903.51,
+      "reference_values": [
+        {
+          "provider": "vps",
+          "reference": 901.47
+        }
+      ],
+      "url": "https://pinetree.vn/post/20201019/ban-tin-thi-truong-ngay-19-10-2020/",
+      "status": "unavailable",
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    },
+    {
+      "date": "2020-10-20",
+      "original_close": 909.49,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 903.13
+        }
+      ],
+      "url": "https://pinetree.vn/post/20201020/ban-tin-thi-truong-ngay-20-10-2020/",
+      "status": "unavailable",
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    },
+    {
+      "date": "2020-10-29",
+      "original_close": 886.68,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 888.21
+        }
+      ],
+      "url": "https://pinetree.vn/post/20201029/ban-tin-thi-truong-ngay-29-10-2020/",
+      "status": "unavailable",
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    },
+    {
+      "date": "2020-12-08",
+      "original_close": 993.61,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 992.3
+        }
+      ],
+      "url": "https://pinetree.vn/post/20201208/ban-tin-thi-truong-ngay-08-12-2020/",
+      "status": "unavailable",
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    },
+    {
+      "date": "2021-02-08",
+      "original_close": 1092.59,
+      "reference_values": [
+        {
+          "provider": "vps",
+          "reference": 1093.84
+        }
+      ],
+      "url": "https://pinetree.vn/post/20210208/ban-tin-thi-truong-ngay-08-02-2021/",
+      "status": "unavailable",
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    },
+    {
+      "date": "2021-02-26",
+      "original_close": 1173.6,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 1175.06
+        }
+      ],
+      "url": "https://pinetree.vn/post/20210226/ban-tin-thi-truong-ngay-26-02-2021/",
+      "status": "unverified_close_semantics",
+      "evidence_path": "data/raw/source_evidence/pinetree-close-review/20210226.html",
+      "evidence_sha256": "f8e79fa220869c3f20f206e3417bf906c22243b0666a2e39c02f6714dc27857d"
+    },
+    {
+      "date": "2021-03-05",
+      "original_close": 1173.83,
+      "reference_values": [
+        {
+          "provider": "vps",
+          "reference": 1174.16
+        }
+      ],
+      "url": "https://pinetree.vn/post/20210305/ban-tin-thi-truong-ngay-05-03-2021/",
+      "status": "unverified_close_semantics",
+      "evidence_path": "data/raw/source_evidence/pinetree-close-review/20210305.html",
+      "evidence_sha256": "af7fdc364dd1e5caf875b30b69eb490a282e806262237a923a731f36eb57cbcc"
+    },
+    {
+      "date": "2021-03-24",
+      "original_close": 1165.61,
+      "reference_values": [
+        {
+          "provider": "vps",
+          "reference": 1167.49
+        }
+      ],
+      "url": "https://pinetree.vn/post/20210324/ban-tin-thi-truong-ngay-24-03-2021/",
+      "status": "unverified_close_semantics",
+      "evidence_path": "data/raw/source_evidence/pinetree-close-review/20210324.html",
+      "evidence_sha256": "d0dc758dc94f3d68428543b325be18a92a04ddd1807da03356d6cfb1a28dbc7d"
+    },
+    {
+      "date": "2021-03-26",
+      "original_close": 1167.19,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 1153.13
+        }
+      ],
+      "url": "https://pinetree.vn/post/20210326/ban-tin-thi-truong-ngay-26-03-2021/",
+      "status": "unverified_close_semantics",
+      "evidence_path": "data/raw/source_evidence/pinetree-close-review/20210326.html",
+      "evidence_sha256": "dadc0c87f9049593bd579bcea76b358766bb1f52f21a66b0a2f1ce5d6cc97ea4"
+    },
+    {
+      "date": "2021-07-05",
+      "original_close": 1557.41,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 1557.79
+        }
+      ],
+      "url": "https://pinetree.vn/post/20210705/ban-tin-thi-truong-ngay-05-07-2021/",
+      "status": "unavailable",
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    },
+    {
+      "date": "2021-07-09",
+      "original_close": 1494.43,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 1499.96
+        }
+      ],
+      "url": "https://pinetree.vn/post/20210709/ban-tin-thi-truong-ngay-09-07-2021/",
+      "status": "unverified_close_semantics",
+      "evidence_path": "data/raw/source_evidence/pinetree-close-review/20210709.html",
+      "evidence_sha256": "2e247f93c2787fe49281480212b16baef4750065a0636897035687667b5a58dd"
+    },
+    {
+      "date": "2022-08-02",
+      "original_close": 1265.97,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 1260.44
+        }
+      ],
+      "url": "https://pinetree.vn/post/20220802/ban-tin-thi-truong-ngay-02-08-2022/",
+      "status": "corroborates_original",
+      "value": 1265.97,
+      "publisher": "Pinetree",
+      "market_date": "2022-08-02",
+      "evidence_locator": "TTCK VIỆT NAM / VN30 and session-close commentary",
+      "evidence_path": "data/raw/source_evidence/pinetree-close-review/20220802.html",
+      "evidence_sha256": "bafc7eafb37e218d02f7b647d1d3564c4b9b6a3d813a088e0a600fa3c5054073",
+      "difference_vs_original": 0.0
+    },
+    {
+      "date": "2022-10-26",
+      "original_close": 990.41,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 988.69
+        }
+      ],
+      "url": "https://pinetree.vn/post/20221026/ban-tin-thi-truong-ngay-26-10-2022/",
+      "status": "corroborates_original",
+      "value": 990.41,
+      "publisher": "Pinetree",
+      "market_date": "2022-10-26",
+      "evidence_locator": "TTCK VIỆT NAM / VN30 and session-close commentary",
+      "evidence_path": "data/raw/source_evidence/pinetree-close-review/20221026.html",
+      "evidence_sha256": "9be09a35dbc0b8694e010d64689e5f30af195c9394e29cc639aea75e367d0826",
+      "difference_vs_original": 0.0
+    },
+    {
+      "date": "2022-10-27",
+      "original_close": 1028.5,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 1023.35
+        }
+      ],
+      "url": "https://pinetree.vn/post/20221027/ban-tin-thi-truong-ngay-27-10-2022/",
+      "status": "corroborates_original",
+      "value": 1028.5,
+      "publisher": "Pinetree",
+      "market_date": "2022-10-27",
+      "evidence_locator": "TTCK VIỆT NAM / VN30 and session-close commentary",
+      "evidence_path": "data/raw/source_evidence/pinetree-close-review/20221027.html",
+      "evidence_sha256": "366857ea806f7e3fc7be9dce42ac6587e359b3f30fff7860c8a9e0eb49439086",
+      "difference_vs_original": 0.0
+    },
+    {
+      "date": "2022-10-28",
+      "original_close": 1029.49,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 1029.83
+        }
+      ],
+      "url": "https://pinetree.vn/post/20221028/ban-tin-thi-truong-ngay-28-10-2022/",
+      "status": "corroborates_original",
+      "value": 1029.49,
+      "publisher": "Pinetree",
+      "market_date": "2022-10-28",
+      "evidence_locator": "TTCK VIỆT NAM / VN30 and session-close commentary",
+      "evidence_path": "data/raw/source_evidence/pinetree-close-review/20221028.html",
+      "evidence_sha256": "7ba9e0614629b9f8d247a78457dda28d0df5f7a2be007b067500f7ff6691dff5",
+      "difference_vs_original": 0.0
+    },
+    {
+      "date": "2022-10-31",
+      "original_close": 1026.84,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 1018.44
+        }
+      ],
+      "url": "https://pinetree.vn/post/20221031/ban-tin-thi-truong-ngay-31-10-2022/",
+      "status": "corroborates_original",
+      "value": 1026.84,
+      "publisher": "Pinetree",
+      "market_date": "2022-10-31",
+      "evidence_locator": "TTCK VIỆT NAM / VN30 and session-close commentary",
+      "evidence_path": "data/raw/source_evidence/pinetree-close-review/20221031.html",
+      "evidence_sha256": "1c853e681e8efbdbfd70d58e0a0525703971f8ff1e0b99421d3064f2ffcffb72",
+      "difference_vs_original": 0.0
+    },
+    {
+      "date": "2022-11-01",
+      "original_close": 1038.09,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 1031.13
+        }
+      ],
+      "url": "https://pinetree.vn/post/20221101/ban-tin-thi-truong-ngay-01-11-2022/",
+      "status": "unavailable",
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    },
+    {
+      "date": "2022-11-02",
+      "original_close": 1025.18,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 1025.73
+        }
+      ],
+      "url": "https://pinetree.vn/post/20221102/ban-tin-thi-truong-ngay-02-11-2022/",
+      "status": "unavailable",
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    },
+    {
+      "date": "2022-11-03",
+      "original_close": 1023.8,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 1020.63
+        }
+      ],
+      "url": "https://pinetree.vn/post/20221103/ban-tin-thi-truong-ngay-03-11-2022/",
+      "status": "unavailable",
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    },
+    {
+      "date": "2022-11-04",
+      "original_close": 997.92,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 995.04
+        }
+      ],
+      "url": "https://pinetree.vn/post/20221104/ban-tin-thi-truong-ngay-04-11-2022/",
+      "status": "unavailable",
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    },
+    {
+      "date": "2022-11-07",
+      "original_close": 972.85,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 969.96
+        }
+      ],
+      "url": "https://pinetree.vn/post/20221107/ban-tin-thi-truong-ngay-07-11-2022/",
+      "status": "unverified_close_semantics",
+      "evidence_path": "data/raw/source_evidence/pinetree-close-review/20221107.html",
+      "evidence_sha256": "74a9cfff6853057bd7d1e0a8c63394df2af8ab5e2e775ba617c81895d18186da"
+    },
+    {
+      "date": "2022-11-08",
+      "original_close": 980.09,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 975.18
+        }
+      ],
+      "url": "https://pinetree.vn/post/20221108/ban-tin-thi-truong-ngay-08-11-2022/",
+      "status": "unverified_close_semantics",
+      "evidence_path": "data/raw/source_evidence/pinetree-close-review/20221108.html",
+      "evidence_sha256": "ae7cf20efc124a23f5d900fdb4292cde7a8b15ec39cfbfbe0386cd9d482bbae5"
+    },
+    {
+      "date": "2022-11-09",
+      "original_close": 979.68,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 974.17
+        }
+      ],
+      "url": "https://pinetree.vn/post/20221109/ban-tin-thi-truong-ngay-09-11-2022/",
+      "status": "corroborates_original",
+      "value": 979.68,
+      "publisher": "Pinetree",
+      "market_date": "2022-11-09",
+      "evidence_locator": "TTCK VIỆT NAM / VN30 and session-close commentary",
+      "evidence_path": "data/raw/source_evidence/pinetree-close-review/20221109.html",
+      "evidence_sha256": "b69d3606ca00310725560bf7e6bb0ea7d52f03653097a2bb5620e576cb19a0cc",
+      "difference_vs_original": 0.0
+    },
+    {
+      "date": "2022-11-10",
+      "original_close": 936.8,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 933.55
+        }
+      ],
+      "url": "https://pinetree.vn/post/20221110/ban-tin-thi-truong-ngay-10-11-2022/",
+      "status": "unverified_close_semantics",
+      "evidence_path": "data/raw/source_evidence/pinetree-close-review/20221110.html",
+      "evidence_sha256": "9469061a7530b0e260a121cb2d4bbb7332167f9e29a3acc3cc50793ca66c2c79"
+    },
+    {
+      "date": "2024-12-25",
+      "original_close": 1342.48,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 1331.58
+        }
+      ],
+      "url": "https://pinetree.vn/post/20241225/ban-tin-thi-truong-ngay-25-12-2024/",
+      "status": "unavailable",
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    },
+    {
+      "date": "2025-01-23",
+      "original_close": 1332.54,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 1333.83
+        }
+      ],
+      "url": "https://pinetree.vn/post/20250123/ban-tin-thi-truong-ngay-23-01-2025/",
+      "status": "unavailable",
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    },
+    {
+      "date": "2025-02-11",
+      "original_close": 1338.4,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 1337.47
+        }
+      ],
+      "url": "https://pinetree.vn/post/20250211/ban-tin-thi-truong-ngay-11-02-2025/",
+      "status": "unavailable",
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    },
+    {
+      "date": "2025-05-26",
+      "original_close": 1423.85,
+      "reference_values": [
+        {
+          "provider": "dnse",
+          "reference": 1424.01
+        }
+      ],
+      "url": "https://pinetree.vn/post/20250526/ban-tin-thi-truong-ngay-26-05-2025/",
+      "status": "unavailable",
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    }
+  ]
+}

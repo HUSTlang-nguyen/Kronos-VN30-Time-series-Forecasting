@@ -1,0 +1,29 @@
+{
+  "dataset_sha256": "fee0bd8c240a9d2be4ef5c9d287eede6c5506b0358c25545e72de99709da4fd2",
+  "split": "validation",
+  "origins": 208,
+  "models": [
+    "naive",
+    "kronos-mini",
+    "kronos-mini-ft",
+    "kronos-small",
+    "kronos-small-ft",
+    "kronos-base",
+    "kronos-base-ft",
+    "chronos2",
+    "chronos2-ft"
+  ],
+  "source_forecasts": [
+    "C:\\Users\\neikh\\Documents\\GitHub\\Kronos-VN30-Time-series-Forecasting\\artifacts\\local\\pc-exploratory-20261030\\followups\\folds\\fold1\\forecasts\\naive-validation.csv",
+    "C:\\Users\\neikh\\Documents\\GitHub\\Kronos-VN30-Time-series-Forecasting\\artifacts\\local\\pc-exploratory-20261030\\followups\\folds\\fold1\\forecasts\\kronos-mini-validation.csv",
+    "C:\\Users\\neikh\\Documents\\GitHub\\Kronos-VN30-Time-series-Forecasting\\artifacts\\local\\pc-exploratory-20261030\\followups\\folds\\fold1\\forecasts\\kronos-mini-ft-validation.csv",
+    "C:\\Users\\neikh\\Documents\\GitHub\\Kronos-VN30-Time-series-Forecasting\\artifacts\\local\\pc-exploratory-20261030\\followups\\folds\\fold1\\forecasts\\kronos-small-validation.csv",
+    "C:\\Users\\neikh\\Documents\\GitHub\\Kronos-VN30-Time-series-Forecasting\\artifacts\\local\\pc-exploratory-20261030\\followups\\folds\\fold1\\forecasts\\kronos-small-ft-validation.csv",
+    "C:\\Users\\neikh\\Documents\\GitHub\\Kronos-VN30-Time-series-Forecasting\\artifacts\\local\\pc-exploratory-20261030\\followups\\folds\\fold1\\forecasts\\kronos-base-validation.csv",
+    "C:\\Users\\neikh\\Documents\\GitHub\\Kronos-VN30-Time-series-Forecasting\\artifacts\\local\\pc-exploratory-20261030\\followups\\folds\\fold1\\forecasts\\kronos-base-ft-validation.csv",
+    "C:\\Users\\neikh\\Documents\\GitHub\\Kronos-VN30-Time-series-Forecasting\\artifacts\\local\\pc-exploratory-20261030\\followups\\folds\\fold1\\forecasts\\chronos2-validation.csv",
+    "C:\\Users\\neikh\\Documents\\GitHub\\Kronos-VN30-Time-series-Forecasting\\artifacts\\local\\pc-exploratory-20261030\\followups\\folds\\fold1\\forecasts\\chronos2-ft-validation.csv"
+  ],
+  "open_label": "VNDIRECT provider Open, construction uncertain",
+  "tradability": "VN30 index; no trading PnL inferred"
+}

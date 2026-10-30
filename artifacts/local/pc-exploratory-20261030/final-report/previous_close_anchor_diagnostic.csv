@@ -1,0 +1,9 @@
+provider,field,discrepancies,previous_close_anchor_matches,interpretation
+dnse,close,54,0,diagnostic_only_not_price_adjudication
+dnse,high,114,2,diagnostic_only_not_price_adjudication
+dnse,low,237,17,diagnostic_only_not_price_adjudication
+dnse,open,448,69,diagnostic_only_not_price_adjudication
+vps,close,6,0,diagnostic_only_not_price_adjudication
+vps,high,55,1,diagnostic_only_not_price_adjudication
+vps,low,169,4,diagnostic_only_not_price_adjudication
+vps,open,147,74,diagnostic_only_not_price_adjudication

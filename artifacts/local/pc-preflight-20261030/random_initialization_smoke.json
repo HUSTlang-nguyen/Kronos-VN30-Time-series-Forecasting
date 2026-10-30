@@ -1,0 +1,15 @@
+{
+  "classification": "synthetic_smoke_not_research_results",
+  "checks": {
+    "kronos-small": {
+      "loss": 6.85423469543457,
+      "parameters_sha256": "bb6bc6615f7f5527342cdafd8c7c5d318c94075a4c3bd194e3a828887f071f1f",
+      "gradients_finite": true
+    },
+    "chronos2": {
+      "loss": 12.768646240234375,
+      "parameters_sha256": "b78332255469394a44f3603febe51017aac9efb5d5e8f87dd2b866fd233cc6d9",
+      "gradients_finite": true
+    }
+  }
+}

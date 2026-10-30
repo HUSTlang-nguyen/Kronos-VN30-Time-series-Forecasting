@@ -1,0 +1,34 @@
+{
+  "classification": "exploratory_timing_estimate_not_a_completion_promise",
+  "benchmarks": {
+    "kronos-mini": {
+      "one_epoch_training_seconds": 4.187000000005355,
+      "validation_forecast_seconds_per_origin": 0.22946875000025102,
+      "peak_cuda_allocated_bytes": 212437504
+    },
+    "kronos-small": {
+      "one_epoch_training_seconds": 7.98399999999674,
+      "validation_forecast_seconds_per_origin": 0.2358437499997308,
+      "peak_cuda_allocated_bytes": 837395968
+    },
+    "kronos-base": {
+      "one_epoch_training_seconds": 18.453000000008615,
+      "validation_forecast_seconds_per_origin": 0.4267500000000837,
+      "peak_cuda_allocated_bytes": 2730016256
+    },
+    "chronos2": {
+      "one_epoch_training_seconds": 12.23399999999674,
+      "validation_forecast_seconds_per_origin": 0.22996874999989814,
+      "peak_cuda_allocated_bytes": 605541888
+    }
+  },
+  "rough_matrix_neural_hours": 4.734127777776389,
+  "original_deadline_unix": 1793430557.9180253,
+  "hours_remaining_at_estimate": 22.885779755976465,
+  "limitations": [
+    "Excludes data adjudication, CPU baseline tuning, ablation, model/setup and report overhead",
+    "Uses full primary train/validation timing for smaller folds and budgets",
+    "Pretrained timing does not prove random-initialization convergence or latency",
+    "Does not unlock the primary audit gate"
+  ]
+}

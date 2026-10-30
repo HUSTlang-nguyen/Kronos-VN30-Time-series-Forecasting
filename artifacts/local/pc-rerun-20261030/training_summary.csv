@@ -1,0 +1,1 @@
+task,base_model,seed,data_budget,initialization,initial_validation_loss,best_validation_loss,best_epoch,selected_epoch_including_zero,elapsed_seconds,peak_cuda_allocated_bytes

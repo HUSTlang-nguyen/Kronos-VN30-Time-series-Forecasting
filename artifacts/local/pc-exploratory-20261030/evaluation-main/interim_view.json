@@ -1,0 +1,14 @@
+{
+  "evidence_scope": "exploratory_only",
+  "dataset_accepted": false,
+  "seeds_scored": [
+    42
+  ],
+  "seeds_planned": [
+    42,
+    43,
+    44
+  ],
+  "complete_main_comparison": false,
+  "note": "Temporary one-seed view; mandatory three-seed comparison remains pending"
+}
