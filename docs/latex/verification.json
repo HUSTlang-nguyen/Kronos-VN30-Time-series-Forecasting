@@ -1,0 +1,28 @@
+{
+  "status": "pass",
+  "pdf_pages": 10,
+  "visual_review_pages": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "pdf_sha256": "79b16f4aaf5468ebb03ca15e7c58799a414c6c934bc4ceeb02ac2423ae8d5dba",
+  "source_zip_sha256": "9be85e58eff1f36ff9eed358546af6986d15fdacf9f7156313dc3879def41fb9",
+  "source_zip_members": 21,
+  "input_csv_hashes_checked": 10,
+  "resource_hashes_checked": 16,
+  "main_mae_values_checked": 72,
+  "unresolved_references": 0,
+  "latex_layout_warnings": 0,
+  "authoring_mentions_in_pdf_or_package": 0,
+  "new_training_or_inference_runs": 0,
+  "portable_compile_page_texts_match": true,
+  "portable_compile_pages": 10
+}

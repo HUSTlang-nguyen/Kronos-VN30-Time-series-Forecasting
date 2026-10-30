@@ -1,0 +1,41 @@
+{
+  "data_sha256": "fee0bd8c240a9d2be4ef5c9d287eede6c5506b0358c25545e72de99709da4fd2",
+  "evidence_scope": "exploratory_only",
+  "dataset_accepted": false,
+  "inputs": {
+    "artifacts/local/pc-exploratory-20261030/final-report/main_summary.csv": "4c69f1f25ed7656da63802ed97997f02b4ab3ede20dd0d25ed55c202139d965f",
+    "artifacts/local/pc-exploratory-20261030/final-report/checkpoint_selection.csv": "8f3b9e0541c2dd47e23699a639994750a67fcfb889e283f7f69cf6ab876fca96",
+    "artifacts/local/pc-exploratory-20261030/final-report/resources.csv": "e79dac0ac7cf34a53b45706036b7f8d04aa8934cde9fff1ed66b6e5cc5a25106",
+    "artifacts/local/pc-exploratory-20261030/final-report/ablation_summary.csv": "ca84020f0431940c341f1b792e7abd9712d83618e4b95808efeecc416253cbec",
+    "artifacts/local/pc-exploratory-20261030/final-report/learning_curve.csv": "78cf7cc98107f4e2fc1a06d999f9441d64bb9b6d4db8e066aeb78dbab345a22f",
+    "artifacts/local/pc-exploratory-20261030/final-report/paired_intervals.csv": "9675b95a8be72bde1e6334d1335ad58a7fecea7b61d52a94d50d61aa52211cda",
+    "artifacts/local/pc-exploratory-20261030/final-report/fold_scores.csv": "4e4f0617c45b6434150b5c7656b5db85914bc48ac49f7f79a5e2f8f5b9369343",
+    "artifacts/local/pc-exploratory-20261030/final-report/regime_period_summary.csv": "4ed3717bb213be98c1191aa2c0591217bec1284fff8e64c7e793d96276338097",
+    "artifacts/local/pc-exploratory-20261030/final-report/origin_regimes.csv": "c6cda782f8762f806cf6cff08631a930b620487b318086f9eb4c009f10f4f0bc",
+    "artifacts/local/pc-exploratory-20261030/final-report/baseline_selection.csv": "2449fd23b1fa0eda643614d929fdfebc62b71cdff0e43dcc0ca6d159cbc10261"
+  },
+  "source_files": {
+    "build_assets.py": "17c0bd32743997b7aeb389e528d90d630131648c983ce1093b206b86b6c6e115",
+    "main.tex": "1d897800a0572deb2e26275a7f0bda08fac92a038eba4d30613a3dd19a46c868",
+    "references.bib": "77a115b046ed3364f149c410032966ba97c1af2057488039d2745bf1d234057f"
+  },
+  "generated": {
+    "tables/ablation.tex": "a9d9d3b69c7a36088a3bb1ab31093eada6192ecd2f8edc6c994774e6cc867728",
+    "tables/close_mae.tex": "b63fddc419c99cf116dca3d4383a2b764dbd6bc3084f1a7e2269f643c04c38ef",
+    "tables/epochs.tex": "eff75dcbacd3f30991df86a975ff76d2f0e9c20b6578c341e0137a7686ec758c",
+    "tables/folds.tex": "bd24773a90b4ae7c409cccc4d3f0bba6e07da0b34d99be48a97a5460df84c439",
+    "tables/intervals.tex": "1185712217f81364ec01a29f7f1c78a332ca2dac5633293613c029d853906740",
+    "tables/learning.tex": "8a64979c4b4046659fd37e1b07e47923d7f4d86c5a2f4b2b241006b9ad7596d9",
+    "tables/numbers.tex": "eb9846f8481aecdd6f3986c981c44a0fcca2bb1e0ae9fba17319e5e297e165f8",
+    "tables/open_mae.tex": "c245986df3cd2509608475f035dea4eeef802bc539af8da5a40fa9ccb869ee1e",
+    "tables/regimes.tex": "13a153e088163e92237736f4bf5be311bf5c8fbead6ea934cb9e37c453a7f0e5",
+    "tables/resources.tex": "fd54dbe5a03b405f12634f295eaf8a076a5eb258e94a001f752146af82fbdbfc",
+    "tables/splits.tex": "b598b1e9608dadfb5781286a34ba0d248943b1df62662ed2f497be2f14d04cc9",
+    "figures/ablation.pdf": "c85038052bb5ebb9494c57527e85fd7afaa37cc41a577e38d871d0f6d6b876dd",
+    "figures/intervals_h20.pdf": "cf53c7dacfa750fef8e971029da3d6b618f0a75059147f91707108eae4d694f4",
+    "figures/learning.pdf": "e399ba15307e14b7cf4df155b5ffffbaf5275471bf97fe89931ad3f08bcb2a5d",
+    "figures/main_close.pdf": "78063cd05576b78cc1313de8698491ecd121a3ef5acbadc0a97280ee8043aeb1",
+    "figures/size_sft.pdf": "4f7efad0c0a63730270a0533b9f6c09c0b63b9b4765a239548ae77c52b5b215c"
+  },
+  "training_runs_added": 0
+}

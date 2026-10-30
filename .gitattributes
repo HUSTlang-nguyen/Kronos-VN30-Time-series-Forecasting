@@ -28,3 +28,13 @@ docs/slides/build_manifest.json -text whitespace=cr-at-eol
 docs/slides/build_deck.py text eol=lf
 docs/slides/check_deck.mjs text eol=lf
 docs/slides/slide-outline.md text eol=lf
+# LaTeX source/provenance hashes survive Windows/Linux checkout.
+docs/latex/*.py text eol=lf
+docs/latex/*.ps1 text eol=lf
+docs/latex/*.tex text eol=lf
+docs/latex/*.bib text eol=lf
+docs/latex/*.md text eol=lf
+docs/latex/*.json text eol=lf
+docs/latex/tables/*.tex text eol=lf
+docs/latex/**/*.pdf -text
+docs/latex/*.zip -text

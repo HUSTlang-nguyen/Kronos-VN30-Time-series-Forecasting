@@ -50,3 +50,13 @@ data/share/*-shm
 Thumbs.db
 .vscode/
 .idea/
+
+# Local LaTeX compilation intermediates; keep the final PDF and source ZIP.
+docs/latex/.build/
+docs/latex/*.aux
+docs/latex/*.bbl
+docs/latex/*.blg
+docs/latex/*.out
+docs/latex/*.toc
+docs/latex/*.xdv
+docs/latex/*.synctex.gz
