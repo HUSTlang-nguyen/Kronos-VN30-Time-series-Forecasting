@@ -99,3 +99,19 @@ CI chạy các kiểm thử dữ liệu/thời gian/điều phối. Các kiểm 
 Mỗi lượt có `state.json`, `matrix.json`, `logs/`, `audit/`, benchmark, cấu hình baseline đã khóa, checkpoint, forecast, score, chẩn đoán, và `remaining.json`. Báo cáo chỉ lấy nhóm đã phủ đủ origin và qua kiểm tra metric độc lập. Có bảng seed, learning curve, selected-score tính epoch 0, đồ thị loss và MAE khi thực sự có dữ liệu đầu ra. Không đủ lượt thì không đánh dấu hoàn thành.
 
 Resume model lưu cả optimizer, RNG CPU/CUDA/Python/NumPy, thứ tự shuffle và epoch. Snapshot optimizer/RNG `.pt` là dữ liệu local; weights xuất bản dùng Git LFS. Các artifact cũ vẫn giữ nguyên.
+
+## Chạy không cần theo dõi bằng agent
+
+Các worker thăm dò được tách theo giai đoạn để GPU chạy tuần tự:
+
+```powershell
+.venv/Scripts/python.exe scripts/evaluate_candidate.py init
+.venv/Scripts/python.exe scripts/evaluate_candidate.py neural
+.venv/Scripts/python.exe scripts/evaluate_candidate.py baselines
+.venv/Scripts/python.exe experiments/candidate_learning.py --wait-for-gpu
+.venv/Scripts/python.exe experiments/candidate_stability.py --wait-for-learning
+```
+
+Supervisor `experiments/unattended_supervisor.py` nhận các worker đang sống trước khi mở worker còn thiếu; không chạy lại các lệnh trên nếu chúng đang sống. Nó không dùng quota chat, không đổi cấu hình khoa học, không tự chấp nhận dữ liệu. Giữ nguyên deadline/stage caps của lượt PC gốc, lưu báo cáo `UNATTENDED_REPORT.md` và nhật ký `supervision/events.jsonl`. Trên Windows, chạy nền bằng `Start-Process -WindowStyle Hidden`; kiểm `supervision/supervisor.lock` trước để tránh mở trùng.
+
+Lỗi tiến trình có thể tiếp tục tối đa hai lần từ checkpoint/progress. Process còn sống không bị xem là đã chết chỉ vì chậm. Lỗi protocol/hash hoặc hết giới hạn retry được ghi rõ để agent kiểm tra sau; không dùng Naive lấp dự báo lỗi. Checkpoint/push tự động chỉ stage artifact trong thư mục candidate đã được người dùng cho phép công bố; weights/optimizer vẫn giữ local, lỗi Git không dừng tính toán.

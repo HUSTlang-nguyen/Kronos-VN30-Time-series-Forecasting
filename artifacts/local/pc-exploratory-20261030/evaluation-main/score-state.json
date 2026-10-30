@@ -1,0 +1,9 @@
+{
+  "evidence_scope": "exploratory_only",
+  "jobs": {
+    "score-all-seeds": {
+      "status": "running",
+      "started_unix": 1793352136.3700097
+    }
+  }
+}

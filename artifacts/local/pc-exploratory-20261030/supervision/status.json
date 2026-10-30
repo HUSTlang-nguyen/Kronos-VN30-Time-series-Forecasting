@@ -1,0 +1,83 @@
+{
+  "pid": 8876,
+  "updated_utc": "2026-10-30T09:16:53.048746+00:00",
+  "deadline_unix": 1793430557.9180253,
+  "evidence_scope": "exploratory_only",
+  "dataset_accepted": false,
+  "keep_awake": false,
+  "phases": {
+    "baselines": {
+      "complete": true,
+      "done": 11,
+      "expected": 11,
+      "state_path": "C:\\Users\\neikh\\Documents\\GitHub\\Kronos-VN30-Time-series-Forecasting\\artifacts\\local\\pc-exploratory-20261030\\evaluation-main\\baselines-state.json",
+      "processes": [],
+      "restarts": 0,
+      "status": "complete"
+    },
+    "neural": {
+      "complete": false,
+      "done": 40,
+      "expected": 48,
+      "state_path": "C:\\Users\\neikh\\Documents\\GitHub\\Kronos-VN30-Time-series-Forecasting\\artifacts\\local\\pc-exploratory-20261030\\evaluation-main\\neural-state.json",
+      "processes": [
+        {
+          "pid": 6692,
+          "created_unix": 1793349434.529738
+        },
+        {
+          "pid": 22028,
+          "created_unix": 1793349434.540069
+        }
+      ],
+      "restarts": 0,
+      "status": "running"
+    },
+    "score": {
+      "complete": false,
+      "done": 0,
+      "expected": 1,
+      "state_path": "C:\\Users\\neikh\\Documents\\GitHub\\Kronos-VN30-Time-series-Forecasting\\artifacts\\local\\pc-exploratory-20261030\\evaluation-main\\score-state.json",
+      "processes": [],
+      "restarts": 0,
+      "status": "pending"
+    },
+    "learning": {
+      "complete": false,
+      "done": 0,
+      "expected": 36,
+      "state_path": "C:\\Users\\neikh\\Documents\\GitHub\\Kronos-VN30-Time-series-Forecasting\\artifacts\\local\\pc-exploratory-20261030\\learning\\state.json",
+      "processes": [
+        {
+          "pid": 33968,
+          "created_unix": 1793350305.6163237
+        },
+        {
+          "pid": 34520,
+          "created_unix": 1793350305.6068635
+        }
+      ],
+      "restarts": 0,
+      "status": "waiting_for_sequential_gpu_slot"
+    },
+    "followups": {
+      "complete": false,
+      "done": 0,
+      "expected": 5,
+      "state_path": "C:\\Users\\neikh\\Documents\\GitHub\\Kronos-VN30-Time-series-Forecasting\\artifacts\\local\\pc-exploratory-20261030\\followups\\state.json",
+      "processes": [
+        {
+          "pid": 19948,
+          "created_unix": 1793350900.0110476
+        },
+        {
+          "pid": 32932,
+          "created_unix": 1793350900.0005758
+        }
+      ],
+      "restarts": 0,
+      "status": "waiting_for_learning"
+    }
+  },
+  "pipeline_complete": false
+}

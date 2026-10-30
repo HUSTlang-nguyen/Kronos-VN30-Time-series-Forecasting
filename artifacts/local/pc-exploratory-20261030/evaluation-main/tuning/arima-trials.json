@@ -1,0 +1,2697 @@
+[
+  {
+    "config": {
+      "order": [
+        0,
+        0,
+        0
+      ]
+    },
+    "validation_loss": 0.22777886873911074,
+    "expected_origins": 321,
+    "successful_origins": 321,
+    "failures": []
+  },
+  {
+    "config": {
+      "order": [
+        0,
+        0,
+        1
+      ]
+    },
+    "validation_loss": 0.19813321837844755,
+    "expected_origins": 321,
+    "successful_origins": 321,
+    "failures": []
+  },
+  {
+    "config": {
+      "order": [
+        0,
+        0,
+        2
+      ]
+    },
+    "validation_loss": null,
+    "expected_origins": 321,
+    "successful_origins": 311,
+    "failures": [
+      {
+        "origin_index": 1596,
+        "date": "2024-01-11",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1608,
+        "date": "2024-01-29",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1611,
+        "date": "2024-02-01",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1641,
+        "date": "2024-03-21",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1652,
+        "date": "2024-04-05",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1687,
+        "date": "2024-05-30",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1692,
+        "date": "2024-06-06",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1700,
+        "date": "2024-06-18",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1718,
+        "date": "2024-07-12",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1726,
+        "date": "2024-07-24",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      }
+    ]
+  },
+  {
+    "config": {
+      "order": [
+        0,
+        1,
+        0
+      ]
+    },
+    "validation_loss": 0.10346961178575101,
+    "expected_origins": 321,
+    "successful_origins": 321,
+    "failures": []
+  },
+  {
+    "config": {
+      "order": [
+        0,
+        1,
+        1
+      ]
+    },
+    "validation_loss": 0.10375704439410446,
+    "expected_origins": 321,
+    "successful_origins": 321,
+    "failures": []
+  },
+  {
+    "config": {
+      "order": [
+        0,
+        1,
+        2
+      ]
+    },
+    "validation_loss": 0.10410287157089229,
+    "expected_origins": 321,
+    "successful_origins": 321,
+    "failures": []
+  },
+  {
+    "config": {
+      "order": [
+        1,
+        0,
+        0
+      ]
+    },
+    "validation_loss": 0.10551445451284487,
+    "expected_origins": 321,
+    "successful_origins": 321,
+    "failures": []
+  },
+  {
+    "config": {
+      "order": [
+        1,
+        0,
+        1
+      ]
+    },
+    "validation_loss": 0.10470775381770897,
+    "expected_origins": 321,
+    "successful_origins": 321,
+    "failures": []
+  },
+  {
+    "config": {
+      "order": [
+        1,
+        0,
+        2
+      ]
+    },
+    "validation_loss": 0.10677175703618279,
+    "expected_origins": 321,
+    "successful_origins": 321,
+    "failures": []
+  },
+  {
+    "config": {
+      "order": [
+        1,
+        1,
+        0
+      ]
+    },
+    "validation_loss": 0.1038908847304164,
+    "expected_origins": 321,
+    "successful_origins": 321,
+    "failures": []
+  },
+  {
+    "config": {
+      "order": [
+        1,
+        1,
+        1
+      ]
+    },
+    "validation_loss": 0.10599491744115246,
+    "expected_origins": 321,
+    "successful_origins": 321,
+    "failures": []
+  },
+  {
+    "config": {
+      "order": [
+        1,
+        1,
+        2
+      ]
+    },
+    "validation_loss": null,
+    "expected_origins": 321,
+    "successful_origins": 305,
+    "failures": [
+      {
+        "origin_index": 1596,
+        "date": "2024-01-11",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1599,
+        "date": "2024-01-16",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1654,
+        "date": "2024-04-09",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1655,
+        "date": "2024-04-10",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1656,
+        "date": "2024-04-11",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1657,
+        "date": "2024-04-12",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1658,
+        "date": "2024-04-15",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1659,
+        "date": "2024-04-16",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1661,
+        "date": "2024-04-19",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1663,
+        "date": "2024-04-23",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1668,
+        "date": "2024-05-03",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1674,
+        "date": "2024-05-13",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1677,
+        "date": "2024-05-16",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1679,
+        "date": "2024-05-20",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1680,
+        "date": "2024-05-21",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1808,
+        "date": "2024-11-19",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      }
+    ]
+  },
+  {
+    "config": {
+      "order": [
+        2,
+        0,
+        0
+      ]
+    },
+    "validation_loss": 0.10460137164141377,
+    "expected_origins": 321,
+    "successful_origins": 321,
+    "failures": []
+  },
+  {
+    "config": {
+      "order": [
+        2,
+        0,
+        1
+      ]
+    },
+    "validation_loss": null,
+    "expected_origins": 321,
+    "successful_origins": 279,
+    "failures": [
+      {
+        "origin_index": 1603,
+        "date": "2024-01-22",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1604,
+        "date": "2024-01-23",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1608,
+        "date": "2024-01-29",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1611,
+        "date": "2024-02-01",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1614,
+        "date": "2024-02-06",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1616,
+        "date": "2024-02-15",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1617,
+        "date": "2024-02-16",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1639,
+        "date": "2024-03-19",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1646,
+        "date": "2024-03-28",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1664,
+        "date": "2024-04-24",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1670,
+        "date": "2024-05-07",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1673,
+        "date": "2024-05-10",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1680,
+        "date": "2024-05-21",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1689,
+        "date": "2024-06-03",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1707,
+        "date": "2024-06-27",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1710,
+        "date": "2024-07-02",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1792,
+        "date": "2024-10-28",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1793,
+        "date": "2024-10-29",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1807,
+        "date": "2024-11-18",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1809,
+        "date": "2024-11-20",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1820,
+        "date": "2024-12-05",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1824,
+        "date": "2024-12-11",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1825,
+        "date": "2024-12-12",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1848,
+        "date": "2025-01-15",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1853,
+        "date": "2025-01-22",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1854,
+        "date": "2025-01-23",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1856,
+        "date": "2025-02-03",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1857,
+        "date": "2025-02-04",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1858,
+        "date": "2025-02-05",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1859,
+        "date": "2025-02-06",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1860,
+        "date": "2025-02-07",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1863,
+        "date": "2025-02-12",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1864,
+        "date": "2025-02-13",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1871,
+        "date": "2025-02-24",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1877,
+        "date": "2025-03-04",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1879,
+        "date": "2025-03-06",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1881,
+        "date": "2025-03-10",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1885,
+        "date": "2025-03-14",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1888,
+        "date": "2025-03-19",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1891,
+        "date": "2025-03-24",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1892,
+        "date": "2025-03-25",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1893,
+        "date": "2025-03-26",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      }
+    ]
+  },
+  {
+    "config": {
+      "order": [
+        2,
+        0,
+        2
+      ]
+    },
+    "validation_loss": null,
+    "expected_origins": 321,
+    "successful_origins": 195,
+    "failures": [
+      {
+        "origin_index": 1588,
+        "date": "2023-12-29",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1589,
+        "date": "2024-01-02",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1591,
+        "date": "2024-01-04",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1602,
+        "date": "2024-01-19",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1605,
+        "date": "2024-01-24",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1608,
+        "date": "2024-01-29",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1609,
+        "date": "2024-01-30",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1610,
+        "date": "2024-01-31",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1611,
+        "date": "2024-02-01",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1616,
+        "date": "2024-02-15",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1617,
+        "date": "2024-02-16",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1618,
+        "date": "2024-02-19",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1619,
+        "date": "2024-02-20",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1623,
+        "date": "2024-02-26",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1626,
+        "date": "2024-02-29",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1628,
+        "date": "2024-03-04",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1629,
+        "date": "2024-03-05",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1630,
+        "date": "2024-03-06",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1631,
+        "date": "2024-03-07",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1632,
+        "date": "2024-03-08",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1633,
+        "date": "2024-03-11",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1635,
+        "date": "2024-03-13",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1636,
+        "date": "2024-03-14",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1637,
+        "date": "2024-03-15",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1638,
+        "date": "2024-03-18",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1640,
+        "date": "2024-03-20",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1641,
+        "date": "2024-03-21",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1642,
+        "date": "2024-03-22",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1643,
+        "date": "2024-03-25",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1644,
+        "date": "2024-03-26",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1645,
+        "date": "2024-03-27",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1646,
+        "date": "2024-03-28",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1647,
+        "date": "2024-03-29",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1648,
+        "date": "2024-04-01",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1649,
+        "date": "2024-04-02",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1650,
+        "date": "2024-04-03",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1651,
+        "date": "2024-04-04",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1653,
+        "date": "2024-04-08",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1654,
+        "date": "2024-04-09",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1655,
+        "date": "2024-04-10",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1656,
+        "date": "2024-04-11",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1657,
+        "date": "2024-04-12",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1658,
+        "date": "2024-04-15",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1659,
+        "date": "2024-04-16",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1660,
+        "date": "2024-04-17",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1665,
+        "date": "2024-04-25",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1668,
+        "date": "2024-05-03",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1669,
+        "date": "2024-05-06",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1670,
+        "date": "2024-05-07",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1672,
+        "date": "2024-05-09",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1673,
+        "date": "2024-05-10",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1674,
+        "date": "2024-05-13",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1676,
+        "date": "2024-05-15",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1677,
+        "date": "2024-05-16",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1678,
+        "date": "2024-05-17",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1679,
+        "date": "2024-05-20",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1699,
+        "date": "2024-06-17",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1705,
+        "date": "2024-06-25",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1708,
+        "date": "2024-06-28",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1710,
+        "date": "2024-07-02",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1714,
+        "date": "2024-07-08",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1788,
+        "date": "2024-10-22",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1790,
+        "date": "2024-10-24",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1798,
+        "date": "2024-11-05",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1808,
+        "date": "2024-11-19",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1809,
+        "date": "2024-11-20",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1816,
+        "date": "2024-11-29",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1822,
+        "date": "2024-12-09",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1823,
+        "date": "2024-12-10",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1824,
+        "date": "2024-12-11",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1825,
+        "date": "2024-12-12",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1826,
+        "date": "2024-12-13",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1827,
+        "date": "2024-12-16",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1828,
+        "date": "2024-12-17",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1829,
+        "date": "2024-12-18",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1834,
+        "date": "2024-12-25",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1838,
+        "date": "2024-12-31",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1839,
+        "date": "2025-01-02",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1842,
+        "date": "2025-01-07",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1843,
+        "date": "2025-01-08",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1844,
+        "date": "2025-01-09",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1845,
+        "date": "2025-01-10",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1846,
+        "date": "2025-01-13",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1847,
+        "date": "2025-01-14",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1848,
+        "date": "2025-01-15",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1850,
+        "date": "2025-01-17",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1851,
+        "date": "2025-01-20",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1854,
+        "date": "2025-01-23",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1856,
+        "date": "2025-02-03",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1858,
+        "date": "2025-02-05",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1859,
+        "date": "2025-02-06",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1860,
+        "date": "2025-02-07",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1861,
+        "date": "2025-02-10",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1862,
+        "date": "2025-02-11",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1863,
+        "date": "2025-02-12",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1864,
+        "date": "2025-02-13",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1865,
+        "date": "2025-02-14",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1866,
+        "date": "2025-02-17",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1867,
+        "date": "2025-02-18",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1868,
+        "date": "2025-02-19",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1869,
+        "date": "2025-02-20",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1870,
+        "date": "2025-02-21",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1874,
+        "date": "2025-02-27",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1875,
+        "date": "2025-02-28",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1876,
+        "date": "2025-03-03",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1877,
+        "date": "2025-03-04",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1878,
+        "date": "2025-03-05",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1879,
+        "date": "2025-03-06",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1880,
+        "date": "2025-03-07",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1881,
+        "date": "2025-03-10",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1882,
+        "date": "2025-03-11",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1883,
+        "date": "2025-03-12",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1884,
+        "date": "2025-03-13",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1885,
+        "date": "2025-03-14",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1886,
+        "date": "2025-03-17",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1887,
+        "date": "2025-03-18",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1888,
+        "date": "2025-03-19",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1889,
+        "date": "2025-03-20",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1890,
+        "date": "2025-03-21",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1891,
+        "date": "2025-03-24",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1892,
+        "date": "2025-03-25",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1893,
+        "date": "2025-03-26",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1894,
+        "date": "2025-03-27",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1899,
+        "date": "2025-04-03",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1900,
+        "date": "2025-04-04",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1902,
+        "date": "2025-04-09",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      }
+    ]
+  },
+  {
+    "config": {
+      "order": [
+        2,
+        1,
+        0
+      ]
+    },
+    "validation_loss": 0.10456068055874851,
+    "expected_origins": 321,
+    "successful_origins": 321,
+    "failures": []
+  },
+  {
+    "config": {
+      "order": [
+        2,
+        1,
+        1
+      ]
+    },
+    "validation_loss": null,
+    "expected_origins": 321,
+    "successful_origins": 295,
+    "failures": [
+      {
+        "origin_index": 1654,
+        "date": "2024-04-09",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1655,
+        "date": "2024-04-10",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1656,
+        "date": "2024-04-11",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1658,
+        "date": "2024-04-15",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1659,
+        "date": "2024-04-16",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1660,
+        "date": "2024-04-17",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1661,
+        "date": "2024-04-19",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1663,
+        "date": "2024-04-23",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1664,
+        "date": "2024-04-24",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1665,
+        "date": "2024-04-25",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1668,
+        "date": "2024-05-03",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1671,
+        "date": "2024-05-08",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1677,
+        "date": "2024-05-16",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1678,
+        "date": "2024-05-17",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1679,
+        "date": "2024-05-20",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1693,
+        "date": "2024-06-07",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1694,
+        "date": "2024-06-10",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1695,
+        "date": "2024-06-11",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1804,
+        "date": "2024-11-13",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1810,
+        "date": "2024-11-21",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1823,
+        "date": "2024-12-10",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1824,
+        "date": "2024-12-11",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1825,
+        "date": "2024-12-12",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1826,
+        "date": "2024-12-13",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1828,
+        "date": "2024-12-17",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1832,
+        "date": "2024-12-23",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      }
+    ]
+  },
+  {
+    "config": {
+      "order": [
+        2,
+        1,
+        2
+      ]
+    },
+    "validation_loss": null,
+    "expected_origins": 321,
+    "successful_origins": 50,
+    "failures": [
+      {
+        "origin_index": 1588,
+        "date": "2023-12-29",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1589,
+        "date": "2024-01-02",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1590,
+        "date": "2024-01-03",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1591,
+        "date": "2024-01-04",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1592,
+        "date": "2024-01-05",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1595,
+        "date": "2024-01-10",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1596,
+        "date": "2024-01-11",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1597,
+        "date": "2024-01-12",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1598,
+        "date": "2024-01-15",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1599,
+        "date": "2024-01-16",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1600,
+        "date": "2024-01-17",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1606,
+        "date": "2024-01-25",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1607,
+        "date": "2024-01-26",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1608,
+        "date": "2024-01-29",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1609,
+        "date": "2024-01-30",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1610,
+        "date": "2024-01-31",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1611,
+        "date": "2024-02-01",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1612,
+        "date": "2024-02-02",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1613,
+        "date": "2024-02-05",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1614,
+        "date": "2024-02-06",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1616,
+        "date": "2024-02-15",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1617,
+        "date": "2024-02-16",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1619,
+        "date": "2024-02-20",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1621,
+        "date": "2024-02-22",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1623,
+        "date": "2024-02-26",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1625,
+        "date": "2024-02-28",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1626,
+        "date": "2024-02-29",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1627,
+        "date": "2024-03-01",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1628,
+        "date": "2024-03-04",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1629,
+        "date": "2024-03-05",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1630,
+        "date": "2024-03-06",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1632,
+        "date": "2024-03-08",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1633,
+        "date": "2024-03-11",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1635,
+        "date": "2024-03-13",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1636,
+        "date": "2024-03-14",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1637,
+        "date": "2024-03-15",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1638,
+        "date": "2024-03-18",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1639,
+        "date": "2024-03-19",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1640,
+        "date": "2024-03-20",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1641,
+        "date": "2024-03-21",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1643,
+        "date": "2024-03-25",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1644,
+        "date": "2024-03-26",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1645,
+        "date": "2024-03-27",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1646,
+        "date": "2024-03-28",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1647,
+        "date": "2024-03-29",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1648,
+        "date": "2024-04-01",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1649,
+        "date": "2024-04-02",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1650,
+        "date": "2024-04-03",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1651,
+        "date": "2024-04-04",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1652,
+        "date": "2024-04-05",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1653,
+        "date": "2024-04-08",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1654,
+        "date": "2024-04-09",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1655,
+        "date": "2024-04-10",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1656,
+        "date": "2024-04-11",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1657,
+        "date": "2024-04-12",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1658,
+        "date": "2024-04-15",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1659,
+        "date": "2024-04-16",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1660,
+        "date": "2024-04-17",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1661,
+        "date": "2024-04-19",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1662,
+        "date": "2024-04-22",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1663,
+        "date": "2024-04-23",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1664,
+        "date": "2024-04-24",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1665,
+        "date": "2024-04-25",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1666,
+        "date": "2024-04-26",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1667,
+        "date": "2024-05-02",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1668,
+        "date": "2024-05-03",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1669,
+        "date": "2024-05-06",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1670,
+        "date": "2024-05-07",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1671,
+        "date": "2024-05-08",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1672,
+        "date": "2024-05-09",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1673,
+        "date": "2024-05-10",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1674,
+        "date": "2024-05-13",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1675,
+        "date": "2024-05-14",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1676,
+        "date": "2024-05-15",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1677,
+        "date": "2024-05-16",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1678,
+        "date": "2024-05-17",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1679,
+        "date": "2024-05-20",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1680,
+        "date": "2024-05-21",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1681,
+        "date": "2024-05-22",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1682,
+        "date": "2024-05-23",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1683,
+        "date": "2024-05-24",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1684,
+        "date": "2024-05-27",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1685,
+        "date": "2024-05-28",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1686,
+        "date": "2024-05-29",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1687,
+        "date": "2024-05-30",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1689,
+        "date": "2024-06-03",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1690,
+        "date": "2024-06-04",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1691,
+        "date": "2024-06-05",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1692,
+        "date": "2024-06-06",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1693,
+        "date": "2024-06-07",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1694,
+        "date": "2024-06-10",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1695,
+        "date": "2024-06-11",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1696,
+        "date": "2024-06-12",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1697,
+        "date": "2024-06-13",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1698,
+        "date": "2024-06-14",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1699,
+        "date": "2024-06-17",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1700,
+        "date": "2024-06-18",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1701,
+        "date": "2024-06-19",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1702,
+        "date": "2024-06-20",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1703,
+        "date": "2024-06-21",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1704,
+        "date": "2024-06-24",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1705,
+        "date": "2024-06-25",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1706,
+        "date": "2024-06-26",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1707,
+        "date": "2024-06-27",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1708,
+        "date": "2024-06-28",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1709,
+        "date": "2024-07-01",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1710,
+        "date": "2024-07-02",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1711,
+        "date": "2024-07-03",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1712,
+        "date": "2024-07-04",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1713,
+        "date": "2024-07-05",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1714,
+        "date": "2024-07-08",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1715,
+        "date": "2024-07-09",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1716,
+        "date": "2024-07-10",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1717,
+        "date": "2024-07-11",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1718,
+        "date": "2024-07-12",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1719,
+        "date": "2024-07-15",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1720,
+        "date": "2024-07-16",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1721,
+        "date": "2024-07-17",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1722,
+        "date": "2024-07-18",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1723,
+        "date": "2024-07-19",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1724,
+        "date": "2024-07-22",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1725,
+        "date": "2024-07-23",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1726,
+        "date": "2024-07-24",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1727,
+        "date": "2024-07-25",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1728,
+        "date": "2024-07-26",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1729,
+        "date": "2024-07-29",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1730,
+        "date": "2024-07-30",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1731,
+        "date": "2024-07-31",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1733,
+        "date": "2024-08-02",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1734,
+        "date": "2024-08-05",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1738,
+        "date": "2024-08-09",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1740,
+        "date": "2024-08-13",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1741,
+        "date": "2024-08-14",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1742,
+        "date": "2024-08-15",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1746,
+        "date": "2024-08-21",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1747,
+        "date": "2024-08-22",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1748,
+        "date": "2024-08-23",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1749,
+        "date": "2024-08-26",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1750,
+        "date": "2024-08-27",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1751,
+        "date": "2024-08-28",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1752,
+        "date": "2024-08-29",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1753,
+        "date": "2024-08-30",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1754,
+        "date": "2024-09-04",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1755,
+        "date": "2024-09-05",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1756,
+        "date": "2024-09-06",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1757,
+        "date": "2024-09-09",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1758,
+        "date": "2024-09-10",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1759,
+        "date": "2024-09-11",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1760,
+        "date": "2024-09-12",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1761,
+        "date": "2024-09-13",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1762,
+        "date": "2024-09-16",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1763,
+        "date": "2024-09-17",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1764,
+        "date": "2024-09-18",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1766,
+        "date": "2024-09-20",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1767,
+        "date": "2024-09-23",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1769,
+        "date": "2024-09-25",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1770,
+        "date": "2024-09-26",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1773,
+        "date": "2024-10-01",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1776,
+        "date": "2024-10-04",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1777,
+        "date": "2024-10-07",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1778,
+        "date": "2024-10-08",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1779,
+        "date": "2024-10-09",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1780,
+        "date": "2024-10-10",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1781,
+        "date": "2024-10-11",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1782,
+        "date": "2024-10-14",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1783,
+        "date": "2024-10-15",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1784,
+        "date": "2024-10-16",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1785,
+        "date": "2024-10-17",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1786,
+        "date": "2024-10-18",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1787,
+        "date": "2024-10-21",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1788,
+        "date": "2024-10-22",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1790,
+        "date": "2024-10-24",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1791,
+        "date": "2024-10-25",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1792,
+        "date": "2024-10-28",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1793,
+        "date": "2024-10-29",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1794,
+        "date": "2024-10-30",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1795,
+        "date": "2024-10-31",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1796,
+        "date": "2024-11-01",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1797,
+        "date": "2024-11-04",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1798,
+        "date": "2024-11-05",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1799,
+        "date": "2024-11-06",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1800,
+        "date": "2024-11-07",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1801,
+        "date": "2024-11-08",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1802,
+        "date": "2024-11-11",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1803,
+        "date": "2024-11-12",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1804,
+        "date": "2024-11-13",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1805,
+        "date": "2024-11-14",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1806,
+        "date": "2024-11-15",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1807,
+        "date": "2024-11-18",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1808,
+        "date": "2024-11-19",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1809,
+        "date": "2024-11-20",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1810,
+        "date": "2024-11-21",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1811,
+        "date": "2024-11-22",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1812,
+        "date": "2024-11-25",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1813,
+        "date": "2024-11-26",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1814,
+        "date": "2024-11-27",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1815,
+        "date": "2024-11-28",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1816,
+        "date": "2024-11-29",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1817,
+        "date": "2024-12-02",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1818,
+        "date": "2024-12-03",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1819,
+        "date": "2024-12-04",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1820,
+        "date": "2024-12-05",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1821,
+        "date": "2024-12-06",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1822,
+        "date": "2024-12-09",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1823,
+        "date": "2024-12-10",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1824,
+        "date": "2024-12-11",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1825,
+        "date": "2024-12-12",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1826,
+        "date": "2024-12-13",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1827,
+        "date": "2024-12-16",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1828,
+        "date": "2024-12-17",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1830,
+        "date": "2024-12-19",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1831,
+        "date": "2024-12-20",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1832,
+        "date": "2024-12-23",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1833,
+        "date": "2024-12-24",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1835,
+        "date": "2024-12-26",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1836,
+        "date": "2024-12-27",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1837,
+        "date": "2024-12-30",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1838,
+        "date": "2024-12-31",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1839,
+        "date": "2025-01-02",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1840,
+        "date": "2025-01-03",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1845,
+        "date": "2025-01-10",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1846,
+        "date": "2025-01-13",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1847,
+        "date": "2025-01-14",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1848,
+        "date": "2025-01-15",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1849,
+        "date": "2025-01-16",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1850,
+        "date": "2025-01-17",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1851,
+        "date": "2025-01-20",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1852,
+        "date": "2025-01-21",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1853,
+        "date": "2025-01-22",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1855,
+        "date": "2025-01-24",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1856,
+        "date": "2025-02-03",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1861,
+        "date": "2025-02-10",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1862,
+        "date": "2025-02-11",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1865,
+        "date": "2025-02-14",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1866,
+        "date": "2025-02-17",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1867,
+        "date": "2025-02-18",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1868,
+        "date": "2025-02-19",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1869,
+        "date": "2025-02-20",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1870,
+        "date": "2025-02-21",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1872,
+        "date": "2025-02-25",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1873,
+        "date": "2025-02-26",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1874,
+        "date": "2025-02-27",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1875,
+        "date": "2025-02-28",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1876,
+        "date": "2025-03-03",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1877,
+        "date": "2025-03-04",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1878,
+        "date": "2025-03-05",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1879,
+        "date": "2025-03-06",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1880,
+        "date": "2025-03-07",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1881,
+        "date": "2025-03-10",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1882,
+        "date": "2025-03-11",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1883,
+        "date": "2025-03-12",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1884,
+        "date": "2025-03-13",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1885,
+        "date": "2025-03-14",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1886,
+        "date": "2025-03-17",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1887,
+        "date": "2025-03-18",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1888,
+        "date": "2025-03-19",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1889,
+        "date": "2025-03-20",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1890,
+        "date": "2025-03-21",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1891,
+        "date": "2025-03-24",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1892,
+        "date": "2025-03-25",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1893,
+        "date": "2025-03-26",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1894,
+        "date": "2025-03-27",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1895,
+        "date": "2025-03-28",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1896,
+        "date": "2025-03-31",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1897,
+        "date": "2025-04-01",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1898,
+        "date": "2025-04-02",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1899,
+        "date": "2025-04-03",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1903,
+        "date": "2025-04-10",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1904,
+        "date": "2025-04-11",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1905,
+        "date": "2025-04-14",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      },
+      {
+        "origin_index": 1906,
+        "date": "2025-04-15",
+        "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals"
+      }
+    ]
+  }
+]

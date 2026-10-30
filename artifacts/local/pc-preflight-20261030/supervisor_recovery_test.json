@@ -1,0 +1,8 @@
+{
+  "classification": "disposable_process_recovery_test_not_research",
+  "status": "pass",
+  "first_exit_code": 7,
+  "restart_exit_code": 0,
+  "checkpoint_preserved": true,
+  "real_research_processes_touched": false
+}

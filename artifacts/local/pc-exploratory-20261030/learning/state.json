@@ -1,0 +1,14 @@
+{
+  "evidence_scope": "exploratory_only",
+  "jobs": {
+    "kronos-small-s42-n500-pretrained": {
+      "status": "running",
+      "task": {
+        "model": "kronos-small",
+        "seed": 42,
+        "budget": 500,
+        "initialization": "pretrained"
+      }
+    }
+  }
+}

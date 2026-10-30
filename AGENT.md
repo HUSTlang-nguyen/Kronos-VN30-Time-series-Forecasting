@@ -61,6 +61,20 @@ Nhánh thăm dò: `artifacts/local/pc-exploratory-20261030/`, chạy bằng `scr
 
 ## Cách tiếp tục
 
+### Bàn giao chạy cục bộ khi agent tạm dừng 3 giờ
+
+Người dùng đã yêu cầu sau khi kiểm tra bàn giao thì **tạm dừng agent theo dõi 3 giờ, PC tiếp tục chạy** để dành quota. Pipeline cục bộ không dùng LLM. Không dừng các tiến trình tính toán khi tạm dừng goal trong chat.
+
+- `experiments/unattended_supervisor.py`: nhận các worker đang sống bằng đúng command/PID, GPU tuần tự, tối đa hai lần tiếp tục tiến trình đã chết, không sửa cấu hình/kết quả khi lỗi hash/protocol. Giữ máy khỏi tự sleep trong thời gian supervisor sống; màn hình vẫn có thể tắt.
+- Thứ tự: main neural + baseline → chấm đủ ba seed; GPU chuyển Q3 → ba ablation seed → hai expanding folds. Mọi bước dùng deadline gốc hoặc stage cap sớm hơn.
+- Báo cáo tự cập nhật: `artifacts/local/pc-exploratory-20261030/UNATTENDED_REPORT.md`; PID/heartbeat/events trong `supervision/`. Đọc file này và kiểm process thật trước khi khởi động bất kỳ worker nào. Không chạy thêm supervisor nếu PID lock còn sống.
+- Main: `scripts/evaluate_candidate.py`; snapshot cũ không thay đổi, chỉ thêm entry point đánh giá và ghi proof tất cả file đã khóa giữ nguyên. Primary coordinator vẫn bị chặn dữ liệu; không âm thầm sửa source identity của primary state.
+- Q3: `experiments/candidate_learning.py`, 36 so sánh, 66 lượt train mới gồm random LR trials, tái dùng 6 full-budget pretrained checkpoint PC. Dùng trực tiếp trial LR thắng validation, không train trùng. Hash riêng của orchestrator được ghi bên cạnh hash src/scripts đã khóa.
+- Q2/Q4: `experiments/candidate_stability.py` và `candidate_ablation.py`. Ablation là specialization có scope/provenance của mã frozen, giữ nguyên predictor/loss/feature transforms/vòng lặp số học. Chỉ dùng loader thăm dò rõ ràng; không giả audit accepted.
+- Các process đã được kiểm sống trước bàn giao: main neural exec session `49384`; watcher chấm điểm `53801`; Q3 chờ GPU `34839`; Q2/Q4 chờ Q3 `7939`. Các session có thể terminal sau khi xong; ưu tiên supervisor status và native PID/command thực tế. CPU baseline session `60966` đã terminal thành công.
+- Có bảng tạm seed 42 (1/3, không đánh dấu hoàn thành); Naive đang mạnh, không đổi HP vì đã thấy test. Cấu hình baseline validation: Ridge alpha 10, ETS level, ARIMA(0,1,0).
+- Vai trò model: trọng tâm ba Kronos; Chronos-2-small là đối chứng đã có trong báo cáo VN30 cũ, không phải model thay Kronos.
+
 Đọc `AGENT_LOG.md` rồi `IMPLEMENTATION_PLAN.md`. Kiểm tra `state.json`, audit và Git trước khi sửa. Hồ sơ điều tra bổ sung nằm ở `artifacts/local/pc-preflight-20261030/evidence_review.md`; đây chưa phải biên bản chấp nhận dataset. Tiếp tục điều tra nguồn giá/lịch phiên bằng bằng chứng truy vết được. Chỉ chạy nghiên cứu mới khi điều kiện dữ liệu thật sự đạt; không hỏi lại các lựa chọn người dùng đã chốt ở trên.
 
 Lệnh, cấu trúc artifact và hướng dẫn chi tiết: `docs/PC_Rerun.md`.

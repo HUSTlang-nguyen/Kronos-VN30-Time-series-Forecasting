@@ -1,0 +1,7 @@
+{
+  "pid": 19948,
+  "status": "waiting_for_learning",
+  "evidence_scope": "exploratory_only",
+  "planned_jobs": 5,
+  "stage_deadline_unix": 1793416157.9180253
+}

@@ -1,0 +1,4 @@
+{
+  "checkpoint": "artifacts/local/pc-exploratory-20261030/learning/checkpoints/kronos-small-s42-n500-pretrained",
+  "learning_rate": 1e-06
+}

@@ -21,11 +21,13 @@ artifacts/local/pc-rerun-*/**/*-last.pt
 artifacts/local/pc-rerun-*/**/*.tmp
 artifacts/local/pc-rerun-*/**/*.progress.json
 artifacts/local/pc-exploratory-*/**/last.pt
+artifacts/local/pc-exploratory-*/**/*-last.pt
+artifacts/local/pc-exploratory-*/**/*-best.pt
 artifacts/local/pc-exploratory-*/**/*.tmp
 artifacts/local/pc-exploratory-*/**/*.progress.json
 # Exploratory weights stay on this PC; publish code, losses and hash receipts.
-artifacts/local/pc-exploratory-*/checkpoints/**/best/
-artifacts/local/pc-exploratory-*/checkpoints/**/selected/
+artifacts/local/pc-exploratory-*/**/best/
+artifacts/local/pc-exploratory-*/**/selected/
 
 # DVC manages data bytes; Git keeps pointers and receipts.
 data/raw/

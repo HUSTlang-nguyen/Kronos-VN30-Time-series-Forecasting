@@ -162,13 +162,33 @@ Hướng dẫn chạy: `docs/PC_Rerun.md`.
 - Calendar: tải VNINDEX từ VPS và DNSE, lưu raw/URL/hash. Tập ngày VPS VNINDEX khớp toàn bộ VN30; DNSE VNINDEX thiếu 33 ngày. Audit bổ sung `pc-preflight-20261030/calendar_crosscheck/audit/` ghi pass trong phạm vi lịch quan sát, metadata `official_exchange_calendar: false`; dataset vẫn unverified do giá. Không thay audit đang khóa.
 - Đọc và xem ảnh hai PDF Pinetree 05/03 và 24/03/2021, bảng VN30 riêng với futures hỗ trợ các giá ứng viên đã thấy; vẫn giữ mâu thuẫn chưa phân xử. BSC endpoint thử trả nội dung không phải PDF, không dùng làm bằng chứng. Cập nhật `evidence_review.md`.
 - Điểm tiếp tục: cần forecast/chấm giá ZS/SFT và baseline dưới scope rõ ràng, tiếp tục nguồn O/H/L/Close và calendar chính thức. Cần Q3 random/learning, Q2 ablation, Q4 folds/bootstrap mới. Không tự chuyển 12 checkpoint thăm dò thành bằng chứng chính. Mục tiêu đầy đủ và deadline gốc vẫn giữ.
+- Đã commit/push checkpoint tiến độ `afc33df` — `feat: run exploratory PC fine-tuning` lên nhánh `neikhn/lam-lai-vn30-pc`; local HEAD và remote-tracking đã khớp. Payload chỉ gồm code/tài liệu/CSV/đồ thị/receipts; weights và optimizer thăm dò giữ PC theo ignore.
+
+### 15 — Main forecast/baseline, Q3 và Q2/Q4 xếp hàng
+
+- Thêm `scripts/evaluate_candidate.py` như entry point mới duy nhất trong src/scripts: kiểm mọi hash file cũ giữ nguyên trước khi dùng checkpoint SFT PC, không sửa receipt training. Có identity riêng cho inference. Primary coordinator vẫn giữ identity cũ và audit gate; không âm thầm resume nó dưới code mới.
+- Baseline hoàn tất 11/11 job gồm ba validation lock và tám forecast validation/test. Chọn Ridge alpha 10, ETS level, ARIMA(0,1,0); không dùng test để chọn. Lỗi hội tụ của ứng viên được lưu, không có Naive fallback.
+- Neural có 48 forecast dự kiến, seed 42/43/44. Seed 42 đủ 16 forecast đã chấm tạm cả validation/test và kiểm metric/coverage/receipt; có paired block CI, volatility và periods. `interim_view.json` ghi rõ 1/3 seed, không hoàn thành main. Naive đang mạnh ở Close; giữ cấu hình đã khóa, không tuning theo test.
+- Q3 xếp hàng qua `experiments/candidate_learning.py`: 36 so sánh; 12 pretrained budget nhỏ và 54 random-LR trials mới, tái dùng sáu full-budget pretrained PC. Giữ cùng holdout/origin; hash riêng orchestrator cùng frozen core identity. Chọn và dùng thẳng trial thắng validation; không train lại để tiết kiệm chi phí. Trial process lỗi được ghi, lỗi protocol/hash dừng.
+- Q2/Q4 xếp sau Q3 qua `candidate_stability.py`: ba paired continuous/quantized ablation seed, hai expanding folds cho bốn neural model seed 42. `candidate_ablation.py` là specialization của mã frozen, thay loader opt-in và scope/provenance, giữ nguyên số học. Không giả audit accepted. Tất cả có deadline/stage cap gốc và GPU lock.
+- Điều tra bổ sung: bảng lịch sử Investing bị modal đăng ký/cookie chặn, chưa lấy được giai đoạn mục tiêu; không đăng nhập bằng tài khoản người dùng. Probe nến phút VNDIRECT/VPS ở 05/05, 11/08, 12/08/2025 đều trả không có bar; đây không phải bằng chứng không có giao dịch, chỉ chưa lấy được dữ liệu phút để phân xử Open. Raw/URL/hash ở `data/raw/source_evidence/intraday-open-probe-20261030/manifest.json`.
+- Người dùng hỏi Chronos-2: đã đối chiếu `git show main` báo cáo lịch sử và checkpoint cũ. VN30 cũ đã dùng `autogluon/chronos-2-small` ZS/SFT; trọng tâm lần làm lại vẫn là ba Kronos, Chronos là đối chứng. Không thay scope model khi chỉ được hỏi giải thích.
+
+### 16 — Bàn giao 3 giờ không cần agent theo dõi
+
+- Người dùng xác nhận rõ **“Tạm dừng agent 3 giờ, PC tiếp tục chạy”** sau khi kiểm tra bàn giao. Không dừng computation khi pause goal chat. Quota kiểm thực tế 84% used của cửa sổ 5h, reset 19:01:09 +07 ngày 30/10; không ghi account id/token.
+- Thêm `experiments/unattended_supervisor.py`: nhận worker theo command/PID thực, GPU tuần tự, tối đa hai lần tiếp tục worker đã chết, không xem chậm là đã chết. Source/hash/protocol sai thì lưu needs_attention, không tự sửa khoa học. Lưu PID/status/events và `UNATTENDED_REPORT.md`; Git checkpoint artifact có whitelist, không interactive login, lỗi Git không dừng GPU.
+- Giữ máy khỏi tự sleep bằng API theo tuổi thọ supervisor; không đổi thiết lập power vĩnh viễn. Có lock ngăn supervisor trùng. Khôi phục lock chết có archive, không lấy lock của process sống hoặc orphan training worker.
+- Kiểm thử cuối **58 tests OK, skipped=1**. Self-test thật dùng process dùng một lần exit 7, chạy tiếp thành công exit 0, checkpoint từ epoch 1 tới 2 được giữ; không chạm worker nghiên cứu. Receipt `pc-preflight-20261030/supervisor_recovery_test.json`.
+- Snapshot health trước khi chạy nền: 11/11 baseline, 40/48 neural, Q3 và followups đang có PID sống và đúng hàng chờ. Trạng thái thực tế tiếp tục cập nhật; không dựa vào số snapshot này khi quay lại.
+- Điểm tiếp tục sau 3h: đọc `supervision/status.json`, `events.jsonl`, `UNATTENDED_REPORT.md`, kiểm PID/command thật; kiểm queued phases/output/metric từ CSV. Chưa đủ dữ liệu để kết luận chính. Không sửa các file Python đã khóa khi worker còn sống. Cần hoàn thiện báo cáo nghiên cứu và kiểm tra metric trực tiếp từ forecast/nhãn, không chỉ từ details.csv.
 
 ## Việc chưa hoàn thành / rủi ro cần giữ nguyên trong bàn giao
 
 - Chưa giải quyết bằng chứng giá O/H/L/Close giữa các nhà cung cấp và chưa có calendar độc lập đầy đủ.
-- Đã có SFT thăm dò; chưa có forecast/score test hoặc bằng chứng chính mới đủ Q1–Q4.
+- Đã có SFT và forecast/score tạm seed 42; main đủ ba seed và Q2/Q3/Q4 đang chạy/xếp hàng. Chưa đủ bằng chứng chính Q1–Q4.
 - Đã có benchmark dữ liệu thật nhưng chưa chứng minh toàn bộ ma trận, kiểm toán và báo cáo vừa 24 giờ.
 - Native GPU resume Kronos-mini đã đạt; các variant khác và forced-OOM stress chưa thử đầy đủ.
-- F12 đã có kiểm thử âm và integration; bộ test cuối 46 ca đạt như mục 14. Chỉ chạy lại khi có thay đổi hoặc nghi vấn mới cần kiểm chứng.
+- F12 đã có kiểm thử âm và integration; bộ test cuối 58 ca đạt như mục 16. Cần thêm bước đối chiếu metric trực tiếp từ forecast/nhãn trong lần tổng hợp cuối; hiện recomputation chủ yếu từ details.csv. Chỉ chạy lại test khi có thay đổi hoặc nghi vấn mới cần kiểm chứng.
 - Không sửa code Python rồi giả vờ resume cùng identity. Ghi rõ thay đổi và xử lý tương thích/budget trước khi tiếp tục.
 - Một số lệnh Git trong môi trường giới hạn lỗi git-lfs filter. Dùng `git -c filter.lfs.required=false -c filter.lfs.process= -c filter.lfs.clean= ...` để đọc trạng thái/diff; không dùng kết quả modified của hai weights Chronos cũ để kết luận agent đã sửa chúng.

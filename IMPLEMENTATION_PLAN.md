@@ -148,3 +148,12 @@ Các tối ưu đang để xem xét, **chưa được tuyên bố đã làm**:
 - Dùng trực tiếp checkpoint thắng vòng random-LR thay vì train lại cùng cấu hình/seed, sau khi có kiểm thử identity và tính tương đương. Hiện worker chọn LR rồi chạy job train riêng.
 - Đánh giá batching inference chỉ khi giữ được seed/origin và phép lấy point forecast. Không đổi thứ tự RNG để tăng tốc rồi gọi là replay tương đương.
 - Tối ưu thêm phạm vi chạy chỉ theo ngân sách đã chốt và validation, không theo điểm test.
+
+## 6. Thực thi không cần agent theo dõi trong 3 giờ
+
+- Main đã có baseline đủ validation/test; 48 forecast neural đang chạy. Chấm tự động khi đủ mọi file, không giảm seed hoặc origin. Bảng seed 42 chỉ là bản tạm 1/3.
+- Q3 đã xếp hàng GPU, sau main; giữ 500/1.000/full, pretrained/random, 42/43/44. Nhánh candidate mới dùng trực tiếp checkpoint LR thắng validation và tái dùng full-budget SFT PC đã khớp protocol. Worker primary cũ chưa đổi tối ưu này.
+- Q2/Q4 đã xếp sau Q3: ba ablation seed rồi hai fold, bốn neural model, seed 42; CI block 20, 2.000 bootstrap như protocol. Chưa được đánh dấu hoàn thành trước khi worker thực sự chạy và output được kiểm.
+- Supervisor cục bộ tiếp tục kể cả khi agent tạm dừng, kiểm process thật, giữ GPU tuần tự, checkpoint/report tự động, commit/push artifact theo mốc. Không đổi precision/LR/seed/mẫu để vượt lỗi; không tự nhận dữ liệu accepted.
+- Kiểm thử: **58 tests đạt, skipped=1** (native GPU opt-in đã chạy riêng trước đó); có kiểm thử tiến trình dùng một lần lỗi rồi resume giữ checkpoint. Supervisor kiểm nhận diện worker chính xác và bảo toàn lock của process sống.
+- Agent được người dùng yêu cầu tạm dừng theo dõi 3 giờ sau bàn giao, có hẹn kiểm tra lại sau cửa sổ đó. Dữ liệu, kết luận chính và các đầu ra chưa đủ vẫn giữ trạng thái chưa hoàn thành.
