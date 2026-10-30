@@ -1,0 +1,193 @@
+{
+  "schema_version": 1,
+  "status": "unverified",
+  "dataset_sha256": "fee0bd8c240a9d2be4ef5c9d287eede6c5506b0358c25545e72de99709da4fd2",
+  "rows": 2271,
+  "first_date": "2017-08-24",
+  "last_date": "2026-10-01",
+  "raw_replay": "pass",
+  "timestamp_timezone_replay": "pass",
+  "quality_flag_replay": "pass",
+  "provider": "vndirect",
+  "symbol": "VN30",
+  "units": "index_points",
+  "request": {
+    "symbol": [
+      "VN30"
+    ],
+    "resolution": [
+      "D"
+    ],
+    "from": [
+      "1328486400"
+    ],
+    "to": [
+      "1790812799"
+    ]
+  },
+  "observed_history_starts_later_than_requested": true,
+  "outside_request_rows": 1,
+  "invalid_or_duplicate_flags": 0,
+  "open_equals_previous_close_sessions": 78,
+  "open_equal_runs": [
+    {
+      "first_date": "2021-07-05",
+      "last_date": "2021-07-05",
+      "sessions": 1
+    },
+    {
+      "first_date": "2021-10-20",
+      "last_date": "2021-10-20",
+      "sessions": 1
+    },
+    {
+      "first_date": "2022-06-23",
+      "last_date": "2022-06-23",
+      "sessions": 1
+    },
+    {
+      "first_date": "2022-12-29",
+      "last_date": "2022-12-29",
+      "sessions": 1
+    },
+    {
+      "first_date": "2024-11-11",
+      "last_date": "2024-11-11",
+      "sessions": 1
+    },
+    {
+      "first_date": "2025-03-03",
+      "last_date": "2025-03-03",
+      "sessions": 1
+    },
+    {
+      "first_date": "2025-05-05",
+      "last_date": "2025-08-11",
+      "sessions": 71
+    },
+    {
+      "first_date": "2026-07-17",
+      "last_date": "2026-07-17",
+      "sessions": 1
+    }
+  ],
+  "calendar": {
+    "status": "pass",
+    "missing_sessions": [],
+    "unexpected_sessions": [],
+    "source": {
+      "url": "https://histdatafeed.vps.com.vn/tradingview/history?symbol=VNINDEX&resolution=D&from=1503187200&to=1790985600",
+      "provider": "vps",
+      "reference_symbol": "VNINDEX",
+      "calendar_kind": "observed_independent_benchmark_index_sessions",
+      "official_exchange_calendar": false,
+      "csv_sha256": "e5763bdf688f3ebb3fe31fae774cc5445f99a14cbe4d8d4ce633c27fbb626418",
+      "raw_sha256": "075b4d473be3d502787016e59ffbaccdc2f905a924ee599e42edf8d0718fe4ab",
+      "limitations": [
+        "Agreement with observed benchmark-index sessions; not an official exchange-calendar certificate",
+        "DNSE VNINDEX is incomplete by 33 dates in the same range"
+      ]
+    }
+  },
+  "independent_sources": [
+    {
+      "provider": "vps",
+      "symbol": "VN30",
+      "url": "https://histdatafeed.vps.com.vn/tradingview/history?symbol=VN30&resolution=D&from=1503532800&to=1790899199",
+      "retrieved_at_utc": "2026-10-30T07:09:28.141269+00:00",
+      "raw_sha256": "d18cec08ab72d73156e62b665136b72deabd877a86c6fbfd7457b5bbb5c5659c",
+      "csv_sha256": "a9416b064ce3dd6b48d435b5f8e05e1d1e3cd606da977e76adece3fed48172c8",
+      "timezone": "Asia/Ho_Chi_Minh",
+      "path": "artifacts/local/pc-rerun-20261030/independent/vps.csv",
+      "overlap": 2270,
+      "metadata_sha256": "c2760c6ea03ce7ec8aa2f7254158a6717099cd5cba15ebd174bed0ced5c05ebb"
+    },
+    {
+      "provider": "dnse",
+      "symbol": "VN30",
+      "url": "https://api.dnse.com.vn/chart-api/v2/ohlcs/index?symbol=VN30&resolution=1D&from=1503532800&to=1790899199",
+      "retrieved_at_utc": "2026-10-30T07:09:28.724012+00:00",
+      "raw_sha256": "f8162d7198dd849b3f6d228685a4537c0dd52953743341a732676354c8ab8a3f",
+      "csv_sha256": "1b28f3d693a7004d4ad95787cf7685d6a922c53d1a4e3af1508fe462c1a192ff",
+      "timezone": "Asia/Ho_Chi_Minh",
+      "path": "artifacts/local/pc-rerun-20261030/independent/dnse.csv",
+      "overlap": 1565,
+      "metadata_sha256": "92500697f8fc1fe6f10ec0a71c4f07a30e8d616c781e51c3e5e16c146e9c4699"
+    }
+  ],
+  "unresolved_field_comparisons": 1230,
+  "discrepancy_summary": [
+    {
+      "provider": "dnse",
+      "field": "close",
+      "comparisons": 54,
+      "max_difference": 16.35,
+      "first_date": "2020-05-18",
+      "last_date": "2025-05-26"
+    },
+    {
+      "provider": "dnse",
+      "field": "high",
+      "comparisons": 114,
+      "max_difference": 36.81,
+      "first_date": "2020-05-14",
+      "last_date": "2026-09-22"
+    },
+    {
+      "provider": "dnse",
+      "field": "low",
+      "comparisons": 237,
+      "max_difference": 34.96,
+      "first_date": "2020-05-11",
+      "last_date": "2026-10-01"
+    },
+    {
+      "provider": "dnse",
+      "field": "open",
+      "comparisons": 448,
+      "max_difference": 47.91,
+      "first_date": "2020-05-11",
+      "last_date": "2026-09-03"
+    },
+    {
+      "provider": "vps",
+      "field": "close",
+      "comparisons": 6,
+      "max_difference": 2.47,
+      "first_date": "2020-04-09",
+      "last_date": "2021-03-24"
+    },
+    {
+      "provider": "vps",
+      "field": "high",
+      "comparisons": 55,
+      "max_difference": 36.81,
+      "first_date": "2020-03-06",
+      "last_date": "2026-09-22"
+    },
+    {
+      "provider": "vps",
+      "field": "low",
+      "comparisons": 169,
+      "max_difference": 34.96,
+      "first_date": "2020-03-25",
+      "last_date": "2026-10-01"
+    },
+    {
+      "provider": "vps",
+      "field": "open",
+      "comparisons": 147,
+      "max_difference": 27.96,
+      "first_date": "2020-03-10",
+      "last_date": "2025-10-02"
+    }
+  ],
+  "unique_dates_with_close_discrepancies": 60,
+  "required_dates_without_reference": [],
+  "price_edits": [],
+  "limitations": [
+    "Provider Open is not automatically official exchange Open.",
+    "Byte integrity is not market-data correctness.",
+    "No missing session is imputed."
+  ]
+}

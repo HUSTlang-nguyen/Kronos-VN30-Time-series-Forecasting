@@ -17,7 +17,7 @@ Các quyết định đã được người dùng chốt:
 
 ## Hiện trạng quan trọng
 
-**Phần mềm đã triển khai; nghiên cứu mới chưa được huấn luyện do dữ liệu chưa qua kiểm toán.**
+**Đã bắt đầu huấn luyện thăm dò trên PC. Dataset vẫn unverified; thí nghiệm chính chưa được phép dùng làm kết luận.**
 
 PC: Windows/PowerShell, RTX 4070 SUPER 12 GB, RAM khoảng 32 GB. Python 3.11.9. Môi trường `.venv` đã cài đúng `uv.lock`, torch `2.14.0+cu130`, CUDA thực tế dùng được. `.venv-data` chứa uv và DVC riêng; `.vendor/Kronos` đã checkout revision đã khóa.
 
@@ -35,12 +35,16 @@ Dataset gốc:
 
 - Config: `configs/pc_rerun.json`.
 - Output: `artifacts/local/pc-rerun-20261030/`.
-- State: **5/288 công việc hoàn thành, 283 blocked**, không có huấn luyện VN30 mới.
+- State chính: **5/288 công việc hoàn thành, 283 blocked**, chưa có huấn luyện thuộc bằng chứng chính.
 - Các việc hoàn thành: recover, independent source fetch, audit, pretrained weights verification, Kronos bootstrap.
 - `prepare` blocked với lý do `dataset_unverified`; các bước phụ thuộc bị chặn theo đúng kế hoạch.
 - Đồng hồ được lưu trong `state.json`, không reset khi resume.
 - Mốc được lưu theo Asia/Bangkok: bắt đầu **30/10/2026 14:09:17 +07:00**, hạn **31/10/2026 14:09:17 +07:00**. Khi tiếp tục, đọc timestamp từ state; không suy ra ngân sách còn lại từ ghi chú này.
 - Source code đã được khóa bằng hash trong state. Sửa file Python sẽ khiến resume từ chối; không sửa state để che khác biệt. Có lệnh `refresh-preflight --reason` dành riêng cho sửa lỗi trước khi có bất kỳ artifact nghiên cứu nào: lưu lịch sử cũ, kiểm evidence/config/provenance và giữ nguyên started/deadline. Không dùng sau khi đã huấn luyện/dự báo. File Markdown ghi nhớ không thuộc bộ hash Python hiện tại.
+
+Nhánh thăm dò: `artifacts/local/pc-exploratory-20261030/`, chạy bằng `scripts/run_candidate_training.py`. Manifest và mọi checkpoint/forecast có scope `exploratory_only`, audit vẫn unverified; loader mặc định và scorer chính từ chối. Đồng hồ dùng chung deadline gốc. **Đã hoàn tất 16 job:** benchmark một epoch + 32 origin validation của cả bốn model và **12 lượt SFT năm epoch, ba seed 42/43/44**. Checksum/history/deadline đã xác minh trong `verification.json`; không còn GPU job của nhánh này chạy nền. Ba Kronos chọn epoch 5, Chronos chọn epoch 0 ở cả ba seed. Loss native không so xếp hạng giữa model. Weights/optimizer thăm dò giữ local; code, loss và hash receipts được lưu Git.
+
+Đối chiếu lịch mới: ngày VN30 khớp toàn bộ ngày quan sát được của **VNINDEX từ VPS**, DNSE VNINDEX thiếu 33 ngày. Đây là lịch quan sát nguồn độc lập, chưa phải chứng nhận calendar chính thức. Audit bổ sung trong `artifacts/local/pc-preflight-20261030/calendar_crosscheck/audit/`; trạng thái dataset vẫn unverified.
 
 ## Quy tắc nghiên cứu cần giữ
 

@@ -20,7 +20,7 @@ Không dùng mức 1 hoặc 2 để đánh dấu mức 3. Hiện chưa hoàn th�
 | Khôi phục dữ liệu, raw replay và đối chiếu nguồn | Đã chạy; có CSV và audit report | Chưa chấp nhận dataset |
 | Loader theo manifest, hash và điều kiện audit | Đã triển khai, có kiểm thử | Chặn dataset unverified |
 | Adapter mini/small/base/Chronos, alias tương thích | Đã triển khai; bốn model qua GPU smoke | Chưa chạy ZS VN30 mới |
-| SFT, epoch 0, checkpoint optimizer/RNG, resume | Đã triển khai; CPU resume kiểm thử khớp | Chưa SFT VN30 mới |
+| SFT, epoch 0, checkpoint optimizer/RNG, resume | Đã triển khai; CPU/native mini GPU resume đạt | Đã đủ 12 SFT thăm dò × 5 epoch; chưa bằng chứng chính |
 | Ridge/ARIMA/ETS tuning validation, không fallback âm thầm | Đã triển khai | Chưa tuning/chấm dữ liệu thật |
 | Q3: 500/1.000/full, pretrained/random, ba seed | Đã triển khai; native random-init smoke đạt | Chưa có learning curve VN30 |
 | Q2: continuous/quantized, cùng encoder/backbone | Đã triển khai; integration GPU trên dữ liệu giả đạt | Chưa có ablation VN30 |
@@ -121,6 +121,14 @@ Không dùng mức 1 hoặc 2 để đánh dấu mức 3. Hiện chưa hoàn th�
 - **Giới hạn:** trùng thời điểm chỉ là giả thuyết điều tra, chưa chứng minh nguyên nhân hoặc chứng minh tất cả giá Open sai. Không sửa Open thành nguồn khác dựa trên giả thuyết này.
 
 ## 4. Việc tiếp theo theo thứ tự ưu tiên
+
+### Điều chỉnh thực thi — huấn luyện thăm dò song song với xác minh nguồn
+
+- **Flaw F15:** cổng chính chặn mọi huấn luyện, kể cả thăm dò, trong lúc chờ giải thích khác biệt nhà cung cấp. Điều này chưa thực hiện nhánh thăm dò đã có trong kế hoạch và làm chậm benchmark trên PC.
+- **Cách xử lý:** giữ nguyên cổng accepted cho bằng chứng chính; thêm manifest `usage: exploratory_only`, opt-in rõ ở trainer, receipt/checkpoint/forecast có scope, và bộ so sánh chính từ chối scope này. Chỉ chạy khi integrity/replay/flags đạt, không có giá sửa hoặc ngày mẫu thiếu nguồn đối chiếu. Dataset vẫn unverified.
+- **Chi phí và tính công bằng:** chạy một epoch + 32 origin validation/model để benchmark, rồi SFT năm epoch seed 42 trên snapshot gốc trong output riêng. Không xem test để chọn cấu hình; không dùng nhánh này để đánh dấu Q1–Q4 hoàn thành. Không tự chuyển checkpoint sang main. Đồng hồ giữ deadline 24 giờ gốc.
+- **Điểm cần giữ:** thăm dò không thay thế mục tiêu chính. Tiếp tục kiểm toán và calendar; khi dữ liệu được xác minh mới xem xét khả năng dùng lại bằng kiểm tra protocol đầy đủ hoặc chạy lại. Nếu dữ liệu đổi, checkpoint thăm dò không được gọi là checkpoint của dữ liệu mới.
+- **Kiểm chứng hiện tại:** 46 unit/integration tests đạt, một native GPU opt-in đã chạy riêng trước đó. Benchmark bốn model đủ một epoch/32 origin và 12 SFT năm epoch (seed 42/43/44) đã xong; checksum và đủ năm dòng history đã xác minh. Không có score test chính từ nhánh này. Chronos chọn epoch 0 theo validation ở cả ba seed; Kronos chọn epoch 5. Đây là lựa chọn theo native loss, chưa chứng minh MAE/RMSE giá tốt hơn.
 
 1. F12 đã được xử lý bằng kiểm thử âm và integration. Native GPU resume mini đã đạt; tiếp tục điều tra bằng chứng giá/calendar và chỉ mở nghiên cứu khi đủ căn cứ.
 2. Đọc audit chính và lập bằng chứng giải quyết các ngày giá lệch; đối chiếu công bố truy vết được, không chấp nhận chỉ vì nhiều nhà cung cấp đồng ý.

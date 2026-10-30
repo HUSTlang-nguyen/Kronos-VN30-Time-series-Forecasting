@@ -39,3 +39,15 @@ Chưa dùng các thông báo này để sửa giá, gán lỗi parser hoặc k�
 2. Calendar độc lập đầy đủ; không lấy tập ngày trong chính bảng VN30 để làm chuẩn.
 3. Cơ chế adjudication truy vết được trước khi chấp nhận có giới hạn; cổng audit hiện chưa tích hợp sổ phân xử.
 4. Không có forecast, SFT hay kết luận Q1–Q4 mới trên dữ liệu này.
+
+## Bổ sung sau khi bắt đầu nhánh thăm dò
+
+Nhánh thăm dò đã bắt đầu SFT trên PC, có scope và output riêng; mục 4 ở trên mô tả thời điểm trước nhánh này. Vẫn chưa có kết luận Q1–Q4 chính thức.
+
+Đã tải **VNINDEX**, không phải lấy lại tập ngày VN30, từ VPS và DNSE cho cùng giai đoạn. Ngày VN30 khớp toàn bộ ngày quan sát được của VNINDEX VPS. DNSE VNINDEX thiếu 33 ngày so với snapshot. Raw/CSV/URL/hash lưu ở `data/raw/source_evidence/calendar-vnindex-20261030/summary.json`.
+
+Audit bổ sung nằm ở `calendar_crosscheck/audit/`: calendar ghi `pass` trong phạm vi khớp lịch quan sát từ VNINDEX VPS, không có ngày thiếu/thừa; metadata ghi rõ `official_exchange_calendar: false`. Đây chưa phải xác nhận lịch chính thức của sàn. Tổng 1.230 chênh lệch giá vẫn chưa phân xử, nên dataset vẫn `unverified`. Không thay audit đã khóa của lượt chính hoặc manifest thăm dò đang chạy.
+
+Hai PDF Pinetree mới đã được đọc text và xem ảnh trang đầu: [05/03/2021](https://pinetree.vn/wp-content/uploads/2021/03/Market-brief_05032021_V.pdf) ghi VN30 1.174,16; [24/03/2021](https://pinetree.vn/wp-content/uploads/2021/03/Market-brief_24032021_V.pdf) ghi 1.167,49 trong bảng TTCK Việt Nam, tách với bảng hợp đồng tương lai. Các giá này hỗ trợ bảng HTML đã lưu, vẫn chưa giải quyết mâu thuẫn với nguồn khác. Manifest tải ở `data/raw/source_evidence/close-disputes-20261030/manifest.json`. Endpoint BSC đã thử trả nội dung không phải PDF; không dùng phản hồi đó như bằng chứng giá.
+
+Kiểm thêm VPS cho thấy một phần chênh lệch O/H/L trùng Close phiên trước: trong 147 chênh Open, 73 giá VNDIRECT và 51 giá VPS bằng Close trước; trong 55 chênh High, các số tương ứng là 1 và 18; trong 169 chênh Low là 4 và 59. Đây là dấu hiệu cách dựng nến khác nhau để tiếp tục xác minh, chưa đủ để tự động phân xử hoặc sửa giá.

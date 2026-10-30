@@ -110,6 +110,7 @@ def forecast(
     out.parent.mkdir(parents=True, exist_ok=True)
     meta = {
         "model": name,
+        "evidence_scope": manifest.get("dataset_info", {}).get("usage", "primary"),
         "revision": revision,
         "dataset_sha256": manifest["sha256"],
         "split": split,

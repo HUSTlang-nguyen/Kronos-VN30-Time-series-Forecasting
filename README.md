@@ -2,7 +2,7 @@
 
 Thử nghiệm dự báo VN30 bằng **Kronos mini/small/base**, **Chronos-2-small**, Naive, Ridge, ARIMA và ETS. Kết quả cũ chỉ gồm các model đã được ghi trong báo cáo lịch sử; có runner không đồng nghĩa mọi thí nghiệm mới đã chạy xong.
 
-**Làm lại trên PC:** xem [quy trình và trạng thái kiểm toán dữ liệu](docs/PC_Rerun.md). Lượt mới tách hoàn toàn kết quả khỏi môi trường cũ, có giới hạn 24 giờ và chặn huấn luyện khi dữ liệu chưa được kiểm chứng.
+**Làm lại trên PC:** xem [quy trình và trạng thái kiểm toán dữ liệu](docs/PC_Rerun.md). Lượt mới tách hoàn toàn kết quả khỏi môi trường cũ, có giới hạn 24 giờ và giữ cổng kiểm toán cho bằng chứng chính. Đã hoàn tất [12 lượt SFT thăm dò](artifacts/local/pc-exploratory-20261030/report.md) trên PC (bốn model × ba seed, năm epoch); dataset vẫn chưa được chấp nhận, chưa có kết luận Q1–Q4 mới.
 
 Repo có loader cho snapshot VN30 cố định, runner dự báo và đánh giá Open/Close trên cùng các phiên. Context là 128 phiên, path dự báo 20 phiên; score tại h=1/5/20. Dữ liệu VNDIRECT là một snapshot lịch sử, vì vậy kết quả chỉ áp dụng cho snapshot này.
 

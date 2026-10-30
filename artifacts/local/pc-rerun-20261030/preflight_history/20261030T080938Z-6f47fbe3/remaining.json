@@ -1,0 +1,2710 @@
+[
+  {
+    "id": "prepare",
+    "stage": "setup",
+    "status": "blocked",
+    "reason": "dataset_unverified",
+    "audit": "audit/audit.json"
+  },
+  {
+    "id": "protocol",
+    "stage": "setup",
+    "status": "blocked",
+    "dependencies": [
+      "prepare"
+    ]
+  },
+  {
+    "id": "benchmark-kronos-mini",
+    "stage": "setup",
+    "status": "blocked",
+    "dependencies": [
+      "protocol"
+    ]
+  },
+  {
+    "id": "benchmark-kronos-small",
+    "stage": "setup",
+    "status": "blocked",
+    "dependencies": [
+      "protocol"
+    ]
+  },
+  {
+    "id": "benchmark-kronos-base",
+    "stage": "setup",
+    "status": "blocked",
+    "dependencies": [
+      "protocol"
+    ]
+  },
+  {
+    "id": "benchmark-chronos2",
+    "stage": "setup",
+    "status": "blocked",
+    "dependencies": [
+      "protocol"
+    ]
+  },
+  {
+    "id": "estimate",
+    "stage": "setup",
+    "status": "blocked",
+    "dependencies": [
+      "benchmark-kronos-mini",
+      "benchmark-kronos-small",
+      "benchmark-kronos-base",
+      "benchmark-chronos2"
+    ]
+  },
+  {
+    "id": "tune-ridge",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "prepare"
+    ]
+  },
+  {
+    "id": "tune-arima",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "prepare"
+    ]
+  },
+  {
+    "id": "tune-ets",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "prepare"
+    ]
+  },
+  {
+    "id": "baseline-naive-validation",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "prepare"
+    ]
+  },
+  {
+    "id": "baseline-ridge-validation",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "tune-ridge"
+    ]
+  },
+  {
+    "id": "baseline-arima-validation",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "tune-arima"
+    ]
+  },
+  {
+    "id": "baseline-ets-validation",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "tune-ets"
+    ]
+  },
+  {
+    "id": "baseline-naive-test",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "prepare"
+    ]
+  },
+  {
+    "id": "baseline-ridge-test",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "tune-ridge"
+    ]
+  },
+  {
+    "id": "baseline-arima-test",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "tune-arima"
+    ]
+  },
+  {
+    "id": "baseline-ets-test",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "tune-ets"
+    ]
+  },
+  {
+    "id": "main-kronos-mini-s42",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "main-kronos-mini-s42-zs-validation",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "main-kronos-mini-s42-ft-validation",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "main-kronos-mini-s42"
+    ]
+  },
+  {
+    "id": "main-kronos-mini-s42-zs-test",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "main-kronos-mini-s42-ft-test",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "main-kronos-mini-s42"
+    ]
+  },
+  {
+    "id": "main-kronos-mini-s42-score",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "main-kronos-mini-s42-zs-validation",
+      "main-kronos-mini-s42-ft-validation",
+      "main-kronos-mini-s42-zs-test",
+      "main-kronos-mini-s42-ft-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ]
+  },
+  {
+    "id": "main-kronos-small-s42",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "main-kronos-small-s42-zs-validation",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "main-kronos-small-s42-ft-validation",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "main-kronos-small-s42"
+    ]
+  },
+  {
+    "id": "main-kronos-small-s42-zs-test",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "main-kronos-small-s42-ft-test",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "main-kronos-small-s42"
+    ]
+  },
+  {
+    "id": "main-kronos-small-s42-score",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "main-kronos-small-s42-zs-validation",
+      "main-kronos-small-s42-ft-validation",
+      "main-kronos-small-s42-zs-test",
+      "main-kronos-small-s42-ft-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ]
+  },
+  {
+    "id": "main-kronos-base-s42",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "main-kronos-base-s42-zs-validation",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "main-kronos-base-s42-ft-validation",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "main-kronos-base-s42"
+    ]
+  },
+  {
+    "id": "main-kronos-base-s42-zs-test",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "main-kronos-base-s42-ft-test",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "main-kronos-base-s42"
+    ]
+  },
+  {
+    "id": "main-kronos-base-s42-score",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "main-kronos-base-s42-zs-validation",
+      "main-kronos-base-s42-ft-validation",
+      "main-kronos-base-s42-zs-test",
+      "main-kronos-base-s42-ft-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ]
+  },
+  {
+    "id": "main-chronos2-s42",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "main-chronos2-s42-zs-validation",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "main-chronos2-s42-ft-validation",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "main-chronos2-s42"
+    ]
+  },
+  {
+    "id": "main-chronos2-s42-zs-test",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "main-chronos2-s42-ft-test",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "main-chronos2-s42"
+    ]
+  },
+  {
+    "id": "main-chronos2-s42-score",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "main-chronos2-s42-zs-validation",
+      "main-chronos2-s42-ft-validation",
+      "main-chronos2-s42-zs-test",
+      "main-chronos2-s42-ft-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ]
+  },
+  {
+    "id": "main-kronos-mini-s43",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "main-kronos-mini-s43-zs-validation",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "main-kronos-mini-s43-ft-validation",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "main-kronos-mini-s43"
+    ]
+  },
+  {
+    "id": "main-kronos-mini-s43-zs-test",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "main-kronos-mini-s43-ft-test",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "main-kronos-mini-s43"
+    ]
+  },
+  {
+    "id": "main-kronos-mini-s43-score",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "main-kronos-mini-s43-zs-validation",
+      "main-kronos-mini-s43-ft-validation",
+      "main-kronos-mini-s43-zs-test",
+      "main-kronos-mini-s43-ft-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ]
+  },
+  {
+    "id": "main-kronos-small-s43",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "main-kronos-small-s43-zs-validation",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "main-kronos-small-s43-ft-validation",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "main-kronos-small-s43"
+    ]
+  },
+  {
+    "id": "main-kronos-small-s43-zs-test",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "main-kronos-small-s43-ft-test",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "main-kronos-small-s43"
+    ]
+  },
+  {
+    "id": "main-kronos-small-s43-score",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "main-kronos-small-s43-zs-validation",
+      "main-kronos-small-s43-ft-validation",
+      "main-kronos-small-s43-zs-test",
+      "main-kronos-small-s43-ft-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ]
+  },
+  {
+    "id": "main-kronos-base-s43",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "main-kronos-base-s43-zs-validation",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "main-kronos-base-s43-ft-validation",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "main-kronos-base-s43"
+    ]
+  },
+  {
+    "id": "main-kronos-base-s43-zs-test",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "main-kronos-base-s43-ft-test",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "main-kronos-base-s43"
+    ]
+  },
+  {
+    "id": "main-kronos-base-s43-score",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "main-kronos-base-s43-zs-validation",
+      "main-kronos-base-s43-ft-validation",
+      "main-kronos-base-s43-zs-test",
+      "main-kronos-base-s43-ft-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ]
+  },
+  {
+    "id": "main-chronos2-s43",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "main-chronos2-s43-zs-validation",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "main-chronos2-s43-ft-validation",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "main-chronos2-s43"
+    ]
+  },
+  {
+    "id": "main-chronos2-s43-zs-test",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "main-chronos2-s43-ft-test",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "main-chronos2-s43"
+    ]
+  },
+  {
+    "id": "main-chronos2-s43-score",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "main-chronos2-s43-zs-validation",
+      "main-chronos2-s43-ft-validation",
+      "main-chronos2-s43-zs-test",
+      "main-chronos2-s43-ft-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ]
+  },
+  {
+    "id": "main-kronos-mini-s44",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "main-kronos-mini-s44-zs-validation",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "main-kronos-mini-s44-ft-validation",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "main-kronos-mini-s44"
+    ]
+  },
+  {
+    "id": "main-kronos-mini-s44-zs-test",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "main-kronos-mini-s44-ft-test",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "main-kronos-mini-s44"
+    ]
+  },
+  {
+    "id": "main-kronos-mini-s44-score",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "main-kronos-mini-s44-zs-validation",
+      "main-kronos-mini-s44-ft-validation",
+      "main-kronos-mini-s44-zs-test",
+      "main-kronos-mini-s44-ft-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ]
+  },
+  {
+    "id": "main-kronos-small-s44",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "main-kronos-small-s44-zs-validation",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "main-kronos-small-s44-ft-validation",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "main-kronos-small-s44"
+    ]
+  },
+  {
+    "id": "main-kronos-small-s44-zs-test",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "main-kronos-small-s44-ft-test",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "main-kronos-small-s44"
+    ]
+  },
+  {
+    "id": "main-kronos-small-s44-score",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "main-kronos-small-s44-zs-validation",
+      "main-kronos-small-s44-ft-validation",
+      "main-kronos-small-s44-zs-test",
+      "main-kronos-small-s44-ft-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ]
+  },
+  {
+    "id": "main-kronos-base-s44",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "main-kronos-base-s44-zs-validation",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "main-kronos-base-s44-ft-validation",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "main-kronos-base-s44"
+    ]
+  },
+  {
+    "id": "main-kronos-base-s44-zs-test",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "main-kronos-base-s44-ft-test",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "main-kronos-base-s44"
+    ]
+  },
+  {
+    "id": "main-kronos-base-s44-score",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "main-kronos-base-s44-zs-validation",
+      "main-kronos-base-s44-ft-validation",
+      "main-kronos-base-s44-zs-test",
+      "main-kronos-base-s44-ft-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ]
+  },
+  {
+    "id": "main-chronos2-s44",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "main-chronos2-s44-zs-validation",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "main-chronos2-s44-ft-validation",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "main-chronos2-s44"
+    ]
+  },
+  {
+    "id": "main-chronos2-s44-zs-test",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "main-chronos2-s44-ft-test",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "main-chronos2-s44"
+    ]
+  },
+  {
+    "id": "main-chronos2-s44-score",
+    "stage": "main",
+    "status": "blocked",
+    "dependencies": [
+      "main-chronos2-s44-zs-validation",
+      "main-chronos2-s44-ft-validation",
+      "main-chronos2-s44-zs-test",
+      "main-chronos2-s44-ft-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-500-pretrained-s42",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-500-pretrained-s42-validation",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-kronos-small-500-pretrained-s42"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-500-pretrained-s42-test",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-kronos-small-500-pretrained-s42"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-500-pretrained-s42-score",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-kronos-small-500-pretrained-s42-validation",
+      "learning-kronos-small-500-pretrained-s42-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-500-random-s42-lr",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-500-random-s42",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-kronos-small-500-random-s42-lr"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-500-random-s42-validation",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-kronos-small-500-random-s42"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-500-random-s42-test",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-kronos-small-500-random-s42"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-500-random-s42-score",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-kronos-small-500-random-s42-validation",
+      "learning-kronos-small-500-random-s42-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-500-pretrained-s43",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-500-pretrained-s43-validation",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-kronos-small-500-pretrained-s43"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-500-pretrained-s43-test",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-kronos-small-500-pretrained-s43"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-500-pretrained-s43-score",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-kronos-small-500-pretrained-s43-validation",
+      "learning-kronos-small-500-pretrained-s43-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-500-random-s43-lr",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-500-random-s43",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-kronos-small-500-random-s43-lr"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-500-random-s43-validation",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-kronos-small-500-random-s43"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-500-random-s43-test",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-kronos-small-500-random-s43"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-500-random-s43-score",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-kronos-small-500-random-s43-validation",
+      "learning-kronos-small-500-random-s43-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-500-pretrained-s44",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-500-pretrained-s44-validation",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-kronos-small-500-pretrained-s44"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-500-pretrained-s44-test",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-kronos-small-500-pretrained-s44"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-500-pretrained-s44-score",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-kronos-small-500-pretrained-s44-validation",
+      "learning-kronos-small-500-pretrained-s44-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-500-random-s44-lr",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-500-random-s44",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-kronos-small-500-random-s44-lr"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-500-random-s44-validation",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-kronos-small-500-random-s44"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-500-random-s44-test",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-kronos-small-500-random-s44"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-500-random-s44-score",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-kronos-small-500-random-s44-validation",
+      "learning-kronos-small-500-random-s44-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-1000-pretrained-s42",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-1000-pretrained-s42-validation",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-kronos-small-1000-pretrained-s42"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-1000-pretrained-s42-test",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-kronos-small-1000-pretrained-s42"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-1000-pretrained-s42-score",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-kronos-small-1000-pretrained-s42-validation",
+      "learning-kronos-small-1000-pretrained-s42-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-1000-random-s42-lr",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-1000-random-s42",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-kronos-small-1000-random-s42-lr"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-1000-random-s42-validation",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-kronos-small-1000-random-s42"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-1000-random-s42-test",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-kronos-small-1000-random-s42"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-1000-random-s42-score",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-kronos-small-1000-random-s42-validation",
+      "learning-kronos-small-1000-random-s42-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-1000-pretrained-s43",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-1000-pretrained-s43-validation",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-kronos-small-1000-pretrained-s43"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-1000-pretrained-s43-test",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-kronos-small-1000-pretrained-s43"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-1000-pretrained-s43-score",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-kronos-small-1000-pretrained-s43-validation",
+      "learning-kronos-small-1000-pretrained-s43-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-1000-random-s43-lr",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-1000-random-s43",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-kronos-small-1000-random-s43-lr"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-1000-random-s43-validation",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-kronos-small-1000-random-s43"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-1000-random-s43-test",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-kronos-small-1000-random-s43"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-1000-random-s43-score",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-kronos-small-1000-random-s43-validation",
+      "learning-kronos-small-1000-random-s43-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-1000-pretrained-s44",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-1000-pretrained-s44-validation",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-kronos-small-1000-pretrained-s44"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-1000-pretrained-s44-test",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-kronos-small-1000-pretrained-s44"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-1000-pretrained-s44-score",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-kronos-small-1000-pretrained-s44-validation",
+      "learning-kronos-small-1000-pretrained-s44-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-1000-random-s44-lr",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-1000-random-s44",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-kronos-small-1000-random-s44-lr"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-1000-random-s44-validation",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-kronos-small-1000-random-s44"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-1000-random-s44-test",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-kronos-small-1000-random-s44"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-1000-random-s44-score",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-kronos-small-1000-random-s44-validation",
+      "learning-kronos-small-1000-random-s44-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-full-random-s42-lr",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-full-random-s42",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-kronos-small-full-random-s42-lr"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-full-random-s42-validation",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-kronos-small-full-random-s42"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-full-random-s42-test",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-kronos-small-full-random-s42"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-full-random-s42-score",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-kronos-small-full-random-s42-validation",
+      "learning-kronos-small-full-random-s42-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-full-random-s43-lr",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-full-random-s43",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-kronos-small-full-random-s43-lr"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-full-random-s43-validation",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-kronos-small-full-random-s43"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-full-random-s43-test",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-kronos-small-full-random-s43"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-full-random-s43-score",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-kronos-small-full-random-s43-validation",
+      "learning-kronos-small-full-random-s43-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-full-random-s44-lr",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-full-random-s44",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-kronos-small-full-random-s44-lr"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-full-random-s44-validation",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-kronos-small-full-random-s44"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-full-random-s44-test",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-kronos-small-full-random-s44"
+    ]
+  },
+  {
+    "id": "learning-kronos-small-full-random-s44-score",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-kronos-small-full-random-s44-validation",
+      "learning-kronos-small-full-random-s44-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ]
+  },
+  {
+    "id": "learning-chronos2-500-pretrained-s42",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "learning-chronos2-500-pretrained-s42-validation",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-chronos2-500-pretrained-s42"
+    ]
+  },
+  {
+    "id": "learning-chronos2-500-pretrained-s42-test",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-chronos2-500-pretrained-s42"
+    ]
+  },
+  {
+    "id": "learning-chronos2-500-pretrained-s42-score",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-chronos2-500-pretrained-s42-validation",
+      "learning-chronos2-500-pretrained-s42-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ]
+  },
+  {
+    "id": "learning-chronos2-500-random-s42-lr",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "learning-chronos2-500-random-s42",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-chronos2-500-random-s42-lr"
+    ]
+  },
+  {
+    "id": "learning-chronos2-500-random-s42-validation",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-chronos2-500-random-s42"
+    ]
+  },
+  {
+    "id": "learning-chronos2-500-random-s42-test",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-chronos2-500-random-s42"
+    ]
+  },
+  {
+    "id": "learning-chronos2-500-random-s42-score",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-chronos2-500-random-s42-validation",
+      "learning-chronos2-500-random-s42-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ]
+  },
+  {
+    "id": "learning-chronos2-500-pretrained-s43",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "learning-chronos2-500-pretrained-s43-validation",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-chronos2-500-pretrained-s43"
+    ]
+  },
+  {
+    "id": "learning-chronos2-500-pretrained-s43-test",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-chronos2-500-pretrained-s43"
+    ]
+  },
+  {
+    "id": "learning-chronos2-500-pretrained-s43-score",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-chronos2-500-pretrained-s43-validation",
+      "learning-chronos2-500-pretrained-s43-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ]
+  },
+  {
+    "id": "learning-chronos2-500-random-s43-lr",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "learning-chronos2-500-random-s43",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-chronos2-500-random-s43-lr"
+    ]
+  },
+  {
+    "id": "learning-chronos2-500-random-s43-validation",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-chronos2-500-random-s43"
+    ]
+  },
+  {
+    "id": "learning-chronos2-500-random-s43-test",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-chronos2-500-random-s43"
+    ]
+  },
+  {
+    "id": "learning-chronos2-500-random-s43-score",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-chronos2-500-random-s43-validation",
+      "learning-chronos2-500-random-s43-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ]
+  },
+  {
+    "id": "learning-chronos2-500-pretrained-s44",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "learning-chronos2-500-pretrained-s44-validation",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-chronos2-500-pretrained-s44"
+    ]
+  },
+  {
+    "id": "learning-chronos2-500-pretrained-s44-test",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-chronos2-500-pretrained-s44"
+    ]
+  },
+  {
+    "id": "learning-chronos2-500-pretrained-s44-score",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-chronos2-500-pretrained-s44-validation",
+      "learning-chronos2-500-pretrained-s44-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ]
+  },
+  {
+    "id": "learning-chronos2-500-random-s44-lr",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "learning-chronos2-500-random-s44",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-chronos2-500-random-s44-lr"
+    ]
+  },
+  {
+    "id": "learning-chronos2-500-random-s44-validation",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-chronos2-500-random-s44"
+    ]
+  },
+  {
+    "id": "learning-chronos2-500-random-s44-test",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-chronos2-500-random-s44"
+    ]
+  },
+  {
+    "id": "learning-chronos2-500-random-s44-score",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-chronos2-500-random-s44-validation",
+      "learning-chronos2-500-random-s44-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ]
+  },
+  {
+    "id": "learning-chronos2-1000-pretrained-s42",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "learning-chronos2-1000-pretrained-s42-validation",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-chronos2-1000-pretrained-s42"
+    ]
+  },
+  {
+    "id": "learning-chronos2-1000-pretrained-s42-test",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-chronos2-1000-pretrained-s42"
+    ]
+  },
+  {
+    "id": "learning-chronos2-1000-pretrained-s42-score",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-chronos2-1000-pretrained-s42-validation",
+      "learning-chronos2-1000-pretrained-s42-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ]
+  },
+  {
+    "id": "learning-chronos2-1000-random-s42-lr",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "learning-chronos2-1000-random-s42",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-chronos2-1000-random-s42-lr"
+    ]
+  },
+  {
+    "id": "learning-chronos2-1000-random-s42-validation",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-chronos2-1000-random-s42"
+    ]
+  },
+  {
+    "id": "learning-chronos2-1000-random-s42-test",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-chronos2-1000-random-s42"
+    ]
+  },
+  {
+    "id": "learning-chronos2-1000-random-s42-score",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-chronos2-1000-random-s42-validation",
+      "learning-chronos2-1000-random-s42-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ]
+  },
+  {
+    "id": "learning-chronos2-1000-pretrained-s43",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "learning-chronos2-1000-pretrained-s43-validation",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-chronos2-1000-pretrained-s43"
+    ]
+  },
+  {
+    "id": "learning-chronos2-1000-pretrained-s43-test",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-chronos2-1000-pretrained-s43"
+    ]
+  },
+  {
+    "id": "learning-chronos2-1000-pretrained-s43-score",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-chronos2-1000-pretrained-s43-validation",
+      "learning-chronos2-1000-pretrained-s43-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ]
+  },
+  {
+    "id": "learning-chronos2-1000-random-s43-lr",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "learning-chronos2-1000-random-s43",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-chronos2-1000-random-s43-lr"
+    ]
+  },
+  {
+    "id": "learning-chronos2-1000-random-s43-validation",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-chronos2-1000-random-s43"
+    ]
+  },
+  {
+    "id": "learning-chronos2-1000-random-s43-test",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-chronos2-1000-random-s43"
+    ]
+  },
+  {
+    "id": "learning-chronos2-1000-random-s43-score",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-chronos2-1000-random-s43-validation",
+      "learning-chronos2-1000-random-s43-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ]
+  },
+  {
+    "id": "learning-chronos2-1000-pretrained-s44",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "learning-chronos2-1000-pretrained-s44-validation",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-chronos2-1000-pretrained-s44"
+    ]
+  },
+  {
+    "id": "learning-chronos2-1000-pretrained-s44-test",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-chronos2-1000-pretrained-s44"
+    ]
+  },
+  {
+    "id": "learning-chronos2-1000-pretrained-s44-score",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-chronos2-1000-pretrained-s44-validation",
+      "learning-chronos2-1000-pretrained-s44-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ]
+  },
+  {
+    "id": "learning-chronos2-1000-random-s44-lr",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "learning-chronos2-1000-random-s44",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-chronos2-1000-random-s44-lr"
+    ]
+  },
+  {
+    "id": "learning-chronos2-1000-random-s44-validation",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-chronos2-1000-random-s44"
+    ]
+  },
+  {
+    "id": "learning-chronos2-1000-random-s44-test",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-chronos2-1000-random-s44"
+    ]
+  },
+  {
+    "id": "learning-chronos2-1000-random-s44-score",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-chronos2-1000-random-s44-validation",
+      "learning-chronos2-1000-random-s44-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ]
+  },
+  {
+    "id": "learning-chronos2-full-random-s42-lr",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "learning-chronos2-full-random-s42",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-chronos2-full-random-s42-lr"
+    ]
+  },
+  {
+    "id": "learning-chronos2-full-random-s42-validation",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-chronos2-full-random-s42"
+    ]
+  },
+  {
+    "id": "learning-chronos2-full-random-s42-test",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-chronos2-full-random-s42"
+    ]
+  },
+  {
+    "id": "learning-chronos2-full-random-s42-score",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-chronos2-full-random-s42-validation",
+      "learning-chronos2-full-random-s42-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ]
+  },
+  {
+    "id": "learning-chronos2-full-random-s43-lr",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "learning-chronos2-full-random-s43",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-chronos2-full-random-s43-lr"
+    ]
+  },
+  {
+    "id": "learning-chronos2-full-random-s43-validation",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-chronos2-full-random-s43"
+    ]
+  },
+  {
+    "id": "learning-chronos2-full-random-s43-test",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-chronos2-full-random-s43"
+    ]
+  },
+  {
+    "id": "learning-chronos2-full-random-s43-score",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-chronos2-full-random-s43-validation",
+      "learning-chronos2-full-random-s43-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ]
+  },
+  {
+    "id": "learning-chronos2-full-random-s44-lr",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "learning-chronos2-full-random-s44",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-chronos2-full-random-s44-lr"
+    ]
+  },
+  {
+    "id": "learning-chronos2-full-random-s44-validation",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-chronos2-full-random-s44"
+    ]
+  },
+  {
+    "id": "learning-chronos2-full-random-s44-test",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-chronos2-full-random-s44"
+    ]
+  },
+  {
+    "id": "learning-chronos2-full-random-s44-score",
+    "stage": "learning",
+    "status": "blocked",
+    "dependencies": [
+      "learning-chronos2-full-random-s44-validation",
+      "learning-chronos2-full-random-s44-test",
+      "baseline-naive-validation",
+      "baseline-ridge-validation",
+      "baseline-arima-validation",
+      "baseline-ets-validation",
+      "baseline-naive-test",
+      "baseline-ridge-test",
+      "baseline-arima-test",
+      "baseline-ets-test"
+    ]
+  },
+  {
+    "id": "representation-s42",
+    "stage": "ablation",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "representation-s43",
+    "stage": "ablation",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "representation-s44",
+    "stage": "ablation",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "fold1-naive-validation",
+    "stage": "folds",
+    "status": "blocked",
+    "dependencies": [
+      "prepare"
+    ]
+  },
+  {
+    "id": "fold1-naive-test",
+    "stage": "folds",
+    "status": "blocked",
+    "dependencies": [
+      "prepare"
+    ]
+  },
+  {
+    "id": "fold1-kronos-mini",
+    "stage": "folds",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "fold1-kronos-mini-zs-validation",
+    "stage": "folds",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "fold1-kronos-mini-ft-validation",
+    "stage": "folds",
+    "status": "blocked",
+    "dependencies": [
+      "fold1-kronos-mini"
+    ]
+  },
+  {
+    "id": "fold1-kronos-mini-zs-test",
+    "stage": "folds",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "fold1-kronos-mini-ft-test",
+    "stage": "folds",
+    "status": "blocked",
+    "dependencies": [
+      "fold1-kronos-mini"
+    ]
+  },
+  {
+    "id": "fold1-kronos-mini-score",
+    "stage": "folds",
+    "status": "blocked",
+    "dependencies": [
+      "fold1-kronos-mini-zs-validation",
+      "fold1-kronos-mini-ft-validation",
+      "fold1-kronos-mini-zs-test",
+      "fold1-kronos-mini-ft-test",
+      "fold1-naive-validation",
+      "fold1-naive-test"
+    ]
+  },
+  {
+    "id": "fold1-kronos-small",
+    "stage": "folds",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "fold1-kronos-small-zs-validation",
+    "stage": "folds",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "fold1-kronos-small-ft-validation",
+    "stage": "folds",
+    "status": "blocked",
+    "dependencies": [
+      "fold1-kronos-small"
+    ]
+  },
+  {
+    "id": "fold1-kronos-small-zs-test",
+    "stage": "folds",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "fold1-kronos-small-ft-test",
+    "stage": "folds",
+    "status": "blocked",
+    "dependencies": [
+      "fold1-kronos-small"
+    ]
+  },
+  {
+    "id": "fold1-kronos-small-score",
+    "stage": "folds",
+    "status": "blocked",
+    "dependencies": [
+      "fold1-kronos-small-zs-validation",
+      "fold1-kronos-small-ft-validation",
+      "fold1-kronos-small-zs-test",
+      "fold1-kronos-small-ft-test",
+      "fold1-naive-validation",
+      "fold1-naive-test"
+    ]
+  },
+  {
+    "id": "fold1-kronos-base",
+    "stage": "folds",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "fold1-kronos-base-zs-validation",
+    "stage": "folds",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "fold1-kronos-base-ft-validation",
+    "stage": "folds",
+    "status": "blocked",
+    "dependencies": [
+      "fold1-kronos-base"
+    ]
+  },
+  {
+    "id": "fold1-kronos-base-zs-test",
+    "stage": "folds",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "fold1-kronos-base-ft-test",
+    "stage": "folds",
+    "status": "blocked",
+    "dependencies": [
+      "fold1-kronos-base"
+    ]
+  },
+  {
+    "id": "fold1-kronos-base-score",
+    "stage": "folds",
+    "status": "blocked",
+    "dependencies": [
+      "fold1-kronos-base-zs-validation",
+      "fold1-kronos-base-ft-validation",
+      "fold1-kronos-base-zs-test",
+      "fold1-kronos-base-ft-test",
+      "fold1-naive-validation",
+      "fold1-naive-test"
+    ]
+  },
+  {
+    "id": "fold1-chronos2",
+    "stage": "folds",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "fold1-chronos2-zs-validation",
+    "stage": "folds",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "fold1-chronos2-ft-validation",
+    "stage": "folds",
+    "status": "blocked",
+    "dependencies": [
+      "fold1-chronos2"
+    ]
+  },
+  {
+    "id": "fold1-chronos2-zs-test",
+    "stage": "folds",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "fold1-chronos2-ft-test",
+    "stage": "folds",
+    "status": "blocked",
+    "dependencies": [
+      "fold1-chronos2"
+    ]
+  },
+  {
+    "id": "fold1-chronos2-score",
+    "stage": "folds",
+    "status": "blocked",
+    "dependencies": [
+      "fold1-chronos2-zs-validation",
+      "fold1-chronos2-ft-validation",
+      "fold1-chronos2-zs-test",
+      "fold1-chronos2-ft-test",
+      "fold1-naive-validation",
+      "fold1-naive-test"
+    ]
+  },
+  {
+    "id": "fold2-naive-validation",
+    "stage": "folds",
+    "status": "blocked",
+    "dependencies": [
+      "prepare"
+    ]
+  },
+  {
+    "id": "fold2-naive-test",
+    "stage": "folds",
+    "status": "blocked",
+    "dependencies": [
+      "prepare"
+    ]
+  },
+  {
+    "id": "fold2-kronos-mini",
+    "stage": "folds",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "fold2-kronos-mini-zs-validation",
+    "stage": "folds",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "fold2-kronos-mini-ft-validation",
+    "stage": "folds",
+    "status": "blocked",
+    "dependencies": [
+      "fold2-kronos-mini"
+    ]
+  },
+  {
+    "id": "fold2-kronos-mini-zs-test",
+    "stage": "folds",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "fold2-kronos-mini-ft-test",
+    "stage": "folds",
+    "status": "blocked",
+    "dependencies": [
+      "fold2-kronos-mini"
+    ]
+  },
+  {
+    "id": "fold2-kronos-mini-score",
+    "stage": "folds",
+    "status": "blocked",
+    "dependencies": [
+      "fold2-kronos-mini-zs-validation",
+      "fold2-kronos-mini-ft-validation",
+      "fold2-kronos-mini-zs-test",
+      "fold2-kronos-mini-ft-test",
+      "fold2-naive-validation",
+      "fold2-naive-test"
+    ]
+  },
+  {
+    "id": "fold2-kronos-small",
+    "stage": "folds",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "fold2-kronos-small-zs-validation",
+    "stage": "folds",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "fold2-kronos-small-ft-validation",
+    "stage": "folds",
+    "status": "blocked",
+    "dependencies": [
+      "fold2-kronos-small"
+    ]
+  },
+  {
+    "id": "fold2-kronos-small-zs-test",
+    "stage": "folds",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "fold2-kronos-small-ft-test",
+    "stage": "folds",
+    "status": "blocked",
+    "dependencies": [
+      "fold2-kronos-small"
+    ]
+  },
+  {
+    "id": "fold2-kronos-small-score",
+    "stage": "folds",
+    "status": "blocked",
+    "dependencies": [
+      "fold2-kronos-small-zs-validation",
+      "fold2-kronos-small-ft-validation",
+      "fold2-kronos-small-zs-test",
+      "fold2-kronos-small-ft-test",
+      "fold2-naive-validation",
+      "fold2-naive-test"
+    ]
+  },
+  {
+    "id": "fold2-kronos-base",
+    "stage": "folds",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "fold2-kronos-base-zs-validation",
+    "stage": "folds",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "fold2-kronos-base-ft-validation",
+    "stage": "folds",
+    "status": "blocked",
+    "dependencies": [
+      "fold2-kronos-base"
+    ]
+  },
+  {
+    "id": "fold2-kronos-base-zs-test",
+    "stage": "folds",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "fold2-kronos-base-ft-test",
+    "stage": "folds",
+    "status": "blocked",
+    "dependencies": [
+      "fold2-kronos-base"
+    ]
+  },
+  {
+    "id": "fold2-kronos-base-score",
+    "stage": "folds",
+    "status": "blocked",
+    "dependencies": [
+      "fold2-kronos-base-zs-validation",
+      "fold2-kronos-base-ft-validation",
+      "fold2-kronos-base-zs-test",
+      "fold2-kronos-base-ft-test",
+      "fold2-naive-validation",
+      "fold2-naive-test"
+    ]
+  },
+  {
+    "id": "fold2-chronos2",
+    "stage": "folds",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "fold2-chronos2-zs-validation",
+    "stage": "folds",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "fold2-chronos2-ft-validation",
+    "stage": "folds",
+    "status": "blocked",
+    "dependencies": [
+      "fold2-chronos2"
+    ]
+  },
+  {
+    "id": "fold2-chronos2-zs-test",
+    "stage": "folds",
+    "status": "blocked",
+    "dependencies": [
+      "estimate"
+    ]
+  },
+  {
+    "id": "fold2-chronos2-ft-test",
+    "stage": "folds",
+    "status": "blocked",
+    "dependencies": [
+      "fold2-chronos2"
+    ]
+  },
+  {
+    "id": "fold2-chronos2-score",
+    "stage": "folds",
+    "status": "blocked",
+    "dependencies": [
+      "fold2-chronos2-zs-validation",
+      "fold2-chronos2-ft-validation",
+      "fold2-chronos2-zs-test",
+      "fold2-chronos2-ft-test",
+      "fold2-naive-validation",
+      "fold2-naive-test"
+    ]
+  }
+]

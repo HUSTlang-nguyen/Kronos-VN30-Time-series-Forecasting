@@ -22,6 +22,11 @@ def sampling_spec(name):
 
 def validate_forecast_metadata(meta, task, config, manifest, out, provenance):
     """Baseline seeds can differ from neural seeds, but must match their own task."""
+    if (
+        manifest.get("dataset_info", {}).get("usage", "primary") != "primary"
+        or meta.get("evidence_scope", "primary") != "primary"
+    ):
+        raise ValueError("Exploratory forecasts cannot enter primary comparisons")
     name = task["model"]
     base = canonical_model(name.removesuffix("-ft"))
     neural = base in MODELS
@@ -64,6 +69,8 @@ def validate_forecast_metadata(meta, task, config, manifest, out, provenance):
         if portable_path(meta.get("checkpoint", "")).resolve() != checkpoint:
             raise ValueError("Forecast points at a different checkpoint")
         trained = json.loads((checkpoint / "training.json").read_text(encoding="utf-8"))
+        if trained.get("evidence_scope", "primary") != "primary":
+            raise ValueError("Exploratory checkpoints cannot enter primary comparisons")
         model_key, token_key, _ = MODELS[base]
         expected_training = {
             "dataset_sha256": manifest["sha256"],

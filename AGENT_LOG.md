@@ -148,13 +148,27 @@ Hướng dẫn chạy: `docs/PC_Rerun.md`.
 - Nhánh làm lại: `neikhn/lam-lai-vn30-pc`; lưu checkpoint commit/push sau mỗi mốc đáng kể, message ngắn gọn. Stash khi cần giữ tạm để chuyển nhánh/ngữ cảnh.
 - Checkpoint đầu gồm code PC rerun, kiểm thử, plan/log và audit receipts hiện có; dữ liệu vẫn unverified. Đã rà danh sách file và mẫu credential trước khi stage.
 - Giữ ngoài commit hai weights Chronos LFS cũ đã hiện modified từ đầu; không đưa môi trường/cache/credential lên Git.
+- Đã tạo commit `3cfb7b0` — `feat: rebuild VN30 pipeline on PC`. Push đầu bị bộ duyệt tự động chặn vì có CSV/artifact trong kho public. Đã xác minh visibility và hỏi đúng phạm vi; người dùng xác nhận **“Push toàn bộ commit”**. Push lại thành công lên `origin/neikhn/lam-lai-vn30-pc`, có upstream. Không tạo PR vì chưa được yêu cầu.
+
+### 14 — Bắt đầu và hoàn tất SFT thăm dò trên PC, giữ cổng chính
+
+- F15: chỉ chặn huấn luyện chính đã bỏ sót nhánh thăm dò được kế hoạch cho phép khi OHLC còn nghi vấn. Thêm scope `exploratory_only` và opt-in trainer; loader mặc định, inference checkpoint chính và scorer chính từ chối scope này. Không đổi dataset thành accepted, không sửa giá. Đã kiểm các ca opt-in/budget/integrity/audit receipt/primary rejection; **46 tests OK, skipped=1**, static checks đạt.
+- Refresh preflight trước khi có training artifact ở lượt chính, lưu lịch sử `preflight_history/20261030T080938Z-6f47fbe3`, rồi resume 5 complete/283 blocked. Config/provenance và started/deadline vẫn nguyên. Nhánh thăm dò có output/manifest/receipt riêng, deadline lấy từ state gốc.
+- **Đã chạy thật trên RTX 4070 SUPER:** bốn benchmark (một epoch và 32 origin validation/model), rồi 12 SFT (mini/small/base/Chronos × seed 42/43/44 × đủ năm epoch), 1.442 cửa sổ train và 321 validation/lượt. GPU tuần tự; không dùng test để train/chọn epoch. Tất cả job terminal complete; lock được dọn, không còn lượt này chạy nền.
+- Receipt `artifacts/local/pc-exploratory-20261030/verification.json` kiểm checksum best/selected, model/scope/protocol, đủ năm epoch trong history, source identity và deadline gốc. `training_summary.csv`, `native_loss_history.csv`, `native_validation_loss.png` sinh trực tiếp từ receipts/history; đã xem hình. Loss native khác tokenizer/objective, không dùng để xếp hạng model.
+- Ba Kronos chọn epoch 5 theo native validation; Chronos chọn epoch 0 ở cả ba seed vì best-trained (epoch 1) vẫn kém pretrained. Giữ cả best-trained và selected. Chưa biết tác động tới MAE/RMSE vì chưa có chấm dự báo test mới.
+- Thời gian một epoch: mini 4,19s, small 7,98s, base 18,45s, Chronos 12,23s; 32 origin validation lần lượt 7,34/7,55/13,66/7,36s. Peak allocated cao nhất base ~2,73GB (không phải tổng VRAM tiến trình). Ước lượng phần neural ma trận ~4,73h, **chưa tính** CPU baseline, ablation, setup và giải quyết dữ liệu; không tuyên bố toàn bộ chắc chắn vừa ngân sách.
+- CPU probe trên ba origin validation cố định: ARIMA 54 lượt cấu hình/origin có 3 lỗi convergence, ETS 9 lượt không lỗi. Lưu nguyên lỗi, không thay bằng Naive; chưa chọn cấu hình từ probe. Ngoại suy sơ bộ toàn grid validation ~21 phút ARIMA/~49s ETS, không phải benchmark bảo đảm cho mọi origin.
+- Calendar: tải VNINDEX từ VPS và DNSE, lưu raw/URL/hash. Tập ngày VPS VNINDEX khớp toàn bộ VN30; DNSE VNINDEX thiếu 33 ngày. Audit bổ sung `pc-preflight-20261030/calendar_crosscheck/audit/` ghi pass trong phạm vi lịch quan sát, metadata `official_exchange_calendar: false`; dataset vẫn unverified do giá. Không thay audit đang khóa.
+- Đọc và xem ảnh hai PDF Pinetree 05/03 và 24/03/2021, bảng VN30 riêng với futures hỗ trợ các giá ứng viên đã thấy; vẫn giữ mâu thuẫn chưa phân xử. BSC endpoint thử trả nội dung không phải PDF, không dùng làm bằng chứng. Cập nhật `evidence_review.md`.
+- Điểm tiếp tục: cần forecast/chấm giá ZS/SFT và baseline dưới scope rõ ràng, tiếp tục nguồn O/H/L/Close và calendar chính thức. Cần Q3 random/learning, Q2 ablation, Q4 folds/bootstrap mới. Không tự chuyển 12 checkpoint thăm dò thành bằng chứng chính. Mục tiêu đầy đủ và deadline gốc vẫn giữ.
 
 ## Việc chưa hoàn thành / rủi ro cần giữ nguyên trong bàn giao
 
 - Chưa giải quyết bằng chứng giá O/H/L/Close giữa các nhà cung cấp và chưa có calendar độc lập đầy đủ.
-- Chưa huấn luyện hoặc chấm thí nghiệm VN30 mới cho Q1–Q4.
-- Chưa có benchmark thời gian dữ liệu thật nên chưa chứng minh toàn bộ ma trận vừa 24 giờ.
+- Đã có SFT thăm dò; chưa có forecast/score test hoặc bằng chứng chính mới đủ Q1–Q4.
+- Đã có benchmark dữ liệu thật nhưng chưa chứng minh toàn bộ ma trận, kiểm toán và báo cáo vừa 24 giờ.
 - Native GPU resume Kronos-mini đã đạt; các variant khác và forced-OOM stress chưa thử đầy đủ.
-- F12 đã có kiểm thử âm và integration; bộ test cuối 39 ca đạt như mục 12. Chỉ chạy lại khi có thay đổi hoặc nghi vấn mới cần kiểm chứng.
+- F12 đã có kiểm thử âm và integration; bộ test cuối 46 ca đạt như mục 14. Chỉ chạy lại khi có thay đổi hoặc nghi vấn mới cần kiểm chứng.
 - Không sửa code Python rồi giả vờ resume cùng identity. Ghi rõ thay đổi và xử lý tương thích/budget trước khi tiếp tục.
 - Một số lệnh Git trong môi trường giới hạn lỗi git-lfs filter. Dùng `git -c filter.lfs.required=false -c filter.lfs.process= -c filter.lfs.clean= ...` để đọc trạng thái/diff; không dùng kết quả modified của hai weights Chronos cũ để kết luận agent đã sửa chúng.

@@ -256,6 +256,11 @@ def main():
         "--initialization", choices=["pretrained", "random"], default="pretrained"
     )
     parser.add_argument("--resume", action="store_true")
+    parser.add_argument(
+        "--exploratory",
+        action="store_true",
+        help="Explicitly train an audited, unverified candidate; never primary evidence",
+    )
     args = parser.parse_args()
     if min(args.epochs, args.batch_size, args.accumulation, args.learning_rate) <= 0:
         parser.error(
@@ -272,7 +277,11 @@ def main():
     np.random.seed(args.seed)
     random.seed(args.seed)
     manifest = json.loads(args.manifest.read_text(encoding="utf-8"))
-    df, sha = load_manifest_data(manifest)
+    df, sha = (
+        load_manifest_data(manifest, allow_exploratory=True)
+        if args.exploratory
+        else load_manifest_data(manifest)
+    )
     check_manifest(df, sha, manifest)
     # Test prices are never included in these arrays or optimization batches.
     arrays = {
@@ -310,6 +319,7 @@ def main():
     args.output.mkdir(parents=True, exist_ok=args.resume)
     config = {
         "base_model": args.model,
+        "evidence_scope": "exploratory_only" if args.exploratory else "primary",
         "base_revision": spec["repository_revision"],
         "dataset_sha256": sha,
         "context": CONTEXT,

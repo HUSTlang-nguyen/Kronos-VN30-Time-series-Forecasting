@@ -77,6 +77,18 @@ Mặc định `--checkpoint-choice best-trained` giữ đúng ý nghĩa so sánh
 
 ## Kiểm thử và đầu ra
 
+### Huấn luyện thăm dò khi dataset vẫn unverified
+
+```powershell
+.venv/Scripts/python.exe scripts/run_candidate_training.py --phase both
+```
+
+Đây là nhánh thăm dò đã tách riêng, không phải cờ bỏ qua cổng chính. Runner chỉ nhận snapshot đã có audit hoàn tất với replay/flags đạt và đủ ngày mẫu có nguồn đối chiếu, giữ giá gốc, sao chép receipt audit có hash, và dùng **deadline gốc** từ lượt PC. Output mặc định `artifacts/local/pc-exploratory-20261030/`.
+
+`benchmark` chạy một epoch và 32 origin validation/model; `train` chạy SFT năm epoch seed 42; `both` làm tuần tự hai phần. Có thể dùng `--models` hoặc `--seed` khi tiếp tục các lượt đã định. Chạy lại cùng lệnh sẽ xác minh receipt/checksum rồi bỏ qua job hoàn tất hoặc resume checkpoint epoch. Có lock GPU riêng; không mở song song với GPU job khác.
+
+Manifest, checkpoint và forecast mang scope `exploratory_only`; trainer yêu cầu `--exploratory` cho manifest này. Loader mặc định và bộ so sánh chính từ chối nó. Không tự nâng trạng thái dataset hoặc chuyển số liệu vào bảng Q1–Q4. Chỉ có kiểm toán đầy đủ mới cho phép kết luận chính.
+
 ```powershell
 .venv/Scripts/python.exe -m unittest discover -s tests -v
 .venv/Scripts/python.exe scripts/smoke_pc_models.py --output <new-smoke-receipt.json>

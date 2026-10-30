@@ -122,11 +122,23 @@ def split_manifest(df, sha, dataset_info=None, ranges=None):
     return result
 
 
-def load_manifest_data(manifest):
+def load_manifest_data(manifest, *, allow_exploratory=False):
     info = manifest.get("dataset_info")
     if not info:
+        if allow_exploratory:
+            raise ValueError(
+                "Exploratory training requires an explicit audited manifest"
+            )
         return load()
-    if info.get("audit_status") != "accepted_provider_scope":
+    if info.get("usage", "primary") not in ("primary", "exploratory_only"):
+        raise ValueError("Unknown dataset evidence scope")
+    exploratory = info.get("usage") == "exploratory_only"
+    if exploratory != allow_exploratory:
+        raise ValueError(
+            "Exploratory data require explicit opt-in and separate outputs"
+        )
+    expected_status = "unverified" if exploratory else "accepted_provider_scope"
+    if info.get("audit_status") != expected_status:
         raise ValueError("Dataset has not passed its audit; research run refused")
     audit_path = portable_path(info["audit"])
     from research_protocol import file_hash
@@ -135,10 +147,27 @@ def load_manifest_data(manifest):
         raise ValueError("Audit receipt hash mismatch")
     audit = json.loads(audit_path.read_text(encoding="utf-8"))
     if (
-        audit.get("status") != "accepted_provider_scope"
+        audit.get("status") != expected_status
         or audit["dataset_sha256"] != manifest["sha256"]
     ):
         raise ValueError("Audit receipt does not accept this dataset")
+    if exploratory and (
+        any(
+            audit.get(key) != "pass"
+            for key in (
+                "raw_replay",
+                "timestamp_timezone_replay",
+                "quality_flag_replay",
+            )
+        )
+        or audit.get("invalid_or_duplicate_flags") != 0
+        or not audit.get("independent_sources")
+        or audit.get("required_dates_without_reference") != []
+        or audit.get("price_edits") != []
+    ):
+        raise ValueError(
+            "Candidate integrity/reference checks do not permit exploration"
+        )
     return load(portable_path(info["dataset"]), portable_path(info["receipt"]))
 
 
@@ -187,6 +216,11 @@ def build_model(
             "selection.json" if checkpoint_choice == "selected" else "training.json"
         )
         trained = json.loads((checkpoint / receipt_name).read_text(encoding="utf-8"))
+        scope = manifest.get("dataset_info", {}).get("usage", "primary")
+        if trained.get("evidence_scope", "primary") != scope:
+            raise ValueError(
+                "Exploratory checkpoints cannot be used as primary evidence"
+            )
         base_name = name.removesuffix("-ft")
         if (
             trained["dataset_sha256"] != manifest["sha256"]

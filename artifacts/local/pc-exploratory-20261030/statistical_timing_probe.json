@@ -1,0 +1,1170 @@
+{
+  "evidence_scope": "exploratory_only",
+  "classification": "validation_timing_probe_not_configuration_selection",
+  "origins": [
+    1588,
+    1748,
+    1908
+  ],
+  "test_used": false,
+  "cases": [
+    {
+      "model": "arima",
+      "config": {
+        "order": [
+          0,
+          0,
+          0
+        ]
+      },
+      "origin_index": 1588,
+      "origin_date": "2023-12-29",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 4.420317299998715
+    },
+    {
+      "model": "arima",
+      "config": {
+        "order": [
+          0,
+          0,
+          0
+        ]
+      },
+      "origin_index": 1748,
+      "origin_date": "2024-08-23",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.06168240000260994
+    },
+    {
+      "model": "arima",
+      "config": {
+        "order": [
+          0,
+          0,
+          0
+        ]
+      },
+      "origin_index": 1908,
+      "origin_date": "2025-04-17",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.0593864999973448
+    },
+    {
+      "model": "arima",
+      "config": {
+        "order": [
+          0,
+          0,
+          1
+        ]
+      },
+      "origin_index": 1588,
+      "origin_date": "2023-12-29",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.15103399999497924
+    },
+    {
+      "model": "arima",
+      "config": {
+        "order": [
+          0,
+          0,
+          1
+        ]
+      },
+      "origin_index": 1748,
+      "origin_date": "2024-08-23",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.10577690000354778
+    },
+    {
+      "model": "arima",
+      "config": {
+        "order": [
+          0,
+          0,
+          1
+        ]
+      },
+      "origin_index": 1908,
+      "origin_date": "2025-04-17",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.17021469998871908
+    },
+    {
+      "model": "arima",
+      "config": {
+        "order": [
+          0,
+          0,
+          2
+        ]
+      },
+      "origin_index": 1588,
+      "origin_date": "2023-12-29",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.32638220000080764
+    },
+    {
+      "model": "arima",
+      "config": {
+        "order": [
+          0,
+          0,
+          2
+        ]
+      },
+      "origin_index": 1748,
+      "origin_date": "2024-08-23",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.19683109999459703
+    },
+    {
+      "model": "arima",
+      "config": {
+        "order": [
+          0,
+          0,
+          2
+        ]
+      },
+      "origin_index": 1908,
+      "origin_date": "2025-04-17",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.27055010000185575
+    },
+    {
+      "model": "arima",
+      "config": {
+        "order": [
+          0,
+          1,
+          0
+        ]
+      },
+      "origin_index": 1588,
+      "origin_date": "2023-12-29",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.019296400001621805
+    },
+    {
+      "model": "arima",
+      "config": {
+        "order": [
+          0,
+          1,
+          0
+        ]
+      },
+      "origin_index": 1748,
+      "origin_date": "2024-08-23",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.015194199993857183
+    },
+    {
+      "model": "arima",
+      "config": {
+        "order": [
+          0,
+          1,
+          0
+        ]
+      },
+      "origin_index": 1908,
+      "origin_date": "2025-04-17",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.017152300002635457
+    },
+    {
+      "model": "arima",
+      "config": {
+        "order": [
+          0,
+          1,
+          1
+        ]
+      },
+      "origin_index": 1588,
+      "origin_date": "2023-12-29",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.05023619999701623
+    },
+    {
+      "model": "arima",
+      "config": {
+        "order": [
+          0,
+          1,
+          1
+        ]
+      },
+      "origin_index": 1748,
+      "origin_date": "2024-08-23",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.047288399990065955
+    },
+    {
+      "model": "arima",
+      "config": {
+        "order": [
+          0,
+          1,
+          1
+        ]
+      },
+      "origin_index": 1908,
+      "origin_date": "2025-04-17",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.05838180000137072
+    },
+    {
+      "model": "arima",
+      "config": {
+        "order": [
+          0,
+          1,
+          2
+        ]
+      },
+      "origin_index": 1588,
+      "origin_date": "2023-12-29",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.06642770000325982
+    },
+    {
+      "model": "arima",
+      "config": {
+        "order": [
+          0,
+          1,
+          2
+        ]
+      },
+      "origin_index": 1748,
+      "origin_date": "2024-08-23",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.06743010001082439
+    },
+    {
+      "model": "arima",
+      "config": {
+        "order": [
+          0,
+          1,
+          2
+        ]
+      },
+      "origin_index": 1908,
+      "origin_date": "2025-04-17",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.08531439999933355
+    },
+    {
+      "model": "arima",
+      "config": {
+        "order": [
+          1,
+          0,
+          0
+        ]
+      },
+      "origin_index": 1588,
+      "origin_date": "2023-12-29",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.06695599999511614
+    },
+    {
+      "model": "arima",
+      "config": {
+        "order": [
+          1,
+          0,
+          0
+        ]
+      },
+      "origin_index": 1748,
+      "origin_date": "2024-08-23",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.04656129999784753
+    },
+    {
+      "model": "arima",
+      "config": {
+        "order": [
+          1,
+          0,
+          0
+        ]
+      },
+      "origin_index": 1908,
+      "origin_date": "2025-04-17",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.057763100005104207
+    },
+    {
+      "model": "arima",
+      "config": {
+        "order": [
+          1,
+          0,
+          1
+        ]
+      },
+      "origin_index": 1588,
+      "origin_date": "2023-12-29",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.2179766000044765
+    },
+    {
+      "model": "arima",
+      "config": {
+        "order": [
+          1,
+          0,
+          1
+        ]
+      },
+      "origin_index": 1748,
+      "origin_date": "2024-08-23",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.11350940000556875
+    },
+    {
+      "model": "arima",
+      "config": {
+        "order": [
+          1,
+          0,
+          1
+        ]
+      },
+      "origin_index": 1908,
+      "origin_date": "2025-04-17",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.1309045999951195
+    },
+    {
+      "model": "arima",
+      "config": {
+        "order": [
+          1,
+          0,
+          2
+        ]
+      },
+      "origin_index": 1588,
+      "origin_date": "2023-12-29",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.32342400000197813
+    },
+    {
+      "model": "arima",
+      "config": {
+        "order": [
+          1,
+          0,
+          2
+        ]
+      },
+      "origin_index": 1748,
+      "origin_date": "2024-08-23",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.14729030001035426
+    },
+    {
+      "model": "arima",
+      "config": {
+        "order": [
+          1,
+          0,
+          2
+        ]
+      },
+      "origin_index": 1908,
+      "origin_date": "2025-04-17",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.1949886000074912
+    },
+    {
+      "model": "arima",
+      "config": {
+        "order": [
+          1,
+          1,
+          0
+        ]
+      },
+      "origin_index": 1588,
+      "origin_date": "2023-12-29",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.03213259999756701
+    },
+    {
+      "model": "arima",
+      "config": {
+        "order": [
+          1,
+          1,
+          0
+        ]
+      },
+      "origin_index": 1748,
+      "origin_date": "2024-08-23",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.03141900000628084
+    },
+    {
+      "model": "arima",
+      "config": {
+        "order": [
+          1,
+          1,
+          0
+        ]
+      },
+      "origin_index": 1908,
+      "origin_date": "2025-04-17",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.031103100001928397
+    },
+    {
+      "model": "arima",
+      "config": {
+        "order": [
+          1,
+          1,
+          1
+        ]
+      },
+      "origin_index": 1588,
+      "origin_date": "2023-12-29",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.11504119999881368
+    },
+    {
+      "model": "arima",
+      "config": {
+        "order": [
+          1,
+          1,
+          1
+        ]
+      },
+      "origin_index": 1748,
+      "origin_date": "2024-08-23",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.09524570000940003
+    },
+    {
+      "model": "arima",
+      "config": {
+        "order": [
+          1,
+          1,
+          1
+        ]
+      },
+      "origin_index": 1908,
+      "origin_date": "2025-04-17",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.10303659999044612
+    },
+    {
+      "model": "arima",
+      "config": {
+        "order": [
+          1,
+          1,
+          2
+        ]
+      },
+      "origin_index": 1588,
+      "origin_date": "2023-12-29",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.1798581000039121
+    },
+    {
+      "model": "arima",
+      "config": {
+        "order": [
+          1,
+          1,
+          2
+        ]
+      },
+      "origin_index": 1748,
+      "origin_date": "2024-08-23",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.15710329999274109
+    },
+    {
+      "model": "arima",
+      "config": {
+        "order": [
+          1,
+          1,
+          2
+        ]
+      },
+      "origin_index": 1908,
+      "origin_date": "2025-04-17",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.18844729999545962
+    },
+    {
+      "model": "arima",
+      "config": {
+        "order": [
+          2,
+          0,
+          0
+        ]
+      },
+      "origin_index": 1588,
+      "origin_date": "2023-12-29",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.19014189999143127
+    },
+    {
+      "model": "arima",
+      "config": {
+        "order": [
+          2,
+          0,
+          0
+        ]
+      },
+      "origin_index": 1748,
+      "origin_date": "2024-08-23",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.11066679999930784
+    },
+    {
+      "model": "arima",
+      "config": {
+        "order": [
+          2,
+          0,
+          0
+        ]
+      },
+      "origin_index": 1908,
+      "origin_date": "2025-04-17",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.11877910001203418
+    },
+    {
+      "model": "arima",
+      "config": {
+        "order": [
+          2,
+          0,
+          1
+        ]
+      },
+      "origin_index": 1588,
+      "origin_date": "2023-12-29",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.26786719998926856
+    },
+    {
+      "model": "arima",
+      "config": {
+        "order": [
+          2,
+          0,
+          1
+        ]
+      },
+      "origin_index": 1748,
+      "origin_date": "2024-08-23",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.21021489999839105
+    },
+    {
+      "model": "arima",
+      "config": {
+        "order": [
+          2,
+          0,
+          1
+        ]
+      },
+      "origin_index": 1908,
+      "origin_date": "2025-04-17",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.2591184999910183
+    },
+    {
+      "model": "arima",
+      "config": {
+        "order": [
+          2,
+          0,
+          2
+        ]
+      },
+      "origin_index": 1588,
+      "origin_date": "2023-12-29",
+      "status": "failed",
+      "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals",
+      "seconds": 0.40547009999863803
+    },
+    {
+      "model": "arima",
+      "config": {
+        "order": [
+          2,
+          0,
+          2
+        ]
+      },
+      "origin_index": 1748,
+      "origin_date": "2024-08-23",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.2667358000035165
+    },
+    {
+      "model": "arima",
+      "config": {
+        "order": [
+          2,
+          0,
+          2
+        ]
+      },
+      "origin_index": 1908,
+      "origin_date": "2025-04-17",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.324131799992756
+    },
+    {
+      "model": "arima",
+      "config": {
+        "order": [
+          2,
+          1,
+          0
+        ]
+      },
+      "origin_index": 1588,
+      "origin_date": "2023-12-29",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.062294700008351356
+    },
+    {
+      "model": "arima",
+      "config": {
+        "order": [
+          2,
+          1,
+          0
+        ]
+      },
+      "origin_index": 1748,
+      "origin_date": "2024-08-23",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.06293979998736177
+    },
+    {
+      "model": "arima",
+      "config": {
+        "order": [
+          2,
+          1,
+          0
+        ]
+      },
+      "origin_index": 1908,
+      "origin_date": "2025-04-17",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.07036920000973623
+    },
+    {
+      "model": "arima",
+      "config": {
+        "order": [
+          2,
+          1,
+          1
+        ]
+      },
+      "origin_index": 1588,
+      "origin_date": "2023-12-29",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.19547109999984968
+    },
+    {
+      "model": "arima",
+      "config": {
+        "order": [
+          2,
+          1,
+          1
+        ]
+      },
+      "origin_index": 1748,
+      "origin_date": "2024-08-23",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.2106062000093516
+    },
+    {
+      "model": "arima",
+      "config": {
+        "order": [
+          2,
+          1,
+          1
+        ]
+      },
+      "origin_index": 1908,
+      "origin_date": "2025-04-17",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.2162679000030039
+    },
+    {
+      "model": "arima",
+      "config": {
+        "order": [
+          2,
+          1,
+          2
+        ]
+      },
+      "origin_index": 1588,
+      "origin_date": "2023-12-29",
+      "status": "failed",
+      "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals",
+      "seconds": 0.13313960000232328
+    },
+    {
+      "model": "arima",
+      "config": {
+        "order": [
+          2,
+          1,
+          2
+        ]
+      },
+      "origin_index": 1748,
+      "origin_date": "2024-08-23",
+      "status": "failed",
+      "error": "ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals",
+      "seconds": 0.12901410000631586
+    },
+    {
+      "model": "arima",
+      "config": {
+        "order": [
+          2,
+          1,
+          2
+        ]
+      },
+      "origin_index": 1908,
+      "origin_date": "2025-04-17",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.3579422000038903
+    },
+    {
+      "model": "ets",
+      "config": {
+        "trend": null,
+        "damped_trend": false
+      },
+      "origin_index": 1588,
+      "origin_date": "2023-12-29",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.1622444000095129
+    },
+    {
+      "model": "ets",
+      "config": {
+        "trend": null,
+        "damped_trend": false
+      },
+      "origin_index": 1748,
+      "origin_date": "2024-08-23",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.009891800000332296
+    },
+    {
+      "model": "ets",
+      "config": {
+        "trend": null,
+        "damped_trend": false
+      },
+      "origin_index": 1908,
+      "origin_date": "2025-04-17",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.009082099990337156
+    },
+    {
+      "model": "ets",
+      "config": {
+        "trend": "add",
+        "damped_trend": false
+      },
+      "origin_index": 1588,
+      "origin_date": "2023-12-29",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.04156899999361485
+    },
+    {
+      "model": "ets",
+      "config": {
+        "trend": "add",
+        "damped_trend": false
+      },
+      "origin_index": 1748,
+      "origin_date": "2024-08-23",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.04491280000365805
+    },
+    {
+      "model": "ets",
+      "config": {
+        "trend": "add",
+        "damped_trend": false
+      },
+      "origin_index": 1908,
+      "origin_date": "2025-04-17",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.03963709999516141
+    },
+    {
+      "model": "ets",
+      "config": {
+        "trend": "add",
+        "damped_trend": true
+      },
+      "origin_index": 1588,
+      "origin_date": "2023-12-29",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.050885599994217046
+    },
+    {
+      "model": "ets",
+      "config": {
+        "trend": "add",
+        "damped_trend": true
+      },
+      "origin_index": 1748,
+      "origin_date": "2024-08-23",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.05764709999493789
+    },
+    {
+      "model": "ets",
+      "config": {
+        "trend": "add",
+        "damped_trend": true
+      },
+      "origin_index": 1908,
+      "origin_date": "2025-04-17",
+      "status": "pass",
+      "shape": [
+        20,
+        4
+      ],
+      "finite": true,
+      "seconds": 0.04248019999067765
+    }
+  ]
+}
